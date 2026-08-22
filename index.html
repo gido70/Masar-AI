@@ -135,12 +135,13 @@
 .pilot-handoff{display:grid;grid-template-columns:1fr 80px 1fr;gap:10px;align-items:center;margin-top:13px}.pilot-side{border-radius:18px;padding:17px}.pilot-side.ours{background:#eef7ff;border:1px solid #c8dff4}.pilot-side.out{background:#fff7e7;border:1px solid #efd7a9}.pilot-arrow{text-align:center;font-size:34px;color:var(--blue);font-weight:900}.pilot-note{font-size:10px;color:var(--muted);margin-top:8px}
 @media(max-width:900px){.pilot-intro{grid-template-columns:1fr}.pilot-form{grid-template-columns:1fr 1fr}.tools-grid{grid-template-columns:1fr}.pilot-handoff{grid-template-columns:1fr}.pilot-arrow{transform:rotate(-90deg)}}@media(max-width:560px){.pilot-form{grid-template-columns:1fr}.pilot-step summary{grid-template-columns:30px 1fr}.pilot-open{grid-column:2}}
 
+.search-route-btn{margin-top:8px;padding:8px 12px;font-size:11px}
 </style>
 </head>
 <body>
 <header class="nav">
   <div class="container navin">
-    <a class="brand" href="#"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V4.2</small></span></a>
+    <a class="brand" href="#"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V4.5</small></span></a>
     <nav><a href="#map">الخريطة</a><a href="#domains">المجالات</a><a href="#journeys">مسارات مكتملة</a><a href="#pilot-video">تجربة الفيديو</a><a href="#glossary">المصطلحات</a><a href="#model">كيف نعمل؟</a><a href="#promise">ميثاق الخدمة</a><a href="#principles">الثقة</a><a href="#plans">الاشتراك</a></nav>
     <button class="ghost">دخول تجريبي</button>
   </div>
@@ -187,7 +188,7 @@
   <div class="scope-icon">🛡️</div>
   <div>
     <b>قبل أن تبدأ: اعرف نطاق الخدمة بوضوح</b>
-    <p>اشتراكك — عندما يُفعّل مستقبلًا — يمنحك الوصول إلى المسارات الإرشادية المجودة، المقارنات، الأدوات، البدائل، الشروحات وأوامر جاهزة للذكاء الاصطناعي (أمر جاهز للذكاء الاصطناعي (Prompt)s). 
+    <p>اشتراكك — عندما يُفعّل مستقبلًا — يمنحك الوصول إلى المسارات الإرشادية المجودة، المقارنات، الأدوات، البدائل، الشروحات وقوالب أوامر جاهزة للذكاء الاصطناعي (Prompts). 
     لا يشمل تنفيذ المشروع النهائي نيابةً عنك، ولا رسوم الأدوات أو الاشتراكات الخارجية. إذا احتاج مسارك خدمة مدفوعة سنوضح ذلك قبل أن نرشحها.</p>
   </div>
 </div>
@@ -203,7 +204,7 @@
    <div class="branch b3"><b>لغة وترجمة</b><small>نص • ملف • صوت • فيديو</small></div>
    <div class="branch b4"><b>بناء رقمي</b><small>موقع • تطبيق • منصة</small></div>
    <div class="branch b5"><b>بيانات وتقارير</b><small>تحليل • رسوم • تقارير</small></div>
-   <div class="branch b6"><b>أتمتة وأعمال</b><small>Workflow • Agent • تسويق</small></div>
+   <div class="branch b6"><b>أتمتة وأعمال</b><small>Workflow — سير العمل • AI Agent — وكيل ذكاء اصطناعي • تسويق</small></div>
   </div>
   <div class="map-legend"><span>الحاجة</span><b>←</b><span>النوع</span><b>←</b><span>المتطلبات</span><b>←</b><span>المسار</span><b>←</b><span>الأداة</span><b>←</b><span>التنفيذ</span><b>←</b><span class="green">✓ اكتمل المسار الإرشادي</span></div>
  </div>
@@ -262,10 +263,15 @@
  </div>
 </section>
 
+
+<div class="notice" style="max-width:1180px;margin:0 auto 24px;padding:12px 16px;border-radius:14px;background:#fff8e1;border:1px solid #f0d99a;color:#66531d;font-size:12px">
+<b>حالة النموذج الحالي:</b> المسارات التفاعلية المكتملة كتجارب هي: الفيديو، الصوت/التلخيص، وفكرة الموقع. بقية المجالات خريطة توسع وليست وعودًا بأن كل مسار فيها مكتمل بعد.
+</div>
+
 <section id="journeys" class="section dark">
  <div class="container">
-  <div class="section-head light"><span>مسارات نموذجية مكتملة</span><h2>من السؤال حتى النهاية، بلا فجوة</h2></div>
-  <div class="tabs"><button class="active" data-tab="video">نص ← فيديو عربي (المسار التجريبي الكامل)</button><button data-tab="audio">محاضرة ← نص ← ملخص</button><button data-tab="site">فكرة ← موقع رياضي</button></div>
+  <div class="section-head light"><span>مسارات نموذجية مكتملة كتجارب</span><h2>ثلاث تجارب كاملة قابلة للاختبار</h2></div>
+  <div class="tabs"><button class="active" data-tab="video">نص إلى فيديو عربي — المسار التجريبي الكامل</button><button data-tab="audio">محاضرة إلى نص إلى ملخص</button><button data-tab="site">فكرة إلى موقع</button></div>
   <div id="journeyPanel"></div>
  </div>
 </section>
@@ -308,10 +314,10 @@
    <p>سواء أردت فيديو، بحثًا علميًا، كتابًا، موقعًا، عرضًا، ترجمة، تحليل بيانات، صورة أو أتمتة: يفهم «مسار AI» حاجتك، ويبني لك <b>مسارًا إرشاديًا تنفيذيًا مجودًا</b>، ثم يقودك إلى الأدوات والخدمات والطرق الأنسب التي تساعدك على تنفيذ مهمتك بنفسك.</p>
   </div>
   <div class="service-formula">
-    <span><b>أنت تقول:</b> ماذا أريد؟</span><i>→</i>
-    <span><b>نحن نحدد:</b> ماذا تحتاج؟</span><i>→</i>
-    <span><b>نحن نبني:</b> كيف تصل؟</span><i>→</i>
-    <span><b>نحن نرشح:</b> أين تنفذ؟</span><i>→</i>
+    <span><b>أنت تقول:</b> ماذا أريد؟</span><i>←</i>
+    <span><b>نحن نحدد:</b> ماذا تحتاج؟</span><i>←</i>
+    <span><b>نحن نبني:</b> كيف تصل؟</span><i>←</i>
+    <span><b>نحن نرشح:</b> أين تنفذ؟</span><i>←</i>
     <span class="formula-end"><b>أنت تنفذ</b> بثقة ووضوح</span>
   </div>
 
@@ -329,9 +335,9 @@
    <div class="handoff"><div>نقطة التسليم</div><b>←</b><small>انتقل إلى الأداة المختارة</small></div>
    <div class="boundary-side external">
     <span class="boundary-label">خارج مسار AI</span>
-    <h3>هنا تنفذ النتيجة التي ستنفذها داخل الأداة المختارة</h3>
+    <h3>هنا تنفذ مهمتك داخل الأداة أو الخدمة المختارة</h3>
     <p>تنتقل إلى الأداة أو الخدمة التي رشحناها، وتطبق الخطوات والإعدادات المناسبة لإنتاج النتيجة المطلوبة داخل بيئة التنفيذ المختارة.</p>
-    <div class="external-result">✓ النتيجة التي ستنفذها داخل الأداة المختارة<br><small>فيديو • بحث • كتاب • موقع • عرض • ترجمة • تحليل • صورة • أتمتة… تُنفذ في الأداة أو الخدمة المناسبة، لا داخل الاشتراك الإرشادي نفسه.</small></div>
+    <div class="external-result">✓ التنفيذ الفعلي داخل الأداة المختارة<br><small>فيديو • بحث • كتاب • موقع • عرض • ترجمة • تحليل • صورة • أتمتة… تُنفذ في الأداة أو الخدمة المناسبة، لا داخل الاشتراك الإرشادي نفسه.</small></div>
    </div>
   </div>
 
@@ -355,7 +361,7 @@
    <h3>المستخدم يعود بعد يومين: «أريد نفس الفيديو بالتركية»</h3>
    <div class="project-line">
     <span class="done-mini">✓ النص العربي</span><span class="done-mini">✓ مسار الفيديو العربي</span>
-    <span class="current-mini">الآن: نسخة تركية</span><span>→ ترجمة النص</span><span>→ Subtitles — الترجمة النصية على الشاشة أم Dubbing — الدبلجة الصوتية؟</span><span>→ الأداة المناسبة</span><span>→ خطوات التنفيذ</span><span>→ اكتمل المسار</span>
+    <span class="current-mini">الآن: نسخة تركية</span><span>← ترجمة النص</span><span>← Subtitles — الترجمة النصية على الشاشة أم Dubbing — الدبلجة الصوتية؟</span><span>← الأداة المناسبة</span><span>← خطوات التنفيذ</span><span>← اكتمل المسار الإرشادي</span>
    </div>
    <p>في النسخة الحقيقية تحفظ قاعدة البيانات المشروع وتقدمه. لا تعيد المنصة المستخدم إلى البداية ما دام السياق محفوظًا.</p>
   </div>
@@ -380,7 +386,7 @@
      <li>ترشيح الأدوات الأنسب مع سبب الاختيار والبدائل.</li>
      <li>توضيح المجاني والمدفوع والقيود المعروفة لكل أداة.</li>
      <li>شرح المصطلحات التقنية في مكانها.</li>
-     <li>أوامر جاهزة للذكاء الاصطناعي (أمر جاهز للذكاء الاصطناعي (Prompt)s) وإعدادات وأمثلة عندما تحتاجها المهمة.</li>
+     <li>قوالب أوامر جاهزة للذكاء الاصطناعي (Prompts) وإعدادات وأمثلة عندما تحتاجها المهمة.</li>
      <li>قائمة فحص تساعدك على تقييم النتيجة.</li>
     </ul>
    </article>
@@ -409,7 +415,7 @@
    <div class="completion-flow">
     <div><i>1</i><b>نفهم الطلب</b><small>فيديو عربي • من نص • دقيقتان • أولوية التكلفة.</small></div>
     <div><i>2</i><b>نحدد المطلوب</b><small>نوع الفيديو، المقاس، الصوت، الجودة، الاستخدام.</small></div>
-    <div><i>3</i><b>نبني المسار</b><small>Script ← Visuals/Avatar ← Voice ← Captions ← Export.</small></div>
+    <div><i>3</i><b>نبني المسار</b><small>Script — السيناريو ← Visuals/Avatar — العناصر البصرية/الأفاتار ← Voice — الصوت ← Captions — النصوص الظاهرة ← Export — التصدير.</small></div>
     <div><i>4</i><b>نرشح الأدوات</b><small>الخيار الأنسب + البديل + حدود المجاني + التكلفة المعروفة + الرابط الرسمي.</small></div>
     <div><i>5</i><b>نعطي خطوات التنفيذ</b><small>أمر جاهز للذكاء الاصطناعي (Prompt)، الإعدادات، المقاس، الصوت، الترجمة، وطريقة التصدير.</small></div>
     <div><i>6</i><b>نعطي فحص الجودة</b><small>راجع النص والصوت والتزامن والمقاس والحقوق قبل النشر.</small></div>
@@ -448,10 +454,10 @@
   <div class="section-head"><span>النموذج التجاري</span><h2>منصة واحدة، وصول بحسب الخطة</h2></div>
   <div class="plans">
    <div class="plan"><h3>استكشاف</h3><div class="price">مجاني</div><ul><li>مسارات مختارة</li><li>قاموس أساسي</li><li>استكشاف محدود للأدوات</li></ul><button class="outline">ابدأ التجربة</button></div>
-   <div class="plan featured"><span class="tag">التصور الأساسي</span><h3>الوصول الكامل</h3><div class="price">سعر رمزي <small>يحدد بعد الاختبار</small></div><ul><li>كل المسارات الإرشادية المجودة</li><li>المقارنات والبدائل</li><li>أوامر جاهزة للذكاء الاصطناعي (أمر جاهز للذكاء الاصطناعي (Prompt)s) ونقاط فحص الجودة</li><li>تحديثات الأدوات</li><li>حفظ المفضلة والمسارات</li></ul><div class="plan-disclosure">✓ أفهم أن الاشتراك يبيع الإرشاد والمسارات، ولا يشمل تنفيذ المنتج النهائي أو رسوم الأدوات الخارجية.</div><button class="primary">الوصول للمسارات — نموذج فقط</button></div>
+   <div class="plan featured"><span class="tag">التصور الأساسي</span><h3>الوصول الكامل</h3><div class="price">سعر رمزي <small>يحدد بعد الاختبار</small></div><ul><li>كل المسارات الإرشادية المجودة</li><li>المقارنات والبدائل</li><li>قوالب أوامر جاهزة للذكاء الاصطناعي (Prompts) ونقاط فحص الجودة</li><li>تحديثات الأدوات</li><li>حفظ المفضلة والمسارات</li></ul><div class="plan-disclosure">✓ أفهم أن الاشتراك يبيع الإرشاد والمسارات، ولا يشمل تنفيذ المنتج النهائي أو رسوم الأدوات الخارجية.</div><button class="primary">الوصول للمسارات — نموذج فقط</button></div>
    <div class="plan"><h3>حزم متخصصة لاحقًا</h3><div class="price">حسب الحاجة</div><ul><li>الباحث الذكي</li><li>صانع المحتوى</li><li>التعليم</li><li>المؤسسات</li></ul><button class="outline">لاحقًا</button></div>
   </div>
-  <div class="payment-flow"><b>آلية الدفع المستقبلية:</b><span>حساب</span>→<span>خطة</span>→<span>بوابة دفع</span>→<span>تأكيد</span>→<span>صلاحية الوصول</span></div>
+  <div class="payment-flow"><b>آلية الدفع المستقبلية:</b><span>حساب</span>←<span>خطة</span>←<span>بوابة دفع</span>←<span>تأكيد</span>←<span>صلاحية الوصول</span></div>
   <p class="note">PayPal خيار مفضل مبدئيًا. Apple Pay وGoogle Pay والمحافظ الأخرى ليست وعودًا في هذا النموذج؛ توفرها يعتمد على بوابة الدفع، بلد الكيان التجاري، العملة وشروط التكامل عند الإطلاق. بيانات البطاقة لا تُخزن داخل المنصة. أي رسوم تخص أداة خارجية تُدفع لمزودها مباشرة ما لم نعلن صراحةً خلاف ذلك.</p>
  </div>
 </section>
@@ -460,47 +466,59 @@
  <div class="container">
   <div class="section-head"><span>التنفيذ التقني المقترح</span><h2>نفس المنهج الذي نعرفه، في مشروع مستقل</h2></div>
   <div class="arch-flow">
-   <div><b>GitHub — منصة استضافة وإدارة الكود</b><small>الكود والإصدارات</small></div><i>→</i>
-   <div><b>Codex — أداة مساعدة للبرمجة بالذكاء الاصطناعي</b><small>التطوير والاختبار</small></div><i>→</i>
-   <div><b>Vercel — خدمة معاينة ونشر تطبيقات الويب</b><small>Preview</small></div><i>→</i>
-   <div><b>Web App</b><small>الواجهة</small></div><i>↔</i>
-   <div><b>Supabase</b><small>Auth + DB + RLS</small></div><i>↔</i>
-   <div><b>Automation</b><small>التحديث والرادار</small></div>
+   <div><b>GitHub — منصة استضافة وإدارة الكود</b><small>الكود والإصدارات</small></div><i>←</i>
+   <div><b>Codex — أداة مساعدة للبرمجة بالذكاء الاصطناعي</b><small>التطوير والاختبار</small></div><i>←</i>
+   <div><b>Vercel — خدمة معاينة ونشر تطبيقات الويب</b><small>Preview — المعاينة قبل النشر</small></div><i>←</i>
+   <div><b>Web App — تطبيق ويب</b><small>الواجهة التي يستخدمها الجمهور</small></div><i>↔</i>
+   <div><b>Supabase</b><small>Authentication (Auth) — المصادقة + Database (DB) — قاعدة البيانات + Row Level Security (RLS) — أمن مستوى الصف</small></div><i>↔</i>
+   <div><b>Automation — الأتمتة</b><small>التحديث والرادار</small></div>
   </div>
   <div class="data-model">
-   <span>Users</span><span>Subscriptions</span><span>Domains</span><span>Tasks</span><span>Tools</span><span>Workflows</span><span>Glossary</span><span>Search Gaps</span><span>Favorites</span><span>Reviews</span>
+   <span>Users — المستخدمون</span><span>Subscriptions — الاشتراكات</span><span>Domains — المجالات</span><span>Tasks — المهام</span><span>Tools — الأدوات</span><span>Workflows — مسارات العمل</span><span>Glossary — قاموس المصطلحات</span><span>Search Gaps — فجوات البحث</span><span>Favorites — المفضلة</span><span>Reviews — المراجعات</span>
   </div>
  </div>
 </section>
 </main>
-<footer><div class="container"><b>مسار AI</b><p>تصور تنفيذي شامل — Prototype Vision V4.2. لا توجد مدفوعات أو تكاملات AI حقيقية في هذه النسخة.</p></div></footer>
+<footer><div class="container"><b>مسار AI</b><p>تصور تنفيذي شامل — Prototype Vision V4.5. لا توجد مدفوعات أو تكاملات AI حقيقية في هذه النسخة.</p></div></footer>
 <script>
 const domains=[
-["🎬","فيديو","نص→فيديو • صورة→فيديو • أفاتار • دبلجة • تحرير",["جودة","عربي","مجاني","تجاري"]],
+["🎬","فيديو","نص إلى فيديو • صورة إلى فيديو • أفاتار • دبلجة • تحرير",["جودة","عربي","مجاني","تجاري"]],
 ["🎨","صور وتصميم","توليد • تعديل • خلفية • هوية • مواد تسويقية",["صور","تصميم","هوية"]],
-["🎙️","صوت","كلام→نص • نص→كلام • تنظيف • بودكاست",["STT — تحويل الكلام إلى نص","TTS — تحويل النص إلى كلام","صوت"]],
-["🌐","لغة وترجمة","نص • ملفات • صوت • فيديو • ترجمة مرئية",["ترجمة","دبلجة","SRT — ملف ترجمة زمنية"]],
+["🎙️","صوت","كلام إلى نص • نص إلى كلام • تنظيف • بودكاست",["STT — Speech-to-Text — تحويل الكلام إلى نص","TTS — Text-to-Speech — تحويل النص إلى كلام","صوت"]],
+["🌐","لغة وترجمة","نص • ملفات • صوت • فيديو • ترجمة مرئية",["ترجمة","دبلجة","SRT — SubRip Subtitle — ملف ترجمة زمنية"]],
 ["🔎","بحث ومعرفة","بحث علمي • مصادر • أوراق • مراجع • تحليل",["مصادر","مراجع","تلخيص"]],
 ["📊","بيانات وتقارير","Excel • تحليل • رسوم • تقارير • استخراج",["بيانات","رسوم بيانية (Charts)","تقارير"]],
-["💻","مواقع ومنصات","شخصي • شركة • رياضي • تعليمي • متجر • حجوزات",["No-code — بناء دون برمجة","Database — قاعدة بيانات","Deploy — نشر التطبيق"]],
-["⚙️","أتمتة ووكلاء","Workflow • ربط خدمات • مهام متكررة • Agent",["n8n","API — واجهة برمجة التطبيقات","Agent — وكيل ذكي"]],
+["💻","مواقع ومنصات","شخصي • شركة • رياضي • تعليمي • متجر • حجوزات",["No-code — بناء دون برمجة","Database — قاعدة البيانات","Deployment — نشر التطبيق"]],
+["⚙️","أتمتة ووكلاء","Workflow • ربط خدمات • مهام متكررة • Agent",["n8n — منصة أتمتة","API — Application Programming Interface — واجهة برمجة التطبيقات","AI Agent — وكيل ذكاء اصطناعي"]],
 ["🎓","تعلم وتعليم","شرح • دروس • اختبارات • عروض • خرائط",["تعليم","عروض","اختبارات"]],
 ["✍️","كتابة ومحتوى","تقارير • مقالات • رسائل • تلخيص • تسويق",["كتابة","صياغة","SEO — تحسين الظهور في محركات البحث"]],
-["💼","أعمال وتسويق","خطة • فكرة • حملات • سوشيال • خدمة عملاء",["Business","Marketing","CRM — إدارة علاقات العملاء"]],
+["💼","أعمال وتسويق","خطة • فكرة • حملات • سوشيال • خدمة عملاء",["Business — أعمال","Marketing — تسويق","CRM — Customer Relationship Management — إدارة علاقات العملاء"]],
 ["🧭","لا أعرف أين أبدأ","اكتب حاجتك بلغتك الطبيعية، والنظام يبدأ التصنيف",["بحث ذكي","توجيه","مسار"]]
 ];
 document.getElementById("domainGrid").innerHTML=domains.map(d=>`<article class="domain"><div class="ico">${d[0]}</div><h3>${d[1]}</h3><p>${d[2]}</p><div class="sub">${d[3].map(x=>`<span>${x}</span>`).join("")}</div></article>`).join("");
 
 const glossary=[
-["API — واجهة برمجة التطبيقات","Application Programming Interface","واجهة برمجة التطبيقات","وسيلة تسمح لخدمتين بالتواصل وتبادل البيانات."],
-["LLM","Large Language Model","نموذج لغوي كبير","نموذج ذكاء اصطناعي يفهم اللغة ويولد محتوى."],
+["AI","Artificial Intelligence","الذكاء الاصطناعي","تقنيات تمكّن الأنظمة من أداء مهام مثل الفهم والتوليد والتحليل واتخاذ قرارات مساعدة."],
+["API","Application Programming Interface","واجهة برمجة التطبيقات","وسيلة منظمة تسمح لتطبيقين أو خدمتين بالتواصل وتبادل البيانات."],
+["LLM","Large Language Model","نموذج لغوي كبير","نموذج ذكاء اصطناعي مدرّب على اللغة لفهم النصوص وتوليدها وتحليلها."],
 ["MVP","Minimum Viable Product","الحد الأدنى من المنتج القابل للتطبيق","أبسط نسخة تعمل فعليًا وتكفي لاختبار الفكرة مع مستخدم حقيقي قبل التوسع."],
-["STT — تحويل الكلام إلى نص","Speech-to-Text","تحويل الكلام إلى نص","تحويل التسجيل أو الكلام المنطوق إلى نص مكتوب."],
-["TTS — تحويل النص إلى كلام","Text-to-Speech","تحويل النص إلى كلام","إنشاء صوت منطوق من نص مكتوب."],
-["RAG","Retrieval-Augmented Generation","التوليد المعزز بالاسترجاع","جعل النموذج يستعين بمصادر محددة قبل تكوين الإجابة."],
-["AI Agent","Artificial Intelligence Agent","وكيل ذكاء اصطناعي","نظام ينفذ خطوات مترابطة لتحقيق هدف."],
-["Workflow — سير عمل","Workflow — سير عمل","سير العمل","ترتيب منظم للخطوات والأدوات لإنجاز مهمة."],
-["RLS","Row Level Security","أمن مستوى الصف","قواعد تتحكم في البيانات التي يستطيع كل مستخدم رؤيتها أو تعديلها."]
+["STT","Speech-to-Text","تحويل الكلام إلى نص","تحويل التسجيل أو الكلام المنطوق إلى نص مكتوب."],
+["TTS","Text-to-Speech","تحويل النص إلى كلام","إنشاء صوت منطوق انطلاقًا من نص مكتوب."],
+["RAG","Retrieval-Augmented Generation","التوليد المعزز بالاسترجاع","جعل نموذج الذكاء الاصطناعي يستعين بمصادر محددة قبل تكوين الإجابة."],
+["AI Agent","Artificial Intelligence Agent","وكيل ذكاء اصطناعي","نظام يستخدم الذكاء الاصطناعي لتنفيذ مجموعة خطوات مترابطة لتحقيق هدف."],
+["Workflow","Workflow","سير العمل","ترتيب منظم للخطوات والأدوات لإنجاز مهمة من البداية إلى النهاية."],
+["RLS","Row Level Security","أمن مستوى الصف","قواعد تحدد أي صفوف من البيانات يستطيع كل مستخدم رؤيتها أو تعديلها."],
+["SRT","SubRip Subtitle","ملف ترجمة زمنية","ملف نصي يحمل الترجمة مع توقيت ظهور كل سطر على الفيديو."],
+["No-code","No-code","بناء دون برمجة","إنشاء موقع أو تطبيق بأدوات مرئية جاهزة دون كتابة الكود من الصفر."],
+["CRM","Customer Relationship Management","إدارة علاقات العملاء","نظام لتنظيم بيانات العملاء ومتابعة التواصل معهم ومراحل الخدمة أو البيع."],
+["SEO","Search Engine Optimization","تحسين الظهور في محركات البحث","ممارسات تساعد المحتوى أو الموقع على الظهور بصورة أفضل في نتائج البحث."],
+["n8n","n8n Workflow Automation","منصة أتمتة لسير العمل","منصة لربط الخدمات وتشغيل خطوات متكررة أو مترابطة بصورة آلية."],
+["Prompt","Prompt","أمر أو توجيه للذكاء الاصطناعي","النص الذي تعطيه لنموذج الذكاء الاصطناعي ليعرف بدقة ما الذي تريده منه."],
+["Shot List","Shot List","قائمة اللقطات","تقسيم الفيديو إلى لقطات قصيرة مرقمة يمكن إعداد كل واحدة منها ثم تجميعها."],
+["Database","Database","قاعدة البيانات","مكان منظم لحفظ البيانات واسترجاعها وتحديثها."],
+["Authentication","Authentication","المصادقة","التحقق من هوية المستخدم قبل منحه صلاحية الوصول."],
+["Deployment","Deployment","نشر التطبيق","نقل الموقع أو التطبيق من بيئة التطوير إلى بيئة يستطيع المستخدمون الوصول إليها."],
+["Preview","Preview","المعاينة","نسخة مؤقتة تُستخدم لفحص الموقع أو التطبيق قبل نشر النسخة الرسمية."]
 ];
 document.getElementById("glossaryGrid").innerHTML=glossary.map(g=>`<div class="term-card"><h3>${g[0]}</h3><div class="full">${g[1]}</div><b>${g[2]}</b><p>${g[3]}</p></div>`).join("");
 
@@ -549,7 +567,7 @@ function renderJourney(k){
         <div class="step-detail"><p>${s[3]}</p><div class="step-output">${s[4]}</div></div>
       </details>`).join("")}
   </div>
-  ${k==="video"?videoExecutionPack():""}` }
+  ${k==="video"?videoExecutionPack():""}${k==="audio"?audioExecutionPack():""}${k==="site"?siteExecutionPack():""}` }
 function videoExecutionPack(){return `
 <div class="execution-pack">
 <h3>حزمة التنفيذ — نموذج الفيديو العربي</h3>
@@ -573,6 +591,54 @@ function copyPrompt(btn){const box=btn.parentElement.cloneNode(true);box.querySe
 function videoPackText(){return `مسار AI — حزمة الفيديو العربي\n\n1) أمر السيناريو:\nأنت كاتب سيناريو فيديو عربي محترف. أنشئ سيناريو لفيديو عربي قصير عن [الموضوع]. الجمهور: [الجمهور]. المدة: [المدة]. الهدف: [الهدف]. قسم الناتج إلى عنوان وافتتاحية ومشاهد ونص منطوق ونص ظاهر وخاتمة.\n\n2) تقسيم المشاهد:\nحوّل السيناريو إلى Shot List: رقم اللقطة، المدة، الوصف البصري، حركة الكاميرا، النص المنطوق، النص الظاهر، وPrompt بصري.\n\nالأدوات المقترحة: CapCut كبداية، Pika للمشاهد القصيرة، Runway للتحكم المتقدم.\n\nنقطة التسليم: التنفيذ والتصدير النهائيان داخل الأداة الخارجية المختارة.`}
 function copyVideoPack(){navigator.clipboard.writeText(videoPackText()).then(()=>alert('تم نسخ الحزمة كاملة.'))}
 function downloadVideoPack(){const html=`<html dir="rtl"><meta charset="utf-8"><body style="font-family:Arial;direction:rtl;line-height:1.9"><h1>مسار AI — حزمة الفيديو العربي</h1><p>${videoPackText().replace(/\n/g,'<br>')}</p></body></html>`;const blob=new Blob(['\ufeff',html],{type:'application/msword;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Masar-AI-Video-Pack.doc';a.click()}
+
+// V4.4 — audio and site execution packs, same pattern as video
+function audioExecutionPack(){return `
+<div class="execution-pack">
+<h3>حزمة التنفيذ — نموذج المحاضرة إلى ملخص</h3>
+<p>هذه الحزمة تكمل المسار: مقارنة أدوات تحويل الكلام إلى نص، وأوامر جاهزة للتنظيف والتلخيص. التنفيذ النهائي يتم داخل الأداة الخارجية.</p>
+<div class="tool-compare">
+ <div class="tool-mini best"><b>Otter.ai — البداية المقترحة</b><small>تفريغ سريع مع خطة مجانية محدودة، مناسب للتجربة الأولى.</small><a target="_blank" rel="noopener" href="https://otter.ai/">الموقع الرسمي ←</a></div>
+ <div class="tool-mini"><b>Whisper (عبر أدوات تعتمده)</b><small>دقة جيدة مع العربية، خيار مناسب عند الحاجة لتحكم أكبر بدون واجهة جاهزة.</small><a target="_blank" rel="noopener" href="https://github.com/openai/whisper">الموقع الرسمي ←</a></div>
+ <div class="tool-mini"><b>Google Docs — تفريغ صوتي</b><small>خيار مجاني بسيط لتسجيلات قصيرة وواضحة عبر ميزة الكتابة الصوتية.</small><a target="_blank" rel="noopener" href="https://docs.google.com/">الموقع الرسمي ←</a></div>
+</div>
+<details class="jstep" open><summary><i>P</i><span><b>Prompt — تنظيف النص المفرّغ</b><small>يزيل التكرار والحشو دون فقد المعنى قبل التلخيص.</small></span><strong class="open-label">افتح و انسخ</strong></summary><div class="step-detail">
+<div class="prompt-card">فيما يلي نص مفرّغ من تسجيل صوتي بالعربية. نظّف النص: احذف التكرار والحشو والفواصل الصوتية (مثل "يعني"، "آآ")، صحّح الأخطاء الإملائية الواضحة، وحافظ على كل الأفكار والترتيب الأصلي دون حذف أي محتوى فعلي. لا تلخّص في هذه الخطوة، فقط نظّف.<button class="copy-prompt" onclick="copyPrompt(this)">نسخ الأمر</button></div>
+</div></details>
+<details class="jstep"><summary><i>P</i><span><b>Prompt — التلخيص واستخراج نقاط العمل</b><small>يحوّل النص النظيف إلى ملخص ونقاط تطبيقية.</small></span><strong class="open-label">افتح و انسخ</strong></summary><div class="step-detail">
+<div class="prompt-card">لخّص النص التالي دون الإخلال بالمحتوى. حافظ على المحاور الرئيسة والأمثلة والقرارات المهمة، واكتب الملخص بالعربية الفصحى الواضحة. بعد الملخص، أضف قائمة من 5 إلى 10 نقاط عمل قابلة للتطبيق مستخرجة من النص.<button class="copy-prompt" onclick="copyPrompt(this)">نسخ الأمر</button></div>
+<div class="prompt-card tip"><b>نصيحة:</b> قارن الملخص بالنص الأصلي قبل الاعتماد. إذا سقط محور مهم، عدّل الأمر ليطلب صراحة تغطيته.</div>
+</div></details>
+<details class="jstep"><summary><i>✓</i><span><b>قبل الانتقال إلى الأداة</b><small>تأكد أن لديك التسجيل جاهزًا واللغة محددة والأداة المختارة.</small></span><strong class="open-label">قائمة التحقق</strong></summary><div class="step-detail"><div class="prompt-card warn">نقطة التسليم واضحة: «مسار AI» جهز لك المقارنة والأوامر القابلة للنسخ. افتح الأداة الرسمية المختارة، ارفع التسجيل، فرّغه، ثم الصق النص في نموذج الذكاء الاصطناعي لتنظيفه وتلخيصه. لا تعني عبارة «اكتمل المسار الإرشادي» أن التفريغ أو التلخيص تم داخل المنصة.</div></div></details>
+<div class="pack-actions"><button class="save" onclick="downloadAudioPack()">حفظ الحزمة في Word</button><button onclick="copyAudioPack()">نسخ الحزمة كاملة</button></div>
+</div>`}
+function audioPackText(){return `مسار AI — حزمة المحاضرة إلى ملخص\n\n1) أمر تنظيف النص:\nفيما يلي نص مفرّغ من تسجيل صوتي بالعربية. نظّف النص: احذف التكرار والحشو، صحّح الأخطاء الإملائية، وحافظ على كل الأفكار دون حذف محتوى فعلي.\n\n2) أمر التلخيص:\nلخّص النص التالي دون الإخلال بالمحتوى. حافظ على المحاور والأمثلة والقرارات، ثم أضف 5-10 نقاط عمل قابلة للتطبيق.\n\nالأدوات المقترحة: Otter.ai كبداية، Whisper للتحكم الأكبر، Google Docs كخيار مجاني بسيط.\n\nنقطة التسليم: التفريغ والتلخيص النهائيان يتمان داخل الأداة الخارجية ونموذج الذكاء الاصطناعي المختارين.`}
+function copyAudioPack(){navigator.clipboard.writeText(audioPackText()).then(()=>alert('تم نسخ الحزمة كاملة.'))}
+function downloadAudioPack(){const html=`<html dir="rtl"><meta charset="utf-8"><body style="font-family:Arial;direction:rtl;line-height:1.9"><h1>مسار AI — حزمة المحاضرة إلى ملخص</h1><p>${audioPackText().replace(/\n/g,'<br>')}</p></body></html>`;const blob=new Blob(['\ufeff',html],{type:'application/msword;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Masar-AI-Audio-Pack.doc';a.click()}
+
+function siteExecutionPack(){return `
+<div class="execution-pack">
+<h3>حزمة التنفيذ — نموذج فكرة إلى موقع رياضي</h3>
+<p>هذه الحزمة تكمل المسار: مقارنة طرق البناء، أمر تحديد النطاق، وقالب بنية بيانات أولية. البناء الفعلي يتم داخل الأداة الخارجية.</p>
+<div class="tool-compare">
+ <div class="tool-mini best"><b>Framer — البداية المقترحة</b><small>بناء بدون كود بواجهة سحب وإفلات، مناسب لموقع بمحتوى وصفحات ثابتة إلى متوسطة الديناميكية.</small><a target="_blank" rel="noopener" href="https://www.framer.com/">الموقع الرسمي ←</a></div>
+ <div class="tool-mini"><b>Webflow</b><small>خيار بدون كود بتحكم أعمق في التصميم، أنسب عند الحاجة لتخصيص أكبر.</small><a target="_blank" rel="noopener" href="https://webflow.com/">الموقع الرسمي ←</a></div>
+ <div class="tool-mini"><b>Supabase + Vercel</b><small>خيار للتطوير المخصص عندما يحتاج الموقع تسجيل دخول وقاعدة بيانات ووظائف تفاعلية حقيقية.</small><a target="_blank" rel="noopener" href="https://supabase.com/">الموقع الرسمي ←</a></div>
+</div>
+<details class="jstep" open><summary><i>P</i><span><b>Prompt — تحديد نطاق النسخة الأولى (MVP)</b><small>يحوّل فكرة الموقع إلى قائمة وظائف مرتبة بالأولوية.</small></span><strong class="open-label">افتح و انسخ</strong></summary><div class="step-detail">
+<div class="prompt-card">أريد بناء موقع [اكتب النوع: مثل موقع رياضي]. المستخدمون هم: [اكتب فئات المستخدمين]. اكتب لي قائمة وظائف هذا الموقع مرتبة حسب الأولوية، وحدد أي وظيفة أساسية للنسخة الأولى (MVP) وأيها يمكن تأجيلها لمرحلة لاحقة، مع سبب مختصر لكل قرار.<button class="copy-prompt" onclick="copyPrompt(this)">نسخ الأمر</button></div>
+</div></details>
+<details class="jstep"><summary><i>P</i><span><b>Prompt — بنية بيانات أولية</b><small>يقترح الجداول الأساسية التي يحتاجها الموقع.</small></span><strong class="open-label">افتح و انسخ</strong></summary><div class="step-detail">
+<div class="prompt-card">بناءً على وظائف موقع [اكتب النوع] التالية: [الصق قائمة الوظائف]، اقترح بنية جداول قاعدة بيانات مبسطة: اسم كل جدول، أهم الأعمدة فيه، والعلاقات بين الجداول. لا تُدخل تفاصيل تقنية معقدة، فقط ما يلزم لفهم البنية قبل البناء.<button class="copy-prompt" onclick="copyPrompt(this)">نسخ الأمر</button></div>
+<div class="prompt-card tip"><b>نصيحة:</b> لا تبدأ بكل الوظائف؛ ابنِ الجداول والصفحات اللازمة للرحلة الأساسية فقط، ووسّع لاحقًا عند الحاجة الفعلية.</div>
+</div></details>
+<details class="jstep"><summary><i>✓</i><span><b>قبل الانتقال إلى أداة البناء</b><small>تأكد أن لديك قائمة الوظائف المرتبة وبنية البيانات المبسطة وطريقة البناء المختارة.</small></span><strong class="open-label">قائمة التحقق</strong></summary><div class="step-detail"><div class="prompt-card warn">نقطة التسليم واضحة: «مسار AI» جهز لك قائمة الوظائف وبنية البيانات المقترحة والأداة المرشحة. افتح الأداة الرسمية، ابنِ النموذج الأولي بالوظائف الأساسية فقط، ثم اختبره وطوّره تدريجيًا. لا تعني عبارة «اكتمل المسار الإرشادي» أن الموقع النهائي بُني داخل المنصة.</div></div></details>
+<div class="pack-actions"><button class="save" onclick="downloadSitePack()">حفظ الحزمة في Word</button><button onclick="copySitePack()">نسخ الحزمة كاملة</button></div>
+</div>`}
+function sitePackText(){return `مسار AI — حزمة فكرة إلى موقع\n\n1) أمر تحديد النطاق:\nأريد بناء موقع [النوع]. المستخدمون: [الفئات]. اكتب قائمة وظائف مرتبة بالأولوية، وحدد وظائف النسخة الأولى (MVP) مقابل ما يمكن تأجيله.\n\n2) أمر بنية البيانات:\nبناءً على وظائف الموقع التالية: [القائمة]، اقترح جداول قاعدة بيانات مبسطة وأهم أعمدتها والعلاقات بينها.\n\nالأدوات المقترحة: Framer كبداية بدون كود، Webflow لتحكم أعمق، Supabase+Vercel للتطوير المخصص.\n\nنقطة التسليم: بناء الموقع الفعلي واختباره يتمان داخل الأداة الخارجية المختارة.`}
+function copySitePack(){navigator.clipboard.writeText(sitePackText()).then(()=>alert('تم نسخ الحزمة كاملة.'))}
+function downloadSitePack(){const html=`<html dir="rtl"><meta charset="utf-8"><body style="font-family:Arial;direction:rtl;line-height:1.9"><h1>مسار AI — حزمة فكرة إلى موقع</h1><p>${sitePackText().replace(/\n/g,'<br>')}</p></body></html>`;const blob=new Blob(['\ufeff',html],{type:'application/msword;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Masar-AI-Site-Pack.doc';a.click()}
+
 renderJourney("video");
 document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderJourney(b.dataset.tab)});
 document.querySelectorAll(".chips button").forEach(b=>b.onclick=()=>document.getElementById("smartQuery").value=b.dataset.q);
@@ -580,14 +646,27 @@ document.querySelectorAll(".chips button").forEach(b=>b.onclick=()=>document.get
 
 function analyze(q){
  q=q.trim();
- if(!q)return {title:"اكتب حاجتك أولًا",body:"يمكنك وصفها كما تتحدث عادة، ولا تحتاج لمعرفة اسم الأداة."};
- if(/محاضر|صوت|تفريغ|تسجيل/.test(q))return {title:"مسار صوت ومعرفة",body:"الهدف → اللغة والمدة → STT (Speech-to-Text — تحويل الكلام إلى نص) → مراجعة → تلخيص/استخراج → فحص الجودة → اكتمل المسار."};
- if(/موقع|منصة|ويب|تطبيق/.test(q))return {title:"مسار بناء رقمي",body:"نوع المنتج → المستخدمون → الوظائف → MVP → طريقة البناء → قاعدة البيانات/الدخول عند الحاجة → نموذج أولي → اختبار → اكتمل المسار."};
- if(/فيديو|أفاتار|دبلج/.test(q))return {title:"مسار فيديو",body:"نوع الفيديو → المصدر → اللغة والجودة والميزانية → Script → توليد/تحرير → صوت/ترجمة → فحص → تصدير → اكتمل المسار."};
- if(/بحث|دراس|مراجع|ورق/.test(q))return {title:"مسار بحث ومعرفة",body:"سؤال البحث → نوع المصادر → اكتشاف الدراسات → تقييمها → استخراج البيانات → تنظيم المراجع → تلخيص/تحليل → مراجعة الاستشهادات."};
- return {title:"طلب غير مصنف بعد — وهذا مقصود في التصميم",body:"لن نقول «لا توجد نتيجة». سيستخرج النظام الهدف، يسألك أسئلة قصيرة، يطابقه بأقرب مسار، ويعرض مسارًا مبدئيًا. كما يسجل الطلب كـ Search Gap — فجوة بحث — حتى يُراجع ويُضاف للدليل إن تكرر."};
+ if(!q)return {title:"اكتب حاجتك أولًا",body:"صف ما تريد إنجازه بلغتك الطبيعية؛ لا تحتاج إلى معرفة اسم الأداة.",route:null};
+ if(/محاضر|صوت|تفريغ|تسجيل/.test(q))return {title:"وجدنا لك مسار الصوت والتلخيص",body:"المسار الكامل موجود في قسم «مسارات نموذجية مكتملة كتجارب»، ومعه مقارنة أدوات، قوالب أوامر جاهزة، نسخ وتنزيل Word.",route:"audio"};
+ if(/موقع|منصة|ويب|تطبيق/.test(q))return {title:"وجدنا لك مسار بناء الموقع",body:"المسار الكامل يحدد النطاق والوظائف وطريقة البناء، ثم يقارن الأدوات ويعطيك قوالب تنفيذ قابلة للنسخ.",route:"site"};
+ if(/فيديو|أفاتار|دبلج/.test(q))return {title:"وجدنا لك مسار الفيديو",body:"يمكنك تجربة المسار التفاعلي الكامل: تحديد الحاجة، مقارنة الأدوات، قوالب الأوامر، التنفيذ الخارجي وحفظ الحزمة.",route:"video"};
+ if(/بحث|دراس|مراجع|ورق/.test(q))return {title:"مسار البحث ما زال في مرحلة الإرشاد الأولي",body:"لدينا تصنيف أولي للبحث والمصادر والتحليل، لكننا لا ندّعي بعد وجود حزمة تنفيذ مكتملة بنفس مستوى الفيديو والصوت والموقع.",route:null};
+ return {title:"طلب غير مصنف بعد — وهذه فجوة معرفة",body:"لن نخترع لك توصية غير موثوقة. نحدد الهدف والقيود ونطابقه بأقرب مجال، ثم نسجل الطلب ضمن فجوات المعرفة حتى يُراجع ويُضاف إذا تكرر.",route:null};
 }
-document.getElementById("askBtn").onclick=()=>{const a=analyze(document.getElementById("smartQuery").value),el=document.getElementById("answer");el.classList.remove("hidden");el.innerHTML=`<b>${a.title}</b><p>${a.body}</p>`};
+function openJourneyFromSearch(route){
+ if(route==="video"){
+   document.getElementById("pilot-video").scrollIntoView({behavior:"smooth",block:"start"});
+   return;
+ }
+ document.getElementById("journeys").scrollIntoView({behavior:"smooth",block:"start"});
+ const btn=[...document.querySelectorAll(".tabs button")].find(x=>x.dataset.tab===route);
+ if(btn){document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));btn.classList.add("active");renderJourney(route);}
+}
+document.getElementById("askBtn").onclick=()=>{
+ const a=analyze(document.getElementById("smartQuery").value),el=document.getElementById("answer");
+ el.classList.remove("hidden");
+ el.innerHTML=`<b>${a.title}</b><p>${a.body}</p>${a.route?`<button class="primary search-route-btn" onclick="openJourneyFromSearch('${a.route}')">افتح المسار الكامل ←</button>`:""}`;
+};
 
 // V4.3 — internal video route
 let pvTool="CapCut";
@@ -639,7 +718,8 @@ ${pvClean("pvVisual")}
 نقطة التسليم:
 مسار AI جهز التشخيص والمقارنة والأوامر والخطوات والبدائل. تنفيذ الفيديو النهائي يتم داخل الأداة الخارجية المختارة.`}
 function pvCopyAll(){navigator.clipboard.writeText(pvText()).then(()=>alert("تم نسخ المسار كاملًا."))}
-function pvWord(){const body=pvText().replace(/\n/g,"<br>");const doc=`<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:Arial;direction:rtl;line-height:1.9;font-size:14pt}h1{color:#2455d6}</style></head><body><h1>مسار AI — حزمة التنفيذ</h1>${body}</body></html>`;const blob=new Blob(["\ufeff",doc],{type:"application/msword;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Masar-AI-Video-Execution-Pack.doc";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function pvWord(){const body=pvText().replace(/\n/g,"<br>");const doc=`<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:Arial;direction:rtl;line-height:1.9;font-size:14pt}h1{color:#2455d6}.search-route-btn{margin-top:8px;padding:8px 12px;font-size:11px}
+</style></head><body><h1>مسار AI — حزمة التنفيذ</h1>${body}</body></html>`;const blob=new Blob(["\ufeff",doc],{type:"application/msword;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Masar-AI-Video-Execution-Pack.doc";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 pvBuild();
 
 </script>
