@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مسار AI — الدليل التنفيذي الذكي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="nav">
+  <div class="container navin">
+    <a class="brand" href="#"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V4</small></span></a>
+    <nav><a href="#map">الخريطة</a><a href="#domains">المجالات</a><a href="#journeys">مسارات مكتملة</a><a href="#glossary">المصطلحات</a><a href="#model">كيف نعمل؟</a><a href="#promise">ميثاق الخدمة</a><a href="#principles">الثقة</a><a href="#plans">الاشتراك</a></nav>
+    <button class="ghost">دخول تجريبي</button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+ <div class="container hero-grid">
+  <div>
+   <span class="eyebrow">من الحاجة ← إلى الأداة ← إلى التنفيذ</span>
+   <h1>لا تبحث عن أداة.<br><em>ابدأ بما تريد إنجازه.</em></h1>
+   <p class="hero-copy">مسار AI ليس كتالوجًا للأدوات، ولا خدمة تنفذ مشروعك نيابةً عنك. إنه دليل عربي إرشادي تنفيذي يفهم ما تريد إنجازه، ويقسمه إلى خطوات، ويرشح لك الأدوات والخدمات والطرق الأنسب، ويشرح المصطلحات وطريقة الاستخدام، حتى يكتمل مسارك الإرشادي وتصبح جاهزًا للتنفيذ بنفسك داخل الأداة المختارة.</p>
+
+<div class="trust-badges" aria-label="وعود الشفافية">
+  <span>✓ نوضح ما نقدمه وما لا نقدمه</span>
+  <span>✓ نذكر التكلفة الخارجية إن وُجدت</span>
+  <span>✓ لا ندّعي تنفيذ المشروع نيابةً عنك</span>
+  <span>✓ نعرض البدائل وسبب الاختيار</span>
+</div>
+
+   <div class="askbox">
+     <div class="asktop"><span>✦</span><input id="smartQuery" placeholder="مثال: لدي محاضرة صوتية وأريد تفريغها وتلخيصها وعمل عرض منها"></div>
+     <div class="chips"><button data-q="أريد إنشاء فيديو عربي من نص">فيديو من نص</button><button data-q="أريد تحليل بحث علمي">بحث علمي</button><button data-q="أريد إنشاء موقع رياضي">موقع رياضي</button><button data-q="لا أعرف أي أداة أحتاج">لا أعرف من أين أبدأ</button></div>
+     <button id="askBtn" class="primary">حلّل طلبي وابنِ المسار ←</button>
+   </div>
+   <div id="answer" class="answer hidden"></div>
+  </div>
+  <aside class="hero-card">
+   <div class="mini-title">الفكرة في 6 محطات</div>
+   <div class="vertical-flow">
+    <div><i>01</i><span><b>صف حاجتك</b><small>بلغة طبيعية، دون معرفة اسم الأداة</small></span></div>
+    <div><i>02</i><span><b>نفهم القيود</b><small>المستوى، اللغة، الجودة، الميزانية</small></span></div>
+    <div><i>03</i><span><b>نبني المسار</b><small>نقسم الهدف إلى مهام مرتبة</small></span></div>
+    <div><i>04</i><span><b>نختار الأدوات</b><small>أفضل خيار + بديل + سبب الاختيار</small></span></div>
+    <div><i>05</i><span><b>نجهزك للتنفيذ</b><small>خطوات + Prompt + فحص جودة</small></span></div>
+    <div class="success"><i>✓</i><span><b>اكتمل مسارك الإرشادي</b><small>أصبحت جاهزًا للتنفيذ بنفسك</small></span></div>
+   </div>
+  </aside>
+ </div>
+</section>
+
+<section class="scope-strip"><div class="container">
+<div class="scope-card">
+  <div class="scope-icon">🛡️</div>
+  <div>
+    <b>قبل أن تبدأ: اعرف نطاق الخدمة بوضوح</b>
+    <p>اشتراكك — عندما يُفعّل مستقبلًا — يمنحك الوصول إلى المسارات الإرشادية المجودة، المقارنات، الأدوات، البدائل، الشروحات وPrompts. 
+    لا يشمل تنفيذ المشروع النهائي نيابةً عنك، ولا رسوم الأدوات أو الاشتراكات الخارجية. إذا احتاج مسارك خدمة مدفوعة سنوضح ذلك قبل أن نرشحها.</p>
+  </div>
+</div>
+</div></section>
+
+<section id="map" class="section soft">
+ <div class="container">
+  <div class="section-head"><span>الخريطة الذهنية</span><h2>الصورة الكاملة قبل التفاصيل</h2><p>هذه هي «خريطة الحكم» التي تمنع التشتت: كل فرع يعود إلى نفس المنهج حتى لو اختلف المجال.</p></div>
+  <div class="mindmap">
+   <div class="node center">ماذا تريد<br>أن تنجز؟</div>
+   <div class="branch b1"><b>إنشاء</b><small>فيديو • صور • صوت • عروض</small></div>
+   <div class="branch b2"><b>بحث ومعرفة</b><small>دراسات • مصادر • تحليل</small></div>
+   <div class="branch b3"><b>لغة وترجمة</b><small>نص • ملف • صوت • فيديو</small></div>
+   <div class="branch b4"><b>بناء رقمي</b><small>موقع • تطبيق • منصة</small></div>
+   <div class="branch b5"><b>بيانات وتقارير</b><small>تحليل • رسوم • تقارير</small></div>
+   <div class="branch b6"><b>أتمتة وأعمال</b><small>Workflow • Agent • تسويق</small></div>
+  </div>
+  <div class="map-legend"><span>الحاجة</span><b>→</b><span>النوع</span><b>→</b><span>المتطلبات</span><b>→</b><span>المسار</span><b>→</b><span>الأداة</span><b>→</b><span>التنفيذ</span><b>→</b><span class="green">✓ اكتمل المسار الإرشادي</span></div>
+ </div>
+</section>
+
+<section id="domains" class="section">
+ <div class="container">
+  <div class="section-head"><span>الدليل الشامل</span><h2>أبواب قليلة، وتفرعات عميقة</h2><p>لا نصنف الناس حسب وظائفهم أولًا؛ نصنف ما يريدون إنجازه. ويمكن لاحقًا تخصيص المسار للباحث أو المعلم أو المهندس.</p></div>
+  <div id="domainGrid" class="domain-grid"></div>
+ </div>
+</section>
+
+<section id="journeys" class="section dark">
+ <div class="container">
+  <div class="section-head light"><span>مسارات نموذجية مكتملة</span><h2>من السؤال حتى النهاية، بلا فجوة</h2></div>
+  <div class="tabs"><button class="active" data-tab="audio">محاضرة → نص → ملخص</button><button data-tab="site">فكرة → موقع رياضي</button><button data-tab="video">نص → فيديو عربي</button></div>
+  <div id="journeyPanel"></div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="container two">
+  <div class="panel">
+   <span class="eyebrow">عندما لا نجد إجابة جاهزة</span>
+   <h2>إذا لم نجد مسارًا جاهزًا، لا نتركك عند «لا توجد نتيجة»</h2>
+   <ol class="fallback">
+    <li><b>يفهم الطلب</b><small>يستخرج الهدف والناتج المطلوب.</small></li>
+    <li><b>يطابقه بأقرب مسار</b><small>حتى لو لم تكن العبارة موجودة حرفيًا.</small></li>
+    <li><b>يسأل أسئلة قصيرة</b><small>لتحديد اللغة، الميزانية، الجودة والمستوى.</small></li>
+    <li><b>يقترح أقرب مسار إرشادي مبدئي</b><small>من المعرفة المراجعة الموجودة في النظام.</small></li>
+    <li><b>يسجل الطلب كـ «فجوة معرفة»</b><small>لتظهر في رادار التطوير ويُراجعها المشرف.</small></li>
+   </ol>
+  </div>
+  <div class="panel radar">
+   <span class="eyebrow">رادار التطوير</span><h2>المنتج يتعلم ما ينقصه</h2>
+   <div class="radar-ring"><div>المستخدمون<br><b>يبحثون</b></div></div>
+   <p>الطلبات غير المغطاة، الأدوات الجديدة، تغيّر الخطط والأسعار، والمسارات الأكثر استخدامًا تتحول إلى قائمة مراجعة وتحديث — مع اعتماد بشري قبل النشر.</p>
+  </div>
+ </div>
+</section>
+
+<section id="glossary" class="section soft">
+ <div class="container">
+  <div class="section-head"><span>لغة التقنية بلا تعقيد</span><h2>المصطلح يظهر عندما تحتاجه</h2><p>سياستنا: الاختصار → الاسم الكامل بالإنجليزية → المقابل العربي → تعريف مبسط → لماذا تحتاجه.</p></div>
+  <div id="glossaryGrid" class="glossary-grid"></div>
+ </div>
+</section>
+
+
+
+<section id="model" class="section operating-model">
+ <div class="container">
+  <div class="section-head">
+   <span>النموذج التشغيلي — ماذا نفعل لك؟</span>
+   <h2>نحن لا ننفذ مشروعك نيابةً عنك؛ <strong>نقودك إلى أفضل طريق لتنفيذه.</strong></h2>
+   <p>سواء أردت فيديو، بحثًا علميًا، كتابًا، موقعًا، عرضًا، ترجمة، تحليل بيانات، صورة أو أتمتة: يفهم «مسار AI» حاجتك، ويبني لك <b>مسارًا إرشاديًا تنفيذيًا مجودًا</b>، ثم يقودك إلى الأدوات والخدمات والطرق الأنسب التي تساعدك على تنفيذ مهمتك بنفسك.</p>
+  </div>
+  <div class="service-formula">
+    <span><b>أنت تقول:</b> ماذا أريد؟</span><i>→</i>
+    <span><b>نحن نحدد:</b> ماذا تحتاج؟</span><i>→</i>
+    <span><b>نحن نبني:</b> كيف تصل؟</span><i>→</i>
+    <span><b>نحن نرشح:</b> أين تنفذ؟</span><i>→</i>
+    <span class="formula-end"><b>أنت تنفذ</b> بثقة ووضوح</span>
+  </div>
+
+  <div class="boundary">
+   <div class="boundary-side ours">
+    <span class="boundary-label">داخل مسار AI</span>
+    <h3>نحن نبني لك الطريق حتى نقطة التنفيذ</h3>
+    <div class="boundary-items">
+     <span>نفهم طلبك</span><span>نسألك ما يلزم فقط</span><span>نقسم المهمة</span>
+     <span>نقارن الأدوات</span><span>نرشح الأنسب</span><span>نعطي الرابط الرسمي</span>
+     <span>نشرح الخطوات</span><span>نعطي Prompt عند الحاجة</span><span>نوضح التكلفة والبدائل</span>
+     <span>نعطي فحص الجودة</span>
+    </div>
+   </div>
+   <div class="handoff"><div>نقطة التسليم</div><b>→</b><small>انتقل إلى الأداة المختارة</small></div>
+   <div class="boundary-side external">
+    <span class="boundary-label">خارج مسار AI</span>
+    <h3>هنا تنفذ النتيجة التي ستنفذها داخل الأداة المختارة</h3>
+    <p>تنتقل إلى الأداة أو الخدمة التي رشحناها، وتطبق الخطوات والإعدادات المناسبة لإنتاج النتيجة المطلوبة داخل بيئة التنفيذ المختارة.</p>
+    <div class="external-result">✓ النتيجة التي ستنفذها داخل الأداة المختارة<br><small>فيديو • بحث • كتاب • موقع • عرض • ترجمة • تحليل • صورة • أتمتة… تُنفذ في الأداة أو الخدمة المناسبة، لا داخل الاشتراك الإرشادي نفسه.</small></div>
+   </div>
+  </div>
+
+  <div class="why-us">
+   <div>
+    <span class="eyebrow">ما القيمة التي يضيفها «مسار AI» فوق المساعدة العامة؟</span>
+    <h3>القيمة ليست في إجابة واحدة؛ بل في معرفة منظمة ومسار محفوظ ومعايير قرار ثابتة.</h3>
+   </div>
+   <div class="why-grid">
+    <article><b>قاعدة معرفة مجودة</b><small>أدوات مصنفة بمعايير ثابتة، وحدودها وتكاليفها ومتى نستخدمها.</small></article>
+    <article><b>قرار قابل للتكرار</b><small>نفس المعايير: المهمة، المستوى، اللغة، الميزانية، الجودة والخصوصية.</small></article>
+    <article><b>مشروع محفوظ</b><small>يعرف ما أنجزته سابقًا ويكمل من النقطة التالية بدل البدء من الصفر.</small></article>
+    <article><b>مسار لا محادثة فقط</b><small>خطوات، بدائل، Prompt، فحص جودة ونقطة تسليم واضحة.</small></article>
+    <article><b>رادار تحديث</b><small>فجوات البحث والأدوات المتغيرة تدخل دورة مراجعة وتحديث.</small></article>
+    <article><b>شفافية تجارية</b><small>تعرف قبل الدفع ما يشمله الاشتراك وما قد يتطلب تكلفة خارجية.</small></article>
+   </div>
+  </div>
+
+  <div class="saved-project">
+   <span class="eyebrow">مثال على الاستمرارية</span>
+   <h3>المستخدم يعود بعد يومين: «أريد نفس الفيديو بالتركية»</h3>
+   <div class="project-line">
+    <span class="done-mini">✓ النص العربي</span><span class="done-mini">✓ مسار الفيديو العربي</span>
+    <span class="current-mini">الآن: نسخة تركية</span><span>→ ترجمة النص</span><span>→ Subtitles أم Dubbing؟</span><span>→ الأداة المناسبة</span><span>→ خطوات التنفيذ</span><span>→ اكتمل المسار</span>
+   </div>
+   <p>في النسخة الحقيقية تحفظ قاعدة البيانات المشروع وتقدمه. لا تعيد المنصة المستخدم إلى البداية ما دام السياق محفوظًا.</p>
+  </div>
+ </div>
+</section>
+
+<section id="promise" class="section promise-section">
+ <div class="container">
+  <div class="section-head">
+   <span>ميثاق الخدمة — وضوح قبل الاشتراك</span>
+   <h2>ماذا نقدم لك؟ وماذا لا نقدم؟</h2>
+   <p>نريد أن تعرف بالضبط ما الذي تدفع مقابله قبل أن تبدأ. «مسار AI» خدمة إرشاد وتنظيم وتنفيذ ذاتي: نبني لك الطريق الواضح، وأنت تنفذ النتيجة داخل الأداة المناسبة.</p>
+  </div>
+
+  <div class="promise-grid">
+   <article class="promise-card yes">
+    <div class="promise-icon">✓</div>
+    <h3>ما الذي تحصل عليه معنا؟</h3>
+    <ul>
+     <li>فهم حاجتك وتحويلها إلى مهمة واضحة.</li>
+     <li>مسار مرتب خطوة بخطوة من البداية إلى نقطة التنفيذ.</li>
+     <li>ترشيح الأدوات الأنسب مع سبب الاختيار والبدائل.</li>
+     <li>توضيح المجاني والمدفوع والقيود المعروفة لكل أداة.</li>
+     <li>شرح المصطلحات التقنية في مكانها.</li>
+     <li>Prompts وإعدادات وأمثلة عندما تحتاجها المهمة.</li>
+     <li>قائمة فحص تساعدك على تقييم النتيجة.</li>
+    </ul>
+   </article>
+   <article class="promise-card no">
+    <div class="promise-icon">!</div>
+    <h3>ما الذي لا يشمله الاشتراك؟</h3>
+    <ul>
+     <li>لا ننفذ المشروع أو المهمة النهائية نيابةً عنك ضمن الاشتراك الإرشادي.</li>
+     <li>لا يشمل السعر اشتراكات الأدوات الخارجية أو أرصدتها المدفوعة.</li>
+     <li>لا نَعِد بنتيجة تنتجها خدمة خارجية؛ فالنتيجة تعتمد أيضًا على الأداة ومدخلاتك وخطتها.</li>
+     <li>لا نخفي عليك وجود خيار مجاني أو تكلفة إضافية معروفة.</li>
+    </ul>
+   </article>
+  </div>
+
+  <div class="trust-statement">
+   <b>القاعدة التي تحكم المنتج</b>
+   <p>نحن لا نبيع لك تنفيذ المشروع النهائي نيابةً عنك. نحن نبيع لك <strong>مسارًا معرفيًا تنفيذيًا مجودًا</strong> يقلل البحث والتشتت ويقودك إلى الأدوات والخطوات المناسبة لتنجز المهمة بنفسك.</p>
+  </div>
+
+  <div class="completion-example">
+   <div class="example-head">
+    <span class="eyebrow">مثال تطبيقي فقط — أين تبدأ خدمتنا وأين تنتهي؟</span>
+    <h3>مثال فقط: «أريد إنشاء فيديو عربي من نص مدته دقيقتان وبأقل تكلفة»</h3><p class="example-note">الفيديو هنا مجرد نموذج لشرح الآلية؛ المنهج نفسه يطبق على البحث والكتب والمواقع والعروض والترجمة والبيانات وغيرها.</p>
+   </div>
+   <div class="completion-flow">
+    <div><i>1</i><b>نفهم الطلب</b><small>فيديو عربي • من نص • دقيقتان • أولوية التكلفة.</small></div>
+    <div><i>2</i><b>نحدد المطلوب</b><small>نوع الفيديو، المقاس، الصوت، الجودة، الاستخدام.</small></div>
+    <div><i>3</i><b>نبني المسار</b><small>Script → Visuals/Avatar → Voice → Captions → Export.</small></div>
+    <div><i>4</i><b>نرشح الأدوات</b><small>الخيار الأنسب + البديل + حدود المجاني + التكلفة المعروفة + الرابط الرسمي.</small></div>
+    <div><i>5</i><b>نعطي خطوات التنفيذ</b><small>Prompt، الإعدادات، المقاس، الصوت، الترجمة، وطريقة التصدير.</small></div>
+    <div><i>6</i><b>نعطي فحص الجودة</b><small>راجع النص والصوت والتزامن والمقاس والحقوق قبل النشر.</small></div>
+    <div class="complete"><i>✓</i><b>اكتمل مسارك الإرشادي</b><small>لديك الآن الطريق والأدوات والخطوات اللازمة. إنشاء الفيديو نفسه يتم داخل الأداة الخارجية التي اخترتها.</small></div>
+   </div>
+  </div>
+
+  <div class="before-pay">
+   <h3>قبل أن تدفع</h3>
+   <p>سنوضح لك دائمًا نطاق الخدمة، وما إذا كانت المهمة قد تتطلب أداة خارجية مدفوعة. إذا كان ما تبحث عنه هو أن ينفذ شخص المهمة كاملةً نيابةً عنك، فهذه <strong>خدمة تنفيذ منفصلة</strong> وليست جزءًا من اشتراك «مسار AI» الإرشادي.</p>
+  </div>
+ </div>
+</section>
+
+
+<section id="principles" class="section principles-section">
+  <div class="container">
+    <div class="section-head">
+      <span>قواعد الثقة</span>
+      <h2>نريد أن تشعر بالأمان قبل أن تدفع، لا بعده</h2>
+      <p>هذه قواعد تحرير وتشغيل ثابتة في المنتج، وليست عبارات تسويقية.</p>
+    </div>
+    <div class="principles-grid">
+      <article><b>لا وعود مضللة</b><small>لا نقول «أنجزنا لك» إذا كنا قدمنا إرشادًا فقط.</small></article>
+      <article><b>التكلفة واضحة</b><small>نذكر إن كانت الأداة مجانية، محدودة، أو تحتاج اشتراكًا منفصلًا.</small></article>
+      <article><b>السبب قبل الرابط</b><small>لا نرمي أسماء أدوات؛ نشرح لماذا رشحنا هذا الخيار ومتى نفضّل البديل.</small></article>
+      <article><b>المعلومة المتغيرة مؤرخة</b><small>الأسعار والخطط والخصائص لها تاريخ مراجعة وتحديث.</small></article>
+      <article><b>لا نخفي البديل المجاني</b><small>إذا كان هناك بديل مناسب وأقل تكلفة نعرضه بوضوح.</small></article>
+      <article><b>القرار للمستخدم</b><small>نوجّه ونقارن؛ ولا نجبر المستخدم على أداة أو اشتراك بعينه.</small></article>
+    </div>
+  </div>
+</section>
+
+<section id="plans" class="section">
+ <div class="container">
+  <div class="section-head"><span>النموذج التجاري</span><h2>منصة واحدة، وصول بحسب الخطة</h2></div>
+  <div class="plans">
+   <div class="plan"><h3>استكشاف</h3><div class="price">مجاني</div><ul><li>مسارات مختارة</li><li>قاموس أساسي</li><li>استكشاف محدود للأدوات</li></ul><button class="outline">ابدأ التجربة</button></div>
+   <div class="plan featured"><span class="tag">التصور الأساسي</span><h3>الوصول الكامل</h3><div class="price">سعر رمزي <small>يحدد بعد الاختبار</small></div><ul><li>كل المسارات الإرشادية المجودة</li><li>المقارنات والبدائل</li><li>Prompts ونقاط فحص الجودة</li><li>تحديثات الأدوات</li><li>حفظ المفضلة والمسارات</li></ul><div class="plan-disclosure">✓ أفهم أن الاشتراك يبيع الإرشاد والمسارات، ولا يشمل تنفيذ المنتج النهائي أو رسوم الأدوات الخارجية.</div><button class="primary">الوصول للمسارات — نموذج فقط</button></div>
+   <div class="plan"><h3>حزم متخصصة لاحقًا</h3><div class="price">حسب الحاجة</div><ul><li>الباحث الذكي</li><li>صانع المحتوى</li><li>التعليم</li><li>المؤسسات</li></ul><button class="outline">لاحقًا</button></div>
+  </div>
+  <div class="payment-flow"><b>آلية الدفع المستقبلية:</b><span>حساب</span>→<span>خطة</span>→<span>بوابة دفع</span>→<span>تأكيد</span>→<span>صلاحية الوصول</span></div>
+  <p class="note">PayPal خيار مفضل مبدئيًا. Apple Pay وGoogle Pay والمحافظ الأخرى ليست وعودًا في هذا النموذج؛ توفرها يعتمد على بوابة الدفع، بلد الكيان التجاري، العملة وشروط التكامل عند الإطلاق. بيانات البطاقة لا تُخزن داخل المنصة. أي رسوم تخص أداة خارجية تُدفع لمزودها مباشرة ما لم نعلن صراحةً خلاف ذلك.</p>
+ </div>
+</section>
+
+<section class="section architecture">
+ <div class="container">
+  <div class="section-head"><span>التنفيذ التقني المقترح</span><h2>نفس المنهج الذي نعرفه، في مشروع مستقل</h2></div>
+  <div class="arch-flow">
+   <div><b>GitHub</b><small>الكود والإصدارات</small></div><i>→</i>
+   <div><b>Codex</b><small>التطوير والاختبار</small></div><i>→</i>
+   <div><b>Vercel</b><small>Preview</small></div><i>→</i>
+   <div><b>Web App</b><small>الواجهة</small></div><i>↔</i>
+   <div><b>Supabase</b><small>Auth + DB + RLS</small></div><i>↔</i>
+   <div><b>Automation</b><small>التحديث والرادار</small></div>
+  </div>
+  <div class="data-model">
+   <span>Users</span><span>Subscriptions</span><span>Domains</span><span>Tasks</span><span>Tools</span><span>Workflows</span><span>Glossary</span><span>Search Gaps</span><span>Favorites</span><span>Reviews</span>
+  </div>
+ </div>
+</section>
+</main>
+<footer><div class="container"><b>مسار AI</b><p>تصور تنفيذي شامل — Prototype Vision V4.1. لا توجد مدفوعات أو تكاملات AI حقيقية في هذه النسخة.</p></div></footer>
+<script src="assets/js/app.js"></script>
+</body></html>
