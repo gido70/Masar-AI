@@ -80,7 +80,7 @@
 @media(max-width:900px){.principles-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.principles-grid{grid-template-columns:1fr}.scope-card{flex-direction:column}}
 
-/* V4.1.1 — complete expandable journeys */
+/* V4.3 — complete expandable journeys */
 .journey-expanded{display:grid;gap:10px}
 .journey-expanded .jstep{display:block;border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
 .journey-expanded .jstep summary{list-style:none;display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;padding:14px;cursor:pointer}
@@ -121,13 +121,27 @@
 .pack-actions .save{background:var(--blue);color:#fff;border-color:var(--blue)}
 @media(max-width:800px){.tool-compare{grid-template-columns:1fr}}
 
+
+/* V4.3 — internal pilot route */
+.pilot-wrap{background:linear-gradient(180deg,#fbfcff,#f5f8ff);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.pilot-intro{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.pilot-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 12px 30px rgba(24,45,90,.06)}.pilot-card.dark{background:var(--navy);color:#fff}.pilot-card.dark p,.pilot-card.dark small{color:#aeb9d0}
+.pilot-form{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.pf label{display:block;font-size:11px;font-weight:800;margin-bottom:5px}.pf input,.pf select{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px 11px;background:#fff;font-family:inherit;color:var(--ink)}
+.pilot-actions,.tool-links,.export-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.pilot-route{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:13px}.pilot-route span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 9px;font-size:10px;font-weight:700}.pilot-route b{color:var(--blue)}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}.toolx{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}.toolx.reco{border:2px solid #76c5a4;background:#f7fcfa}.toolx h4{margin:0}.toolx p{font-size:11px;color:var(--muted)}.badges{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}.badge2{font-size:9px;padding:3px 7px;border-radius:999px;background:var(--soft);color:var(--blue);border:1px solid #d8e0ff}.badge2.free{background:#eefaf5;color:var(--green);border-color:#c7e8dc}
+.tool-links a,.tool-links button,.export-row button{padding:7px 9px;border-radius:9px;border:1px solid var(--line);background:#fff;color:var(--blue);font-size:10px;font-weight:800;text-decoration:none;cursor:pointer;font-family:inherit}.export-row .word{background:var(--green);color:#fff;border-color:var(--green)}
+.compare-mini{overflow:auto;margin-top:12px}.compare-mini table{width:100%;border-collapse:collapse;background:#fff}.compare-mini th,.compare-mini td{padding:9px;border:1px solid var(--line);font-size:10px;text-align:right}.compare-mini th{background:#eef4ff}
+.pilot-step{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:10px}.pilot-step summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:34px 1fr auto;gap:9px;align-items:center}.pilot-step summary::-webkit-details-marker{display:none}.pilot-num{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff;display:grid;place-items:center;font-size:11px;font-weight:800}.pilot-open{font-size:10px;color:var(--blue);font-weight:800}.pilot-body{padding:0 16px 16px}
+.prompt-card{position:relative;border-radius:14px;padding:14px 14px 47px;white-space:pre-wrap;line-height:1.9;font-size:12px;margin-top:10px}.prompt-green{background:#edf8ef;border-right:4px solid #43a047}.prompt-yellow{background:#fff8e1;border-right:4px solid #f2b705}.prompt-red{background:#fff1ef;border-right:4px solid #e05b49}.copy-prompt{position:absolute;left:9px;bottom:8px;border:0;border-radius:9px;padding:7px 10px;background:#fff;color:var(--blue);font-weight:800;cursor:pointer;box-shadow:0 3px 10px #00000010}
+.pilot-handoff{display:grid;grid-template-columns:1fr 80px 1fr;gap:10px;align-items:center;margin-top:13px}.pilot-side{border-radius:18px;padding:17px}.pilot-side.ours{background:#eef7ff;border:1px solid #c8dff4}.pilot-side.out{background:#fff7e7;border:1px solid #efd7a9}.pilot-arrow{text-align:center;font-size:34px;color:var(--blue);font-weight:900}.pilot-note{font-size:10px;color:var(--muted);margin-top:8px}
+@media(max-width:900px){.pilot-intro{grid-template-columns:1fr}.pilot-form{grid-template-columns:1fr 1fr}.tools-grid{grid-template-columns:1fr}.pilot-handoff{grid-template-columns:1fr}.pilot-arrow{transform:rotate(-90deg)}}@media(max-width:560px){.pilot-form{grid-template-columns:1fr}.pilot-step summary{grid-template-columns:30px 1fr}.pilot-open{grid-column:2}}
+
 </style>
 </head>
 <body>
 <header class="nav">
   <div class="container navin">
     <a class="brand" href="#"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V4.2</small></span></a>
-    <nav><a href="#map">الخريطة</a><a href="#domains">المجالات</a><a href="#journeys">مسارات مكتملة</a><a href="#glossary">المصطلحات</a><a href="#model">كيف نعمل؟</a><a href="#promise">ميثاق الخدمة</a><a href="#principles">الثقة</a><a href="#plans">الاشتراك</a></nav>
+    <nav><a href="#map">الخريطة</a><a href="#domains">المجالات</a><a href="#journeys">مسارات مكتملة</a><a href="#pilot-video">تجربة الفيديو</a><a href="#glossary">المصطلحات</a><a href="#model">كيف نعمل؟</a><a href="#promise">ميثاق الخدمة</a><a href="#principles">الثقة</a><a href="#plans">الاشتراك</a></nav>
     <button class="ghost">دخول تجريبي</button>
   </div>
 </header>
@@ -199,6 +213,52 @@
  <div class="container">
   <div class="section-head"><span>الدليل الشامل</span><h2>أبواب قليلة، وتفرعات عميقة</h2><p>لا نصنف الناس حسب وظائفهم أولًا؛ نصنف ما يريدون إنجازه. ويمكن لاحقًا تخصيص المسار للباحث أو المعلم أو المهندس.</p></div>
   <div id="domainGrid" class="domain-grid"></div>
+ </div>
+</section>
+
+
+<section id="pilot-video" class="section pilot-wrap">
+ <div class="container">
+  <div class="section-head"><span>المسار التجريبي الكامل — داخل المنصة</span><h2>تجربة مكتملة: من فكرة فيديو إلى حزمة تنفيذ جاهزة</h2><p>نفس هوية الصفحة الرئيسية، لكن عند اختيار المهمة تظهر التفاصيل التنفيذية تدريجيًا. هذا هو القالب الذي سيُعمّم لاحقًا على بقية المسارات.</p></div>
+  <div class="pilot-intro">
+   <div class="pilot-card">
+    <h3 style="margin-top:0">ابدأ بحاجتك</h3><p class="muted">أسئلة أساسية تحدد الأداة والإعدادات بدل القفز إلى اسم موقع.</p>
+    <div class="pilot-form">
+     <div class="pf"><label>موضوع الفيديو</label><input id="pvTopic" value="السلامة من الإبر المستخدمة في المستشفى"></div>
+     <div class="pf"><label>الجمهور</label><input id="pvAudience" value="عمال النظافة والعاملون في المستشفى"></div>
+     <div class="pf"><label>المدة</label><select id="pvDuration"><option>30 ثانية</option><option selected>دقيقة واحدة</option><option>دقيقتان</option></select></div>
+     <div class="pf"><label>الهدف</label><input id="pvGoal" value="التوعية بالخطر والتصرف الآمن"></div>
+     <div class="pf"><label>الأسلوب</label><select id="pvStyle"><option selected>واقعي تعليمي</option><option>سينمائي</option><option>رسوم متحركة</option><option>أفاتار يتحدث</option></select></div>
+     <div class="pf"><label>الأولوية</label><select id="pvPriority"><option selected>ابدأ بالمجاني</option><option>توازن بين الجودة والتكلفة</option><option>أعلى جودة</option></select></div>
+    </div>
+    <div class="pilot-actions"><button class="primary" onclick="pvBuild()">جهّز حزمة التنفيذ ←</button><button class="outline" onclick="pvReset()">إعادة المثال</button></div>
+    <div class="pilot-route"><span>الفكرة</span><b>←</b><span>السيناريو</span><b>←</b><span>المشاهد</span><b>←</b><span>اختيار الأداة</span><b>←</b><span>التنفيذ الخارجي</span><b>←</b><span>اكتمل المسار الإرشادي</span></div>
+   </div>
+   <div class="pilot-card dark"><span class="eyebrow" style="color:#aebeff">القيمة هنا</span><h3>لا نعطيك أسماء مواقع فقط.</h3><p>نجهز لك المقارنة، سبب الترشيح، الروابط، أوامر الذكاء الاصطناعي القابلة للنسخ، الإعدادات، البدائل، خطوات التنفيذ، ونقطة التسليم الواضحة.</p><small>إنتاج الفيديو النهائي يتم داخل الأداة الخارجية، وليس داخل اشتراك «مسار AI».</small></div>
+  </div>
+
+  <div class="section-head" style="margin-top:28px;margin-bottom:8px"><span>اختيار الأداة</span><h2 style="font-size:26px">ابدأ بالأقل تكلفة ثم ارتقِ عند الحاجة</h2></div>
+  <div class="tools-grid">
+   <article class="toolx reco"><h4>CapCut</h4><p>بداية عملية للمبتدئ الذي يريد التجميع والتحرير والصوت والنصوص في مكان واحد.</p><div class="badges"><span class="badge2 free">ابدأ بالمجاني</span><span class="badge2">سهل نسبيًا</span></div><p><b>لماذا؟</b> يقلل عدد الأدوات في التجربة الأولى.</p><div class="tool-links"><a target="_blank" rel="noopener" href="https://www.capcut.com/">الموقع الرسمي</a><button onclick="pvChoose('CapCut')">اختره</button></div></article>
+   <article class="toolx"><h4>Pika</h4><p>مناسب لصناعة مشاهد قصيرة مولدة من النص أو الصورة ثم تجميعها.</p><div class="badges"><span class="badge2 free">خطة مجانية محدودة</span><span class="badge2">مشاهد إبداعية</span></div><p><b>نختاره عندما:</b> نحتاج مشاهد مولدة أكثر من محرر كامل.</p><div class="tool-links"><a target="_blank" rel="noopener" href="https://pika.art/">الموقع الرسمي</a><a target="_blank" rel="noopener" href="https://pika.art/pricing">الأسعار</a><button onclick="pvChoose('Pika')">اختره</button></div></article>
+   <article class="toolx"><h4>Runway</h4><p>خيار متقدم عندما تصبح الجودة والتحكم أهم من التكلفة.</p><div class="badges"><span class="badge2">استخدام متقدم قد يكون مدفوعًا</span></div><p><b>نختاره عندما:</b> نحتاج تحكمًا أقوى بعد تجربة الخيارات الأبسط.</p><div class="tool-links"><a target="_blank" rel="noopener" href="https://runwayml.com/">الموقع الرسمي</a><button onclick="pvChoose('Runway')">اختره</button></div></article>
+  </div>
+  <div class="compare-mini"><table><thead><tr><th>المعيار</th><th>CapCut</th><th>Pika</th><th>Runway</th></tr></thead><tbody><tr><td>أفضل استخدام</td><td>بداية + تجميع + تحرير</td><td>مشاهد قصيرة مولدة</td><td>جودة وتحكم أعلى</td></tr><tr><td>المجاني أولًا</td><td>الأفضل كبداية</td><td>محدود</td><td>أقل ملاءمة</td></tr><tr><td>للمبتدئ</td><td>ممتاز</td><td>جيد جدًا</td><td>متوسط</td></tr></tbody></table></div>
+  <p class="pilot-note">الخطط والحدود تتغير؛ تحقق من الصفحة الرسمية قبل اتخاذ قرار الدفع.</p>
+
+  <div class="section-head" style="margin-top:28px;margin-bottom:8px"><span>حزمة التنفيذ</span><h2 style="font-size:26px">كل ما يمكن تجهيزه لك قبل مغادرة «مسار AI»</h2></div>
+
+  <details class="pilot-step" open><summary><span class="pilot-num">1</span><div><b>أمر كتابة السيناريو</b><small>Prompt — أمر/تعليمة تُعطى لنموذج ذكاء اصطناعي مثل ChatGPT أو Claude أو Gemini.</small></div><span class="pilot-open">فتح التفاصيل</span></summary><div class="pilot-body"><div id="pvScript" class="prompt-card prompt-green"></div><div class="prompt-card prompt-yellow"><b>لماذا هذا القالب؟</b><br>لأنه يحدد الجمهور والمدة والهدف والأسلوب ويطلب بنية قابلة للتحويل إلى مشاهد.</div></div></details>
+
+  <details class="pilot-step"><summary><span class="pilot-num">2</span><div><b>أمر تقسيم السيناريو إلى مشاهد</b><small>Shot List — قائمة اللقطات: تقسيم الفيديو إلى مشاهد قصيرة قابلة للتوليد والتجميع.</small></div><span class="pilot-open">فتح التفاصيل</span></summary><div class="pilot-body"><div id="pvScenes" class="prompt-card prompt-green"></div><div class="prompt-card prompt-red"><b>تنبيه:</b><br>لا تطلب من مولد المقاطع القصيرة إنتاج دقيقة كاملة كمشهد واحد. أنشئ لقطات قصيرة ثم اجمعها.</div></div></details>
+
+  <details class="pilot-step"><summary><span class="pilot-num">3</span><div><b>قالب المشهد المرئي</b><small>قالب يتكرر لكل لقطة وتغيّر وصف المشهد فقط.</small></div><span class="pilot-open">فتح التفاصيل</span></summary><div class="pilot-body"><div id="pvVisual" class="prompt-card prompt-green"></div></div></details>
+
+  <details class="pilot-step"><summary><span class="pilot-num">4</span><div><b>خطوات التنفيذ داخل الأداة</b><small>مثال CapCut كبداية، ويمكن استبداله بالأداة المختارة.</small></div><span class="pilot-open">فتح التفاصيل</span></summary><div class="pilot-body"><ol><li>افتح الموقع الرسمي للأداة.</li><li>سجّل الدخول إن طُلب ذلك.</li><li>انسخ السيناريو أو Prompt المشهد من الحزمة أعلاه والصقه.</li><li>حدد نسبة الأبعاد 16:9 للفيديو الأفقي أو 9:16 للعمودي.</li><li>أنشئ نسخة أولية وأضف الصوت والنصوص والترجمة عند الحاجة.</li><li>راجع النطق العربي والنصوص والتزامن والمشاهد.</li><li>صدّر الفيديو بالصيغة التي تدعمها الأداة.</li></ol><div class="prompt-card prompt-yellow"><b>إذا لم تعجبك النتيجة:</b><br>حدد المشكلة أولًا: السيناريو؟ المشهد؟ الصوت؟ الدقة؟ ثم عدّل الجزء المسؤول أو استخدم البديل المقترح.</div></div></details>
+
+  <div class="pilot-handoff"><div class="pilot-side ours"><h3>✓ ما جهزه «مسار AI» لك</h3><p>التشخيص، المقارنة، الترشيح، الروابط، Prompts، خطوات التنفيذ، البدائل وفحص الجودة.</p></div><div class="pilot-arrow">←</div><div class="pilot-side out"><h3>↗ ما بقي عليك</h3><p>فتح الأداة، تسجيل الدخول أو الدفع إن لزم، لصق المواد الجاهزة، التوليد، المراجعة والتصدير.</p><b>لا ندّعي أننا أنشأنا الفيديو النهائي.</b></div></div>
+
+  <div class="pilot-card" style="margin-top:14px"><h3 style="margin-top:0">احفظ حزمة مسارك</h3><p class="muted">لا تحتاج إلى نسخ كل جزء يدويًا.</p><div class="export-row"><button class="word" onclick="pvWord()">تنزيل Word</button><button onclick="pvCopyAll()">نسخ المسار كاملًا</button><button onclick="window.print()">طباعة / حفظ PDF</button></div><p class="pilot-note">إذا لم تظهر العربية جيدًا في PDF، استخدم Word أولًا؛ فهو الخيار المفضل في هذا النموذج.</p></div>
  </div>
 </section>
 
@@ -528,5 +588,59 @@ function analyze(q){
  return {title:"طلب غير مصنف بعد — وهذا مقصود في التصميم",body:"لن نقول «لا توجد نتيجة». سيستخرج النظام الهدف، يسألك أسئلة قصيرة، يطابقه بأقرب مسار، ويعرض مسارًا مبدئيًا. كما يسجل الطلب كـ Search Gap — فجوة بحث — حتى يُراجع ويُضاف للدليل إن تكرر."};
 }
 document.getElementById("askBtn").onclick=()=>{const a=analyze(document.getElementById("smartQuery").value),el=document.getElementById("answer");el.classList.remove("hidden");el.innerHTML=`<b>${a.title}</b><p>${a.body}</p>`};
+
+// V4.3 — internal video route
+let pvTool="CapCut";
+function pvVals(){return {topic:document.getElementById("pvTopic").value.trim()||"الموضوع",audience:document.getElementById("pvAudience").value.trim()||"الجمهور",duration:document.getElementById("pvDuration").value,goal:document.getElementById("pvGoal").value.trim()||"الهدف",style:document.getElementById("pvStyle").value,priority:document.getElementById("pvPriority").value}}
+function pvEsc(x){return String(x).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
+function pvCard(t){return pvEsc(t)+`<button class="copy-prompt" onclick="pvCopy(this)">نسخ</button>`}
+function pvBuild(){
+ const v=pvVals();
+ const a=`أنت كاتب سيناريو فيديو عربي محترف. أنشئ سيناريو لفيديو ${v.style} عن: «${v.topic}».
+الجمهور المستهدف: ${v.audience}.
+المدة: ${v.duration}.
+الهدف: ${v.goal}.
+اكتب بالعربية الفصحى الواضحة، وتجنب الحشو والمبالغة.
+قسّم الناتج إلى: عنوان، افتتاحية قصيرة، مشاهد بالترتيب مع النص المنطوق، النص الظاهر على الشاشة عند الحاجة، وخاتمة عملية.
+اجعل طول النص مناسبًا للمدة، ولا تضف معلومات تخصصية غير مؤكدة.`;
+ const b=`حوّل سيناريو فيديو «${v.topic}» إلى Shot List — قائمة لقطات.
+الأسلوب: ${v.style}. المدة الإجمالية: ${v.duration}. الجمهور: ${v.audience}.
+لكل لقطة اكتب: رقم اللقطة، مدتها، وصفها البصري، حركة الكاميرا إن لزم، النص المنطوق، النص الظاهر، وPrompt بصري قصير.
+اجعل اللقطات قصيرة وقابلة للتجميع، وحافظ على اتساق الشخصيات والمكان.`;
+ const c=`مشهد ${v.style} احترافي عن «[اكتب وصف هذه اللقطة]»، موجه إلى ${v.audience}.
+بيئة واضحة ومتسقة، إضاءة مناسبة، حركة كاميرا هادئة، بدون نصوص مشوهة داخل الصورة وبدون عناصر غير مطلوبة.
+Aspect Ratio — نسبة الأبعاد: [16:9 أو 9:16].
+Duration — المدة: [5–8 ثوانٍ حسب الأداة].
+Negative Prompt — عناصر نريد تجنبها: تشوه الوجوه أو الأيدي، نص غير مقروء، شعارات عشوائية، وعناصر غير صحيحة أو غير مطلوبة.`;
+ document.getElementById("pvScript").innerHTML=pvCard(a);document.getElementById("pvScenes").innerHTML=pvCard(b);document.getElementById("pvVisual").innerHTML=pvCard(c);
+}
+function pvCopy(btn){const x=btn.parentElement.cloneNode(true);const b=x.querySelector("button");if(b)b.remove();navigator.clipboard.writeText(x.innerText.trim()).then(()=>{const t=btn.textContent;btn.textContent="تم النسخ ✓";setTimeout(()=>btn.textContent=t,1000)})}
+function pvChoose(n){pvTool=n;alert("تم اختيار "+n+" لهذا المسار التجريبي.")}
+function pvReset(){document.getElementById("pvTopic").value="السلامة من الإبر المستخدمة في المستشفى";document.getElementById("pvAudience").value="عمال النظافة والعاملون في المستشفى";document.getElementById("pvDuration").value="دقيقة واحدة";document.getElementById("pvGoal").value="التوعية بالخطر والتصرف الآمن";document.getElementById("pvStyle").value="واقعي تعليمي";document.getElementById("pvPriority").value="ابدأ بالمجاني";pvTool="CapCut";pvBuild()}
+function pvClean(id){const x=document.getElementById(id).cloneNode(true);const b=x.querySelector("button");if(b)b.remove();return x.innerText.trim()}
+function pvText(){const v=pvVals();return `مسار AI — حزمة تنفيذ فيديو
+الموضوع: ${v.topic}
+الجمهور: ${v.audience}
+المدة: ${v.duration}
+الهدف: ${v.goal}
+الأسلوب: ${v.style}
+الأولوية: ${v.priority}
+الأداة المختارة: ${pvTool}
+
+1) أمر كتابة السيناريو
+${pvClean("pvScript")}
+
+2) أمر تقسيم المشاهد
+${pvClean("pvScenes")}
+
+3) قالب المشهد المرئي
+${pvClean("pvVisual")}
+
+نقطة التسليم:
+مسار AI جهز التشخيص والمقارنة والأوامر والخطوات والبدائل. تنفيذ الفيديو النهائي يتم داخل الأداة الخارجية المختارة.`}
+function pvCopyAll(){navigator.clipboard.writeText(pvText()).then(()=>alert("تم نسخ المسار كاملًا."))}
+function pvWord(){const body=pvText().replace(/\n/g,"<br>");const doc=`<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:Arial;direction:rtl;line-height:1.9;font-size:14pt}h1{color:#2455d6}</style></head><body><h1>مسار AI — حزمة التنفيذ</h1>${body}</body></html>`;const blob=new Blob(["\ufeff",doc],{type:"application/msword;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Masar-AI-Video-Execution-Pack.doc";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+pvBuild();
+
 </script>
 </body></html>
