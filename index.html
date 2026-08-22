@@ -107,12 +107,26 @@
  .step-detail{padding:0 14px 14px}
 }
 
+
+/* V4.2 — detailed video execution pack, preserving V4 visual language */
+.execution-pack{margin-top:16px;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:22px;padding:18px}
+.execution-pack h3{margin:0 0 6px}.execution-pack>p{color:var(--muted);font-size:12px}
+.tool-compare{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.tool-mini{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fbfcff}.tool-mini.best{border-color:#9dd8c6;background:#f4fbf8}.tool-mini b,.tool-mini small{display:block}.tool-mini small{color:var(--muted)}
+.tool-mini a{display:inline-block;margin-top:8px;text-decoration:none;color:var(--blue);font-size:11px;font-weight:800}
+.prompt-card{margin:10px 0;border-radius:16px;padding:14px 14px 48px;position:relative;white-space:pre-wrap;line-height:1.9;font-size:12px;background:#eef8f1;border-right:4px solid #35a36f;color:#17322a}
+.prompt-card.tip{background:#fff8df;border-right-color:#e5ae17;color:#4b3b0c}.prompt-card.warn{background:#fff0ef;border-right-color:#e56b60;color:#53211d}
+.copy-prompt{position:absolute;left:10px;bottom:9px;border:1px solid var(--line);background:#fff;color:var(--blue);border-radius:9px;padding:6px 10px;font:inherit;font-size:10px;font-weight:800;cursor:pointer}
+.pack-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.pack-actions button{font:inherit;border-radius:10px;padding:8px 12px;font-weight:800;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--blue)}
+.pack-actions .save{background:var(--blue);color:#fff;border-color:var(--blue)}
+@media(max-width:800px){.tool-compare{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
 <header class="nav">
   <div class="container navin">
-    <a class="brand" href="#"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V4.1</small></span></a>
+    <a class="brand" href="#"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V4.2</small></span></a>
     <nav><a href="#map">الخريطة</a><a href="#domains">المجالات</a><a href="#journeys">مسارات مكتملة</a><a href="#glossary">المصطلحات</a><a href="#model">كيف نعمل؟</a><a href="#promise">ميثاق الخدمة</a><a href="#principles">الثقة</a><a href="#plans">الاشتراك</a></nav>
     <button class="ghost">دخول تجريبي</button>
   </div>
@@ -191,7 +205,7 @@
 <section id="journeys" class="section dark">
  <div class="container">
   <div class="section-head light"><span>مسارات نموذجية مكتملة</span><h2>من السؤال حتى النهاية، بلا فجوة</h2></div>
-  <div class="tabs"><button class="active" data-tab="audio">محاضرة ← نص ← ملخص</button><button data-tab="site">فكرة ← موقع رياضي</button><button data-tab="video">نص ← فيديو عربي</button></div>
+  <div class="tabs"><button class="active" data-tab="video">نص ← فيديو عربي (المسار التجريبي الكامل)</button><button data-tab="audio">محاضرة ← نص ← ملخص</button><button data-tab="site">فكرة ← موقع رياضي</button></div>
   <div id="journeyPanel"></div>
  </div>
 </section>
@@ -399,7 +413,7 @@
  </div>
 </section>
 </main>
-<footer><div class="container"><b>مسار AI</b><p>تصور تنفيذي شامل — Prototype Vision V4.1.1. لا توجد مدفوعات أو تكاملات AI حقيقية في هذه النسخة.</p></div></footer>
+<footer><div class="container"><b>مسار AI</b><p>تصور تنفيذي شامل — Prototype Vision V4.2. لا توجد مدفوعات أو تكاملات AI حقيقية في هذه النسخة.</p></div></footer>
 <script>
 const domains=[
 ["🎬","فيديو","نص→فيديو • صورة→فيديو • أفاتار • دبلجة • تحرير",["جودة","عربي","مجاني","تجاري"]],
@@ -474,8 +488,32 @@ function renderJourney(k){
         <summary><i>${s[0]}</i><span><b>${s[1]}</b><small>${s[2]}</small></span><strong class="open-label">افتح التفاصيل</strong></summary>
         <div class="step-detail"><p>${s[3]}</p><div class="step-output">${s[4]}</div></div>
       </details>`).join("")}
-  </div>`}
-renderJourney("audio");
+  </div>
+  ${k==="video"?videoExecutionPack():""}` }
+function videoExecutionPack(){return `
+<div class="execution-pack">
+<h3>حزمة التنفيذ — نموذج الفيديو العربي</h3>
+<p>هذه الحزمة تكمل المسار: مقارنة مختصرة، روابط رسمية، وأوامر جاهزة للنسخ. التنفيذ النهائي يتم داخل الأداة الخارجية.</p>
+<div class="tool-compare">
+ <div class="tool-mini best"><b>CapCut — البداية المقترحة</b><small>مناسب للتجربة والتحرير والصوت والنصوص في مكان واحد.</small><a target="_blank" rel="noopener" href="https://www.capcut.com/tools/ai-video-generator">الموقع الرسمي ←</a></div>
+ <div class="tool-mini"><b>Pika — للمشاهد القصيرة</b><small>بديل لتوليد لقطات إبداعية ثم تجميعها في محرر.</small><a target="_blank" rel="noopener" href="https://pika.art/">الموقع الرسمي ←</a></div>
+ <div class="tool-mini"><b>Runway — للتحكم المتقدم</b><small>خيار عندما تصبح الجودة والتحكم أهم من البداية المجانية.</small><a target="_blank" rel="noopener" href="https://runwayml.com/">الموقع الرسمي ←</a></div>
+</div>
+<details class="jstep" open><summary><i>P</i><span><b>Prompt — الأمر الجاهز للسيناريو</b><small>Prompt هو التوجيه المكتوب الذي نعطيه لنموذج الذكاء الاصطناعي ليعرف المطلوب بدقة.</small></span><strong class="open-label">افتح و انسخ</strong></summary><div class="step-detail">
+<div class="prompt-card">أنت كاتب سيناريو فيديو عربي محترف. أنشئ سيناريو لفيديو عربي قصير عن [اكتب الموضوع]. الجمهور: [اكتب الجمهور]. المدة: [اكتب المدة]. الهدف: [اكتب الهدف]. اكتب بالعربية الفصحى الواضحة، وقسم الناتج إلى: عنوان، افتتاحية، مشاهد مرتبة، النص المنطوق، النص الظاهر على الشاشة، وخاتمة عملية. اجعل طول النص مناسبًا للمدة، ولا تضف معلومات غير مؤكدة.<button class="copy-prompt" onclick="copyPrompt(this)">نسخ الأمر</button></div>
+</div></details>
+<details class="jstep"><summary><i>P</i><span><b>Prompt — تقسيم السيناريو إلى مشاهد</b><small>Shot List — قائمة اللقطات: ترتيب اللقطات التي سيتكون منها الفيديو.</small></span><strong class="open-label">افتح و انسخ</strong></summary><div class="step-detail">
+<div class="prompt-card">حوّل السيناريو إلى Shot List — قائمة لقطات. لكل لقطة اكتب: الرقم، المدة التقريبية، ما يظهر بصريًا، حركة الكاميرا عند الحاجة، النص المنطوق، النص الظاهر على الشاشة، وPrompt بصري قصير يصلح لمولد فيديو. اجعل اللقطات قصيرة ومتسقة وقابلة للتجميع.<button class="copy-prompt" onclick="copyPrompt(this)">نسخ الأمر</button></div>
+<div class="prompt-card tip"><b>نصيحة:</b> لا تطلب من مولد المقاطع القصيرة فيديو طويلًا دفعة واحدة؛ أنشئ لقطات قصيرة ثم اجمعها في محرر الفيديو.</div>
+</div></details>
+<details class="jstep"><summary><i>✓</i><span><b>قبل الانتقال إلى الأداة</b><small>تأكد أن لديك السيناريو، قائمة المشاهد، المقاس والمدة، والأداة المختارة.</small></span><strong class="open-label">قائمة التحقق</strong></summary><div class="step-detail"><div class="prompt-card warn">نقطة التسليم واضحة: «مسار AI» جهز لك الطريق والمواد القابلة للنسخ. افتح الأداة الرسمية المختارة، الصق المواد، ولّد النسخة الأولى ثم راجعها وصدّرها. لا تعني عبارة «اكتمل المسار الإرشادي» أن الفيديو النهائي أُنتج داخل المنصة.</div></div></details>
+<div class="pack-actions"><button class="save" onclick="downloadVideoPack()">حفظ الحزمة في Word</button><button onclick="copyVideoPack()">نسخ الحزمة كاملة</button></div>
+</div>`}
+function copyPrompt(btn){const box=btn.parentElement.cloneNode(true);box.querySelector('button')?.remove();navigator.clipboard.writeText(box.innerText.trim());const t=btn.textContent;btn.textContent='تم النسخ ✓';setTimeout(()=>btn.textContent=t,1000)}
+function videoPackText(){return `مسار AI — حزمة الفيديو العربي\n\n1) أمر السيناريو:\nأنت كاتب سيناريو فيديو عربي محترف. أنشئ سيناريو لفيديو عربي قصير عن [الموضوع]. الجمهور: [الجمهور]. المدة: [المدة]. الهدف: [الهدف]. قسم الناتج إلى عنوان وافتتاحية ومشاهد ونص منطوق ونص ظاهر وخاتمة.\n\n2) تقسيم المشاهد:\nحوّل السيناريو إلى Shot List: رقم اللقطة، المدة، الوصف البصري، حركة الكاميرا، النص المنطوق، النص الظاهر، وPrompt بصري.\n\nالأدوات المقترحة: CapCut كبداية، Pika للمشاهد القصيرة، Runway للتحكم المتقدم.\n\nنقطة التسليم: التنفيذ والتصدير النهائيان داخل الأداة الخارجية المختارة.`}
+function copyVideoPack(){navigator.clipboard.writeText(videoPackText()).then(()=>alert('تم نسخ الحزمة كاملة.'))}
+function downloadVideoPack(){const html=`<html dir="rtl"><meta charset="utf-8"><body style="font-family:Arial;direction:rtl;line-height:1.9"><h1>مسار AI — حزمة الفيديو العربي</h1><p>${videoPackText().replace(/\n/g,'<br>')}</p></body></html>`;const blob=new Blob(['\ufeff',html],{type:'application/msword;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Masar-AI-Video-Pack.doc';a.click()}
+renderJourney("video");
 document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderJourney(b.dataset.tab)});
 document.querySelectorAll(".chips button").forEach(b=>b.onclick=()=>document.getElementById("smartQuery").value=b.dataset.q);
 
