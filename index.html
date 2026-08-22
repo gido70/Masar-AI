@@ -138,7 +138,7 @@
 
 .search-route-btn{margin-top:8px;padding:8px 12px;font-size:11px}
 
-/* ============ V4.6 — staged UX redesign ============ */
+/* ============ V4.7 — staged UX redesign ============ */
 :root{--cream:#faf8f4;--stage1:#faf8f4;--stage2:#eef3ff;--stage3:#eef8f1;--stage4:#fff8e1;--stage5:#eefaf5}
 body{background:#fcfcfa}
 
@@ -229,12 +229,15 @@ body{background:#fcfcfa}
 .guide-body{border:1px solid var(--line);border-top:0}
 .guide-body .section{padding:44px 0}
 
+
+/* V4.7 — execution handoff layer */
+.execution-plan{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.execution-plan>div,.inside-guide{background:#f8fbff;border:1px solid var(--line);border-radius:16px;padding:15px}.execution-plan b{display:block;color:var(--ink);margin-bottom:5px}.execution-plan small{color:var(--muted);line-height:1.8}.inside-guide{margin-top:16px;text-align:right}.inside-guide h3{margin-top:0}.inside-guide ol{margin:8px 20px 0 0;padding:0}.inside-guide li{margin:10px 0;line-height:1.9;color:var(--ink)}.tool-entry{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:16px;padding:14px;border:1px solid #b9e4d1;background:#f2fbf7;border-radius:14px}@media(max-width:720px){.execution-plan{grid-template-columns:1fr}.inside-guide ol{margin-right:16px}}
 </style>
 </head>
 <body>
 <header class="nav">
   <div class="container navin">
-    <a class="brand" href="#top"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V4.6</small></span></a>
+    <a class="brand" href="#top"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V4.7</small></span></a>
     <nav><a href="#top" onclick="scrollToStart(event)">ابدأ مسارك</a><a href="#guide" onclick="openGuide(event)">الدليل والشفافية</a></nav>
     <button class="ghost">دخول تجريبي</button>
   </div>
@@ -467,7 +470,7 @@ body{background:#fcfcfa}
 </details>
 
 </main>
-<footer><div class="container"><b>مسار AI</b><p>تصور تنفيذي شامل — Prototype Vision V4.6. لا توجد مدفوعات أو تكاملات AI حقيقية في هذه النسخة.</p></div></footer>
+<footer><div class="container"><b>مسار AI</b><p>تصور تنفيذي شامل — Prototype Vision V4.7. لا توجد مدفوعات أو تكاملات AI حقيقية في هذه النسخة.</p></div></footer>
 
 <script>
 const domains=[
@@ -528,9 +531,9 @@ function analyze(q){
 /* ---------- tool data ---------- */
 const toolsData={
  video:[
-  {name:"CapCut",best:true,desc:"بداية عملية للمبتدئ الذي يريد التجميع والتحرير والصوت والنصوص في مكان واحد.",badges:["ابدأ بالمجاني","سهل نسبيًا"],url:"https://www.capcut.com/tools/ai-video-generator"},
-  {name:"Pika",desc:"مناسب لصناعة مشاهد قصيرة مولدة من النص أو الصورة ثم تجميعها.",badges:["خطة مجانية محدودة","مشاهد إبداعية"],url:"https://pika.art/"},
-  {name:"Runway",desc:"خيار متقدم عندما تصبح الجودة والتحكم أهم من التكلفة.",badges:["استخدام متقدم قد يكون مدفوعًا"],url:"https://runwayml.com/"}
+  {name:"CapCut",best:true,desc:"المسار الموثق الأول: توليد فيديو من Prompt داخل Video Studio ثم المراجعة والتحرير والتصدير في CapCut.",badges:["دليل تنفيذ موثق","ابدأ بالمجاني إن توفر رصيد"],url:"https://www.capcut.com/"},
+  {name:"Pika",desc:"مناسب للمشاهد القصيرة، لكنه في هذا النموذج ما زال خيار مقارنة ولم نعتمد له دليل تنفيذ داخليًا بعد.",badges:["قيد استكمال دليل التنفيذ","لا نتركك تبدأ به دون شرح"],url:"https://pika.art/"},
+  {name:"Runway",desc:"المسار الموثق الثاني: توليد لقطات قصيرة عبر Gen-4.5 ثم تجميعها؛ مناسب عندما يصبح التحكم البصري أهم.",badges:["دليل تنفيذ موثق","عادةً يحتاج رصيدًا/خطة"],url:"https://runwayml.com/"}
  ],
  audio:[
   {name:"Otter.ai",best:true,desc:"تفريغ سريع مع خطة مجانية محدودة، مناسب للتجربة الأولى.",badges:["خطة مجانية محدودة"],url:"https://otter.ai/"},
@@ -787,109 +790,119 @@ function buildSite(v){
 function promptCard(text,cls){return `<div class="prompt-card ${cls||""}">${esc(text)}<button class="copy-prompt" onclick="copyCard(this)">نسخ الأمر</button></div>`}
 function copyCard(btn){const box=btn.parentElement.cloneNode(true);box.querySelector("button")?.remove();navigator.clipboard.writeText(box.innerText.trim());const t=btn.textContent;btn.textContent="تم النسخ ✓";setTimeout(()=>btn.textContent=t,1200)}
 
-/* ---------- stage 3 : الحزمة ---------- */
+/* ---------- stage 3 : خطة التنفيذ داخل مسار AI ---------- */
 function renderStage3(){
  const d=wiz.domain;
  let body="";
  if(d==="video"){
-  const p=buildVideo(wiz.vals.video);
-  body=`<h3 style="margin:0 0 4px">1) أمر كتابة السيناريو</h3>${promptCard(p.script)}
-  <h3 style="margin:14px 0 4px">2) أمر تقسيم السيناريو إلى مشاهد (Shot List — قائمة اللقطات)</h3>${promptCard(p.scenes)}
-  <h3 style="margin:14px 0 4px">3) قالب المشهد المرئي</h3>${promptCard(p.visual)}
-  <div class="prompt-card tip"><b>نصيحة:</b> لا تطلب من مولد المقاطع القصيرة فيديو طويلًا دفعة واحدة؛ أنشئ لقطات قصيرة ثم اجمعها في محرر الفيديو.</div>`;
+  const v=wiz.vals.video;
+  body=`<div class="prompt-card tip"><b>ما الذي سنفعله هنا؟</b><br>لن نرسلك إلى ChatGPT أو Claude أو Gemini لصناعة الأمر. «مسار AI» سيبني لك الأمر النهائي داخل المنصة بعد اختيار أداة التنفيذ.</div>
+  <div class="execution-plan">
+   <div><b>1. نفهم الفيديو</b><small>${esc(v.topic)} — ${esc(v.duration)} — ${esc(v.style)}</small></div>
+   <div><b>2. تختار أداة التنفيذ</b><small>نقارن الأدوات، ثم لا نعتمد اختيارك قبل أن نوضح أين ستضع الأمر وكيف تبدأ.</small></div>
+   <div><b>3. نبني Prompt مخصصًا للأداة</b><small>CapCut ليس Runway؛ لذلك لا نعطيك Prompt عامًا ونتركك تجرب.</small></div>
+   <div><b>4. ننقلك إلى المكان الصحيح</b><small>اسم القسم داخل الأداة، مكان لصق الأمر، الإعدادات، زر التوليد، ثم المراجعة والتصدير.</small></div>
+  </div>`;
  }else if(d==="audio"){
   const p=buildAudio(wiz.vals.audio);
   body=`<h3 style="margin:0 0 4px">1) أمر تنظيف النص المفرّغ</h3>${promptCard(p.clean)}
   <h3 style="margin:14px 0 4px">2) أمر التلخيص واستخراج نقاط العمل</h3>${promptCard(p.summarize)}
-  <div class="prompt-card tip"><b>نصيحة:</b> قارن الملخص بالنص الأصلي قبل الاعتماد. إذا سقط محور مهم، عدّل الأمر ليطلب صراحة تغطيته.</div>`;
+  <div class="prompt-card tip"><b>تنبيه:</b> مسار الصوت ما زال يحتاج نفس مستوى «دليل داخل الأداة» الذي نطبقه الآن على الفيديو؛ لذلك لا ندّعي اكتماله بنفس عمق الفيديو.</div>`;
  }else{
   const p=buildSite(wiz.vals.site);
-  body=`<h3 style="margin:0 0 4px">1) أمر تحديد نطاق النسخة الأولى (MVP)</h3>${promptCard(p.scope)}
+  body=`<h3 style="margin:0 0 4px">1) أمر تحديد نطاق النسخة الأولى</h3>${promptCard(p.scope)}
   <h3 style="margin:14px 0 4px">2) أمر بنية بيانات أولية</h3>${promptCard(p.schema)}
-  <div class="prompt-card tip"><b>نصيحة:</b> لا تبدأ بكل الوظائف؛ ابنِ الجداول والصفحات اللازمة للرحلة الأساسية فقط، ووسّع لاحقًا عند الحاجة الفعلية.</div>`;
+  <div class="prompt-card tip"><b>تنبيه:</b> مسار الموقع ما زال يحتاج أدلة تنفيذ داخل أدوات البناء قبل اعتباره بمستوى مسار الفيديو.</div>`;
  }
- const detailSteps=journeys[d]?`<details style="margin-top:14px"><summary style="cursor:pointer;color:var(--blue);font-size:12.5px;font-weight:700">عرض تفاصيل المسار الكامل خطوة بخطوة (اختياري)</summary>
-  <div class="journey journey-expanded" style="margin-top:10px">${journeys[d].map((s,i)=>`<details class="jstep ${i===journeys[d].length-1?"done":""}"><summary><i>${s[0]}</i><span><b>${s[1]}</b><small>${s[2]}</small></span><strong class="open-label">فتح</strong></summary><div class="step-detail"><p>${s[3]}</p><div class="step-output">${s[4]}</div></div></details>`).join("")}</div>
- </details>`:"";
- return `
- <div class="stage-panel s3">
-  <div class="stage-kicker">المرحلة 3 من 5 — الحزمة</div>
-  <h2>حزمة تنفيذ ${DOMAIN_NAMES[wiz.domain]} جاهزة للنسخ</h2>
-  <p class="lead">هذه أوامر (Prompts) مبنية على إجاباتك في الخطوة السابقة. انسخها لاستخدامها مع أي نموذج ذكاء اصطناعي مثل ChatGPT أو Claude أو Gemini.</p>
-  <div class="stage-card">${body}${detailSteps}</div>
-  <div class="stage-nav"><button class="btn-back" onclick="goStage(2)">→ رجوع</button><span class="spacer"></span><button class="btn-next" onclick="nextStage()">التالي: قارن الأدوات ←</button></div>
+ return `<div class="stage-panel s3">
+  <div class="stage-kicker">المرحلة 3 من 5 — خطة التنفيذ</div>
+  <h2>${d==="video"?"لن نتركك مع Prompt غامض":"جهّز مواد التنفيذ"}</h2>
+  <p class="lead">${d==="video"?"الأمر النهائي سيُنشأ هنا داخل «مسار AI» ومخصصًا للأداة التي ستختارها؛ لن تحتاج إلى نموذج ذكاء اصطناعي آخر لصياغته.":"هذه المواد مبنية على إجاباتك. نواصل تطوير دليل التنفيذ داخل الأدوات لكل مجال."}</p>
+  <div class="stage-card">${body}</div>
+  <div class="stage-nav"><button class="btn-back" onclick="goStage(2)">→ رجوع</button><span class="spacer"></span><button class="btn-next" onclick="nextStage()">التالي: اختر أداة التنفيذ ←</button></div>
  </div>`;
 }
 
 /* ---------- stage 4 : الأدوات ---------- */
 function chooseTool(name){wiz.tool[wiz.domain]=name;renderWizard()}
 function renderStage4(){
- const d=wiz.domain;
- const chosen=wiz.tool[d];
- const cards=toolsData[d].map(t=>`
-  <article class="toolx ${t.best?"reco":""} ${chosen===t.name?"chosen":""}">
+ const d=wiz.domain,chosen=wiz.tool[d];
+ const cards=toolsData[d].map(t=>{
+  const ready=d!=="video" || t.name!=="Pika";
+  return `<article class="toolx ${t.best?"reco":""} ${chosen===t.name?"chosen":""}">
    <h4>${t.name}</h4><p>${t.desc}</p>
    <div class="badges">${t.badges.map(b=>`<span class="badge2 badge-static ${b.includes('مجان')?'free':''}">${b}</span>`).join("")}</div>
-   <div class="tool-links">
-    <a class="btn-external" target="_blank" rel="noopener" href="${t.url}">الموقع الرسمي ↗</a>
-    ${chosen===t.name?`<span class="tool-chosen-badge">✓ تم اختيار ${t.name}</span>`:`<button class="tool-select-btn" onclick="chooseTool('${t.name.replace(/'/g,"\\'")}')">اختر هذه الأداة</button>`}
-   </div>
-  </article>`).join("");
- return `
- <div class="stage-panel s4">
-  <div class="stage-kicker">المرحلة 4 من 5 — الأدوات</div>
-  <h2>قارن وارشّح أداة ${DOMAIN_NAMES[d]}</h2>
-  <p class="lead">ابدأ بالأقل تكلفة ثم ارتقِ عند الحاجة. الخطط والحدود تتغير؛ تحقق من الصفحة الرسمية قبل اتخاذ قرار الدفع.</p>
+   <div class="tool-links"><a class="btn-external" target="_blank" rel="noopener" href="${t.url}">الموقع الرسمي ↗</a>
+    ${!ready?`<span class="tool-chosen-badge">دليل التنفيذ غير مكتمل بعد</span>`:chosen===t.name?`<span class="tool-chosen-badge">✓ تم اختيار ${t.name}</span>`:`<button class="tool-select-btn" onclick="chooseTool('${t.name.replace(/'/g,"\\'")}')">اختر هذه الأداة</button>`}
+   </div></article>`}).join("");
+ return `<div class="stage-panel s4"><div class="stage-kicker">المرحلة 4 من 5 — اختيار أداة التنفيذ</div>
+  <h2>اختر أداة نعرف كيف نقودك داخلها</h2>
+  <p class="lead">في الفيديو نعتمد الآن CapCut وRunway كنموذجين لهما دليل تنفيذ. لا نفعّل أداة لمجرد شهرتها إذا لم نكمل طريقة استخدامها.</p>
   <div class="tools-grid" style="margin-top:0">${cards}</div>
-  <div class="stage-nav"><button class="btn-back" onclick="goStage(3)">→ رجوع</button><span class="spacer"></span><button class="btn-next" ${chosen?"":"disabled"} onclick="nextStage()">${chosen?"التالي: الاستعداد للتنفيذ ←":"اختر أداة للمتابعة"}</button></div>
- </div>`;
+  <div class="stage-nav"><button class="btn-back" onclick="goStage(3)">→ رجوع</button><span class="spacer"></span><button class="btn-next" ${chosen?"":"disabled"} onclick="nextStage()">${chosen?"التالي: خذ الأمر ودليل التنفيذ ←":"اختر أداة موثقة للمتابعة"}</button></div></div>`;
 }
 
-/* ---------- stage 5 : التنفيذ ---------- */
+function videoCapCutPrompt(v){
+ return `أنشئ فيديو عربي ${v.style} عن: ${v.topic}.
+الجمهور: ${v.audience}.
+الهدف: ${v.goal}.
+المدة المستهدفة للمشروع: ${v.duration}.
+ابنِ تسلسلاً واضحاً: افتتاحية تلفت الانتباه، عرض المشكلة أو الفكرة، خطوات أو نقاط عملية مرتبة، ثم خاتمة قصيرة واضحة.
+استخدم العربية الفصحى السهلة في التعليق الصوتي والنصوص الظاهرة. اجعل المشاهد متسقة بصرياً، والحركة طبيعية، والإضاءة مناسبة، وانتقالات هادئة. لا تضف حقائق تخصصية أو أرقاماً غير موجودة في وصف المستخدم.
+إذا كانت المدة المطلوبة أطول من الحد المتاح للتوليد في جلسة واحدة، قسّم المشروع إلى مقاطع متتابعة متسقة ثم اجمعها في محرر CapCut.`;
+}
+function videoRunwayPrompt(v){
+ return `لقطة فيديو ${v.style} عن «${v.topic}»، موجهة إلى ${v.audience}. أظهر بصرياً الفكرة الأساسية المرتبطة بهدف «${v.goal}». تكوين واضح، بيئة واقعية ومتسقة، إضاءة طبيعية، حركة موضوع مفهومة، وحركة كاميرا هادئة مقصودة. لا تضع نصوصاً داخل الصورة. اجعل اللقطة مستقلة وقابلة للتركيب مع لقطات أخرى من نفس المشروع.`;
+}
+function videoToolPrompt(v,tool){return tool==="Runway"?videoRunwayPrompt(v):videoCapCutPrompt(v)}
+function copyTextById(id,btn){const el=document.getElementById(id);navigator.clipboard.writeText(el.innerText.trim());if(btn){const t=btn.textContent;btn.textContent="تم النسخ ✓";setTimeout(()=>btn.textContent=t,1200)}}
+
+function capcutGuide(v){return `<div class="inside-guide">
+ <h3>دليل CapCut — من هذه الصفحة إلى التوليد</h3>
+ <ol>
+  <li><b>سجّل الدخول إلى CapCut.</b> من الصفحة الرئيسية افتح <b>Video Studio</b> من قسم <b>Create with AI</b>.</li>
+  <li><b>اختر مولّد الفيديو المتاح لديك.</b> إذا ظهر <b>Seedance 2.5</b> فاختره. قد تختلف الميزة المتاحة حسب الحساب والمنطقة.</li>
+  <li><b>الصق الأمر الذي جهزه «مسار AI» أدناه</b> في مربع الكتابة الكبير داخل Video Studio. لا تحتاج للذهاب إلى ChatGPT أو Claude أو Gemini لصياغته.</li>
+  <li><b>راجع الإعدادات قبل التوليد:</b> المقاس المناسب، المدة المتاحة، وأي صور/مراجع تريد إضافتها. لا تضغط Generate قبل معرفة استهلاك الرصيد الظاهر في حسابك.</li>
+  <li><b>اضغط Generate</b> لإنشاء النسخة الأولى، ثم راجع الحركة، الصوت، النصوص، واتساق المشاهد.</li>
+  <li><b>أكمل التحرير داخل CapCut</b> وأضف العناوين/الترجمة والتعديلات ثم صدّر الفيديو. إذا كان مشروعك ${esc(v.duration)} ويتجاوز حد المقطع المتاح، أنشئ مقاطع متتابعة أو استخدم وضع الفيديو الطويل إذا كان ظاهرًا في حسابك.</li>
+ </ol>
+ <div class="prompt-card tip"><b>مهم:</b> الرصيد والخطط والميزات قد تتغير. «مسار AI» يوضح الطريق، لكن راجع ما يعرضه حساب CapCut قبل أي توليد مدفوع.</div>
+ </div>`}
+function runwayGuide(v){return `<div class="inside-guide">
+ <h3>دليل Runway — من Prompt إلى لقطة</h3>
+ <ol>
+  <li><b>سجّل الدخول إلى Runway</b> ثم افتح أداة توليد الفيديو واختر <b>Gen-4.5</b> إن كانت متاحة في خطتك.</li>
+  <li><b>اختر Text to Video</b> إذا ستبدأ من النص فقط. إذا لديك صورة مرجعية استخدم Image to Video، وعندها ركّز في الأمر على الحركة والكاميرا.</li>
+  <li><b>الصق Prompt اللقطة أدناه</b> في مربع الأمر. Runway يولّد لقطات قصيرة؛ لا تطلب فيديو ${esc(v.duration)} دفعة واحدة.</li>
+  <li><b>اضبط Aspect Ratio — نسبة الأبعاد، Duration — المدة، وFPS — الإطارات في الثانية</b> حسب مشروعك، ثم راجع تكلفة الرصيد قبل Generate.</li>
+  <li><b>اضغط Generate</b> وراجع اللقطة. كرر بقية اللقطات بنفس الهوية البصرية، ثم اجمعها في محرر فيديو.</li>
+ </ol>
+ <div class="prompt-card tip"><b>لماذا يختلف Prompt Runway؟</b> لأنه مصمم للقطات المرئية والحركة، وليس لكتابة سيناريو طويل. لذلك «مسار AI» يغيّر الأمر حسب الأداة.</div>
+ </div>`}
+
 function packText(){
  const d=wiz.domain,v=wiz.vals[d],tool=wiz.tool[d];
- let body="";
- if(d==="video"){const p=buildVideo(v);body=`الموضوع: ${v.topic}\nالجمهور: ${v.audience}\nالمدة: ${v.duration}\nالهدف: ${v.goal}\nالأسلوب: ${v.style}\n\n1) أمر السيناريو:\n${p.script}\n\n2) أمر تقسيم المشاهد:\n${p.scenes}\n\n3) قالب المشهد المرئي:\n${p.visual}`;}
- else if(d==="audio"){const p=buildAudio(v);body=`الموضوع: ${v.topic}\nاللغة: ${v.language}\nالمدة: ${v.duration}\nالخصوصية: ${v.privacy}\n\n1) أمر تنظيف النص:\n${p.clean}\n\n2) أمر التلخيص:\n${p.summarize}`;}
- else{const p=buildSite(v);body=`نوع الموقع: ${v.type}\nالمستخدمون: ${v.users}\nالأولوية: ${v.priority}\n\n1) أمر تحديد النطاق:\n${p.scope}\n\n2) أمر بنية البيانات:\n${p.schema}`;}
- return `مسار AI — حزمة تنفيذ ${DOMAIN_NAMES[d]}\n\n${body}\n\nالأداة المختارة: ${tool||"لم تُختر بعد"}\n\nنقطة التسليم:\nمسار AI جهز التشخيص والمقارنة والأوامر والخطوات. التنفيذ النهائي يتم داخل الأداة الخارجية المختارة.`;
+ if(d==="video")return `مسار AI — حزمة تنفيذ فيديو\n\nالموضوع: ${v.topic}\nالجمهور: ${v.audience}\nالمدة: ${v.duration}\nالهدف: ${v.goal}\nالأسلوب: ${v.style}\nالأداة: ${tool}\n\nPrompt المخصص لـ ${tool}:\n${videoToolPrompt(v,tool)}\n\nطريقة الاستخدام: افتح دليل التنفيذ داخل «مسار AI» واتبع مكان اللصق والإعدادات خطوة بخطوة. لا تحتاج إلى ChatGPT أو Claude أو Gemini لصياغة هذا الأمر.`;
+ if(d==="audio"){const p=buildAudio(v);return `مسار AI — حزمة صوت وتلخيص\n\n1) تنظيف النص:\n${p.clean}\n\n2) التلخيص:\n${p.summarize}\n\nالأداة المختارة: ${tool}`}
+ const p=buildSite(v);return `مسار AI — حزمة فكرة موقع\n\n1) تحديد النطاق:\n${p.scope}\n\n2) بنية البيانات:\n${p.schema}\n\nالأداة المختارة: ${tool}`;
 }
-function copyPack(){navigator.clipboard.writeText(packText()).then(()=>alert("تم نسخ المسار كاملًا."))}
-function downloadPack(){
- const body=packText().replace(/\n/g,"<br>");
- const doc=`<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:Arial;direction:rtl;line-height:1.9;font-size:14pt}h1{color:#2455d6}</style></head><body><h1>مسار AI — حزمة التنفيذ</h1>${body}</body></html>`;
- const blob=new Blob(["\ufeff",doc],{type:"application/msword;charset=utf-8"});
- const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Masar-AI-Execution-Pack.doc";a.click();
- setTimeout(()=>URL.revokeObjectURL(a.href),1000);
-}
-function resetWizard(){
- wiz.domain=null;wiz.stage=1;wiz.maxStage=1;wiz.tool={video:null,audio:null,site:null};
- document.getElementById("wizard").classList.add("hidden");
- scrollToStart();
-}
+function copyPack(){navigator.clipboard.writeText(packText()).then(()=>alert("تم نسخ الحزمة كاملة."))}
+function downloadPack(){const body=packText().replace(/\n/g,"<br>");const doc=`<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:Arial;direction:rtl;line-height:1.9;font-size:14pt}h1{color:#2455d6}</style></head><body><h1>مسار AI — حزمة التنفيذ</h1>${body}</body></html>`;const blob=new Blob(["\ufeff",doc],{type:"application/msword;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Masar-AI-Execution-Pack.doc";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function resetWizard(){wiz.domain=null;wiz.stage=1;wiz.maxStage=1;wiz.tool={video:null,audio:null,site:null};document.getElementById("wizard").classList.add("hidden");scrollToStart()}
 function renderStage5(){
- const d=wiz.domain,tool=wiz.tool[d];
- const toolObj=toolsData[d].find(t=>t.name===tool);
- return `
- <div class="stage-panel s5">
-  <div class="stage-kicker">المرحلة 5 من 5 — التنفيذ</div>
-  <h2>حزمتك جاهزة</h2>
-  <p class="lead">انسخ الحزمة أو نزّلها، ثم افتح الأداة المختارة لتنفيذ النتيجة بنفسك.</p>
-  <div class="stage-card">
-   <p style="margin:0 0 10px;font-size:13px;color:var(--muted)">الأداة المختارة:</p>
-   <a class="btn-external" target="_blank" rel="noopener" href="${toolObj?toolObj.url:'#'}">افتح ${tool} للتنفيذ ↗</a>
-   <div class="pack-actions" style="margin-top:16px">
-    <button class="save" onclick="downloadPack()">حفظ الحزمة في Word</button>
-    <button onclick="copyPack()">نسخ الحزمة كاملة</button>
-    <button onclick="window.print()">طباعة / حفظ PDF</button>
-   </div>
-  </div>
-  <div class="complete-banner">
-   <b>✓ اكتمل مسارك الإرشادي</b>
-   <small>أنت الآن جاهز للانتقال إلى الأداة المختارة والتنفيذ. التنفيذ الفعلي داخل ${tool} يتم بنفسك؛ مسار AI لم ينتج النتيجة نيابةً عنك.</small>
-  </div>
-  <div class="stage-nav"><button class="btn-back" onclick="goStage(4)">→ رجوع لتغيير الأداة</button><span class="spacer"></span><button class="btn-next" onclick="resetWizard()">ابدأ مسارًا جديدًا</button></div>
- </div>`;
+ const d=wiz.domain,tool=wiz.tool[d],v=wiz.vals[d],toolObj=toolsData[d].find(t=>t.name===tool);
+ const isVideo=d==="video";
+ const prompt=isVideo?videoToolPrompt(v,tool):"";
+ const guide=isVideo?(tool==="Runway"?runwayGuide(v):capcutGuide(v)):``;
+ return `<div class="stage-panel s5"><div class="stage-kicker">المرحلة 5 من 5 — التنفيذ داخل الأداة</div>
+  <h2>${isVideo?`أنت الآن جاهز لـ ${tool} — ولن نتركك عند الباب`:`حزمتك جاهزة`}</h2>
+  <p class="lead">${isVideo?"هذا هو الأمر النهائي ومكان استخدامه وخطوات الوصول إلى التوليد. إذا احتجت أن تسأل «أين أضعه؟» فالدليل ما زال ناقصًا.":"انسخ الحزمة أو نزّلها ثم افتح الأداة المختارة."}</p>
+  ${isVideo?`<div class="stage-card"><h3>أولاً: Prompt جاهز ومخصص لـ ${tool}</h3><div class="prompt-card" id="finalToolPrompt">${esc(prompt)}<button class="copy-prompt" onclick="copyTextById('finalToolPrompt',this)">نسخ Prompt لـ ${tool}</button></div>${guide}
+   <div class="tool-entry"><b>الآن فقط انتقل إلى الأداة:</b><a class="btn-external" target="_blank" rel="noopener" href="${toolObj?toolObj.url:'#'}">افتح ${tool} ↗</a></div></div>`:`<div class="stage-card"><a class="btn-external" target="_blank" rel="noopener" href="${toolObj?toolObj.url:'#'}">افتح ${tool} ↗</a></div>`}
+  <div class="pack-actions" style="margin-top:16px"><button class="save" onclick="downloadPack()">حفظ الحزمة في Word</button><button onclick="copyPack()">نسخ الحزمة كاملة</button><button onclick="window.print()">طباعة / حفظ PDF</button></div>
+  <div class="complete-banner"><b>✓ وصلت إلى نقطة التنفيذ</b><small>${isVideo?`«مسار AI» جهز لك Prompt ${tool} ودليل الوصول إلى مكان لصقه. لا نقول إن الفيديو أُنجز؛ الإنجاز الفعلي يبدأ عندما تولّده وتراجعه داخل ${tool}.`:`التنفيذ الفعلي يتم داخل ${tool}.`}</small></div>
+  <div class="stage-nav"><button class="btn-back" onclick="goStage(4)">→ رجوع لتغيير الأداة</button><span class="spacer"></span><button class="btn-next" onclick="resetWizard()">ابدأ مسارًا جديدًا</button></div></div>`;
 }
 </script>
 
