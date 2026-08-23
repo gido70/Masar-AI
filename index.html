@@ -138,7 +138,7 @@
 
 .search-route-btn{margin-top:8px;padding:8px 12px;font-size:11px}
 
-/* ============ V4.7 — staged UX redesign ============ */
+/* ============ V5.0 — staged UX redesign ============ */
 :root{--cream:#faf8f4;--stage1:#faf8f4;--stage2:#eef3ff;--stage3:#eef8f1;--stage4:#fff8e1;--stage5:#eefaf5}
 body{background:#fcfcfa}
 
@@ -230,14 +230,44 @@ body{background:#fcfcfa}
 .guide-body .section{padding:44px 0}
 
 
-/* V4.7 — execution handoff layer */
+/* V5.0 — execution handoff layer */
 .execution-plan{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.execution-plan>div,.inside-guide{background:#f8fbff;border:1px solid var(--line);border-radius:16px;padding:15px}.execution-plan b{display:block;color:var(--ink);margin-bottom:5px}.execution-plan small{color:var(--muted);line-height:1.8}.inside-guide{margin-top:16px;text-align:right}.inside-guide h3{margin-top:0}.inside-guide ol{margin:8px 20px 0 0;padding:0}.inside-guide li{margin:10px 0;line-height:1.9;color:var(--ink)}.tool-entry{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:16px;padding:14px;border:1px solid #b9e4d1;background:#f2fbf7;border-radius:14px}@media(max-width:720px){.execution-plan{grid-template-columns:1fr}.inside-guide ol{margin-right:16px}}
+
+/* ============ V5.0 — value validation layer ============ */
+.v5-proof{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+.proof-badge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:5px 9px;font-size:10.5px;font-weight:700;border:1px solid}
+.proof-ok{background:#edf8f3;color:#16664f;border-color:#b9e3d5}
+.proof-doc{background:#eef3ff;color:#3153a5;border-color:#cad7f7}
+.proof-warn{background:#fff8e5;color:#765d16;border-color:#ecd997}
+.v5-toolmeta{display:grid;gap:7px;margin-top:10px;font-size:11.5px;color:var(--muted)}
+.v5-toolmeta div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.v5-toolmeta b{color:var(--ink)}
+.verified-date{font-size:10px;color:var(--muted);margin-top:8px}
+.decision-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:12px}
+.decision-card strong{color:var(--blue)}
+.baseline-box{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+.baseline-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.feedback-box{margin-top:16px;background:#fff;border:1px solid #cfe4dc;border-radius:18px;padding:17px}
+.feedback-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.feedback-actions button{font:inherit;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;cursor:pointer;font-weight:700}
+.feedback-actions button.selected{background:var(--green);color:#fff;border-color:var(--green)}
+.metric-line{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.metric-line span{font-size:10.5px;background:#f6f8fc;border:1px solid var(--line);border-radius:999px;padding:5px 9px}
+.v5-boundary{margin-top:12px;background:#fffaf0;border:1px solid #ecdcb6;border-radius:14px;padding:12px;font-size:11.5px;color:#665837}
+@media(max-width:650px){.baseline-grid{grid-template-columns:1fr}}
+
+
+/* V5 brand emphasis */
+.brand{font-size:21px}.brandmark{width:42px;height:42px}.brand small{font-size:10px}
+.hero-quiet h1{font-size:44px}
+@media(max-width:600px){.hero-quiet h1{font-size:31px}.brand{font-size:18px}}
+
 </style>
 </head>
 <body>
 <header class="nav">
   <div class="container navin">
-    <a class="brand" href="#top"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V4.7</small></span></a>
+    <a class="brand" href="#top"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V5.0</small></span></a>
     <nav><a href="#top" onclick="scrollToStart(event)">ابدأ مسارك</a><a href="#guide" onclick="openGuide(event)">الدليل والشفافية</a></nav>
     <button class="ghost">دخول تجريبي</button>
   </div>
@@ -246,9 +276,9 @@ body{background:#fcfcfa}
 <main>
 <section class="hero-quiet" id="top">
  <div class="container">
-  <span class="eyebrow">من الحاجة ← إلى التنفيذ</span>
+  <span class="eyebrow">من التشتت ← إلى نقطة بداية واضحة</span>
   <h1>ماذا تريد أن تنجز اليوم؟</h1>
-  <p class="hero-sub">صف حاجتك بلغتك الطبيعية، دون معرفة اسم أي أداة. مسار AI يبني لك الطريق حتى نقطة التنفيذ، وأنت تنفذ النتيجة داخل الأداة المناسبة.</p>
+  <p class="hero-sub">اكتب ما تريد إنجازه فقط. في V5 نختبر مجال الفيديو أولًا: نضيّق الخيارات، نرشح نقطة بداية واحدة، ونجهز لك ما تحتاجه قبل الانتقال للأداة.</p>
   <div class="need-box">
     <textarea id="needInput" placeholder="مثال: أريد إنشاء فيديو توعوي عربي مدته دقيقة عن السلامة من الإبر المستخدمة في المستشفى.">أريد إنشاء فيديو توعوي عربي مدته دقيقة عن السلامة من الإبر المستخدمة في المستشفى</textarea>
     <div class="need-examples">
@@ -258,7 +288,7 @@ body{background:#fcfcfa}
     </div>
     <button class="primary" onclick="startWizard()">ابدأ مساري ←</button>
   </div>
-  <p class="reassure-line">لا ننفذ مشروعك النهائي نيابةً عنك — نبني لك الطريق والأدوات والخطوات حتى تصل إلى نقطة التنفيذ بثقة.</p>
+  <p class="reassure-line">هدف V5 ليس تعليم كل أداة زرًا بزر؛ بل تقليل التشتت والوصول إلى اختيار واضح ومبرر يمكن تنفيذه.</p>
   <div class="quick-flow">
     <span>1. اكتب حاجتك</span><i>←</i>
     <span>2. أجب عن الأسئلة اللازمة</span><i>←</i>
@@ -269,7 +299,7 @@ body{background:#fcfcfa}
  </div>
 </section>
 
-<p class="status-line">المسارات المكتملة حاليًا كتجارب تفاعلية: <b>فيديو</b> • <b>صوت وتلخيص</b> • <b>فكرة موقع</b>. بقية المجالات خريطة توسع مستقبلية — راجع <a href="#guide" onclick="openGuide(event)" style="color:var(--blue);font-weight:700">الدليل الكامل</a>.</p>
+<p class="status-line"><b>مختبر V5 الحالي: الفيديو فقط.</b> بقية المجالات محفوظة كرؤية مستقبلية، ولن نوسع إليها قبل نجاح اختبار الفيديو مع مستخدمين حقيقيين.</p>
 
 <section id="wizard" class="wizard-wrap hidden">
  <div class="container">
@@ -317,7 +347,7 @@ body{background:#fcfcfa}
 
 <section id="domains" class="section">
  <div class="container">
-  <div class="section-head"><span>الدليل الشامل</span><h2>أبواب قليلة، وتفرعات عميقة</h2><p>لا نصنف الناس حسب وظائفهم أولًا؛ نصنف ما يريدون إنجازه. المسارات المكتملة كتجارب تفاعلية حاليًا هي الفيديو والصوت/التلخيص وفكرة الموقع فقط؛ بقية الأبواب خريطة توسع.</p></div>
+  <div class="section-head"><span>الدليل الشامل</span><h2>أبواب قليلة، وتفرعات عميقة</h2><p>لا نصنف الناس حسب وظائفهم أولًا؛ نصنف ما يريدون إنجازه. V5 تختبر الفيديو فقط. بقية الأبواب محفوظة كخريطة رؤية مستقبلية، ولا تعني أنها مسارات مبنية أو جاهزة الآن.</p></div>
   <div id="domainGrid" class="domain-grid"></div>
  </div>
 </section>
@@ -438,10 +468,10 @@ body{background:#fcfcfa}
 
 <section id="plans" class="section">
  <div class="container">
-  <div class="section-head"><span>النموذج التجاري</span><h2>منصة واحدة، وصول بحسب الخطة</h2></div>
+  <div class="section-head"><span>النموذج التجاري</span><h2>تصور تجاري مؤجل إلى ما بعد اختبار القيمة</h2></div>
   <div class="plans">
    <div class="plan"><h3>استكشاف</h3><div class="price">مجاني</div><ul><li>مسارات مختارة</li><li>قاموس أساسي</li><li>استكشاف محدود للأدوات</li></ul><button class="outline">ابدأ التجربة</button></div>
-   <div class="plan featured"><span class="tag">التصور الأساسي</span><h3>الوصول الكامل</h3><div class="price">سعر رمزي <small>يحدد بعد الاختبار</small></div><ul><li>كل المسارات الإرشادية المجودة</li><li>المقارنات والبدائل</li><li>أوامر جاهزة للذكاء الاصطناعي (Prompts) ونقاط فحص الجودة</li><li>تحديثات الأدوات</li><li>حفظ المفضلة والمسارات</li></ul><div class="plan-disclosure">✓ أفهم أن الاشتراك يبيع الإرشاد والمسارات، ولا يشمل تنفيذ المنتج النهائي أو رسوم الأدوات الخارجية.</div><button class="primary">الوصول للمسارات — نموذج فقط</button></div>
+   <div class="plan featured"><span class="tag">التصور الأساسي</span><h3>تصور لاحق — غير مفعل</h3><div class="price">لم يُحدد بعد <small>يحدد بعد الاختبار</small></div><ul><li>كل المسارات الإرشادية المجودة</li><li>المقارنات والبدائل</li><li>أوامر جاهزة للذكاء الاصطناعي (Prompts) ونقاط فحص الجودة</li><li>تحديثات الأدوات</li><li>حفظ المفضلة والمسارات</li></ul><div class="plan-disclosure">✓ أفهم أن الاشتراك يبيع الإرشاد والمسارات، ولا يشمل تنفيذ المنتج النهائي أو رسوم الأدوات الخارجية.</div><button class="primary">الدفع غير مفعل في V5</button></div>
    <div class="plan"><h3>حزم متخصصة لاحقًا</h3><div class="price">حسب الحاجة</div><ul><li>الباحث الذكي</li><li>صانع المحتوى</li><li>التعليم</li><li>المؤسسات</li></ul><button class="outline">لاحقًا</button></div>
   </div>
   <div class="payment-flow"><b>آلية الدفع المستقبلية:</b><span>حساب</span>→<span>خطة</span>→<span>بوابة دفع</span>→<span>تأكيد</span>→<span>صلاحية الوصول</span></div>
@@ -470,7 +500,7 @@ body{background:#fcfcfa}
 </details>
 
 </main>
-<footer><div class="container"><b>مسار AI</b><p>تصور تنفيذي شامل — Prototype Vision V4.7. لا توجد مدفوعات أو تكاملات AI حقيقية في هذه النسخة.</p></div></footer>
+<footer><div class="container"><b>مسار AI — V5.0</b><p>مختبر إزالة التشتت: فيديو فقط، أداتان فقط، لا دفع ولا AI API حقيقي في هذه النسخة.</p></div></footer>
 
 <script>
 const domains=[
@@ -521,30 +551,36 @@ const DOMAIN_NAMES={video:"فيديو",audio:"صوت وتلخيص",site:"فكر�
 function analyze(q){
  q=(q||"").trim();
  if(!q)return {title:"اكتب حاجتك أولًا",body:"صف ما تريد إنجازه بلغتك الطبيعية؛ لا تحتاج إلى معرفة اسم الأداة.",route:null};
- if(/محاضر|صوت|تفريغ|تسجيل|ملخص/.test(q))return {title:"هذا يبدو مسار صوت وتلخيص",body:"مسار كامل موجود: تحويل الكلام إلى نص، تنظيف، تلخيص، ونقاط عمل — بمقارنة أدوات وأوامر جاهزة.",route:"audio"};
- if(/موقع|منصة|ويب|تطبيق/.test(q))return {title:"هذا يبدو مسار بناء موقع",body:"مسار كامل يحدد النطاق والوظائف وطريقة البناء، ثم يقارن الأدوات ويعطيك قوالب تنفيذ قابلة للنسخ.",route:"site"};
- if(/فيديو|أفاتار|دبلج/.test(q))return {title:"هذا يبدو مسار فيديو",body:"المسار الأكثر اكتمالًا في هذا النموذج: تحديد الحاجة، مقارنة الأدوات، قوالب الأوامر، والتنفيذ الخارجي.",route:"video"};
- if(/بحث|دراس|مراجع|ورق/.test(q))return {title:"مسار البحث ما زال في مرحلة الإرشاد الأولي",body:"لدينا تصنيف أولي للبحث والمصادر والتحليل، لكن لا توجد بعد حزمة تنفيذ تفاعلية كاملة بمستوى الفيديو والصوت والموقع.",route:null};
- return {title:"لم نتعرف على مسار جاهز لهذا الطلب بعد",body:"لن نخترع لك توصية غير موثوقة. هذا يبدو طلبًا خارج المسارات الثلاثة المكتملة حاليًا كتجارب.",route:null};
+ if(/فيديو|video|أفاتار|دبلج|ريلز|reels|تيك.?توك|youtube|يوتيوب/i.test(q))
+   return {title:"وجدنا مسار الفيديو",body:"V5 تختبر إزالة التشتت في مجال الفيديو فقط، بأداتين لا أكثر.",route:"video"};
+ return {title:"هذا الطلب خارج مختبر V5 الحالي",body:"لن نتظاهر بأننا نغطي كل المجالات. سجّلناه كرؤية مستقبلية، لكن الاختبار الحالي مخصص للفيديو فقط.",route:null};
 }
 
 /* ---------- tool data ---------- */
 const toolsData={
  video:[
-  {name:"CapCut",best:true,desc:"المسار الموثق الأول: توليد فيديو من Prompt داخل Video Studio ثم المراجعة والتحرير والتصدير في CapCut.",badges:["دليل تنفيذ موثق","ابدأ بالمجاني إن توفر رصيد"],url:"https://www.capcut.com/"},
-  {name:"Pika",desc:"مناسب للمشاهد القصيرة، لكنه في هذا النموذج ما زال خيار مقارنة ولم نعتمد له دليل تنفيذ داخليًا بعد.",badges:["قيد استكمال دليل التنفيذ","لا نتركك تبدأ به دون شرح"],url:"https://pika.art/"},
-  {name:"Runway",desc:"المسار الموثق الثاني: توليد لقطات قصيرة عبر Gen-4.5 ثم تجميعها؛ مناسب عندما يصبح التحكم البصري أهم.",badges:["دليل تنفيذ موثق","عادةً يحتاج رصيدًا/خطة"],url:"https://runwayml.com/"}
+  {
+   name:"CapCut",
+   best:true,
+   desc:"أفضل نقطة بداية في V5 عندما تريد مسودة سريعة مع إمكانية التحرير والصوت والنصوص في بيئة واحدة.",
+   badges:["اختبار داخلي فعلي","مناسب للبداية"],
+   url:"https://www.capcut.com/tools/ai-video",
+   docs:"https://www.capcut.com/tools/text-to-video-ai",
+   verified:"23 أغسطس 2026",
+   proof:"اختبرناه فعليًا في مشروع توعوي عربي وأنتج فيديو أوليًا قابلًا للمراجعة."
+  },
+  {
+   name:"Runway",
+   desc:"نرشحه عندما تصبح جودة اللقطة والتحكم البصري أهم من بساطة البداية، مع الانتباه إلى الرصيد والخطة.",
+   badges:["توثيق رسمي مُراجع","تحكم بصري أعلى"],
+   url:"https://runway.com/",
+   docs:"https://help.runwayml.com/hc/en-us/articles/46974685288467-Creating-with-Gen-4-5",
+   verified:"23 أغسطس 2026",
+   proof:"راجعنا الوثائق الرسمية الحالية لـ Gen-4.5، لكننا لم نختبر توليدًا فعليًا داخليًا بعد."
+  }
  ],
- audio:[
-  {name:"Otter.ai",best:true,desc:"تفريغ سريع مع خطة مجانية محدودة، مناسب للتجربة الأولى.",badges:["خطة مجانية محدودة"],url:"https://otter.ai/"},
-  {name:"Whisper",desc:"دقة جيدة مع العربية، خيار مناسب عند الحاجة لتحكم أكبر بدون واجهة جاهزة.",badges:["تحكم تقني أكبر"],url:"https://github.com/openai/whisper"},
-  {name:"Google Docs",desc:"خيار مجاني بسيط لتسجيلات قصيرة وواضحة عبر ميزة الكتابة الصوتية.",badges:["مجاني بالكامل"],url:"https://docs.google.com/"}
- ],
- site:[
-  {name:"Framer",best:true,desc:"بناء بدون كود بواجهة سحب وإفلات، مناسب لموقع بمحتوى وصفحات ثابتة إلى متوسطة الديناميكية.",badges:["بدون كود","بداية سريعة"],url:"https://www.framer.com/"},
-  {name:"Webflow",desc:"خيار بدون كود بتحكم أعمق في التصميم، أنسب عند الحاجة لتخصيص أكبر.",badges:["بدون كود","تحكم أعمق"],url:"https://webflow.com/"},
-  {name:"Supabase + Vercel",desc:"خيار للتطوير المخصص عندما يحتاج الموقع تسجيل دخول وقاعدة بيانات ووظائف تفاعلية حقيقية.",badges:["تطوير مخصص"],url:"https://supabase.com/"}
- ]
+ audio:[],
+ site:[]
 };
 
 /* ---------- extra depth kept from the previous step-by-step journeys (used inside stage 3 as optional detail) ---------- */
@@ -584,11 +620,14 @@ video:[
 ]};
 
 /* ---------- wizard state ---------- */
-let wiz={domain:null,stage:1,maxStage:1,need:"",tool:{video:null,audio:null,site:null},
+let wiz={
+ domain:null,stage:1,maxStage:1,need:"",
+ tool:{video:null},
+ startedAt:null,
+ baseline:{knownTool:"لا أعرف",confidence:"2"},
+ feedback:{result:null,clarity:null},
  vals:{
-  video:{topic:"السلامة من الإبر المستخدمة في المستشفى",audience:"عمال النظافة والعاملون في المستشفى",duration:"دقيقة واحدة",goal:"التوعية بالخطر والتصرف الآمن",style:"واقعي تعليمي",priority:"ابدأ بالمجاني"},
-  audio:{topic:"محاضرة أو اجتماع عمل",language:"العربية الفصحى",duration:"10–30 دقيقة",privacy:"تسجيل عام",priority:"ابدأ بالمجاني"},
-  site:{type:"موقع رياضي",users:"زوار يتابعون النتائج، وفريق يحدّث البيانات",priority:"ابدأ بدون كود"}
+  video:{topic:"السلامة من الإبر المستخدمة في المستشفى",audience:"عمال النظافة والعاملون في المستشفى",duration:"دقيقة واحدة",goal:"التوعية بالخطر والتصرف الآمن",style:"واقعي تعليمي",priority:"ابدأ بالمجاني"}
  },
  gaps:[]
 };
@@ -602,6 +641,7 @@ document.querySelectorAll(".need-examples button").forEach(b=>b.onclick=()=>{doc
 function startWizard(){
  const q=document.getElementById("needInput").value;
  wiz.need=q;
+ wiz.startedAt=Date.now();
  const a=analyze(q);
  wiz.domain=a.route;
  wiz.stage=1;wiz.maxStage=1;
@@ -792,117 +832,200 @@ function copyCard(btn){const box=btn.parentElement.cloneNode(true);box.querySele
 
 /* ---------- stage 3 : خطة التنفيذ داخل مسار AI ---------- */
 function renderStage3(){
- const d=wiz.domain;
- let body="";
- if(d==="video"){
-  const v=wiz.vals.video;
-  body=`<div class="prompt-card tip"><b>ما الذي سنفعله هنا؟</b><br>لن نرسلك إلى ChatGPT أو Claude أو Gemini لصناعة الأمر. «مسار AI» سيبني لك الأمر النهائي داخل المنصة بعد اختيار أداة التنفيذ.</div>
-  <div class="execution-plan">
-   <div><b>1. نفهم الفيديو</b><small>${esc(v.topic)} — ${esc(v.duration)} — ${esc(v.style)}</small></div>
-   <div><b>2. تختار أداة التنفيذ</b><small>نقارن الأدوات، ثم لا نعتمد اختيارك قبل أن نوضح أين ستضع الأمر وكيف تبدأ.</small></div>
-   <div><b>3. نبني Prompt مخصصًا للأداة</b><small>CapCut ليس Runway؛ لذلك لا نعطيك Prompt عامًا ونتركك تجرب.</small></div>
-   <div><b>4. ننقلك إلى المكان الصحيح</b><small>اسم القسم داخل الأداة، مكان لصق الأمر، الإعدادات، زر التوليد، ثم المراجعة والتصدير.</small></div>
-  </div>`;
- }else if(d==="audio"){
-  const p=buildAudio(wiz.vals.audio);
-  body=`<h3 style="margin:0 0 4px">1) أمر تنظيف النص المفرّغ</h3>${promptCard(p.clean)}
-  <h3 style="margin:14px 0 4px">2) أمر التلخيص واستخراج نقاط العمل</h3>${promptCard(p.summarize)}
-  <div class="prompt-card tip"><b>تنبيه:</b> مسار الصوت ما زال يحتاج نفس مستوى «دليل داخل الأداة» الذي نطبقه الآن على الفيديو؛ لذلك لا ندّعي اكتماله بنفس عمق الفيديو.</div>`;
- }else{
-  const p=buildSite(wiz.vals.site);
-  body=`<h3 style="margin:0 0 4px">1) أمر تحديد نطاق النسخة الأولى</h3>${promptCard(p.scope)}
-  <h3 style="margin:14px 0 4px">2) أمر بنية بيانات أولية</h3>${promptCard(p.schema)}
-  <div class="prompt-card tip"><b>تنبيه:</b> مسار الموقع ما زال يحتاج أدلة تنفيذ داخل أدوات البناء قبل اعتباره بمستوى مسار الفيديو.</div>`;
- }
+ const v=wiz.vals.video;
+ const generic=`الموضوع: ${v.topic}
+الجمهور: ${v.audience}
+الهدف: ${v.goal}
+المدة المستهدفة: ${v.duration}
+الأسلوب: ${v.style}
+الأولوية: ${v.priority}`;
  return `<div class="stage-panel s3">
-  <div class="stage-kicker">المرحلة 3 من 5 — خطة التنفيذ</div>
-  <h2>${d==="video"?"لن نتركك مع Prompt غامض":"جهّز مواد التنفيذ"}</h2>
-  <p class="lead">${d==="video"?"الأمر النهائي سيُنشأ هنا داخل «مسار AI» ومخصصًا للأداة التي ستختارها؛ لن تحتاج إلى نموذج ذكاء اصطناعي آخر لصياغته.":"هذه المواد مبنية على إجاباتك. نواصل تطوير دليل التنفيذ داخل الأدوات لكل مجال."}</p>
-  <div class="stage-card">${body}</div>
-  <div class="stage-nav"><button class="btn-back" onclick="goStage(2)">→ رجوع</button><span class="spacer"></span><button class="btn-next" onclick="nextStage()">التالي: اختر أداة التنفيذ ←</button></div>
+  <div class="stage-kicker">المرحلة 3 من 5 — حزمة ما قبل الأداة</div>
+  <h2>جهّزنا القرار قبل أن نرميك في بحر الأدوات</h2>
+  <p class="lead">لا تحتاج أن تعرف أسماء الأدوات أو كيف تسأل نموذجًا عامًا. نلخص حاجتك أولًا، ثم نعرض أداتين فقط في الخطوة التالية.</p>
+  <div class="stage-card">
+   <div class="decision-card"><strong>ملخص حاجتك</strong><pre style="white-space:pre-wrap;font-family:inherit;margin:8px 0 0">${esc(generic)}</pre></div>
+   <div class="v5-boundary"><b>ما الذي لن نفعله؟</b> لن نشرح لك أسماء أزرار CapCut أو Runway المتغيرة. سنعطيك الأداة، سبب الاختيار، Prompt مناسبًا، الإعدادات المفاهيمية الضرورية، ورابط التوثيق الرسمي.</div>
+  </div>
+  <div class="stage-nav"><button class="btn-back" onclick="goStage(2)">→ رجوع</button><span class="spacer"></span><button class="btn-next" onclick="nextStage()">التالي: قارن أداتين فقط ←</button></div>
  </div>`;
 }
 
 /* ---------- stage 4 : الأدوات ---------- */
-function chooseTool(name){wiz.tool[wiz.domain]=name;renderWizard()}
+function recommendedTool(){
+ const v=wiz.vals.video;
+ if(/أعلى جودة|احتراف|جودة/.test(v.priority)) return "Runway";
+ return "CapCut";
+}
+function chooseTool(name){wiz.tool.video=name;renderWizard()}
 function renderStage4(){
- const d=wiz.domain,chosen=wiz.tool[d];
- const cards=toolsData[d].map(t=>{
-  const ready=d!=="video" || t.name!=="Pika";
-  return `<article class="toolx ${t.best?"reco":""} ${chosen===t.name?"chosen":""}">
+ const chosen=wiz.tool.video,rec=recommendedTool();
+ const cards=toolsData.video.map(t=>`
+  <article class="toolx ${t.name===rec?"reco":""} ${chosen===t.name?"chosen":""}">
    <h4>${t.name}</h4><p>${t.desc}</p>
-   <div class="badges">${t.badges.map(b=>`<span class="badge2 badge-static ${b.includes('مجان')?'free':''}">${b}</span>`).join("")}</div>
-   <div class="tool-links"><a class="btn-external" target="_blank" rel="noopener" href="${t.url}">الموقع الرسمي ↗</a>
-    ${!ready?`<span class="tool-chosen-badge">دليل التنفيذ غير مكتمل بعد</span>`:chosen===t.name?`<span class="tool-chosen-badge">✓ تم اختيار ${t.name}</span>`:`<button class="tool-select-btn" onclick="chooseTool('${t.name.replace(/'/g,"\\'")}')">اختر هذه الأداة</button>`}
-   </div></article>`}).join("");
- return `<div class="stage-panel s4"><div class="stage-kicker">المرحلة 4 من 5 — اختيار أداة التنفيذ</div>
-  <h2>اختر أداة نعرف كيف نقودك داخلها</h2>
-  <p class="lead">في الفيديو نعتمد الآن CapCut وRunway كنموذجين لهما دليل تنفيذ. لا نفعّل أداة لمجرد شهرتها إذا لم نكمل طريقة استخدامها.</p>
+   <div class="v5-proof">
+    ${t.name==="CapCut"?'<span class="proof-badge proof-ok">✓ اختبرناه فعليًا</span>':'<span class="proof-badge proof-doc">✓ راجعنا التوثيق الرسمي</span>'}
+    ${t.name===rec?'<span class="proof-badge proof-ok">توصيتنا لك الآن</span>':''}
+   </div>
+   <div class="v5-toolmeta">
+    <div><b>لماذا قد تختاره؟</b> ${t.name==="CapCut"?"بداية أسرع وتجميع/تحرير في مكان واحد.":"تحكم بصري وتوليد لقطات أقوى عندما تكون الجودة أولوية."}</div>
+    <div><b>حالة التحقق:</b> ${t.proof}</div>
+    <div><b>آخر تحقق:</b> ${t.verified}</div>
+   </div>
+   <div class="tool-links">
+    <a class="btn-external" target="_blank" rel="noopener" href="${t.url}">الموقع الرسمي ↗</a>
+    <a class="btn-external" target="_blank" rel="noopener" href="${t.docs}">الدليل الرسمي ↗</a>
+    ${chosen===t.name?`<span class="tool-chosen-badge">✓ تم اختيار ${t.name}</span>`:`<button class="tool-select-btn" onclick="chooseTool('${t.name}')">اختر ${t.name}</button>`}
+   </div>
+  </article>`).join("");
+ return `<div class="stage-panel s4">
+  <div class="stage-kicker">المرحلة 4 من 5 — إزالة التشتت</div>
+  <h2>بدل 20 أداة: خياران فقط، وتوصية واحدة</h2>
+  <p class="lead">التوصية مبنية على إجاباتك، وليست ترتيبًا دائمًا. معلومات الأدوات تتغير، لذلك نعرض تاريخ آخر تحقق بوضوح.</p>
   <div class="tools-grid" style="margin-top:0">${cards}</div>
-  <div class="stage-nav"><button class="btn-back" onclick="goStage(3)">→ رجوع</button><span class="spacer"></span><button class="btn-next" ${chosen?"":"disabled"} onclick="nextStage()">${chosen?"التالي: خذ الأمر ودليل التنفيذ ←":"اختر أداة موثقة للمتابعة"}</button></div></div>`;
+  <div class="stage-nav"><button class="btn-back" onclick="goStage(3)">→ رجوع</button><span class="spacer"></span><button class="btn-next" ${chosen?"":"disabled"} onclick="nextStage()">${chosen?"التالي: خذ حزمة البداية ←":"اختر أداة للمتابعة"}</button></div>
+ </div>`;
 }
 
 function videoCapCutPrompt(v){
- return `أنشئ فيديو عربي ${v.style} عن: ${v.topic}.
-الجمهور: ${v.audience}.
+ return `أنشئ مسودة فيديو عربي ${v.style} عن: ${v.topic}.
+الجمهور المستهدف: ${v.audience}.
 الهدف: ${v.goal}.
 المدة المستهدفة للمشروع: ${v.duration}.
-ابنِ تسلسلاً واضحاً: افتتاحية تلفت الانتباه، عرض المشكلة أو الفكرة، خطوات أو نقاط عملية مرتبة، ثم خاتمة قصيرة واضحة.
-استخدم العربية الفصحى السهلة في التعليق الصوتي والنصوص الظاهرة. اجعل المشاهد متسقة بصرياً، والحركة طبيعية، والإضاءة مناسبة، وانتقالات هادئة. لا تضف حقائق تخصصية أو أرقاماً غير موجودة في وصف المستخدم.
-إذا كانت المدة المطلوبة أطول من الحد المتاح للتوليد في جلسة واحدة، قسّم المشروع إلى مقاطع متتابعة متسقة ثم اجمعها في محرر CapCut.`;
+ابنِ تسلسلاً واضحًا من مشاهد قصيرة متناسقة: افتتاحية تلفت الانتباه، عرض الفكرة أو المشكلة، نقاط عملية مرتبة، ثم خاتمة واضحة.
+استخدم العربية الفصحى السهلة عند وجود تعليق صوتي أو نصوص ظاهرة. حافظ على اتساق الأشخاص والمكان والإضاءة، وتجنب النصوص المشوهة داخل المشهد.
+إذا كانت الأداة تولد مقاطع قصيرة فقط، اجعل كل مقطع مستقلاً وقابلاً للتجميع في مشروع أطول.`;
 }
 function videoRunwayPrompt(v){
- return `لقطة فيديو ${v.style} عن «${v.topic}»، موجهة إلى ${v.audience}. أظهر بصرياً الفكرة الأساسية المرتبطة بهدف «${v.goal}». تكوين واضح، بيئة واقعية ومتسقة، إضاءة طبيعية، حركة موضوع مفهومة، وحركة كاميرا هادئة مقصودة. لا تضع نصوصاً داخل الصورة. اجعل اللقطة مستقلة وقابلة للتركيب مع لقطات أخرى من نفس المشروع.`;
+ return `لقطة فيديو ${v.style} عن «${v.topic}» موجهة إلى ${v.audience}. أظهر بصريًا الفكرة المرتبطة بهدف «${v.goal}». تكوين واضح، حركة طبيعية، بيئة متسقة، إضاءة واقعية، وحركة كاميرا هادئة مقصودة. لا تضع نصوصًا داخل الصورة. اجعل اللقطة مستقلة وقابلة للتركيب مع لقطات أخرى من نفس المشروع.`;
 }
 function videoToolPrompt(v,tool){return tool==="Runway"?videoRunwayPrompt(v):videoCapCutPrompt(v)}
 function copyTextById(id,btn){const el=document.getElementById(id);navigator.clipboard.writeText(el.innerText.trim());if(btn){const t=btn.textContent;btn.textContent="تم النسخ ✓";setTimeout(()=>btn.textContent=t,1200)}}
 
-function capcutGuide(v){return `<div class="inside-guide">
- <h3>دليل CapCut — من هذه الصفحة إلى التوليد</h3>
- <ol>
-  <li><b>سجّل الدخول إلى CapCut.</b> من الصفحة الرئيسية افتح <b>Video Studio</b> من قسم <b>Create with AI</b>.</li>
-  <li><b>اختر مولّد الفيديو المتاح لديك.</b> إذا ظهر <b>Seedance 2.5</b> فاختره. قد تختلف الميزة المتاحة حسب الحساب والمنطقة.</li>
-  <li><b>الصق الأمر الذي جهزه «مسار AI» أدناه</b> في مربع الكتابة الكبير داخل Video Studio. لا تحتاج للذهاب إلى ChatGPT أو Claude أو Gemini لصياغته.</li>
-  <li><b>راجع الإعدادات قبل التوليد:</b> المقاس المناسب، المدة المتاحة، وأي صور/مراجع تريد إضافتها. لا تضغط Generate قبل معرفة استهلاك الرصيد الظاهر في حسابك.</li>
-  <li><b>اضغط Generate</b> لإنشاء النسخة الأولى، ثم راجع الحركة، الصوت، النصوص، واتساق المشاهد.</li>
-  <li><b>أكمل التحرير داخل CapCut</b> وأضف العناوين/الترجمة والتعديلات ثم صدّر الفيديو. إذا كان مشروعك ${esc(v.duration)} ويتجاوز حد المقطع المتاح، أنشئ مقاطع متتابعة أو استخدم وضع الفيديو الطويل إذا كان ظاهرًا في حسابك.</li>
- </ol>
- <div class="prompt-card tip"><b>مهم:</b> الرصيد والخطط والميزات قد تتغير. «مسار AI» يوضح الطريق، لكن راجع ما يعرضه حساب CapCut قبل أي توليد مدفوع.</div>
- </div>`}
-function runwayGuide(v){return `<div class="inside-guide">
- <h3>دليل Runway — من Prompt إلى لقطة</h3>
- <ol>
-  <li><b>سجّل الدخول إلى Runway</b> ثم افتح أداة توليد الفيديو واختر <b>Gen-4.5</b> إن كانت متاحة في خطتك.</li>
-  <li><b>اختر Text to Video</b> إذا ستبدأ من النص فقط. إذا لديك صورة مرجعية استخدم Image to Video، وعندها ركّز في الأمر على الحركة والكاميرا.</li>
-  <li><b>الصق Prompt اللقطة أدناه</b> في مربع الأمر. Runway يولّد لقطات قصيرة؛ لا تطلب فيديو ${esc(v.duration)} دفعة واحدة.</li>
-  <li><b>اضبط Aspect Ratio — نسبة الأبعاد، Duration — المدة، وFPS — الإطارات في الثانية</b> حسب مشروعك، ثم راجع تكلفة الرصيد قبل Generate.</li>
-  <li><b>اضغط Generate</b> وراجع اللقطة. كرر بقية اللقطات بنفس الهوية البصرية، ثم اجمعها في محرر فيديو.</li>
- </ol>
- <div class="prompt-card tip"><b>لماذا يختلف Prompt Runway؟</b> لأنه مصمم للقطات المرئية والحركة، وليس لكتابة سيناريو طويل. لذلك «مسار AI» يغيّر الأمر حسب الأداة.</div>
- </div>`}
+function conceptualGuide(tool,v){
+ const obj=toolsData.video.find(t=>t.name===tool);
+ if(tool==="Runway"){
+  return `<div class="inside-guide">
+   <h3>ما تحتاج أن تعرفه قبل الانتقال</h3>
+   <ul>
+    <li>إذا بدأت من نص فقط، استخدم وضع توليد فيديو من النص المتاح في حسابك.</li>
+    <li>إذا بدأت من صورة مرجعية، ركّز في الـ Prompt على الحركة والكاميرا بدل إعادة وصف الصورة.</li>
+    <li>Runway Gen-4.5 يدعم حاليًا مقاطع قصيرة؛ ابنِ مشروعك من لقطات ثم اجمعها عند الحاجة.</li>
+   </ul>
+   <div class="v5-boundary">لن نوثق أسماء الأزرار داخل Runway. افتح <a href="${obj.docs}" target="_blank" rel="noopener">الدليل الرسمي الحالي ↗</a> لأي خطوة ملاحية متغيرة.</div>
+  </div>`;
+ }
+ return `<div class="inside-guide">
+  <h3>ما تحتاج أن تعرفه قبل الانتقال</h3>
+  <ul>
+   <li>استخدم ميزة توليد الفيديو من النص أو الـ AI Video المتاحة في حسابك.</li>
+   <li>الصق الـ Prompt الجاهز، ثم اختر شكل الفيديو ومدته وفق المنصة التي ستنشر عليها.</li>
+   <li>راجع المسودة داخل CapCut، ثم استخدم أدوات التحرير والصوت والنصوص عند الحاجة.</li>
+  </ul>
+  <div class="v5-boundary">لن نوثق أسماء الأزرار داخل CapCut لأنها تتغير. افتح <a href="${obj.docs}" target="_blank" rel="noopener">الدليل الرسمي الحالي ↗</a> لأي خطوة ملاحية متغيرة.</div>
+ </div>`;
+}
 
 function packText(){
- const d=wiz.domain,v=wiz.vals[d],tool=wiz.tool[d];
- if(d==="video")return `مسار AI — حزمة تنفيذ فيديو\n\nالموضوع: ${v.topic}\nالجمهور: ${v.audience}\nالمدة: ${v.duration}\nالهدف: ${v.goal}\nالأسلوب: ${v.style}\nالأداة: ${tool}\n\nPrompt المخصص لـ ${tool}:\n${videoToolPrompt(v,tool)}\n\nطريقة الاستخدام: افتح دليل التنفيذ داخل «مسار AI» واتبع مكان اللصق والإعدادات خطوة بخطوة. لا تحتاج إلى ChatGPT أو Claude أو Gemini لصياغة هذا الأمر.`;
- if(d==="audio"){const p=buildAudio(v);return `مسار AI — حزمة صوت وتلخيص\n\n1) تنظيف النص:\n${p.clean}\n\n2) التلخيص:\n${p.summarize}\n\nالأداة المختارة: ${tool}`}
- const p=buildSite(v);return `مسار AI — حزمة فكرة موقع\n\n1) تحديد النطاق:\n${p.scope}\n\n2) بنية البيانات:\n${p.schema}\n\nالأداة المختارة: ${tool}`;
+ const v=wiz.vals.video,tool=wiz.tool.video,obj=toolsData.video.find(t=>t.name===tool);
+ return `مسار AI — حزمة بداية فيديو V5
+
+الموضوع: ${v.topic}
+الجمهور: ${v.audience}
+المدة: ${v.duration}
+الهدف: ${v.goal}
+الأسلوب: ${v.style}
+الأولوية: ${v.priority}
+
+التوصية المختارة: ${tool}
+سبب الاختيار: ${tool==="CapCut"?"بداية أسرع مع إمكانات تحرير وتجميع في نفس البيئة.":"تحكم بصري أعلى وتوليد لقطات قصيرة بجودة أكبر."}
+آخر تحقق: ${obj?obj.verified:"—"}
+
+Prompt المخصص:
+${videoToolPrompt(v,tool)}
+
+الموقع الرسمي:
+${obj?obj.url:"—"}
+
+الدليل الرسمي:
+${obj?obj.docs:"—"}
+
+نقطة التسليم:
+مسار AI خفّض الخيارات وجهز لك نقطة البداية. تفاصيل واجهة الأداة المتغيرة تُترك للمصدر الرسمي، والتنفيذ النهائي يتم داخل الأداة الخارجية.`;
 }
 function copyPack(){navigator.clipboard.writeText(packText()).then(()=>alert("تم نسخ الحزمة كاملة."))}
-function downloadPack(){const body=packText().replace(/\n/g,"<br>");const doc=`<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:Arial;direction:rtl;line-height:1.9;font-size:14pt}h1{color:#2455d6}</style></head><body><h1>مسار AI — حزمة التنفيذ</h1>${body}</body></html>`;const blob=new Blob(["\ufeff",doc],{type:"application/msword;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Masar-AI-Execution-Pack.doc";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-function resetWizard(){wiz.domain=null;wiz.stage=1;wiz.maxStage=1;wiz.tool={video:null,audio:null,site:null};document.getElementById("wizard").classList.add("hidden");scrollToStart()}
+function downloadPack(){const body=packText().replace(/\n/g,"<br>");const doc=`<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:Arial;direction:rtl;line-height:1.9;font-size:14pt}h1{color:#2455d6}
+/* ============ V5.0 — value validation layer ============ */
+.v5-proof{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+.proof-badge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:5px 9px;font-size:10.5px;font-weight:700;border:1px solid}
+.proof-ok{background:#edf8f3;color:#16664f;border-color:#b9e3d5}
+.proof-doc{background:#eef3ff;color:#3153a5;border-color:#cad7f7}
+.proof-warn{background:#fff8e5;color:#765d16;border-color:#ecd997}
+.v5-toolmeta{display:grid;gap:7px;margin-top:10px;font-size:11.5px;color:var(--muted)}
+.v5-toolmeta div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.v5-toolmeta b{color:var(--ink)}
+.verified-date{font-size:10px;color:var(--muted);margin-top:8px}
+.decision-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:12px}
+.decision-card strong{color:var(--blue)}
+.baseline-box{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+.baseline-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.feedback-box{margin-top:16px;background:#fff;border:1px solid #cfe4dc;border-radius:18px;padding:17px}
+.feedback-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.feedback-actions button{font:inherit;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;cursor:pointer;font-weight:700}
+.feedback-actions button.selected{background:var(--green);color:#fff;border-color:var(--green)}
+.metric-line{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.metric-line span{font-size:10.5px;background:#f6f8fc;border:1px solid var(--line);border-radius:999px;padding:5px 9px}
+.v5-boundary{margin-top:12px;background:#fffaf0;border:1px solid #ecdcb6;border-radius:14px;padding:12px;font-size:11.5px;color:#665837}
+@media(max-width:650px){.baseline-grid{grid-template-columns:1fr}}
+
+
+/* V5 brand emphasis */
+.brand{font-size:21px}.brandmark{width:42px;height:42px}.brand small{font-size:10px}
+.hero-quiet h1{font-size:44px}
+@media(max-width:600px){.hero-quiet h1{font-size:31px}.brand{font-size:18px}}
+
+</style></head><body><h1>مسار AI — حزمة التنفيذ</h1>${body}</body></html>`;const blob=new Blob(["\ufeff",doc],{type:"application/msword;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Masar-AI-Execution-Pack.doc";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function resetWizard(){wiz.domain=null;wiz.stage=1;wiz.maxStage=1;wiz.tool={video:null};document.getElementById("wizard").classList.add("hidden");scrollToStart()}
+function setFeedback(kind,val,btn){
+ wiz.feedback[kind]=val;
+ if(btn){btn.parentElement.querySelectorAll("button").forEach(b=>b.classList.remove("selected"));btn.classList.add("selected")}
+ const note=document.getElementById("feedbackNote");
+ if(note && wiz.feedback.result && wiz.feedback.clarity){
+  const mins=wiz.startedAt?Math.max(1,Math.round((Date.now()-wiz.startedAt)/60000)):null;
+  note.innerHTML=`تم تسجيل تقييمك محليًا ✓ ${mins?`— استغرقت الرحلة نحو ${mins} دقيقة.`:""}`;
+ }
+}
 function renderStage5(){
- const d=wiz.domain,tool=wiz.tool[d],v=wiz.vals[d],toolObj=toolsData[d].find(t=>t.name===tool);
- const isVideo=d==="video";
- const prompt=isVideo?videoToolPrompt(v,tool):"";
- const guide=isVideo?(tool==="Runway"?runwayGuide(v):capcutGuide(v)):``;
- return `<div class="stage-panel s5"><div class="stage-kicker">المرحلة 5 من 5 — التنفيذ داخل الأداة</div>
-  <h2>${isVideo?`أنت الآن جاهز لـ ${tool} — ولن نتركك عند الباب`:`حزمتك جاهزة`}</h2>
-  <p class="lead">${isVideo?"هذا هو الأمر النهائي ومكان استخدامه وخطوات الوصول إلى التوليد. إذا احتجت أن تسأل «أين أضعه؟» فالدليل ما زال ناقصًا.":"انسخ الحزمة أو نزّلها ثم افتح الأداة المختارة."}</p>
-  ${isVideo?`<div class="stage-card"><h3>أولاً: Prompt جاهز ومخصص لـ ${tool}</h3><div class="prompt-card" id="finalToolPrompt">${esc(prompt)}<button class="copy-prompt" onclick="copyTextById('finalToolPrompt',this)">نسخ Prompt لـ ${tool}</button></div>${guide}
-   <div class="tool-entry"><b>الآن فقط انتقل إلى الأداة:</b><a class="btn-external" target="_blank" rel="noopener" href="${toolObj?toolObj.url:'#'}">افتح ${tool} ↗</a></div></div>`:`<div class="stage-card"><a class="btn-external" target="_blank" rel="noopener" href="${toolObj?toolObj.url:'#'}">افتح ${tool} ↗</a></div>`}
-  <div class="pack-actions" style="margin-top:16px"><button class="save" onclick="downloadPack()">حفظ الحزمة في Word</button><button onclick="copyPack()">نسخ الحزمة كاملة</button><button onclick="window.print()">طباعة / حفظ PDF</button></div>
-  <div class="complete-banner"><b>✓ وصلت إلى نقطة التنفيذ</b><small>${isVideo?`«مسار AI» جهز لك Prompt ${tool} ودليل الوصول إلى مكان لصقه. لا نقول إن الفيديو أُنجز؛ الإنجاز الفعلي يبدأ عندما تولّده وتراجعه داخل ${tool}.`:`التنفيذ الفعلي يتم داخل ${tool}.`}</small></div>
-  <div class="stage-nav"><button class="btn-back" onclick="goStage(4)">→ رجوع لتغيير الأداة</button><span class="spacer"></span><button class="btn-next" onclick="resetWizard()">ابدأ مسارًا جديدًا</button></div></div>`;
+ const tool=wiz.tool.video,v=wiz.vals.video,obj=toolsData.video.find(t=>t.name===tool);
+ const prompt=videoToolPrompt(v,tool);
+ const elapsed=wiz.startedAt?Math.max(1,Math.round((Date.now()-wiz.startedAt)/60000)):null;
+ return `<div class="stage-panel s5">
+  <div class="stage-kicker">المرحلة 5 من 5 — نقطة البداية الصحيحة</div>
+  <h2>أزلنا التشتت: ابدأ بـ ${tool}</h2>
+  <p class="lead">هذه هي نقطة التسليم في V5: اختيار مبرر + Prompt جاهز + معلومات أساسية + روابط رسمية. التنفيذ يحدث داخل الأداة.</p>
+  <div class="stage-card">
+   <div class="decision-card"><strong>لماذا ${tool}؟</strong><p style="margin:5px 0">${tool==="CapCut"?"لأن أولويتك الحالية تميل إلى بداية أبسط مع إمكانات تحرير وتجميع في مكان واحد.":"لأن حاجتك تميل إلى تحكم بصري وجودة لقطات أعلى."}</p><div class="verified-date">آخر تحقق: ${obj.verified}</div></div>
+   <h3>Prompt جاهز للنسخ</h3>
+   <div class="prompt-card" id="finalToolPrompt">${esc(prompt)}<button class="copy-prompt" onclick="copyTextById('finalToolPrompt',this)">نسخ الـ Prompt</button></div>
+   ${conceptualGuide(tool,v)}
+   <div class="tool-entry" style="margin-top:12px"><a class="btn-external" target="_blank" rel="noopener" href="${obj.url}">افتح ${tool} للتنفيذ ↗</a><a class="btn-external" target="_blank" rel="noopener" href="${obj.docs}">افتح الدليل الرسمي ↗</a></div>
+  </div>
+  <div class="pack-actions" style="margin-top:16px"><button class="save" onclick="downloadPack()">حفظ الحزمة في Word</button><button onclick="copyPack()">نسخ الحزمة كاملة</button></div>
+
+  <div class="feedback-box">
+   <b>اختبار V5 — هل قلّ التشتت فعلًا؟</b>
+   <p style="margin:5px 0 8px;color:var(--muted);font-size:11.5px">لا تُرسل هذه البيانات لأي خادم في هذه النسخة؛ هي لمساعدتك على فهم التجربة.</p>
+   <div>هل وصلت إلى أداة قررت فعلًا البدء بها؟</div>
+   <div class="feedback-actions"><button onclick="setFeedback('result','نعم',this)">نعم</button><button onclick="setFeedback('result','لا',this)">لا</button></div>
+   <div style="margin-top:10px">هل أصبحت أكثر وضوحًا وأقل تشتتًا؟</div>
+   <div class="feedback-actions"><button onclick="setFeedback('clarity','1',this)">1</button><button onclick="setFeedback('clarity','2',this)">2</button><button onclick="setFeedback('clarity','3',this)">3</button><button onclick="setFeedback('clarity','4',this)">4</button><button onclick="setFeedback('clarity','5',this)">5</button></div>
+   <div class="metric-line"><span>قبل البداية: ${wiz.baseline.knownTool}</span><span>ثقة قبل البداية: ${wiz.baseline.confidence}/5</span>${elapsed?`<span>الوقت حتى نقطة القرار: ~${elapsed} دقيقة</span>`:""}</div>
+   <div id="feedbackNote" class="gap-confirm" style="margin-top:10px">جرّب التنفيذ ثم قيّم التجربة بصدق.</div>
+  </div>
+
+  <div class="complete-banner"><b>✓ وصلت إلى نقطة بداية واضحة</b><small>لا نقول «أنجزنا الفيديو». نجاح V5 يُقاس أولًا: هل عرفت أين تبدأ ولماذا، بأقل تشتت؟</small></div>
+  <div class="stage-nav"><button class="btn-back" onclick="goStage(4)">→ رجوع لتغيير الأداة</button><span class="spacer"></span><button class="btn-next" onclick="resetWizard()">ابدأ تجربة جديدة</button></div>
+ </div>`;
 }
 </script>
 
