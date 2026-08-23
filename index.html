@@ -255,19 +255,23 @@ body{background:#fcfcfa}
 .metric-line span{font-size:10.5px;background:#f6f8fc;border:1px solid var(--line);border-radius:999px;padding:5px 9px}
 .v5-boundary{margin-top:12px;background:#fffaf0;border:1px solid #ecdcb6;border-radius:14px;padding:12px;font-size:11.5px;color:#665837}
 @media(max-width:650px){.baseline-grid{grid-template-columns:1fr}}
+.baseline-box{text-align:right}.baseline-box h3{margin:0 0 4px;font-size:15px}.baseline-box p{margin:0 0 10px;color:var(--muted);font-size:11.5px}.baseline-box label{display:block;font-size:11px;font-weight:800;margin-bottom:4px}.baseline-box select{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px;background:#fff;font:inherit;color:var(--ink)}
+.outcome-wrap{padding:28px 0 10px}.outcome-card{max-width:900px;margin:auto;border:1px solid #cfe5db;background:#fbfffd;border-radius:22px;padding:20px}.outcome-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:center}.outcome-card video{width:100%;max-height:360px;background:#0d1730;border-radius:16px}.outcome-card h3{margin:5px 0 8px}.outcome-card p{color:var(--muted);font-size:12.5px}.lesson-list{margin:10px 0 0;padding-right:18px;font-size:12px}.lesson-list li{margin:5px 0}.proof-title{font-weight:800;color:#16664f;font-size:12px}.feedback-export{margin-top:9px;font-size:11px;color:var(--muted)}
+@media(max-width:700px){.outcome-grid{grid-template-columns:1fr}}
 
 
-/* V5 brand emphasis */
-.brand{font-size:21px}.brandmark{width:42px;height:42px}.brand small{font-size:10px}
-.hero-quiet h1{font-size:44px}
-@media(max-width:600px){.hero-quiet h1{font-size:31px}.brand{font-size:18px}}
+/* V5.1 brand emphasis — الهوية أوضح في أعلى الصفحة */
+.navin{height:92px}
+.brand{font-size:27px;line-height:1.05;gap:13px}.brandmark{width:54px;height:54px;border-radius:16px;font-size:22px}.brand small{font-size:11px;margin-top:3px;font-weight:600}
+.hero-quiet h1{font-size:48px}
+@media(max-width:600px){.navin{height:78px}.hero-quiet h1{font-size:33px}.brand{font-size:21px}.brandmark{width:46px;height:46px}.brand small{font-size:9px}}
 
 </style>
 </head>
 <body>
 <header class="nav">
   <div class="container navin">
-    <a class="brand" href="#top"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V5.0</small></span></a>
+    <a class="brand" href="#top"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V5.1</small></span></a>
     <nav><a href="#top" onclick="scrollToStart(event)">ابدأ مسارك</a><a href="#guide" onclick="openGuide(event)">الدليل والشفافية</a></nav>
     <button class="ghost">دخول تجريبي</button>
   </div>
@@ -286,6 +290,14 @@ body{background:#fcfcfa}
       <button data-q="لدي تسجيل صوتي أريد تفريغه وتلخيصه">صوت / تلخيص</button>
       <button data-q="أريد إنشاء موقع رياضي">إنشاء موقع</button>
     </div>
+    <div class="baseline-box">
+      <h3>قبل أن تبدأ — قياس سريع للتشتت</h3>
+      <p>لا توجد إجابة صحيحة. نستخدمها فقط لمعرفة هل ساعدك المسار فعلًا.</p>
+      <div class="baseline-grid">
+        <div><label for="knownToolInput">هل تعرف الآن أداة ستستخدمها؟</label><select id="knownToolInput"><option>لا أعرف</option><option>لدي أداة في ذهني لكنني غير متأكد</option><option>نعم، أعرف الأداة التي سأستخدمها</option></select></div>
+        <div><label for="confidenceInput">ما ثقتك في قرارك الآن؟</label><select id="confidenceInput"><option value="1">1 — مشتت جدًا</option><option value="2" selected>2 — غير واثق</option><option value="3">3 — متوسط</option><option value="4">4 — واثق</option><option value="5">5 — واضح جدًا</option></select></div>
+      </div>
+    </div>
     <button class="primary" onclick="startWizard()">ابدأ مساري ←</button>
   </div>
   <p class="reassure-line">هدف V5 ليس تعليم كل أداة زرًا بزر؛ بل تقليل التشتت والوصول إلى اختيار واضح ومبرر يمكن تنفيذه.</p>
@@ -299,7 +311,15 @@ body{background:#fcfcfa}
  </div>
 </section>
 
-<p class="status-line"><b>مختبر V5 الحالي: الفيديو فقط.</b> بقية المجالات محفوظة كرؤية مستقبلية، ولن نوسع إليها قبل نجاح اختبار الفيديو مع مستخدمين حقيقيين.</p>
+<p class="status-line"><b>مختبر V5.1 الحالي: الفيديو فقط.</b> بقية المجالات محفوظة كرؤية مستقبلية، ولن نوسع إليها قبل نجاح اختبار الفيديو مع مستخدمين حقيقيين.</p>
+<section class="outcome-wrap" aria-label="نتيجة اختبار فعلية"><div class="container"><div class="outcome-card">
+ <div class="outcome-grid">
+  <div><span class="proof-title">✓ نتيجة حقيقية من مختبرنا — CapCut</span><h3>من التوصية إلى فيديو فعلي</h3><p>اختبرنا مسار فيديو توعوي عربي عن السلامة من الإبر. وصل المسار إلى فيديو أولي فعلي؛ النتيجة كانت قابلة للمراجعة لكنها كشفت أيضًا نقاط تحسين، لذلك نعرض النجاح والقصور معًا.</p>
+  <div class="v5-proof"><span class="proof-badge proof-ok">✓ مُختبر فعليًا</span><span class="proof-badge proof-warn">الجودة الأولية: تحتاج تحسينًا</span><span class="proof-badge proof-doc">آخر اختبار: 23 أغسطس 2026</span></div>
+  <ul class="lesson-list"><li>نجح الوصول من الحاجة إلى أداة وتنفيذ فعلي.</li><li>الأداة طلبت قرارات إضافية مرتبطة بالصوت وطريقة الإنتاج.</li><li>الدرس: التوصية لا تعني أن النتيجة مثالية؛ نسجل ما نجح وما يحتاج تحسينًا.</li></ul></div>
+  <video controls preload="metadata"><source src="assets/outcomes/capcut-safety-test.mp4" type="video/mp4">متصفحك لا يدعم تشغيل الفيديو.</video>
+ </div>
+</div></div></section>
 
 <section id="wizard" class="wizard-wrap hidden">
  <div class="container">
@@ -500,7 +520,7 @@ body{background:#fcfcfa}
 </details>
 
 </main>
-<footer><div class="container"><b>مسار AI — V5.0</b><p>مختبر إزالة التشتت: فيديو فقط، أداتان فقط، لا دفع ولا AI API حقيقي في هذه النسخة.</p></div></footer>
+<footer><div class="container"><b>مسار AI — V5.1</b><p>مختبر إزالة التشتت والتحقق من النتيجة: فيديو فقط، أداتان فقط، وقياس حقيقي قبل/بعد.</p></div></footer>
 
 <script>
 const domains=[
@@ -641,6 +661,8 @@ document.querySelectorAll(".need-examples button").forEach(b=>b.onclick=()=>{doc
 function startWizard(){
  const q=document.getElementById("needInput").value;
  wiz.need=q;
+ const kt=document.getElementById("knownToolInput"), cf=document.getElementById("confidenceInput");
+ wiz.baseline={knownTool:kt?kt.value:"غير مسجل",confidence:cf?cf.value:"غير مسجل"};
  wiz.startedAt=Date.now();
  const a=analyze(q);
  wiz.domain=a.route;
@@ -716,7 +738,7 @@ function renderStage1(){
   <div class="stage-card match-card nomatch">
    <div class="match-icon">!</div>
    <div>
-    <p style="color:var(--muted);font-size:13px;margin:0">لن ندّعي وجود خدمة غير موجودة. المسارات المكتملة كتجارب تفاعلية الآن هي: <b>فيديو</b>، <b>صوت وتلخيص</b>، و<b>فكرة موقع</b>.</p>
+    <p style="color:var(--muted);font-size:13px;margin:0">لن ندّعي وجود خدمة غير موجودة. <b>المسار التفاعلي النشط في مختبر V5.1 الآن هو الفيديو فقط.</b> الصوت والموقع وبقية المجالات محفوظة كرؤية مستقبلية وليست خدمات مكتملة في هذه النسخة.</p>
     <div id="gapArea" style="margin-top:10px"><button class="btn-back" onclick="registerGap()">سجّل هذا كحاجة مستقبلية</button></div>
    </div>
   </div>
@@ -995,6 +1017,11 @@ function setFeedback(kind,val,btn){
   note.innerHTML=`تم تسجيل تقييمك محليًا ✓ ${mins?`— استغرقت الرحلة نحو ${mins} دقيقة.`:""}`;
  }
 }
+function downloadTestRecord(){
+ const rec={version:"V5.1",date:new Date().toISOString(),need:wiz.need,baseline:wiz.baseline,selectedTool:wiz.tool.video,feedback:wiz.feedback,elapsedMinutes:wiz.startedAt?Math.max(1,Math.round((Date.now()-wiz.startedAt)/60000)):null};
+ const blob=new Blob([JSON.stringify(rec,null,2)],{type:"application/json;charset=utf-8"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Masar-AI-V5.1-test-record.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
 function renderStage5(){
  const tool=wiz.tool.video,v=wiz.vals.video,obj=toolsData.video.find(t=>t.name===tool);
  const prompt=videoToolPrompt(v,tool);
@@ -1014,13 +1041,14 @@ function renderStage5(){
 
   <div class="feedback-box">
    <b>اختبار V5 — هل قلّ التشتت فعلًا؟</b>
-   <p style="margin:5px 0 8px;color:var(--muted);font-size:11.5px">لا تُرسل هذه البيانات لأي خادم في هذه النسخة؛ هي لمساعدتك على فهم التجربة.</p>
+   <p style="margin:5px 0 8px;color:var(--muted);font-size:11.5px">نسجل القياس داخل الجلسة بصدق. في النسخة التجريبية يمكنك تنزيل سجل الاختبار ومشاركته مع فريق الاختبار؛ لا ندّعي وجود قاعدة بيانات مركزية بعد.</p>
    <div>هل وصلت إلى أداة قررت فعلًا البدء بها؟</div>
    <div class="feedback-actions"><button onclick="setFeedback('result','نعم',this)">نعم</button><button onclick="setFeedback('result','لا',this)">لا</button></div>
    <div style="margin-top:10px">هل أصبحت أكثر وضوحًا وأقل تشتتًا؟</div>
    <div class="feedback-actions"><button onclick="setFeedback('clarity','1',this)">1</button><button onclick="setFeedback('clarity','2',this)">2</button><button onclick="setFeedback('clarity','3',this)">3</button><button onclick="setFeedback('clarity','4',this)">4</button><button onclick="setFeedback('clarity','5',this)">5</button></div>
    <div class="metric-line"><span>قبل البداية: ${wiz.baseline.knownTool}</span><span>ثقة قبل البداية: ${wiz.baseline.confidence}/5</span>${elapsed?`<span>الوقت حتى نقطة القرار: ~${elapsed} دقيقة</span>`:""}</div>
    <div id="feedbackNote" class="gap-confirm" style="margin-top:10px">جرّب التنفيذ ثم قيّم التجربة بصدق.</div>
+   <button class="btn-back" style="margin-top:9px" onclick="downloadTestRecord()">تنزيل سجل الاختبار</button><div class="feedback-export">يشمل الحاجة، القياس قبل البداية، الأداة المختارة، النتيجة والتقييم — دون بيانات شخصية.</div>
   </div>
 
   <div class="complete-banner"><b>✓ وصلت إلى نقطة بداية واضحة</b><small>لا نقول «أنجزنا الفيديو». نجاح V5 يُقاس أولًا: هل عرفت أين تبدأ ولماذا، بأقل تشتت؟</small></div>
