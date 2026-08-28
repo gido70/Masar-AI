@@ -5,7 +5,7 @@
 <title>مسار AI — الدليل التنفيذي الذكي</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 
 :root{--navy:#101c3a;--blue:#2455d6;--violet:#7256d8;--cyan:#20a4c8;--green:#138466;--ink:#17223a;--muted:#66728b;--bg:#f6f8fc;--line:#e4e9f2;--white:#fff;--soft:#eef3ff}
@@ -139,7 +139,7 @@
 .search-route-btn{margin-top:8px;padding:8px 12px;font-size:11px}
 
 /* ============ V5.0 — staged UX redesign ============ */
-:root{--cream:#faf8f4;--stage1:#faf8f4;--stage2:#eef3ff;--stage3:#eef8f1;--stage4:#fff8e1;--stage5:#eefaf5}
+:root{--cream:#faf8f4;--stage1:#faf8f4;--stage2:#eef3ff;--stage3:#eef8f1;--stage4:#fff8e1;--stage5:#f4f0ff;--stage6:#eefaf5}
 body{background:#fcfcfa}
 
 /* quiet hero */
@@ -183,6 +183,7 @@ body{background:#fcfcfa}
 .stage-panel.s3{background:var(--stage3)}
 .stage-panel.s4{background:var(--stage4)}
 .stage-panel.s5{background:var(--stage5)}
+.stage-panel.s6{background:var(--stage6)}
 .stage-kicker{font-size:11px;font-weight:800;color:var(--blue);letter-spacing:.3px;margin-bottom:6px}
 .stage-panel h2{font-size:24px;margin:0 0 8px}
 .stage-panel>p.lead{color:var(--muted);font-size:13.5px;margin:0 0 20px}
@@ -220,6 +221,15 @@ body{background:#fcfcfa}
 .complete-banner{margin-top:6px;background:var(--navy);color:#fff;border-radius:18px;padding:20px;text-align:center}
 .complete-banner b{display:block;font-size:16px;margin-bottom:4px}
 .complete-banner small{color:#aeb9d0;font-size:12px}
+.task-card-grid,.decision-review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.task-fact{border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px}
+.task-fact small{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.task-fact b{font-size:12.5px}
+.decision-review{background:#fff;border:1px solid #d9d1f2;border-radius:18px;padding:17px}
+.decision-review h3{margin:0 0 10px}.decision-review .chosen-line{font-size:20px;color:var(--navy);font-weight:900}
+.decision-proof{margin-top:10px;background:#f7f5ff;border:1px solid #e2dcf5;border-radius:12px;padding:11px;font-size:11.5px}
+.post-measure{margin-top:16px;background:#fff;border:1px solid #cfe5db;border-radius:16px;padding:15px}
+.post-measure label{display:block;font-size:11px;font-weight:800;margin-bottom:5px}.post-measure select{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px;background:#fff;font:inherit}
+@media(max-width:650px){.task-card-grid,.decision-review-grid{grid-template-columns:1fr}}
 
 /* guide (progressive disclosure of the rest of the content) */
 #guide{max-width:1180px;margin:10px auto 60px;padding:0 17px}
@@ -278,12 +288,18 @@ body{background:#fcfcfa}
 .proof-pending-card{border-color:#d9e1ef;background:#fbfcff}
 @media(max-width:700px){.navin{height:92px;grid-template-columns:1fr auto 1fr}.nav nav,.navin>.ghost{visibility:hidden}.brand{font-size:26px}.brandmark{width:50px;height:50px}.brand small{font-size:9px}.proof-compare-placeholder{grid-template-columns:1fr}.pf small{min-height:0}}
 
+/* Arabic typography matched to the Masar infrastructure index */
+body,input,select,textarea,button{font-family:"Noto Naskh Arabic",serif;line-height:1.9}
+h1,h2,h3,.brand,.brandmark,.price{font-family:"Amiri",serif}
+.brand{font-size:21px;line-height:1.35}.brand small{font-family:"Noto Naskh Arabic",serif;font-size:10px;line-height:1.45;margin-top:-4px}
+.nav nav{align-items:center;gap:22px}.nav nav a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:6px 3px;font-size:14px;line-height:1.45;white-space:nowrap}
+.ghost,.outline,.primary,.btn-back,.btn-next,.btn-external,.tool-select-btn{font-family:"Noto Naskh Arabic",serif;line-height:1.5}
 </style>
 </head>
 <body>
 <header class="nav">
   <div class="container navin">
-    <a class="brand" href="#top"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V5.2</small></span></a>
+    <a class="brand" href="#top"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V5.3</small></span></a>
     <nav><a href="#top" onclick="scrollToStart(event)">ابدأ مسارك</a><a href="#guide" onclick="openGuide(event)">الدليل والشفافية</a></nav>
     <button class="ghost">دخول تجريبي</button>
   </div>
@@ -294,7 +310,7 @@ body{background:#fcfcfa}
  <div class="container">
   <span class="eyebrow">من التشتت ← إلى نقطة بداية واضحة</span>
   <h1>ماذا تريد أن تنجز اليوم؟</h1>
-  <p class="hero-sub">اكتب ما تريد إنجازه فقط. في V5 نختبر مجال الفيديو أولًا: نضيّق الخيارات، نرشح نقطة بداية واحدة، ونجهز لك ما تحتاجه قبل الانتقال للأداة.</p>
+  <p class="hero-sub">صف مهمتك بلغتك. سنحوّلها إلى بطاقة واضحة، ونضيّق الخيارات، ونساعدك على اعتماد قرار مبرر، ثم نجهز خطة البداية قبل انتقالك إلى الأداة.</p>
   <div class="need-box">
     <textarea id="needInput" placeholder="مثال: أريد إنشاء فيديو توعوي عربي مدته دقيقة عن السلامة من الإبر المستخدمة في المستشفى.">أريد إنشاء فيديو توعوي عربي مدته دقيقة عن السلامة من الإبر المستخدمة في المستشفى</textarea>
     <div class="need-examples">
@@ -314,18 +330,19 @@ body{background:#fcfcfa}
   </div>
   <p class="reassure-line">هدف V5 ليس تعليم كل أداة زرًا بزر؛ بل تقليل التشتت والوصول إلى اختيار واضح ومبرر يمكن تنفيذه.</p>
   <div class="quick-flow">
-    <span>1. اكتب حاجتك</span><i>←</i>
-    <span>2. أجب عن الأسئلة اللازمة</span><i>←</i>
-    <span>3. استلم حزمة التنفيذ</span><i>←</i>
-    <span>4. اختر الأداة</span><i>←</i>
-    <span>5. انتقل للتنفيذ</span>
+    <span>1. حدد المهمة</span><i>←</i>
+    <span>2. حدد الشروط</span><i>←</i>
+    <span>3. راجع البطاقة</span><i>←</i>
+    <span>4. قارن الأدوات</span><i>←</i>
+    <span>5. اعتمد القرار</span><i>←</i>
+    <span>6. ابدأ التنفيذ</span>
   </div>
  </div>
 </section>
 
-<p class="status-line"><b>مختبر V5.2 الحالي: الفيديو فقط.</b> بقية المجالات محفوظة كرؤية مستقبلية، ولن نوسع إليها قبل نجاح اختبار الفيديو مع مستخدمين حقيقيين.</p>
+<p class="status-line"><b>مختبر V5.3 الحالي: الفيديو فقط.</b> نختبر رحلة التحول ذات الوحدات الست قبل توسيع المجالات أو إضافة الدفع.</p>
 <section class="outcome-wrap" aria-label="مختبر النتائج الفعلية"><div class="container"><div class="outcome-card proof-pending-card">
- <div class="proof-title">مختبر المقارنة الفعلية — الخطوة التالية بعد V5.2</div>
+ <div class="proof-title">مختبر المقارنة الفعلية — اختبار النتائج في V5.3</div>
  <h3>نفس الموضوع، أداتان، نتيجتان قابلتان للمقارنة</h3>
  <p>لن نعرض فيديو قديمًا أو نتيجة لا تمثل المستوى المطلوب. بعد اعتماد أسئلة هذه النسخة سننفذ موضوعًا واحدًا في <b>CapCut</b> و<b>Runway</b>، ثم نضيف النتيجتين هنا بعد مشاهدتهما وتقييمهما فعليًا.</p>
  <div class="proof-compare-placeholder"><span>CapCut — بانتظار الاختبار الجديد</span><span>Runway — بانتظار الاختبار الجديد</span></div>
@@ -531,7 +548,7 @@ body{background:#fcfcfa}
 </details>
 
 </main>
-<footer><div class="container"><b>مسار AI — V5.2</b><p>مختبر إزالة التشتت والتحقق من النتيجة: فيديو فقط، أداتان فقط، وقياس حقيقي قبل/بعد.</p></div></footer>
+<footer><div class="container"><b>مسار AI — V5.3</b><p>مختبر رحلة التحول: فيديو فقط، ست وحدات، أداتان، وقرار موثق مع قياس قبلي وبعدي.</p></div></footer>
 
 <script>
 const domains=[
@@ -576,7 +593,7 @@ const glossary=[
 document.getElementById("glossaryGrid").innerHTML=glossary.map(g=>`<div class="term-card"><h3>${g[0]}</h3><div class="full">${g[1]}</div><b>${g[2]}</b><p>${g[3]}</p></div>`).join("");
 
 /* ---------- request routing (not a generic search — routes into the wizard) ---------- */
-const STAGE_LABELS=["الحاجة","التخصيص","الحزمة","الأدوات","التنفيذ"];
+const STAGE_LABELS=["المهمة","الشروط","بطاقة المهمة","المقارنة","القرار","البداية"];
 const DOMAIN_NAMES={video:"فيديو",audio:"صوت وتلخيص",site:"فكرة موقع"};
 
 function analyze(q){
@@ -656,9 +673,9 @@ let wiz={
  tool:{video:null},
  startedAt:null,
  baseline:{knownTool:"لا أعرف",confidence:"2"},
- feedback:{result:null,clarity:null},
+ feedback:{result:null,clarity:null,confidenceAfter:null},
  vals:{
-  video:{topic:"السلامة من الإبر المستخدمة في المستشفى",audience:"عمال النظافة والعاملون في المستشفى",duration:"دقيقة واحدة",goal:"التوعية بالخطر والتصرف الآمن",style:"واقعي تعليمي",priority:"ابدأ بالمجاني"}
+  video:{topic:"السلامة من الإبر المستخدمة في المستشفى",audience:"عمال النظافة والعاملون في المستشفى",duration:"دقيقة واحدة",goal:"التوعية بالخطر والتصرف الآمن",style:"واقعي تعليمي",priority:"ابدأ بالمجاني",device:"كمبيوتر",language:"العربية",budget:"مجاني أولًا",experience:"مبتدئ"}
  },
  gaps:[]
 };
@@ -675,6 +692,8 @@ function startWizard(){
  const kt=document.getElementById("knownToolInput"), cf=document.getElementById("confidenceInput");
  wiz.baseline={knownTool:kt?kt.value:"غير مسجل",confidence:cf?cf.value:"غير مسجل"};
  wiz.startedAt=Date.now();
+ wiz.tool={video:null};
+ wiz.feedback={result:null,clarity:null,confidenceAfter:null};
  const a=analyze(q);
  wiz.domain=a.route;
  wiz.stage=1;wiz.maxStage=1;
@@ -691,7 +710,7 @@ function goStage(n){
  document.getElementById("wizard").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function nextStage(){
- wiz.stage=Math.min(5,wiz.stage+1);
+ wiz.stage=Math.min(6,wiz.stage+1);
  wiz.maxStage=Math.max(wiz.maxStage,wiz.stage);
  renderWizard();
  document.getElementById("wizard").scrollIntoView({behavior:"smooth",block:"start"});
@@ -715,7 +734,8 @@ function renderWizard(){
  else if(wiz.stage===2)host.innerHTML=renderStage2();
  else if(wiz.stage===3)host.innerHTML=renderStage3();
  else if(wiz.stage===4)host.innerHTML=renderStage4();
- else host.innerHTML=renderStage5();
+ else if(wiz.stage===5)host.innerHTML=renderStage5();
+ else host.innerHTML=renderStage6();
 }
 
 /* ---------- stage 1 : الحاجة ---------- */
@@ -724,7 +744,7 @@ function renderStage1(){
  if(a.route){
   return `
   <div class="stage-panel s1">
-   <div class="stage-kicker">المرحلة 1 من 5 — الحاجة</div>
+   <div class="stage-kicker">المرحلة 1 من 6 — تحديد المهمة</div>
    <h2>فهمنا حاجتك</h2>
    <p class="lead">هذا أقرب مسار مكتمل لما كتبته. إذا لم يكن هذا ما تقصده يمكنك تعديل الوصف.</p>
    <div class="stage-card match-card">
@@ -743,13 +763,13 @@ function renderStage1(){
  }
  return `
  <div class="stage-panel s1">
-  <div class="stage-kicker">المرحلة 1 من 5 — الحاجة</div>
+  <div class="stage-kicker">المرحلة 1 من 6 — تحديد المهمة</div>
   <h2>هذا المسار لم يكتمل بعد</h2>
   <p class="lead">${a.title} — ${a.body}</p>
   <div class="stage-card match-card nomatch">
    <div class="match-icon">!</div>
    <div>
-    <p style="color:var(--muted);font-size:13px;margin:0">لن ندّعي وجود خدمة غير موجودة. <b>المسار التفاعلي النشط في مختبر V5.2 الآن هو الفيديو فقط.</b> الصوت والموقع وبقية المجالات محفوظة كرؤية مستقبلية وليست خدمات مكتملة في هذه النسخة.</p>
+    <p style="color:var(--muted);font-size:13px;margin:0">لن ندّعي وجود خدمة غير موجودة. <b>المسار التفاعلي النشط في مختبر V5.3 الآن هو الفيديو فقط.</b> الصوت والموقع وبقية المجالات محفوظة كرؤية مستقبلية وليست خدمات مكتملة في هذه النسخة.</p>
     <div id="gapArea" style="margin-top:10px"><button class="btn-back" onclick="registerGap()">سجّل هذا كحاجة مستقبلية</button></div>
    </div>
   </div>
@@ -781,6 +801,10 @@ function stageFieldsVideo(){
   <div class="pf"><label>ماذا تريد أن يحقق الفيديو؟</label><small>مثال: التوعية، الشرح، الإعلان، أو إقناع المشاهد بفكرة محددة.</small><input id="f_goal" value="${esc(v.goal)}"></div>
   <div class="pf"><label>كيف تريد أن يبدو الفيديو؟</label><small>واقعي: قريب من التصوير الحقيقي. سينمائي: مشاهد وإضاءة درامية. رسوم متحركة: أسلوب مرسوم. أفاتار: شخصية رقمية تتحدث.</small><select id="f_style"><option ${v.style==="واقعي تعليمي"?"selected":""}>واقعي تعليمي</option><option ${v.style==="سينمائي"?"selected":""}>سينمائي</option><option ${v.style==="رسوم متحركة"?"selected":""}>رسوم متحركة</option><option ${v.style==="أفاتار يتحدث"?"selected":""}>أفاتار يتحدث</option></select></div>
   <div class="pf"><label>ما أولويتك عند اختيار الأداة؟</label><small>ابدأ بالمجاني للتجربة، أو وازن بين الجودة والتكلفة، أو اختر أعلى جودة حتى لو كانت مدفوعة.</small><select id="f_priority"><option ${v.priority==="ابدأ بالمجاني"?"selected":""}>ابدأ بالمجاني</option><option ${v.priority==="توازن بين الجودة والتكلفة"?"selected":""}>توازن بين الجودة والتكلفة</option><option ${v.priority==="أعلى جودة"?"selected":""}>أعلى جودة</option></select></div>
+  <div class="pf"><label>ما الجهاز الذي ستعمل منه؟</label><small>يساعدنا ذلك على استبعاد أداة لا تناسب جهازك.</small><select id="f_device"><option ${v.device==="هاتف"?"selected":""}>هاتف</option><option ${v.device==="كمبيوتر"?"selected":""}>كمبيوتر</option><option ${v.device==="كلاهما"?"selected":""}>كلاهما</option></select></div>
+  <div class="pf"><label>ما لغة العمل الأساسية؟</label><small>لغة النصوص والتعليمات والصوت المطلوب.</small><select id="f_language"><option ${v.language==="العربية"?"selected":""}>العربية</option><option ${v.language==="الإنجليزية"?"selected":""}>الإنجليزية</option><option ${v.language==="العربية والإنجليزية"?"selected":""}>العربية والإنجليزية</option></select></div>
+  <div class="pf"><label>ما الميزانية المناسبة للتجربة؟</label><small>لن نخفي احتمال الحاجة إلى خطة مدفوعة.</small><select id="f_budget"><option ${v.budget==="مجاني أولًا"?"selected":""}>مجاني أولًا</option><option ${v.budget==="ميزانية محدودة"?"selected":""}>ميزانية محدودة</option><option ${v.budget==="أقبل المدفوع للجودة"?"selected":""}>أقبل المدفوع للجودة</option></select></div>
+  <div class="pf"><label>ما مستوى خبرتك؟</label><small>نكيّف نقطة البداية ولا نفترض خبرة تقنية.</small><select id="f_experience"><option ${v.experience==="مبتدئ"?"selected":""}>مبتدئ</option><option ${v.experience==="متوسط"?"selected":""}>متوسط</option><option ${v.experience==="متقدم"?"selected":""}>متقدم</option></select></div>
  </div>`;
 }
 function stageFieldsAudio(){
@@ -806,17 +830,17 @@ function renderStage2(){
  const fields=d==="video"?stageFieldsVideo():d==="audio"?stageFieldsAudio():stageFieldsSite();
  return `
  <div class="stage-panel s2">
-  <div class="stage-kicker">المرحلة 2 من 5 — التخصيص</div>
+  <div class="stage-kicker">المرحلة 2 من 6 — فهم الحاجة وشروطها</div>
   <h2>أسئلة قصيرة تحدد مسار ${DOMAIN_NAMES[d]}</h2>
   <p class="lead">نسأل فقط عمّا يلزم لبناء حزمة تنفيذ مناسبة؛ لا حاجة لمعرفة اسم أي أداة الآن.</p>
   <div class="stage-card">${fields}</div>
-  <div class="stage-nav"><button class="btn-back" onclick="goStage(1)">→ رجوع</button><span class="spacer"></span><button class="btn-next" onclick="saveStage2AndNext()">التالي: ابنِ حزمة التنفيذ ←</button></div>
+  <div class="stage-nav"><button class="btn-back" onclick="goStage(1)">→ رجوع</button><span class="spacer"></span><button class="btn-next" onclick="saveStage2AndNext()">التالي: راجع بطاقة المهمة ←</button></div>
  </div>`;
 }
 function saveStage2AndNext(){
  const d=wiz.domain;
  if(d==="video"){
-  wiz.vals.video={topic:val("f_topic"),audience:val("f_audience"),duration:val("f_duration"),goal:val("f_goal"),style:val("f_style"),priority:val("f_priority")};
+  wiz.vals.video={topic:val("f_topic"),audience:val("f_audience"),duration:val("f_duration"),goal:val("f_goal"),style:val("f_style"),priority:val("f_priority"),device:val("f_device"),language:val("f_language"),budget:val("f_budget"),experience:val("f_experience")};
  }else if(d==="audio"){
   wiz.vals.audio={topic:val("f_topic"),language:val("f_language"),duration:val("f_duration"),privacy:val("f_privacy"),priority:val("f_priority")};
  }else{
@@ -873,21 +897,28 @@ function renderStage3(){
 الأسلوب: ${v.style}
 الأولوية: ${v.priority}`;
  return `<div class="stage-panel s3">
-  <div class="stage-kicker">المرحلة 3 من 5 — حزمة ما قبل الأداة</div>
-  <h2>جهّزنا القرار قبل أن نرميك في بحر الأدوات</h2>
-  <p class="lead">لا تحتاج أن تعرف أسماء الأدوات أو كيف تسأل نموذجًا عامًا. نلخص حاجتك أولًا، ثم نعرض أداتين فقط في الخطوة التالية.</p>
+  <div class="stage-kicker">المرحلة 3 من 6 — بطاقة المهمة</div>
+  <h2>راجع ما فهمناه قبل أن نرشح أي أداة</h2>
+  <p class="lead">هذه البطاقة هي أساس القرار. إذا كانت غير دقيقة ارجع وعدّل الشروط قبل المتابعة.</p>
   <div class="stage-card">
-   <div class="decision-card"><strong>ملخص حاجتك</strong><pre style="white-space:pre-wrap;font-family:inherit;margin:8px 0 0">${esc(generic)}</pre></div>
+   <div class="task-card-grid">
+    <div class="task-fact"><small>الموضوع</small><b>${esc(v.topic)}</b></div>
+    <div class="task-fact"><small>الجمهور</small><b>${esc(v.audience)}</b></div>
+    <div class="task-fact"><small>الهدف</small><b>${esc(v.goal)}</b></div>
+    <div class="task-fact"><small>المخرج</small><b>فيديو ${esc(v.style)} — ${esc(v.duration)}</b></div>
+    <div class="task-fact"><small>الجهاز واللغة</small><b>${esc(v.device)} — ${esc(v.language)}</b></div>
+    <div class="task-fact"><small>الميزانية والخبرة</small><b>${esc(v.budget)} — ${esc(v.experience)}</b></div>
+   </div>
    <div class="v5-boundary"><b>ما الذي لن نفعله؟</b> لن نشرح لك أسماء أزرار CapCut أو Runway المتغيرة. سنعطيك الأداة، سبب الاختيار، Prompt مناسبًا، الإعدادات المفاهيمية الضرورية، ورابط التوثيق الرسمي.</div>
   </div>
-  <div class="stage-nav"><button class="btn-back" onclick="goStage(2)">→ رجوع</button><span class="spacer"></span><button class="btn-next" onclick="nextStage()">التالي: قارن أداتين فقط ←</button></div>
+  <div class="stage-nav"><button class="btn-back" onclick="goStage(2)">→ تعديل البطاقة</button><span class="spacer"></span><button class="btn-next" onclick="nextStage()">البطاقة صحيحة: قارن الأدوات ←</button></div>
  </div>`;
 }
 
 /* ---------- stage 4 : الأدوات ---------- */
 function recommendedTool(){
  const v=wiz.vals.video;
- if(/أعلى جودة|احتراف|جودة/.test(v.priority)) return "Runway";
+ if(/أعلى جودة/.test(v.priority)||/أقبل المدفوع/.test(v.budget)) return "Runway";
  return "CapCut";
 }
 function chooseTool(name){wiz.tool.video=name;renderWizard()}
@@ -902,6 +933,7 @@ function renderStage4(){
    </div>
    <div class="v5-toolmeta">
     <div><b>لماذا قد تختاره؟</b> ${t.name==="CapCut"?"بداية أسرع وتجميع/تحرير في مكان واحد.":"تحكم بصري وتوليد لقطات أقوى عندما تكون الجودة أولوية."}</div>
+    <div><b>ملاءمة شروطك:</b> ${t.name==="CapCut"?`مناسب أكثر للبداية ${v.experience==="مبتدئ"?"للمبتدئ":"السريعة"}، والعمل من ${v.device}.`:`أنسب عندما تقبل تكلفة محتملة وتركز على جودة اللقطات.`}</div>
     <div><b>حالة التحقق:</b> ${t.proof}</div>
     <div><b>آخر تحقق:</b> ${t.verified}</div>
    </div>
@@ -912,11 +944,39 @@ function renderStage4(){
    </div>
   </article>`).join("");
  return `<div class="stage-panel s4">
-  <div class="stage-kicker">المرحلة 4 من 5 — إزالة التشتت</div>
+  <div class="stage-kicker">المرحلة 4 من 6 — تحليل الخيارات المناسبة</div>
   <h2>بدل 20 أداة: خياران فقط، وتوصية واحدة</h2>
   <p class="lead">التوصية مبنية على إجاباتك، وليست ترتيبًا دائمًا. معلومات الأدوات تتغير، لذلك نعرض تاريخ آخر تحقق بوضوح.</p>
   <div class="tools-grid" style="margin-top:0">${cards}</div>
-  <div class="stage-nav"><button class="btn-back" onclick="goStage(3)">→ رجوع</button><span class="spacer"></span><button class="btn-next" ${chosen?"":"disabled"} onclick="nextStage()">${chosen?"التالي: خذ حزمة البداية ←":"اختر أداة للمتابعة"}</button></div>
+  <div class="stage-nav"><button class="btn-back" onclick="goStage(3)">→ رجوع</button><span class="spacer"></span><button class="btn-next" ${chosen?"":"disabled"} onclick="nextStage()">${chosen?"راجع قرارك قبل التنفيذ ←":"اختر أداة للمتابعة"}</button></div>
+ </div>`;
+}
+
+/* ---------- stage 5 : اعتماد القرار ---------- */
+function decisionReason(tool,v){
+ if(tool==="Runway") return `اخترته لأن أولويتك (${v.priority}) وميزانيتك (${v.budget}) تسمحان بالتركيز على التحكم البصري وجودة اللقطات.`;
+ return `اخترته لأنه يمنحك بداية أبسط تناسب مستوى (${v.experience}) والعمل من (${v.device}) مع أولوية (${v.priority}).`;
+}
+function renderStage5(){
+ const tool=wiz.tool.video,v=wiz.vals.video,obj=toolsData.video.find(t=>t.name===tool);
+ const alt=tool==="CapCut"?"Runway":"CapCut";
+ return `<div class="stage-panel s5">
+  <div class="stage-kicker">المرحلة 5 من 6 — تقييم الترشيحات واعتماد القرار</div>
+  <h2>هل تستطيع تبرير اختيارك؟</h2>
+  <p class="lead">لا نريد نقرة عابرة على اسم أداة؛ نريد قرارًا مفهومًا يمكنك الرجوع إليه وتغييره عند تغير الشروط.</p>
+  <div class="decision-review">
+   <h3>قرارك الحالي</h3>
+   <div class="chosen-line">${tool}</div>
+   <p>${esc(decisionReason(tool,v))}</p>
+   <div class="decision-review-grid">
+    <div class="task-fact"><small>الأداة الأساسية</small><b>${tool}</b></div>
+    <div class="task-fact"><small>البديل</small><b>${alt}</b></div>
+    <div class="task-fact"><small>حالة التحقق</small><b>${tool==="CapCut"?"مختبرة فعليًا":"مراجعة توثيق رسمي"}</b></div>
+    <div class="task-fact"><small>آخر تحقق</small><b>${obj.verified}</b></div>
+   </div>
+   <div class="decision-proof"><b>دليل الثقة:</b> ${esc(obj.proof)}</div>
+  </div>
+  <div class="stage-nav"><button class="btn-back" onclick="goStage(4)">→ تغيير الأداة</button><span class="spacer"></span><button class="btn-next" onclick="nextStage()">أعتمد القرار: أنشئ خطة البداية ←</button></div>
  </div>`;
 }
 
@@ -969,6 +1029,10 @@ function packText(){
 الهدف: ${v.goal}
 الأسلوب: ${v.style}
 الأولوية: ${v.priority}
+الجهاز: ${v.device}
+اللغة: ${v.language}
+الميزانية: ${v.budget}
+مستوى الخبرة: ${v.experience}
 
 التوصية المختارة: ${tool}
 سبب الاختيار: ${tool==="CapCut"?"بداية أسرع مع إمكانات تحرير وتجميع في نفس البيئة.":"تحكم بصري أعلى وتوليد لقطات قصيرة بجودة أكبر."}
@@ -998,24 +1062,27 @@ function setFeedback(kind,val,btn){
   note.innerHTML=`تم تسجيل تقييمك محليًا ✓ ${mins?`— استغرقت الرحلة نحو ${mins} دقيقة.`:""}`;
  }
 }
+function savePostConfidence(){const el=document.getElementById("confidenceAfter");wiz.feedback.confidenceAfter=el?el.value:null}
 function downloadTestRecord(){
- const rec={version:"V5.2",date:new Date().toISOString(),need:wiz.need,baseline:wiz.baseline,selectedTool:wiz.tool.video,feedback:wiz.feedback,elapsedMinutes:wiz.startedAt?Math.max(1,Math.round((Date.now()-wiz.startedAt)/60000)):null};
+ savePostConfidence();
+ const rec={version:"V5.3",date:new Date().toISOString(),need:wiz.need,taskCard:wiz.vals.video,baseline:wiz.baseline,selectedTool:wiz.tool.video,alternative:wiz.tool.video==="CapCut"?"Runway":"CapCut",decisionReason:decisionReason(wiz.tool.video,wiz.vals.video),feedback:wiz.feedback,elapsedMinutes:wiz.startedAt?Math.max(1,Math.round((Date.now()-wiz.startedAt)/60000)):null};
  const blob=new Blob([JSON.stringify(rec,null,2)],{type:"application/json;charset=utf-8"});
- const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Masar-AI-V5.2-test-record.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Masar-AI-V5.3-test-record.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
-function renderStage5(){
+function renderStage6(){
  const tool=wiz.tool.video,v=wiz.vals.video,obj=toolsData.video.find(t=>t.name===tool);
  const prompt=videoToolPrompt(v,tool);
  const elapsed=wiz.startedAt?Math.max(1,Math.round((Date.now()-wiz.startedAt)/60000)):null;
- return `<div class="stage-panel s5">
-  <div class="stage-kicker">المرحلة 5 من 5 — نقطة البداية الصحيحة</div>
+ return `<div class="stage-panel s6">
+  <div class="stage-kicker">المرحلة 6 من 6 — خطة البداية وقياس التحول</div>
   <h2>أزلنا التشتت: ابدأ بـ ${tool}</h2>
-  <p class="lead">هذه هي نقطة التسليم في V5: اختيار مبرر + Prompt جاهز + معلومات أساسية + روابط رسمية. التنفيذ يحدث داخل الأداة.</p>
+  <p class="lead">هذه خطة انطلاق قابلة للتنفيذ: قرار مبرر + Prompt جاهز + روابط رسمية + معيار واضح لفحص النجاح.</p>
   <div class="stage-card">
    <div class="decision-card"><strong>لماذا ${tool}؟</strong><p style="margin:5px 0">${tool==="CapCut"?"لأن أولويتك الحالية تميل إلى بداية أبسط مع إمكانات تحرير وتجميع في مكان واحد.":"لأن حاجتك تميل إلى تحكم بصري وجودة لقطات أعلى."}</p><div class="verified-date">آخر تحقق: ${obj.verified}</div></div>
    <h3>Prompt جاهز للنسخ</h3>
    <div class="prompt-card" id="finalToolPrompt">${esc(prompt)}<button class="copy-prompt" onclick="copyTextById('finalToolPrompt',this)">نسخ الـ Prompt</button></div>
    ${conceptualGuide(tool,v)}
+   <div class="v5-boundary"><b>معيار نجاح البداية:</b> افتح الأداة الرسمية، وأنشئ مسودة أولى أو لقطة تجريبية بالـ Prompt المخصص، ثم افحص ملاءمة المحتوى للجمهور والهدف والمدة قبل استكمال الإنتاج.</div>
    <div class="tool-entry" style="margin-top:12px"><a class="btn-external" target="_blank" rel="noopener" href="${obj.url}">افتح ${tool} للتنفيذ ↗</a><a class="btn-external" target="_blank" rel="noopener" href="${obj.docs}">افتح الدليل الرسمي ↗</a></div>
   </div>
   <div class="pack-actions" style="margin-top:16px"><button class="save" onclick="downloadPack()">حفظ الحزمة في Word</button><button onclick="copyPack()">نسخ الحزمة كاملة</button></div>
@@ -1028,12 +1095,13 @@ function renderStage5(){
    <div style="margin-top:10px">هل أصبحت أكثر وضوحًا وأقل تشتتًا؟</div>
    <div class="feedback-actions"><button onclick="setFeedback('clarity','1',this)">1</button><button onclick="setFeedback('clarity','2',this)">2</button><button onclick="setFeedback('clarity','3',this)">3</button><button onclick="setFeedback('clarity','4',this)">4</button><button onclick="setFeedback('clarity','5',this)">5</button></div>
    <div class="metric-line"><span>قبل البداية: ${wiz.baseline.knownTool}</span><span>ثقة قبل البداية: ${wiz.baseline.confidence}/5</span>${elapsed?`<span>الوقت حتى نقطة القرار: ~${elapsed} دقيقة</span>`:""}</div>
+   <div class="post-measure"><label for="confidenceAfter">ما ثقتك في قرارك الآن بعد إكمال المسار؟</label><select id="confidenceAfter" onchange="savePostConfidence()"><option value="1">1 — ما زلت مشتتًا</option><option value="2">2 — وضوح ضعيف</option><option value="3">3 — متوسط</option><option value="4" selected>4 — واضح وواثق</option><option value="5">5 — جاهز للبدء</option></select></div>
    <div id="feedbackNote" class="gap-confirm" style="margin-top:10px">جرّب التنفيذ ثم قيّم التجربة بصدق.</div>
    <button class="btn-back" style="margin-top:9px" onclick="downloadTestRecord()">تنزيل سجل الاختبار</button><div class="feedback-export">يشمل الحاجة، القياس قبل البداية، الأداة المختارة، النتيجة والتقييم — دون بيانات شخصية.</div>
   </div>
 
   <div class="complete-banner"><b>✓ وصلت إلى نقطة بداية واضحة</b><small>لا نقول «أنجزنا الفيديو». نجاح V5 يُقاس أولًا: هل عرفت أين تبدأ ولماذا، بأقل تشتت؟</small></div>
-  <div class="stage-nav"><button class="btn-back" onclick="goStage(4)">→ رجوع لتغيير الأداة</button><span class="spacer"></span><button class="btn-next" onclick="resetWizard()">ابدأ تجربة جديدة</button></div>
+  <div class="stage-nav"><button class="btn-back" onclick="goStage(5)">→ مراجعة القرار</button><span class="spacer"></span><button class="btn-next" onclick="resetWizard()">ابدأ تجربة جديدة</button></div>
  </div>`;
 }
 </script>
