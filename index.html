@@ -294,13 +294,46 @@ h1,h2,h3,.brand,.brandmark,.price{font-family:"Amiri",serif}
 .brand{font-size:21px;line-height:1.35}.brand small{font-family:"Noto Naskh Arabic",serif;font-size:10px;line-height:1.45;margin-top:-4px}
 .nav nav{align-items:center;gap:22px}.nav nav a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:6px 3px;font-size:14px;line-height:1.45;white-space:nowrap}
 .ghost,.outline,.primary,.btn-back,.btn-next,.btn-external,.tool-select-btn{font-family:"Noto Naskh Arabic",serif;line-height:1.5}
+.hero-brand{display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:14px}.hero-brandmark{width:105px;height:105px;border-radius:30px;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff;font-family:"Amiri",serif;font-size:57px;font-weight:700;box-shadow:0 22px 55px rgba(36,85,214,.22)}.hero-brandtext{font-family:"Amiri",serif;font-size:clamp(58px,8vw,102px);font-weight:700;line-height:1;color:var(--navy);letter-spacing:-2px}.hero-brandtext b{color:var(--blue)}.method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.method-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px}.method-card i{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--soft);color:var(--blue);font-style:normal;font-weight:800}.method-card b{display:block;margin:8px 0 3px;font-size:17px}.method-card small{color:var(--muted)}.transformation{display:grid;grid-template-columns:1fr 1fr;gap:15px}.transformation article{border:1px solid var(--line);border-radius:20px;padding:20px;background:#fff}.transformation .after{border-color:#a8d8c8;background:#f4fbf8}.step24-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.step24{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;min-height:108px}.step24 b{display:block;color:var(--blue)}.step24 small{display:block;color:var(--muted);line-height:1.55}.step24.done{border-color:#a8d8c8;background:#f3faf7}.step24.pending{border-style:dashed;background:#fbfcff}.video-ready{display:grid;grid-template-columns:1fr 1fr;gap:15px}.accept-list{padding-right:20px}.accept-list li{margin:8px 0}.internal-note{border-right:5px solid var(--blue);background:var(--soft);padding:14px 18px;border-radius:14px;margin-top:16px}.compact-boundary{display:grid;grid-template-columns:1fr 1fr;gap:12px}.compact-boundary article{padding:18px;border-radius:18px;border:1px solid var(--line);background:#fff}.compact-boundary .outside{background:#fafbfe}.guide-body>.section:nth-child(even){background:var(--bg)}
+@media(max-width:800px){.hero-brand{gap:12px}.hero-brandmark{width:72px;height:72px;border-radius:22px;font-size:40px}.hero-brandtext{font-size:54px}.method-grid,.step24-grid{grid-template-columns:repeat(2,1fr)}.transformation,.video-ready,.compact-boundary{grid-template-columns:1fr}}
+@media(max-width:520px){.hero-brandtext{font-size:44px}.hero-brandmark{width:62px;height:62px}.method-grid,.step24-grid{grid-template-columns:1fr}}
+
+/* V5.4 presentation polish — aligned with the living project index */
+:root{--navy:#2d1820;--blue:#77233a;--violet:#a54258;--cyan:#b97839;--green:#247858;--ink:#302229;--muted:#75666c;--bg:#fbf6ee;--line:#e5d5d8;--white:#fff;--soft:#f7e8ec}
+body{background:radial-gradient(circle at 8% 4%,rgba(119,35,58,.08),transparent 28%),linear-gradient(180deg,#fff 0,#fbf7f1 55%,#f8eef0 100%);color:var(--ink)}
+.nav{background:rgba(255,252,249,.95);border-bottom:1px solid rgba(119,35,58,.18);box-shadow:0 8px 24px rgba(78,32,44,.06)}
+.brandmark,.hero-brandmark,.primary,.btn-next{background:linear-gradient(135deg,#64182e,#a54258);box-shadow:0 10px 25px rgba(119,35,58,.22)}
+.brand{color:var(--navy)}.brand b{color:var(--blue)}
+.nav nav a{position:relative;color:var(--navy);padding:8px 14px;border-radius:999px;border:1px solid transparent;transition:.2s}.nav nav a:hover{color:var(--blue);background:var(--soft);border-color:#e4c8cf;box-shadow:0 7px 18px rgba(119,35,58,.10);text-decoration:none;transform:translateY(-1px)}
+.ghost,.outline,.btn-back{border-color:#dfcbd0;background:#fff;color:var(--blue);box-shadow:0 6px 16px rgba(70,35,45,.06)}
+.ghost:hover,.outline:hover,.btn-back:hover{background:var(--soft);border-color:#cdaab3}
+.hero-quiet{background:radial-gradient(circle at 15% 20%,rgba(119,35,58,.10),transparent 30%),radial-gradient(circle at 88% 8%,rgba(185,120,57,.10),transparent 28%),linear-gradient(155deg,#fff,#fcf6ed 62%,#f8eaee);border-bottom:1px solid #eadadd}
+.hero-brandtext{color:var(--navy);text-shadow:0 8px 28px rgba(66,27,38,.12)}.hero-brandtext b{color:var(--blue)}
+.hero-quiet h1,.section-head h2{color:var(--navy);text-shadow:0 4px 18px rgba(58,27,37,.08)}
+.hero-sub{color:#68585f}.eyebrow,.section-head>span{display:inline-flex;align-items:center;padding:4px 11px;border-radius:999px;background:var(--soft);color:var(--blue);border:1px solid #e7cdd3;letter-spacing:0}
+.need-box,.baseline-box,.outcome-card,.method-card,.transformation article,.step24,.promise-card,.compact-boundary article{border-color:var(--line);box-shadow:0 14px 34px rgba(67,32,43,.08)}
+.need-box{background:rgba(255,255,255,.96);box-shadow:0 24px 60px rgba(74,32,45,.13)}
+.need-examples button{background:#fffaf7;border-color:#e5d1d5;color:var(--blue);font-weight:700;box-shadow:0 5px 12px rgba(83,36,49,.06)}.need-examples button:hover{background:var(--soft);border-color:#cdaab3;transform:translateY(-1px)}
+.quick-flow span{background:#fff;border-color:#dfcbd0;color:var(--navy);box-shadow:0 6px 14px rgba(75,34,46,.06)}
+.status-line{background:linear-gradient(90deg,#642039,#8e344b);color:#fff;border:0;box-shadow:0 12px 28px rgba(104,27,49,.18)}
+.outcome-wrap{background:linear-gradient(180deg,#fff,#fbf4ec)}
+#guide{border-color:#dec9ce;background:#fff;box-shadow:0 18px 45px rgba(74,31,43,.10)}#guide>summary{background:linear-gradient(135deg,#5f172e,#92364d);color:#fff;font-size:17px;box-shadow:0 12px 26px rgba(94,24,45,.18)}
+.guide-body>.section:nth-child(even){background:linear-gradient(180deg,#fcf8f2,#f9eff1)}
+.method-card,.step24{transition:.2s}.method-card:hover,.step24:hover{transform:translateY(-3px);box-shadow:0 18px 38px rgba(91,35,51,.12)}.method-card i{background:linear-gradient(135deg,#6a1c34,#a54258);color:#fff}.method-card b,.step24 b{color:var(--blue)}
+.step24.done{border-color:#bad9cd;background:linear-gradient(145deg,#fff,#eff9f4)}.step24.pending{border-color:#d9c8cc;background:linear-gradient(145deg,#fff,#faf5f6)}
+.internal-note{border-right-color:var(--blue);background:linear-gradient(90deg,#f7e8ec,#fff8ef);box-shadow:0 9px 22px rgba(100,38,55,.07)}
+table{box-shadow:0 12px 28px rgba(71,34,44,.07);border-radius:14px;overflow:hidden}th{background:linear-gradient(135deg,#652039,#8f3850);color:#fff}td{background:#fff}
+.tool-links a,.tool-links button,.tool-mini a,.btn-external{border-color:#d6b9c1!important;background:#fff8fa!important;color:var(--blue)!important;box-shadow:0 6px 14px rgba(96,37,54,.08);transition:.2s}.tool-links a:hover,.tool-links button:hover,.tool-mini a:hover,.btn-external:hover{background:var(--soft)!important;border-color:#bd8f9b!important;transform:translateY(-1px);text-decoration:none}
+.tabs button{font-weight:700}.tabs .active{color:var(--blue);box-shadow:0 7px 18px rgba(0,0,0,.12)}
+footer{background:linear-gradient(135deg,#25151c,#4e1e2d);color:#fff;border-top:4px solid #a54258}
+@media(max-width:700px){.navin{background:transparent}.hero-quiet{padding-top:38px}.hero-brand{flex-direction:column}.hero-brandtext{text-align:center}.need-box{padding:16px}.section-head h2{font-size:30px}.status-line{margin-inline:12px}}
 </style>
 </head>
 <body>
 <header class="nav">
   <div class="container navin">
-    <a class="brand" href="#top"><span class="brandmark">M</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V5.3</small></span></a>
-    <nav><a href="#top" onclick="scrollToStart(event)">ابدأ مسارك</a><a href="#guide" onclick="openGuide(event)">الدليل والشفافية</a></nav>
+    <a class="brand" href="#top"><span class="brandmark">م</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V5.4</small></span></a>
+    <nav><a href="#top" onclick="scrollToStart(event)">ابدأ مسارك</a><a href="#guide" onclick="openGuide(event)">كيف يعمل المنتج؟</a></nav>
     <button class="ghost">دخول تجريبي</button>
   </div>
 </header>
@@ -308,15 +341,16 @@ h1,h2,h3,.brand,.brandmark,.price{font-family:"Amiri",serif}
 <main>
 <section class="hero-quiet" id="top">
  <div class="container">
-  <span class="eyebrow">من التشتت ← إلى نقطة بداية واضحة</span>
-  <h1>ماذا تريد أن تنجز اليوم؟</h1>
-  <p class="hero-sub">صف مهمتك بلغتك. سنحوّلها إلى بطاقة واضحة، ونضيّق الخيارات، ونساعدك على اعتماد قرار مبرر، ثم نجهز خطة البداية قبل انتقالك إلى الأداة.</p>
+  <div class="hero-brand" aria-label="مسار AI"><span class="hero-brandmark">م</span><span class="hero-brandtext">مسار <b>AI</b></span></div>
+  <span class="eyebrow">الدليل التنفيذي الذكي لاتخاذ قرار أداة الذكاء الاصطناعي</span>
+  <h1>من «ماذا أستخدم؟» إلى «ابدأ من هنا»</h1>
+  <p class="hero-sub">صف مهمتك بلغتك. يفهم مسار AI حاجتك وقيودك، يضيّق البدائل إلى خيارين، يوضح سبب الترشيح ودرجة التحقق، ثم يعطيك نقطة بداية ومعيار نجاح واضحًا.</p>
   <div class="need-box">
     <textarea id="needInput" placeholder="مثال: أريد إنشاء فيديو توعوي عربي مدته دقيقة عن السلامة من الإبر المستخدمة في المستشفى.">أريد إنشاء فيديو توعوي عربي مدته دقيقة عن السلامة من الإبر المستخدمة في المستشفى</textarea>
     <div class="need-examples">
-      <button data-q="أريد إنشاء فيديو عربي من نص">فيديو</button>
-      <button data-q="لدي تسجيل صوتي أريد تفريغه وتلخيصه">صوت / تلخيص</button>
-      <button data-q="أريد إنشاء موقع رياضي">إنشاء موقع</button>
+      <button data-q="أريد إنشاء فيديو عربي قصير من مواد جاهزة">فيديو من مواد جاهزة</button>
+      <button data-q="أريد إنشاء لقطات فيديو جديدة بالذكاء الاصطناعي">توليد لقطات جديدة</button>
+      <button data-q="أريد إنشاء فيديو توعوي عربي مدته دقيقة">فيديو توعوي قصير</button>
     </div>
     <div class="baseline-box">
       <h3>قبل أن تبدأ — قياس سريع للتشتت</h3>
@@ -340,9 +374,9 @@ h1,h2,h3,.brand,.brandmark,.price{font-family:"Amiri",serif}
  </div>
 </section>
 
-<p class="status-line"><b>مختبر V5.3 الحالي: الفيديو فقط.</b> نختبر رحلة التحول ذات الوحدات الست قبل توسيع المجالات أو إضافة الدفع.</p>
+<p class="status-line"><b>مختبر V5.4 الحالي: الفيديو فقط.</b> نثبت قيمة القرار التنفيذي في مسار واحد قبل أي توسع.</p>
 <section class="outcome-wrap" aria-label="مختبر النتائج الفعلية"><div class="container"><div class="outcome-card proof-pending-card">
- <div class="proof-title">مختبر المقارنة الفعلية — اختبار النتائج في V5.3</div>
+ <div class="proof-title">مختبر المقارنة الفعلية — اختبار النتائج في V5.4</div>
  <h3>نفس الموضوع، أداتان، نتيجتان قابلتان للمقارنة</h3>
  <p>لن نعرض فيديو قديمًا أو نتيجة لا تمثل المستوى المطلوب. بعد اعتماد أسئلة هذه النسخة سننفذ موضوعًا واحدًا في <b>CapCut</b> و<b>Runway</b>، ثم نضيف النتيجتين هنا بعد مشاهدتهما وتقييمهما فعليًا.</p>
  <div class="proof-compare-placeholder"><span>CapCut — بانتظار الاختبار الجديد</span><span>Runway — بانتظار الاختبار الجديد</span></div>
@@ -357,8 +391,66 @@ h1,h2,h3,.brand,.brandmark,.price{font-family:"Amiri",serif}
 </section>
 
 <details id="guide">
-<summary>📖 استكشف الدليل الكامل — الخريطة، المجالات، المصطلحات، الثقة والنموذج التجاري</summary>
+<summary>📖 افتح المنهج التنفيذي — التحول، المحطات، الاختبار وخطوات تطوير المنتج</summary>
 <div class="guide-body">
+
+<section class="section" id="method"><div class="container">
+ <div class="section-head"><span>المنتج كما هو الآن</span><h2>قرار تنفيذي موثوق، لا موسوعة أدوات</h2><p>مسار AI لا يعلم المستخدم منصة بعينها، ولا يعرض أبوابًا عامة غير مختبرة. يبدأ من المهمة والسياق، ثم يقود إلى قرار قابل للتفسير وبداية قابلة للقياس.</p></div>
+ <div class="method-grid">
+  <article class="method-card"><i>1</i><b>صِغ المهمة</b><small>حدد النتيجة المطلوبة بجملة واحدة.</small></article>
+  <article class="method-card"><i>2</i><b>سجّل القيود</b><small>الجهاز، اللغة، الميزانية، الخبرة والوقت.</small></article>
+  <article class="method-card"><i>3</i><b>راجع البطاقة</b><small>تأكد أن النظام فهم حاجتك قبل الترشيح.</small></article>
+  <article class="method-card"><i>4</i><b>قارن خيارين</b><small>لا قوائم مشتتة؛ بديلان مناسبـان فقط.</small></article>
+  <article class="method-card"><i>5</i><b>اعتمد القرار</b><small>أداة أساسية، بديل، سبب، وحالة تحقق.</small></article>
+  <article class="method-card"><i>6</i><b>ابدأ وقِس</b><small>خطوة أولى، معيار نجاح، وثقة بعدية.</small></article>
+ </div>
+</div></section>
+
+<section class="section" id="transformation"><div class="container">
+ <div class="section-head"><span>الخطوة 8 — رحلة التحول</span><h2>التحول الذي يجب أن يثبته المنتج</h2><p>النجاح ليس أن يعرف المستخدم أسماء أدوات أكثر؛ بل أن يتخذ قرارًا أفضل ويبدأ التنفيذ.</p></div>
+ <div class="transformation">
+  <article><h3>قبل مسار AI</h3><ul><li>خيارات كثيرة دون معيار.</li><li>بحث متكرر وخوف من الاختيار الخاطئ.</li><li>ثقة منخفضة وبداية غير واضحة.</li></ul></article>
+  <article class="after"><h3>بعد مسار AI</h3><ul><li>بطاقة مهمة واضحة.</li><li>خياران مناسبـان وقرار مفسر.</li><li>خطوة أولى ومعيار نجاح قابل للقياس.</li></ul></article>
+ </div>
+ <div class="internal-note"><b>معيار القبول الحالي:</b> ينجز المستخدم المسار دون مساعدة خلال 7 دقائق أو أقل، يشرح سبب اختياره بجملة واحدة، وتصل ثقته بعد المسار إلى 4/5 أو أعلى.</div>
+</div></section>
+
+<section class="section" id="content-outline"><div class="container">
+ <div class="section-head"><span>الخطوة 9 — مخطط المحتوى</span><h2>كل محطة تؤدي إلى نتيجة واحدة</h2><p>المحتوى جزء من التجربة التنفيذية، وليس منهجًا نظريًا منفصلًا.</p></div>
+ <table><thead><tr><th>المحطة</th><th>النتيجة التعليمية</th><th>دورها التنفيذي</th></tr></thead><tbody>
+  <tr><td>اكتشف مهمتك</td><td>يحدد النتيجة في جملة واحدة.</td><td>فهم</td></tr>
+  <tr><td>ابنِ بطاقة المهمة</td><td>يسجل القيود المؤثرة في القرار.</td><td>تطبيق</td></tr>
+  <tr><td>ضيّق الخيارات</td><td>يستبعد غير الملائم.</td><td>تحليل</td></tr>
+  <tr><td>قارن بذكاء</td><td>يقارن خيارين بمعايير ثابتة.</td><td>تحليل</td></tr>
+  <tr><td>اتخذ قرارًا</td><td>يختار ويبرر.</td><td>تقييم</td></tr>
+  <tr><td>ابدأ واختبر</td><td>ينشئ خطة قصيرة ومعيار نجاح.</td><td>إنشاء</td></tr>
+ </tbody></table>
+</div></section>
+
+<section class="section" id="trainer-steps"><div class="container">
+ <div class="section-head"><span>مسار تطوير المنتج مع المدرب</span><h2>24 خطوة — منفصلة عن رحلة المستخدم</h2><p>هذه اللوحة تضبط بناء المنتج داخليًا. اكتملت الخطوات 1–9، أما 10–24 فلا نضع لها عناوين أو وعودًا قبل شرح المدرب.</p></div>
+ <div class="step24-grid">
+  <article class="step24 done"><b>01 مجال المعرفة</b><small>الفكرة والمشكلة.</small></article><article class="step24 done"><b>02 العميل الأساسي</b><small>مستخدم عربي لديه مهمة.</small></article><article class="step24 done"><b>03 رحلة العميل</b><small>قبل وأثناء وبعد.</small></article><article class="step24 done"><b>04 تقدير السوق</b><small>فرضية أولية قابلة للتحقق.</small></article>
+  <article class="step24 done"><b>05 الاحتياجات</b><small>الوضوح والثقة والملاءمة.</small></article><article class="step24 done"><b>06 القيمة والمنهجية</b><small>افهم، ضيّق، قارن، تحقق، ابدأ.</small></article><article class="step24 done"><b>07 صيغة المنتج</b><small>منصة رقمية تفاعلية.</small></article><article class="step24 done"><b>08 رحلة التحول</b><small>قرار مفسر وبداية قابلة للقياس.</small></article><article class="step24 done"><b>09 مخطط المحتوى</b><small>ست محطات بنتيجة واحدة لكل محطة.</small></article>
+  <article class="step24 pending"><b>10</b><small>بانتظار المحاضرة.</small></article><article class="step24 pending"><b>11</b><small>بانتظار المحاضرة.</small></article><article class="step24 pending"><b>12</b><small>بانتظار المحاضرة.</small></article><article class="step24 pending"><b>13</b><small>بانتظار المحاضرة.</small></article><article class="step24 pending"><b>14</b><small>بانتظار المحاضرة.</small></article><article class="step24 pending"><b>15</b><small>بانتظار المحاضرة.</small></article><article class="step24 pending"><b>16</b><small>بانتظار المحاضرة.</small></article><article class="step24 pending"><b>17</b><small>بانتظار المحاضرة.</small></article><article class="step24 pending"><b>18</b><small>بانتظار المحاضرة.</small></article><article class="step24 pending"><b>19</b><small>بانتظار المحاضرة.</small></article><article class="step24 pending"><b>20</b><small>بانتظار المحاضرة.</small></article><article class="step24 pending"><b>21</b><small>بانتظار المحاضرة.</small></article><article class="step24 pending"><b>22</b><small>بانتظار المحاضرة.</small></article><article class="step24 pending"><b>23</b><small>بانتظار المحاضرة.</small></article><article class="step24 pending"><b>24</b><small>بانتظار المحاضرة.</small></article>
+ </div>
+</div></section>
+
+<section class="section" id="video-ready"><div class="container">
+ <div class="section-head"><span>النموذج الحقيقي الحالي</span><h2>مسار الفيديو — جاهزية العرض والاختبار</h2><p>نختبر موضوعًا واحدًا ونتيجة واحدة في أداتين، ثم نقارن بالدليل لا بالانطباع.</p></div>
+ <div class="video-ready">
+  <article class="promise-card yes"><h3>مواصفات فيديو العرض</h3><ul class="accept-list"><li>المدة: 45–60 ثانية.</li><li>رسالة واحدة: مسار AI يزيل التشتت ويقود إلى البداية.</li><li>بداية واضحة خلال أول 5 ثوانٍ.</li><li>نص عربي فصيح قصير على الشاشة.</li><li>مشاهد قليلة متسقة دون ازدحام أو قفزات.</li><li>خاتمة: «صف مهمتك، واتخذ قرارك، وابدأ».</li></ul></article>
+  <article class="promise-card"><h3>اختبار CapCut وRunway</h3><ul class="accept-list"><li>نفس الموضوع والسيناريو المرجعي.</li><li>تسجيل الـPrompt والمواد المستخدمة.</li><li>قياس الوقت والتكلفة والسهولة.</li><li>تقييم وضوح الرسالة والتناسق وجودة العربية.</li><li>توثيق ما اختُبر فعليًا وما تمت مراجعته فقط.</li><li>لا إعلان أداة فائزة قبل ظهور النتيجتين.</li></ul></article>
+ </div>
+ <div class="internal-note"><b>قرار العرض غدًا:</b> إن لم تكتمل المقارنة الفعلية، نعرض نموذج المسار التفاعلي وخطة إنتاج الفيديو، ولا نعرض نتيجة قديمة ضعيفة بوصفها دليل نجاح.</div>
+</div></section>
+
+<section class="section" id="trust"><div class="container">
+ <div class="section-head"><span>حدود المنتج والثقة</span><h2>ما يفعله مسار AI وما لا يفعله</h2></div>
+ <div class="compact-boundary"><article><h3>داخل مسار AI</h3><p>فهم المهمة، ضبط القيود، تضييق البدائل، تفسير الترشيح، بيان درجة التحقق، تجهيز نقطة البداية ومعيار النجاح.</p></article><article class="outside"><h3>داخل الأداة الخارجية</h3><p>تنفيذ الفيديو أو المهمة الفعلية. مسار AI لا يدّعي أنه نفذ النتيجة، ولا يشرح كل زر في الأداة.</p></article></div>
+</div></section>
+
+<div hidden aria-hidden="true">
 
 <section class="scope-strip"><div class="container">
 <div class="scope-card">
@@ -545,10 +637,11 @@ h1,h2,h3,.brand,.brandmark,.price{font-family:"Amiri",serif}
 </section>
 
 </div>
+</div>
 </details>
 
 </main>
-<footer><div class="container"><b>مسار AI — V5.3</b><p>مختبر رحلة التحول: فيديو فقط، ست وحدات، أداتان، وقرار موثق مع قياس قبلي وبعدي.</p></div></footer>
+<footer><div class="container"><b>مسار AI — V5.4</b><p>الدليل التنفيذي الذكي: مهمة واضحة، خياران، قرار مفسر، وبداية قابلة للقياس.</p></div></footer>
 
 <script>
 const domains=[
@@ -769,7 +862,7 @@ function renderStage1(){
   <div class="stage-card match-card nomatch">
    <div class="match-icon">!</div>
    <div>
-    <p style="color:var(--muted);font-size:13px;margin:0">لن ندّعي وجود خدمة غير موجودة. <b>المسار التفاعلي النشط في مختبر V5.3 الآن هو الفيديو فقط.</b> الصوت والموقع وبقية المجالات محفوظة كرؤية مستقبلية وليست خدمات مكتملة في هذه النسخة.</p>
+    <p style="color:var(--muted);font-size:13px;margin:0">لن ندّعي وجود مسار لم يُختبر. <b>المسار التفاعلي النشط في V5.4 هو الفيديو فقط.</b> سنوسع التغطية لاحقًا بناءً على نتائج الاختبار واحتياجات المستخدمين، لا على قائمة افتراضية من المجالات.</p>
     <div id="gapArea" style="margin-top:10px"><button class="btn-back" onclick="registerGap()">سجّل هذا كحاجة مستقبلية</button></div>
    </div>
   </div>
@@ -1065,9 +1158,9 @@ function setFeedback(kind,val,btn){
 function savePostConfidence(){const el=document.getElementById("confidenceAfter");wiz.feedback.confidenceAfter=el?el.value:null}
 function downloadTestRecord(){
  savePostConfidence();
- const rec={version:"V5.3",date:new Date().toISOString(),need:wiz.need,taskCard:wiz.vals.video,baseline:wiz.baseline,selectedTool:wiz.tool.video,alternative:wiz.tool.video==="CapCut"?"Runway":"CapCut",decisionReason:decisionReason(wiz.tool.video,wiz.vals.video),feedback:wiz.feedback,elapsedMinutes:wiz.startedAt?Math.max(1,Math.round((Date.now()-wiz.startedAt)/60000)):null};
+ const rec={version:"V5.4",date:new Date().toISOString(),need:wiz.need,taskCard:wiz.vals.video,baseline:wiz.baseline,selectedTool:wiz.tool.video,alternative:wiz.tool.video==="CapCut"?"Runway":"CapCut",decisionReason:decisionReason(wiz.tool.video,wiz.vals.video),feedback:wiz.feedback,elapsedMinutes:wiz.startedAt?Math.max(1,Math.round((Date.now()-wiz.startedAt)/60000)):null};
  const blob=new Blob([JSON.stringify(rec,null,2)],{type:"application/json;charset=utf-8"});
- const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Masar-AI-V5.3-test-record.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Masar-AI-V5.4-test-record.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
 function renderStage6(){
  const tool=wiz.tool.video,v=wiz.vals.video,obj=toolsData.video.find(t=>t.name===tool);
