@@ -3,5 +3,5 @@
 // Never put service_role or any private API key here.
 window.MASAR_SUPABASE_CONFIG = {
   url: "https://nmbbahzzogspuuvpsxud.supabase.co",
-  anonKey: "sb_publishable_OHbaA9Rse47v5pw_0Juafg_RbeorWMM"
+  publishableKey: "sb_publishable_OHbaA9Rse47v5pw_0Juafg_RbeorWMM"
 };
