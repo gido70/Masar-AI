@@ -25,6 +25,7 @@
 <header class="top"><div class="top-in">
   <div class="brand"><span class="mark">م</span><span><b>مسار AI</b><small>بوابة متابعة المدرب</small></span></div>
   <span class="only-view">صلاحية: مشاهدة وتعليق فقط</span>
+  <button type="button" onclick="showTrainerGuide()">طريقة استخدام البوابة</button>
   <button class="hide-mobile" onclick="window.print()">طباعة التقرير</button>
   <button class="signout" id="signOut" type="button">تسجيل الخروج</button>
   <div class="viewer"><span id="viewerName">بوابة آمنة</span><span class="avatar">م</span></div>
@@ -167,6 +168,13 @@ target.innerHTML='<option>ملاحظة عامة على المشروع</option>'+
 document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.getElementById(btn.dataset.tab).classList.add('active')}));
 const modal=document.getElementById('modal'),modalTitle=document.getElementById('modalTitle'),modalBody=document.getElementById('modalBody');
 function showModal(title,html){modalTitle.textContent=title;modalBody.innerHTML=html;modal.classList.add('open')}
+function showTrainerGuide(){showModal('طريقة استخدام بوابة المتابعة',`<ol style="margin:0;padding-right:22px">
+ <li><b>ابدأ من «نظرة عامة»:</b> تعرّف إلى فكرة المنتج، مشكلته، وقيمته الأساسية.</li>
+ <li><b>افتح «الخطوات 24»:</b> راجع ما اكتمل وما ينتظر المحاضرات القادمة، واضغط «المخرج» لرؤية خلاصة كل خطوة.</li>
+ <li><b>راجع «الأدلة والاختبارات»:</b> اطّلع على ما اختُبر فعليًا وما يزال قيد التحقق.</li>
+ <li><b>اكتب ملاحظتك:</b> اضغط «تعليق» عند الخطوة المطلوبة، أو انتقل إلى «ملاحظات المدرب» واختر موضوع الملاحظة.</li>
+ <li><b>تابع التطور:</b> استخدم تبويب «الإصدارات» لمعرفة ما تغيّر بين النسخ.</li>
+ </ol><p class="notice" style="margin-bottom:0"><b>صلاحيتك:</b> المشاهدة وإضافة الملاحظات فقط؛ لا يمكنك تعديل محتوى المشروع.</p>`)}
 document.querySelector('.close').onclick=()=>modal.classList.remove('open');modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
 steps.addEventListener('click',e=>{
  const d=e.target.dataset.detail,c=e.target.dataset.comment;
