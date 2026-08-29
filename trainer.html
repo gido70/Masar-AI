@@ -13,7 +13,10 @@
 @media(max-width:900px){.stats,.grid,.steps{grid-template-columns:repeat(2,1fr)}.evidence-row{grid-template-columns:70px 1fr}.evidence-row span:nth-last-child(-n+2){justify-self:start}.presentation{grid-template-columns:1fr}.viewer span{display:none}}
 @media(max-width:600px){.shell{padding:14px 12px 50px}.top-in{padding:8px 12px}.stats,.grid,.steps{grid-template-columns:1fr}.hero{padding:23px}.tabs{top:59px}.section-head{align-items:start;flex-direction:column}.version{grid-template-columns:70px 1fr}.version span:last-child{grid-column:2}.top button.hide-mobile{display:none}}
 @media print{.top,.tabs,.action,.step-actions,.form{display:none!important}.panel{display:block!important}.shell{max-width:none}.card,.stat,.step{box-shadow:none;break-inside:avoid}.hero{box-shadow:none}}
+.hidden{display:none!important}.auth-gate{min-height:calc(100vh - 65px);display:grid;place-items:center;padding:28px 15px}.auth-card{width:min(560px,100%);background:#fff;border:1px solid var(--line);border-radius:24px;padding:25px;box-shadow:var(--shadow)}.auth-card h1{font-size:34px;color:var(--wine);margin:4px 0}.auth-card p{color:var(--muted)}.auth-card label{display:grid;gap:5px;font-weight:700}.auth-card input{width:100%;font:inherit;border:1px solid var(--line);border-radius:11px;padding:11px;background:#fff}.auth-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.auth-message{margin-top:12px;padding:10px;border-radius:10px;background:var(--cream2);color:var(--wine)}.auth-message.error{background:#fcebea;color:#9b2c2c}.auth-security{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:13px}.signout{display:none}.signed-in .signout{display:inline-flex}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/masar-supabase-config.js"></script>
 </head>
 <body>
 <div class="app">
@@ -21,16 +24,29 @@
   <div class="brand"><span class="mark">م</span><span><b>مسار AI</b><small>بوابة متابعة المدرب</small></span></div>
   <span class="only-view">صلاحية: مشاهدة وتعليق فقط</span>
   <button class="hide-mobile" onclick="window.print()">طباعة التقرير</button>
-  <div class="viewer"><span>حساب المدرب</span><span class="avatar">م</span></div>
+  <button class="signout" id="signOut" type="button">تسجيل الخروج</button>
+  <div class="viewer"><span id="viewerName">بوابة آمنة</span><span class="avatar">م</span></div>
 </div></header>
-<main class="shell">
+<section class="auth-gate" id="authGate"><div class="auth-card">
+  <span class="eyebrow">بوابة متابعة مسار AI</span>
+  <h1>دخول المالك أو المدرب</h1>
+  <p>أدخل البريد المعتمد. سنرسل رابط دخول آمن إلى البريد؛ لا تُشارك كلمة مرور، والحساب الجديد يبقى معلقًا حتى يعتمد المالك صلاحياته.</p>
+  <form class="form" id="loginForm">
+    <label>البريد الإلكتروني<input id="loginEmail" type="email" autocomplete="email" required placeholder="name@example.com"></label>
+    <button class="action primary" type="submit">إرسال رابط الدخول الآمن</button>
+  </form>
+  <div class="auth-message hidden" id="authMessage"></div>
+  <div class="auth-actions"><button class="action" id="demoMode" type="button">فتح نموذج العرض دون حساب</button></div>
+  <div class="auth-security"><b>الصلاحيات:</b> المدرب يشاهد ويعلق فقط. تعديل الخطوات والأدلة والإصدارات محصور بحساب المالك.</div>
+</div></section>
+<main class="shell hidden" id="portal">
   <section class="hero">
     <span class="eyebrow">متابعة المنتج من الفكرة إلى الدليل التنفيذي</span>
     <h1>التقدم واضح، والدليل أمامك</h1>
     <p>لوحة مستقلة تُمكّن المدرب من متابعة خطوات المنتج الأربع والعشرين، مراجعة الأدلة والإصدارات، وإضافة ملاحظاته دون تغيير محتوى المشروع أو تشغيل أدواته.</p>
     <div class="hero-tags"><span>24 خطوة</span><span>9 خطوات مكتملة</span><span>V5.4 منشورة</span><span>مختبر الفيديو نشط</span><span>تعليقات المدرب</span></div>
   </section>
-  <div class="notice"><strong>حالة النموذج:</strong> هذا تصور تفاعلي للمعاينة. التعليقات تُحفظ على هذا الجهاز فقط إلى أن نعتمد الربط الآمن بحساب المدرب وقاعدة البيانات.</div>
+  <div class="notice" id="portalMode"><strong>وضع المعاينة:</strong> البيانات الثابتة للعرض فقط. عند اتصال Supabase وتسجيل الدخول تُحفظ ملاحظات المدرب في الحساب الآمن.</div>
   <section class="stats">
     <div class="stat"><strong>9/24</strong><span>خطوات مكتملة</span><div class="progress"><i></i></div></div>
     <div class="stat"><strong>37.5%</strong><span>التقدم في منهج المخيم</span></div>
@@ -116,15 +132,44 @@
 
 <div class="modal" id="modal"><div class="modal-box"><div class="modal-head"><h2 id="modalTitle">التفاصيل</h2><button class="close" aria-label="إغلاق">×</button></div><div id="modalBody"></div></div></div>
 <script>
+let db=null,currentUser=null,currentProfile=null,demo=false;
+const cfg=window.MASAR_SUPABASE_CONFIG;
+const authGate=document.getElementById('authGate'),portal=document.getElementById('portal'),authMessage=document.getElementById('authMessage');
+function authNotice(text,error=false){authMessage.textContent=text;authMessage.className='auth-message'+(error?' error':'')}
+function openPortal(modeText){authGate.classList.add('hidden');portal.classList.remove('hidden');document.body.classList.add('signed-in');document.getElementById('portalMode').innerHTML=modeText}
+async function loadProfile(){
+ const {data,error}=await db.from('masar_profiles').select('id,display_name,role,approved').eq('id',currentUser.id).single();
+ if(error) throw error; currentProfile=data;document.body.classList.add('signed-in');
+ if(!data.approved||!['owner','trainer'].includes(data.role)){authNotice('تم تسجيل الدخول، لكن الحساب ما زال بانتظار اعتماد المالك. لا يمكن فتح بيانات المشروع الآن.');return}
+ document.getElementById('viewerName').textContent=`${data.display_name||'المستخدم'} · ${data.role==='owner'?'المالك':'المدرب'}`;
+ openPortal(`<strong>وضع الحساب الآمن:</strong> مسجل باسم ${data.display_name||'المستخدم'}، بصلاحية ${data.role==='owner'?'الإدارة':'المشاهدة والتعليق فقط'}.`);
+ await Promise.all([loadDatabaseSteps(),loadDatabaseFeedback()]);
+}
+async function initAuth(){
+ if(!cfg||!cfg.url||!cfg.publishableKey||cfg.url.includes('YOUR_PROJECT')){authNotice('الربط الآمن بقاعدة البيانات لم يُفعّل بعد. استخدم نموذج العرض إلى أن تُراجع Migration ويُضاف إعداد المشروع.');return}
+ if(!window.supabase){authNotice('تعذر تحميل خدمة تسجيل الدخول. تحقق من الاتصال بالإنترنت.',true);return}
+ db=window.supabase.createClient(cfg.url,cfg.publishableKey);
+ const {data}=await db.auth.getSession();
+ if(data.session){currentUser=data.session.user;await loadProfile().catch(e=>authNotice('تعذر قراءة صلاحية الحساب: '+e.message,true))}
+ db.auth.onAuthStateChange(async(event,session)=>{if(event==='SIGNED_IN'&&session){currentUser=session.user;await loadProfile().catch(e=>authNotice('تعذر قراءة صلاحية الحساب: '+e.message,true))}});
+}
+document.getElementById('loginForm').addEventListener('submit',async e=>{
+ e.preventDefault();if(!db){authNotice('الاتصال الآمن غير مفعّل في نسخة المراجعة بعد.',true);return}
+ const email=document.getElementById('loginEmail').value.trim();
+ const {error}=await db.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname}});
+ if(error){authNotice('تعذر إرسال رابط الدخول: '+error.message,true);return}authNotice('أُرسل رابط الدخول إلى البريد. افتحه من الجهاز نفسه لإكمال الدخول.');
+});
+document.getElementById('demoMode').addEventListener('click',()=>{demo=true;document.getElementById('viewerName').textContent='نموذج العرض';openPortal('<strong>وضع العرض:</strong> لا يوجد حساب حقيقي، وأي ملاحظة تُحفظ على هذا الجهاز فقط.');renderNotes()});
+document.getElementById('signOut').addEventListener('click',async()=>{if(db&&currentUser)await db.auth.signOut();location.reload()});
+
 const titles=['مجال المعرفة والفكرة','العميل الأساسي','رحلة العميل','تقدير السوق الأولي','الاحتياجات الرئيسية','القيمة الفريدة والمنهجية','صيغة المنتج','رحلة التعلم والتحول','مخطط المحتوى الأولي'];
 const outputs=['صياغة مجال المشكلة والمخرج','تحديد مستخدم عربي له مهمة وقيود','خريطة قبل/أثناء/بعد','فرضية سوق قابلة للتحقق','الوضوح والثقة والملاءمة','منهج: افهم، ضيق، قارن، تحقق، ابدأ، قس','منصة رقمية تفاعلية','تحول ومعايير قياس','6 وحدات بنتيجة واحدة لكل وحدة'];
 const steps=document.getElementById('steps');
-for(let i=1;i<=24;i++){
- const done=i<=9, title=titles[i-1]||'يُضاف عنوانها بعد شرح المدرب', out=outputs[i-1]||'لا نخمن محتواها قبل المحاضرة';
- steps.insertAdjacentHTML('beforeend',`<article class="step ${done?'done-step':'wait-step'}"><div class="step-no"><b>الخطوة ${i}</b><span class="state ${done?'done':'waiting'}">${done?'مكتملة':'بانتظار المحاضرة'}</span></div><h3>${title}</h3><p>${out}</p><div class="step-actions"><button data-detail="${i}">المخرج</button><button data-comment="${i}">تعليق</button></div></article>`);
-}
+function populateSteps(rows){steps.innerHTML='';for(let i=1;i<=24;i++){const row=rows?.find(x=>+x.step_no===i),done=row?row.status==='completed':i<=9,title=row?.title||titles[i-1]||'يُضاف عنوانها بعد شرح المدرب',out=row?.output_summary||outputs[i-1]||'لا نخمن محتواها قبل المحاضرة';steps.insertAdjacentHTML('beforeend',`<article class="step ${done?'done-step':'wait-step'}"><div class="step-no"><b>الخطوة ${i}</b><span class="state ${done?'done':row?.status==='in_progress'?'review':'waiting'}">${done?'مكتملة':row?.status==='in_progress'?'قيد العمل':'بانتظار المحاضرة'}</span></div><h3>${title}</h3><p>${out}</p><div class="step-actions"><button data-detail="${i}">المخرج</button><button data-comment="${i}">تعليق</button></div></article>`)}}
+populateSteps();
+async function loadDatabaseSteps(){const {data,error}=await db.from('masar_steps').select('step_no,title,status,output_summary,evidence_status').order('step_no');if(error)throw error;populateSteps(data)}
 const target=document.getElementById('feedbackTarget');
-target.innerHTML='<option>ملاحظة عامة على المشروع</option>'+Array.from({length:24},(_,i)=>`<option>الخطوة ${i+1}</option>`).join('')+'<option>مختبر الفيديو</option><option>النسخة V5.4</option>';
+target.innerHTML='<option>ملاحظة عامة على المشروع</option>'+Array.from({length:24},(_,i)=>`<option>الخطوة ${i+1}</option>`).join('')+'<option>مختبر الفيديو</option><option>النسخة V5.5</option>';
 document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.getElementById(btn.dataset.tab).classList.add('active')}));
 const modal=document.getElementById('modal'),modalTitle=document.getElementById('modalTitle'),modalBody=document.getElementById('modalBody');
 function showModal(title,html){modalTitle.textContent=title;modalBody.innerHTML=html;modal.classList.add('open')}
@@ -141,6 +186,17 @@ document.querySelectorAll('[data-open-script]').forEach(b=>b.onclick=()=>showMod
 const form=document.getElementById('feedbackForm'),comments=document.getElementById('comments');
 let notes=JSON.parse(localStorage.getItem('masar-trainer-notes')||'[]');
 function renderNotes(){comments.innerHTML=notes.length?'':`<div class="empty">لا توجد ملاحظات محفوظة على هذا الجهاز بعد.</div>`;notes.slice().reverse().forEach(n=>comments.insertAdjacentHTML('beforeend',`<article class="comment"><div class="comment-head"><span>${n.type} · ${n.target}</span><span>${n.date}</span></div><p>${n.text.replace(/[<>]/g,'')}</p><small>المدرب · صلاحية تعليق</small></article>`))}
-form.addEventListener('submit',e=>{e.preventDefault();notes.push({target:target.value,type:document.getElementById('feedbackType').value,text:document.getElementById('feedbackText').value,date:new Date().toLocaleString('ar')});localStorage.setItem('masar-trainer-notes',JSON.stringify(notes));form.reset();renderNotes()});renderNotes();
+const typeMap={'ملاحظة':'note','سؤال':'question','اقتراح تحسين':'suggestion','اعتماد':'approval'};
+const typeLabel={note:'ملاحظة',question:'سؤال',suggestion:'اقتراح تحسين',approval:'اعتماد'};
+const statusLabel={new:'جديدة',seen:'تمت مشاهدتها',in_progress:'قيد التنفيذ',applied:'تم تطبيقها',needs_discussion:'تحتاج نقاشًا'};
+function feedbackTargetValue(label){if(label.startsWith('الخطوة '))return{target_type:'step',step_no:+label.replace('الخطوة ','')};if(label==='مختبر الفيديو')return{target_type:'video_lab',step_no:null};if(label.startsWith('النسخة '))return{target_type:'version',step_no:null};return{target_type:'general',step_no:null}}
+async function loadDatabaseFeedback(){const {data,error}=await db.from('masar_trainer_feedback').select('id,target_label,feedback_type,body,status,owner_response,created_at').order('created_at',{ascending:false});if(error)throw error;comments.innerHTML=data.length?'':`<div class="empty">لا توجد ملاحظات محفوظة في الحساب بعد.</div>`;data.forEach(n=>comments.insertAdjacentHTML('beforeend',`<article class="comment"><div class="comment-head"><span>${typeLabel[n.feedback_type]||n.feedback_type} · ${n.target_label||'المشروع'}</span><span>${new Date(n.created_at).toLocaleString('ar')}</span></div><p>${String(n.body).replace(/[<>]/g,'')}</p><small>${statusLabel[n.status]||n.status}</small>${n.owner_response?`<div class="auth-message"><b>رد المالك:</b> ${String(n.owner_response).replace(/[<>]/g,'')}</div>`:''}</article>`))}
+form.addEventListener('submit',async e=>{
+ e.preventDefault();const label=target.value,type=document.getElementById('feedbackType').value,textValue=document.getElementById('feedbackText').value.trim();
+ if(demo||!db||!currentUser){notes.push({target:label,type,text:textValue,date:new Date().toLocaleString('ar')});localStorage.setItem('masar-trainer-notes',JSON.stringify(notes));form.reset();renderNotes();return}
+ const targetData=feedbackTargetValue(label);const {error}=await db.from('masar_trainer_feedback').insert({author_id:currentUser.id,target_label:label,feedback_type:typeMap[type],body:textValue,...targetData});
+ if(error){alert('تعذر حفظ الملاحظة: '+error.message);return}form.reset();await loadDatabaseFeedback();
+});
+initAuth();
 </script>
 </body></html>
