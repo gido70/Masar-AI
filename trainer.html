@@ -33,14 +33,18 @@
 <section class="auth-gate" id="authGate"><div class="auth-card">
   <span class="eyebrow">بوابة متابعة مسار AI</span>
   <h1>دخول المالك أو المدرب</h1>
-  <p>أدخل البريد المعتمد. سنرسل رابط دخول آمن إلى البريد؛ لا تُشارك كلمة مرور، والحساب الجديد يبقى معلقًا حتى يعتمد المالك صلاحياته.</p>
+  <p>أدخل البريد المعتمد للمالك أو المدرب. سيصل رمز مؤقت من 6 أرقام؛ لا توجد كلمة مرور ولا يُنشأ حساب جديد من هذه الصفحة.</p>
   <form class="form" id="loginForm">
     <label>البريد الإلكتروني<input id="loginEmail" type="email" autocomplete="email" required placeholder="name@example.com"></label>
-    <button class="action primary" type="submit">إرسال رابط الدخول الآمن</button>
+    <button class="action primary" type="submit">إرسال رمز الدخول</button>
+  </form>
+  <form class="form hidden" id="otpForm">
+    <label>رمز الدخول المؤقت<input id="loginOtp" type="text" inputmode="numeric" autocomplete="one-time-code" required minlength="6" maxlength="6" pattern="[0-9]{6}" placeholder="000000"></label>
+    <button class="action primary" type="submit">تحقق وافتح البوابة</button>
+    <button class="action" id="changeEmail" type="button">تغيير البريد</button>
   </form>
   <div class="auth-message hidden" id="authMessage"></div>
-  <div class="auth-actions"><button class="action" id="demoMode" type="button">فتح نموذج العرض دون حساب</button></div>
-  <div class="auth-security"><b>الصلاحيات:</b> المدرب يشاهد ويعلق فقط. تعديل الخطوات والأدلة والإصدارات محصور بحساب المالك.</div>
+  <div class="auth-security"><b>دخول مقيد:</b> لا يُقبل إلا حساب موجود ومعتمد مسبقًا بدور المالك أو المدرب. المدرب يشاهد ويعلق فقط.</div>
 </div></section>
 <main class="shell hidden" id="portal">
   <section class="hero">
@@ -127,7 +131,7 @@
 
 <div class="modal" id="modal"><div class="modal-box"><div class="modal-head"><h2 id="modalTitle">التفاصيل</h2><button class="close" aria-label="إغلاق">×</button></div><div id="modalBody"></div></div></div>
 <script>
-let db=null,currentUser=null,currentProfile=null,demo=false;
+let db=null,currentUser=null,currentProfile=null;
 const cfg=window.MASAR_SUPABASE_CONFIG;
 const authGate=document.getElementById('authGate'),portal=document.getElementById('portal'),authMessage=document.getElementById('authMessage');
 function authNotice(text,error=false){authMessage.textContent=text;authMessage.className='auth-message'+(error?' error':'')}
@@ -148,13 +152,16 @@ async function initAuth(){
  if(data.session){currentUser=data.session.user;await loadProfile().catch(e=>authNotice('تعذر قراءة صلاحية الحساب: '+e.message,true))}
  db.auth.onAuthStateChange(async(event,session)=>{if(event==='SIGNED_IN'&&session){currentUser=session.user;await loadProfile().catch(e=>authNotice('تعذر قراءة صلاحية الحساب: '+e.message,true))}});
 }
+let pendingLoginEmail='';
 document.getElementById('loginForm').addEventListener('submit',async e=>{
  e.preventDefault();if(!db){authNotice('الاتصال الآمن غير مفعّل في نسخة المراجعة بعد.',true);return}
  const email=document.getElementById('loginEmail').value.trim();
- const {error}=await db.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname}});
- if(error){authNotice('تعذر إرسال رابط الدخول: '+error.message,true);return}authNotice('أُرسل رابط الدخول إلى البريد. افتحه من الجهاز نفسه لإكمال الدخول.');
+ const {error}=await db.auth.signInWithOtp({email,options:{shouldCreateUser:false}});
+ if(error){authNotice('هذا البريد غير مصرح له بالدخول، أو تعذر إرسال الرمز.',true);return}
+ pendingLoginEmail=email;document.getElementById('loginForm').classList.add('hidden');document.getElementById('otpForm').classList.remove('hidden');document.getElementById('loginOtp').focus();authNotice('أُرسل رمز مؤقت من 6 أرقام إلى البريد المعتمد.');
 });
-document.getElementById('demoMode').addEventListener('click',()=>{demo=true;document.getElementById('viewerName').textContent='نموذج العرض';openPortal('<strong>وضع العرض:</strong> لا يوجد حساب حقيقي، وأي ملاحظة تُحفظ على هذا الجهاز فقط.');renderNotes()});
+document.getElementById('otpForm').addEventListener('submit',async e=>{e.preventDefault();const token=document.getElementById('loginOtp').value.trim();if(!pendingLoginEmail||!/^[0-9]{6}$/.test(token)){authNotice('أدخل رمزًا صحيحًا من 6 أرقام.',true);return}const {data,error}=await db.auth.verifyOtp({email:pendingLoginEmail,token,type:'email'});if(error||!data.session){authNotice('الرمز غير صحيح أو انتهت صلاحيته.',true);return}currentUser=data.session.user;await loadProfile().catch(()=>authNotice('الحساب غير معتمد لفتح هذه البوابة.',true))});
+document.getElementById('changeEmail').addEventListener('click',()=>{pendingLoginEmail='';document.getElementById('otpForm').classList.add('hidden');document.getElementById('loginForm').classList.remove('hidden');document.getElementById('loginEmail').focus()});
 document.getElementById('signOut').addEventListener('click',async()=>{if(db&&currentUser)await db.auth.signOut();location.reload()});
 
 const titles=['مجال المعرفة والفكرة','العميل الأساسي','رحلة العميل الكاملة','تقدير السوق المتاح','الاحتياجات الرئيسية','القيمة الفريدة والمنهجية','اختيار صيغة المنتج','رحلة التعلم والتحول','مخطط المحتوى الأولي','تحديد نموذج التوزيع','تصميم قمع التسويق','صفحة الهبوط والعرض التسويقي'];
@@ -191,7 +198,7 @@ function feedbackTargetValue(label){if(label.startsWith('الخطوة '))return{
 async function loadDatabaseFeedback(){const {data,error}=await db.from('masar_trainer_feedback').select('id,target_label,feedback_type,body,status,owner_response,created_at').order('created_at',{ascending:false});if(error)throw error;comments.innerHTML=data.length?'':`<div class="empty">لا توجد ملاحظات محفوظة في الحساب بعد.</div>`;data.forEach(n=>comments.insertAdjacentHTML('beforeend',`<article class="comment"><div class="comment-head"><span>${typeLabel[n.feedback_type]||n.feedback_type} · ${n.target_label||'المشروع'}</span><span>${new Date(n.created_at).toLocaleString('ar')}</span></div><p>${String(n.body).replace(/[<>]/g,'')}</p><small>${statusLabel[n.status]||n.status}</small>${n.owner_response?`<div class="auth-message"><b>رد المالك:</b> ${String(n.owner_response).replace(/[<>]/g,'')}</div>`:''}</article>`))}
 form.addEventListener('submit',async e=>{
  e.preventDefault();const label=target.value,type=document.getElementById('feedbackType').value,textValue=document.getElementById('feedbackText').value.trim();
- if(demo||!db||!currentUser){notes.push({target:label,type,text:textValue,date:new Date().toLocaleString('ar')});localStorage.setItem('masar-trainer-notes',JSON.stringify(notes));form.reset();renderNotes();return}
+ if(!db||!currentUser){authNotice('يجب تسجيل الدخول بحساب معتمد قبل إرسال الملاحظة.',true);return}
  const targetData=feedbackTargetValue(label);const {error}=await db.from('masar_trainer_feedback').insert({author_id:currentUser.id,target_label:label,feedback_type:typeMap[type],body:textValue,...targetData});
  if(error){alert('تعذر حفظ الملاحظة: '+error.message);return}form.reset();await loadDatabaseFeedback();
 });
