@@ -15,6 +15,13 @@
 @media print{.top,.tabs,.action,.step-actions,.form{display:none!important}.panel{display:block!important}.shell{max-width:none}.card,.stat,.step{box-shadow:none;break-inside:avoid}.hero{box-shadow:none}}
 .hidden{display:none!important}.auth-gate{min-height:calc(100vh - 65px);display:grid;place-items:center;padding:28px 15px}.auth-card{width:min(560px,100%);background:#fff;border:1px solid var(--line);border-radius:24px;padding:25px;box-shadow:var(--shadow)}.auth-card h1{font-size:34px;color:var(--wine);margin:4px 0}.auth-card p{color:var(--muted)}.auth-card label{display:grid;gap:5px;font-weight:700}.auth-card input{width:100%;font:inherit;border:1px solid var(--line);border-radius:11px;padding:11px;background:#fff}.auth-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.auth-message{margin-top:12px;padding:10px;border-radius:10px;background:var(--cream2);color:var(--wine)}.auth-message.error{background:#fcebea;color:#9b2c2c}.auth-security{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:13px}.signout{display:none}.signed-in .signout{display:inline-flex}
 </style>
+<style>
+.capacity-meter{height:11px;background:var(--gray-bg);border-radius:999px;overflow:hidden;margin:10px 0 5px}
+.capacity-meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),#65aa87);border-radius:inherit;transition:width .4s}
+.capacity-meter i.warn{background:linear-gradient(90deg,var(--amber),#d2a15f)}
+.capacity-meter i.danger{background:linear-gradient(90deg,#a72d3e,var(--wine))}
+.capacity-note{font-size:13px;color:var(--muted)}
+</style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/masar-supabase-config.js"></script>
 </head>
@@ -59,6 +66,7 @@
     <button class="tab" data-tab="evidence">الأدلة والاختبارات</button>
     <button class="tab" data-tab="versions">الإصدارات</button>
     <button class="tab" data-tab="feedback">ملاحظات المدرب</button>
+    <button class="tab" data-tab="capacity">مراقبة السعة</button>
     <button class="tab" data-tab="present">وضع التقديم</button>
   </nav>
 
@@ -119,6 +127,16 @@
     </div>
   </section>
 
+  <section class="panel" id="capacity">
+    <div class="section-head"><div><h2>مراقبة السعة والازدحام</h2><p>قراءة داخلية للمالك والمدرب المعتمد، دون إظهار بيانات المستخدمين أو مفاتيح المشروع.</p></div><span class="state review" id="capacityState">بانتظار القراءة</span></div>
+    <div class="grid">
+      <article class="card"><h3>قاعدة البيانات</h3><strong id="dbUsage">—</strong><div class="capacity-meter"><i id="dbBar"></i></div><div class="capacity-note">الحد المرجعي للخطة المجانية: 500 MB</div></article>
+      <article class="card"><h3>تخزين الملفات</h3><strong id="storageUsage">—</strong><div class="capacity-meter"><i id="storageBar"></i></div><div class="capacity-note">الحد المرجعي للخطة المجانية: 1 GB</div></article>
+      <article class="card"><h3>الحسابات والسجلات</h3><strong id="accountUsage">—</strong><p id="rowUsage">—</p><div class="capacity-note" id="capacityUpdated">لم تُقرأ بعد</div></article>
+    </div>
+    <div class="notice"><strong>قاعدة التنبيه:</strong> أخضر أقل من 70%، تنبيه من 70%، وإجراء عاجل من 85%. عند بلوغ التنبيه نراجع أكبر المستهلكين قبل إضافة ملفات أو منصة جديدة.</div>
+  </section>
+
   <section class="panel" id="present">
     <div class="section-head"><div><h2>وضع التقديم أمام المدرب</h2><p>هيكل جاهز بحسب الوقت الذي يمنحه لك.</p></div></div>
     <div class="presentation">
@@ -143,7 +161,20 @@ async function loadProfile(){
  if(!data.approved||!['owner','trainer'].includes(data.role)){authNotice('تم تسجيل الدخول، لكن الحساب ما زال بانتظار اعتماد المالك. لا يمكن فتح بيانات المشروع الآن.');return}
  document.getElementById('viewerName').textContent=`${data.display_name||'المستخدم'} · ${data.role==='owner'?'المالك':'المدرب'}`;
  openPortal(`<strong>وضع الحساب الآمن:</strong> مسجل باسم ${data.display_name||'المستخدم'}، بصلاحية ${data.role==='owner'?'الإدارة':'المشاهدة والتعليق فقط'}.`);
- await Promise.all([loadDatabaseSteps(),loadDatabaseFeedback()]);
+ await Promise.all([loadDatabaseSteps(),loadDatabaseFeedback(),loadCapacity()]);
+}
+function formatBytes(bytes){if(!Number.isFinite(+bytes))return '—';const units=['B','KB','MB','GB'];let value=+bytes,i=0;while(value>=1024&&i<units.length-1){value/=1024;i++}return `${value.toFixed(i<2?0:1)} ${units[i]}`}
+function setMeter(id,ratio){const el=document.getElementById(id),pct=Math.min(100,Math.max(0,Math.round((+ratio||0)*100)));el.style.width=pct+'%';el.className=pct>=85?'danger':pct>=70?'warn':'';return pct}
+async function loadCapacity(){
+ const {data,error}=await db.rpc('masar_capacity_snapshot');
+ if(error){document.getElementById('capacityState').textContent='تعذر القياس';return}
+ const x=typeof data==='string'?JSON.parse(data):data,dbPct=setMeter('dbBar',x.database_ratio),storagePct=setMeter('storageBar',x.storage_ratio),maxPct=Math.max(dbPct,storagePct);
+ document.getElementById('dbUsage').textContent=`${formatBytes(x.database_bytes)} · ${dbPct}%`;
+ document.getElementById('storageUsage').textContent=`${formatBytes(x.storage_bytes)} · ${storagePct}%`;
+ document.getElementById('accountUsage').textContent=`${x.auth_users} حساب`;
+ document.getElementById('rowUsage').textContent=`${x.masar_rows} سجلًا خاصًا بمسار AI`;
+ document.getElementById('capacityUpdated').textContent='آخر قراءة: '+new Date(x.captured_at).toLocaleString('ar');
+ const state=document.getElementById('capacityState');state.textContent=maxPct>=85?'إجراء عاجل':maxPct>=70?'يحتاج مراجعة':'ضمن الحدود';state.className='state '+(maxPct>=70?'review':'done');
 }
 async function initAuth(){
  if(!cfg||!cfg.url||!cfg.publishableKey||cfg.url.includes('YOUR_PROJECT')){authNotice('الربط الآمن بقاعدة البيانات لم يُفعّل بعد. استخدم نموذج العرض إلى أن تُراجع Migration ويُضاف إعداد المشروع.');return}
