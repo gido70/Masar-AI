@@ -327,14 +327,19 @@ table{box-shadow:0 12px 28px rgba(71,34,44,.07);border-radius:14px;overflow:hidd
 .tabs button{font-weight:700}.tabs .active{color:var(--blue);box-shadow:0 7px 18px rgba(0,0,0,.12)}
 footer{background:linear-gradient(135deg,#25151c,#4e1e2d);color:#fff;border-top:4px solid #a54258}
 @media(max-width:700px){.navin{background:transparent}.hero-quiet{padding-top:38px}.hero-brand{flex-direction:column}.hero-brandtext{text-align:center}.need-box{padding:16px}.section-head h2{font-size:30px}.status-line{margin-inline:12px}}
+
+/* V5.5 — complete video production handoff */
+.production-pack{margin-top:16px;border:1px solid var(--line);border-radius:22px;padding:20px;background:linear-gradient(145deg,#fff,#fbf6ee);box-shadow:0 16px 38px rgba(80,32,46,.09)}
+.production-pack>h3{margin:0;color:var(--blue);font-size:24px}.production-pack>p{color:var(--muted);margin:4px 0 14px}.production-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.production-tabs button{font:inherit;border:1px solid #d9bdc5;background:#fff;color:var(--blue);border-radius:999px;padding:7px 12px;font-weight:800;cursor:pointer}.production-tabs button.active{background:var(--blue);color:#fff;border-color:var(--blue)}.production-panel{display:none}.production-panel.active{display:block}.scene-table{width:100%;border-collapse:collapse}.scene-table th,.scene-table td{padding:10px;border:1px solid var(--line);vertical-align:top}.scene-table td:first-child{white-space:nowrap;font-weight:800;color:var(--blue)}.production-note{padding:12px 14px;border-radius:13px;background:#fff3dd;border-right:4px solid #b97839;color:#5f4528;margin-top:10px}.trainer-link{display:inline-flex!important;align-items:center;justify-content:center;text-decoration:none!important}.production-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.production-actions button{font:inherit;border-radius:10px;padding:8px 12px;font-weight:800;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--blue)}
+@media(max-width:700px){.scene-table{font-size:12px}.scene-table th:nth-child(4),.scene-table td:nth-child(4){display:none}.trainer-link{display:none!important}}
 </style>
 </head>
 <body>
 <header class="nav">
   <div class="container navin">
-    <a class="brand" href="#top"><span class="brandmark">م</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V5.4</small></span></a>
+    <a class="brand" href="#top"><span class="brandmark">م</span><span>مسار <b>AI</b><small>الدليل التنفيذي الذكي • V5.5 مراجعة</small></span></a>
     <nav><a href="#top" onclick="scrollToStart(event)">ابدأ مسارك</a><a href="#guide" onclick="openGuide(event)">كيف يعمل المنتج؟</a></nav>
-    <button class="ghost">دخول تجريبي</button>
+    <a class="ghost trainer-link" href="trainer.html">بوابة متابعة المدرب</a>
   </div>
 </header>
 
@@ -374,9 +379,9 @@ footer{background:linear-gradient(135deg,#25151c,#4e1e2d);color:#fff;border-top:
  </div>
 </section>
 
-<p class="status-line"><b>مختبر V5.4 الحالي: الفيديو فقط.</b> نثبت قيمة القرار التنفيذي في مسار واحد قبل أي توسع.</p>
+<p class="status-line"><b>مختبر V5.5 الحالي: الفيديو فقط.</b> ننتقل من قرار الأداة إلى حزمة إنتاج كاملة تنتهي بالتجميع والتصدير في CapCut.</p>
 <section class="outcome-wrap" aria-label="مختبر النتائج الفعلية"><div class="container"><div class="outcome-card proof-pending-card">
- <div class="proof-title">مختبر المقارنة الفعلية — اختبار النتائج في V5.4</div>
+ <div class="proof-title">مختبر المقارنة الفعلية — اختبار النتائج في V5.5</div>
  <h3>نفس الموضوع، أداتان، نتيجتان قابلتان للمقارنة</h3>
  <p>لن نعرض فيديو قديمًا أو نتيجة لا تمثل المستوى المطلوب. بعد اعتماد أسئلة هذه النسخة سننفذ موضوعًا واحدًا في <b>CapCut</b> و<b>Runway</b>، ثم نضيف النتيجتين هنا بعد مشاهدتهما وتقييمهما فعليًا.</p>
  <div class="proof-compare-placeholder"><span>CapCut — بانتظار الاختبار الجديد</span><span>Runway — بانتظار الاختبار الجديد</span></div>
@@ -641,7 +646,7 @@ footer{background:linear-gradient(135deg,#25151c,#4e1e2d);color:#fff;border-top:
 </details>
 
 </main>
-<footer><div class="container"><b>مسار AI — V5.4</b><p>الدليل التنفيذي الذكي: مهمة واضحة، خياران، قرار مفسر، وبداية قابلة للقياس.</p></div></footer>
+<footer><div class="container"><b>مسار AI — V5.5 مراجعة</b><p>الدليل التنفيذي الذكي: مهمة واضحة، خياران، قرار مفسر، وحزمة إنتاج قابلة للاختبار.</p></div></footer>
 
 <script>
 const domains=[
@@ -862,7 +867,7 @@ function renderStage1(){
   <div class="stage-card match-card nomatch">
    <div class="match-icon">!</div>
    <div>
-    <p style="color:var(--muted);font-size:13px;margin:0">لن ندّعي وجود مسار لم يُختبر. <b>المسار التفاعلي النشط في V5.4 هو الفيديو فقط.</b> سنوسع التغطية لاحقًا بناءً على نتائج الاختبار واحتياجات المستخدمين، لا على قائمة افتراضية من المجالات.</p>
+    <p style="color:var(--muted);font-size:13px;margin:0">لن ندّعي وجود مسار لم يُختبر. <b>المسار التفاعلي النشط في V5.5 هو الفيديو فقط.</b> سنوسع التغطية لاحقًا بناءً على نتائج الاختبار واحتياجات المستخدمين، لا على قائمة افتراضية من المجالات.</p>
     <div id="gapArea" style="margin-top:10px"><button class="btn-back" onclick="registerGap()">سجّل هذا كحاجة مستقبلية</button></div>
    </div>
   </div>
@@ -1074,19 +1079,41 @@ function renderStage5(){
 }
 
 function videoCapCutPrompt(v){
- return `أنشئ مسودة فيديو عربي ${v.style} عن: ${v.topic}.
-الجمهور المستهدف: ${v.audience}.
-الهدف: ${v.goal}.
-المدة المستهدفة للمشروع: ${v.duration}.
-ابنِ تسلسلاً واضحًا من مشاهد قصيرة متناسقة: افتتاحية تلفت الانتباه، عرض الفكرة أو المشكلة، نقاط عملية مرتبة، ثم خاتمة واضحة.
-استخدم العربية الفصحى السهلة عند وجود تعليق صوتي أو نصوص ظاهرة. حافظ على اتساق الأشخاص والمكان والإضاءة، وتجنب النصوص المشوهة داخل المشهد.
-إذا كانت الأداة تولد مقاطع قصيرة فقط، اجعل كل مقطع مستقلاً وقابلاً للتجميع في مشروع أطول.`;
+ return `أنشئ مشروع فيديو عربي ${v.style} عن «${v.topic}» موجّهًا إلى ${v.audience} بهدف «${v.goal}» وبمدة ${v.duration}.
+
+المطلوب في CapCut:
+1) خطاف بصري ونصي واضح خلال أول 3 ثوانٍ.
+2) تسلسل من 6 مشاهد قصيرة: المشكلة، أثرها، لحظة التحول، منهج الحل، النتيجة، والدعوة إلى الإجراء.
+3) تعليق صوتي عربي فصيح، جمل قصيرة وطبيعية، مع ترجمة عربية متزامنة ودقيقة.
+4) نص واحد فقط على الشاشة في كل مشهد، بحد أقصى 7 كلمات، مع مساحة آمنة للحواف.
+5) انتقالات هادئة، موسيقى خافتة غير مشتتة، وخفض الموسيقى تلقائيًا أثناء الكلام.
+6) توحيد الخط والألوان والإيقاع، وعدم استخدام مؤثرات مبالغ فيها.
+7) تصدير 1080p بنسبة 16:9 للعرض، مع نسخة 9:16 عند الحاجة للهاتف.
+
+قاعدة الجودة: لا تختلق معلومات، لا تضع نصًا مشوهًا داخل الصور المولدة، ولا تعرض شعارًا أو نتيجة غير موجودة. اترك مواضع اللقطات المولدة أو المواد الأصلية قابلة للاستبدال داخل الخط الزمني.`;
 }
 function videoRunwayPrompt(v){
- return `لقطة فيديو ${v.style} عن «${v.topic}» موجهة إلى ${v.audience}. أظهر بصريًا الفكرة المرتبطة بهدف «${v.goal}». تكوين واضح، حركة طبيعية، بيئة متسقة، إضاءة واقعية، وحركة كاميرا هادئة مقصودة. لا تضع نصوصًا داخل الصورة. اجعل اللقطة مستقلة وقابلة للتركيب مع لقطات أخرى من نفس المشروع.`;
+ return `Cinematic ${v.style} video shot for an Arabic presentation about "${v.topic}", designed for ${v.audience}. Visually communicate the goal: "${v.goal}". One clear subject, coherent environment, natural human motion, realistic lighting, controlled camera movement, consistent wardrobe and color palette, clean negative space for later Arabic captions. No text, no logos, no distorted hands, no duplicated people, no sudden scene changes. Create a short self-contained shot that can be assembled with five matching shots in CapCut.`;
 }
 function videoToolPrompt(v,tool){return tool==="Runway"?videoRunwayPrompt(v):videoCapCutPrompt(v)}
 function copyTextById(id,btn){const el=document.getElementById(id);navigator.clipboard.writeText(el.innerText.trim());if(btn){const t=btn.textContent;btn.textContent="تم النسخ ✓";setTimeout(()=>btn.textContent=t,1200)}}
+
+function videoScenes(v){
+ return [
+  {time:"0–5 ث",purpose:"الخطاف",visual:`مستخدم يواجه خيارات كثيرة مرتبطة بـ ${v.topic}`,voice:"لديك مهمة واضحة... لكن الأدوات أكثر مما ينبغي.",screen:"المشكلة ليست نقص الأدوات"},
+  {time:"5–13 ث",purpose:"المشكلة",visual:"تنقل سريع بين نوافذ وأسماء وخيارات متشابهة",voice:"تبحث وتقارن، ثم تضيع البداية بين عشرات الخيارات.",screen:"التشتت يؤخر القرار"},
+  {time:"13–22 ث",purpose:"التحول",visual:"هدوء بصري وانتقال إلى بطاقة مهمة واحدة واضحة",voice:"مسار AI يبدأ من حاجتك وقيودك، لا من قائمة الأدوات.",screen:"ابدأ من مهمتك"},
+  {time:"22–38 ث",purpose:"المنهج",visual:"ست محطات متتابعة بإيقاع هادئ ومتسق",voice:"يفهم، يضيّق، يقارن، يتحقق، ثم يمنحك نقطة بداية قابلة للقياس.",screen:"افهم ← ضيّق ← قارن ← ابدأ"},
+  {time:"38–52 ث",purpose:"النتيجة",visual:"بطاقة قرار: أداة أساسية وبديل وسبب ومعيار نجاح",voice:"تحصل على قرار تستطيع تفسيره: أداة أساسية، بديل، سبب واضح، ومعيار نجاح.",screen:"قرار مفسّر، لا قائمة مشتتة"},
+  {time:"52–60 ث",purpose:"الدعوة",visual:"هوية مسار AI وشاشة البداية بصورة نظيفة",voice:"مسار AI. من ماذا أستخدم؟ إلى ابدأ من هنا.",screen:"مسار AI — ابدأ من هنا"}
+ ];
+}
+function sceneTable(v){return `<table class="scene-table"><thead><tr><th>الزمن</th><th>الغرض</th><th>الصورة</th><th>التعليق الصوتي</th><th>النص الظاهر</th></tr></thead><tbody>${videoScenes(v).map(s=>`<tr><td>${s.time}</td><td>${s.purpose}</td><td>${esc(s.visual)}</td><td>${esc(s.voice)}</td><td>${esc(s.screen)}</td></tr>`).join("")}</tbody></table>`}
+function voiceoverScript(v){return videoScenes(v).map(s=>s.voice).join(" ")}
+function runwayShotPrompts(v){return videoScenes(v).map((s,i)=>`SHOT ${i+1} — ${s.time}\n${videoRunwayPrompt(v)}\nSpecific action: ${s.visual}.`).join("\n\n")}
+function productionPackText(v){return `مسار AI — حزمة إنتاج الفيديو V5.5\n\nالموضوع: ${v.topic}\nالجمهور: ${v.audience}\nالهدف: ${v.goal}\nالمدة: ${v.duration}\nالأسلوب: ${v.style}\n\nسيناريو التعليق الصوتي:\n${voiceoverScript(v)}\n\nPrompts اللقطات في Runway:\n${runwayShotPrompts(v)}\n\nتعليمات التجميع النهائي في CapCut:\n${videoCapCutPrompt(v)}\n\nمعيار القبول:\nيفهم مشاهد جديد المشكلة والمنتج والتحول والدعوة خلال مشاهدة واحدة، دون شرح إضافي، وتبقى كل معلومة معروضة صادقة وقابلة للإثبات.`}
+function copyProductionPack(){navigator.clipboard.writeText(productionPackText(wiz.vals.video)).then(()=>alert("تم نسخ حزمة الإنتاج الكاملة."))}
+function switchProductionTab(name,btn){document.querySelectorAll('.production-panel').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.production-tabs button').forEach(x=>x.classList.remove('active'));document.getElementById('prod-'+name).classList.add('active');btn.classList.add('active')}
 
 function conceptualGuide(tool,v){
  const obj=toolsData.video.find(t=>t.name===tool);
@@ -1134,6 +1161,9 @@ function packText(){
 Prompt المخصص:
 ${videoToolPrompt(v,tool)}
 
+حزمة الإنتاج الكاملة من السيناريو إلى CapCut:
+${productionPackText(v)}
+
 الموقع الرسمي:
 ${obj?obj.url:"—"}
 
@@ -1158,9 +1188,9 @@ function setFeedback(kind,val,btn){
 function savePostConfidence(){const el=document.getElementById("confidenceAfter");wiz.feedback.confidenceAfter=el?el.value:null}
 function downloadTestRecord(){
  savePostConfidence();
- const rec={version:"V5.4",date:new Date().toISOString(),need:wiz.need,taskCard:wiz.vals.video,baseline:wiz.baseline,selectedTool:wiz.tool.video,alternative:wiz.tool.video==="CapCut"?"Runway":"CapCut",decisionReason:decisionReason(wiz.tool.video,wiz.vals.video),feedback:wiz.feedback,elapsedMinutes:wiz.startedAt?Math.max(1,Math.round((Date.now()-wiz.startedAt)/60000)):null};
+ const rec={version:"V5.5-review",date:new Date().toISOString(),need:wiz.need,taskCard:wiz.vals.video,baseline:wiz.baseline,selectedTool:wiz.tool.video,alternative:wiz.tool.video==="CapCut"?"Runway":"CapCut",decisionReason:decisionReason(wiz.tool.video,wiz.vals.video),productionPack:productionPackText(wiz.vals.video),feedback:wiz.feedback,elapsedMinutes:wiz.startedAt?Math.max(1,Math.round((Date.now()-wiz.startedAt)/60000)):null};
  const blob=new Blob([JSON.stringify(rec,null,2)],{type:"application/json;charset=utf-8"});
- const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Masar-AI-V5.4-test-record.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Masar-AI-V5.5-test-record.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
 function renderStage6(){
  const tool=wiz.tool.video,v=wiz.vals.video,obj=toolsData.video.find(t=>t.name===tool);
@@ -1178,6 +1208,22 @@ function renderStage6(){
    <div class="v5-boundary"><b>معيار نجاح البداية:</b> افتح الأداة الرسمية، وأنشئ مسودة أولى أو لقطة تجريبية بالـ Prompt المخصص، ثم افحص ملاءمة المحتوى للجمهور والهدف والمدة قبل استكمال الإنتاج.</div>
    <div class="tool-entry" style="margin-top:12px"><a class="btn-external" target="_blank" rel="noopener" href="${obj.url}">افتح ${tool} للتنفيذ ↗</a><a class="btn-external" target="_blank" rel="noopener" href="${obj.docs}">افتح الدليل الرسمي ↗</a></div>
   </div>
+  <section class="production-pack">
+   <h3>حزمة الإنتاج الكاملة — من الفكرة إلى CapCut</h3>
+   <p>لا تتوقف الرحلة عند Prompt عام. هذه الحزمة تفصل الرسالة إلى مشاهد، ثم تولّد اللقطات عند الحاجة، وتنتهي بالتجميع والتعليق الصوتي والتصدير داخل CapCut.</p>
+   <div class="production-tabs">
+    <button class="active" onclick="switchProductionTab('scenes',this)">جدول المشاهد</button>
+    <button onclick="switchProductionTab('voice',this)">التعليق الصوتي</button>
+    <button onclick="switchProductionTab('runway',this)">Prompts Runway</button>
+    <button onclick="switchProductionTab('capcut',this)">خطة CapCut</button>
+   </div>
+   <div class="production-panel active" id="prod-scenes">${sceneTable(v)}</div>
+   <div class="production-panel" id="prod-voice"><div class="prompt-card" id="voiceScript">${esc(voiceoverScript(v))}<button class="copy-prompt" onclick="copyTextById('voiceScript',this)">نسخ التعليق</button></div></div>
+   <div class="production-panel" id="prod-runway"><div class="prompt-card" id="runwayShots">${esc(runwayShotPrompts(v))}<button class="copy-prompt" onclick="copyTextById('runwayShots',this)">نسخ Prompts</button></div></div>
+   <div class="production-panel" id="prod-capcut"><div class="prompt-card" id="capcutPlan">${esc(videoCapCutPrompt(v))}<button class="copy-prompt" onclick="copyTextById('capcutPlan',this)">نسخ خطة CapCut</button></div></div>
+   <div class="production-note"><b>نقطة التحقق الأخيرة:</b> لا نعد الفيديو جاهزًا لمجرد تصديره. يُعرض على 3 أشخاص على الأقل، ثم نسألهم: ما المشكلة؟ ما المنتج؟ ما النتيجة؟ وما الخطوة التالية؟</div>
+   <div class="production-actions"><button onclick="copyProductionPack()">نسخ حزمة الإنتاج كاملة</button></div>
+  </section>
   <div class="pack-actions" style="margin-top:16px"><button class="save" onclick="downloadPack()">حفظ الحزمة في Word</button><button onclick="copyPack()">نسخ الحزمة كاملة</button></div>
 
   <div class="feedback-box">
