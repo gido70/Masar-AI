@@ -213,7 +213,7 @@ function showTrainerGuide(){showModal('طريقة استخدام بوابة ال
 document.querySelector('.close').onclick=()=>modal.classList.remove('open');modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
 steps.addEventListener('click',e=>{
  const d=e.target.dataset.detail,c=e.target.dataset.comment;
- if(d){const i=+d,done=i<=12;showModal(`الخطوة ${i}`,done?`<p><b>${titles[i-1]}</b></p><p>${outputs[i-1]}</p><p><span class="state done">مكتملة كتابيًا وموثقة</span></p><p>يفتح رابط السجل الكامل في النسخة المرتبطة.</p>`:`<p>هذه الخطوة لم تُشرح بعد في المحاضرة، ولذلك لم نضع لها عنوانًا أو إجابة افتراضية.</p><p><span class="state waiting">بانتظار المحاضرة</span></p>`)}
+ if(d){const i=+d,done=i<=12;showModal(`الخطوة ${i}`,done?`<p><b>${titles[i-1]}</b></p><p>${outputs[i-1]}</p><p><span class="state done">مكتملة كتابيًا وموثقة</span></p><p>هذه خلاصة الخطوة، ويمكنك إضافة ملاحظتك أو سؤالك من زر التعليق.</p>`:`<p>هذه الخطوة لم تُشرح بعد في المحاضرة، ولذلك لم نضع لها عنوانًا أو إجابة افتراضية.</p><p><span class="state waiting">بانتظار المحاضرة</span></p>`)}
  if(c){document.querySelector('[data-tab="feedback"]').click();target.value=`الخطوة ${c}`;document.getElementById('feedbackText').focus()}
 });
 const form=document.getElementById('feedbackForm'),comments=document.getElementById('comments');
