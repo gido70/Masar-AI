@@ -16,30 +16,26 @@
 .hidden{display:none!important}.auth-gate{min-height:calc(100vh - 65px);display:grid;place-items:center;padding:28px 15px}.auth-card{width:min(560px,100%);background:#fff;border:1px solid var(--line);border-radius:24px;padding:25px;box-shadow:var(--shadow)}.auth-card h1{font-size:34px;color:var(--wine);margin:4px 0}.auth-card p{color:var(--muted)}.auth-card label{display:grid;gap:5px;font-weight:700}.auth-card input{width:100%;font:inherit;border:1px solid var(--line);border-radius:11px;padding:11px;background:#fff}.auth-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.auth-message{margin-top:12px;padding:10px;border-radius:10px;background:var(--cream2);color:var(--wine)}.auth-message.error{background:#fcebea;color:#9b2c2c}.auth-security{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:13px}.signout{display:none}.signed-in .signout{display:inline-flex}
 </style>
 <style>
-.top-in{min-height:86px;justify-content:flex-start;position:relative}
-.top-actions{display:flex;align-items:center;justify-content:flex-start;gap:10px;flex-wrap:wrap}
-.brand{position:absolute;right:50%;transform:translateX(50%);display:flex;align-items:center;justify-content:center;gap:12px;margin:0;text-align:center}
-.mark{width:52px;height:52px;border-radius:15px;font-size:31px}
-.brand b{font-size:30px;line-height:1.05;white-space:nowrap}
-.brand small{display:block;font-size:15px;white-space:nowrap}
+.top-in{min-height:164px;padding:14px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative}
+.top-actions{order:2;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;width:100%}
+.brand{order:1;position:static;transform:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;margin:0;text-align:center}
+.brand b{font-size:clamp(48px,5vw,60px);line-height:1.05;white-space:nowrap;color:var(--wine)}
+.brand small{display:block;font-size:18px;line-height:1.4;white-space:nowrap;color:var(--muted)}
 .only-view{margin:0}
 @media(max-width:1050px){
-  .top-in{padding-top:92px}
-  .brand{top:10px}
-  .top-actions{width:100%;justify-content:flex-start}
+  .top-in{padding:14px 16px}
+  .top-actions{justify-content:center}
 }
 @media(max-width:600px){
-  .top-in{padding:86px 12px 9px}
-  .brand{top:9px}
-  .mark{width:45px;height:45px;font-size:27px}
-  .brand b{font-size:26px}
-  .brand small{font-size:13px}
-  .top-actions{flex-wrap:nowrap;overflow-x:auto;padding-bottom:3px}
+  .top-in{min-height:150px;padding:12px}
+  .brand b{font-size:40px}
+  .brand small{font-size:15px}
+  .top-actions{flex-wrap:wrap;overflow:visible;padding-bottom:0}
   .only-view{display:none}
   .viewer{flex:0 0 auto}
   .viewer span{display:none}
   .top button{flex:0 0 auto}
-  .tabs{top:140px}
+  .tabs{top:150px}
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -55,7 +51,7 @@
     <button class="signout" id="signOut" type="button">تسجيل الخروج</button>
     <div class="viewer"><span id="viewerName">بوابة آمنة</span><span class="avatar">م</span></div>
   </div>
-  <div class="brand"><span class="mark">م</span><span><b>مسار AI</b><small>بوابة متابعة المدرب</small></span></div>
+  <div class="brand"><b>مسار AI</b><small>بوابة متابعة المدرب</small></div>
 </div></header>
 <section class="auth-gate" id="authGate"><div class="auth-card">
   <span class="eyebrow">بوابة متابعة مسار AI</span>
