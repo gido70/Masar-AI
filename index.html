@@ -1125,13 +1125,13 @@ function videoCapCutPrompt(v){
 المطلوب في CapCut:
 1) خطاف بصري ونصي واضح خلال أول 3 ثوانٍ.
 2) تسلسل من 6 مشاهد قصيرة مبنية حصريًا على موضوع الفيديو وهدفه: تنبيه، خطر أو مشكلة، أثرها، الإجراء الصحيح، النتيجة، والدعوة إلى الإجراء. لا تحوّل الفيديو إلى إعلان عن أداة أو منصة أخرى.
-3) تعليق صوتي عربي فصيح بصوت ${v.voice}، بجمل قصيرة وطبيعية، مع ترجمة عربية متزامنة ودقيقة.
-4) نص واحد فقط على الشاشة في كل مشهد، بحد أقصى 7 كلمات، مع مساحة آمنة للحواف.
+3) تعليق صوتي عربي فصيح بصوت ${v.voice}، بجمل قصيرة وطبيعية. لا تطلب من مولّد اللقطات إنشاء ترجمة أو كتابة عربية داخل الصورة.
+4) ولّد جميع اللقطات بلا نصوص أو حروف أو شعارات، مع ترك مساحة بصرية آمنة. بعد اكتمال التوليد، أضف يدويًا داخل محرر CapCut النص العربي المحدد لكل مشهد، بحد أقصى 7 كلمات، ثم راجع اتصال الحروف واتجاه الكتابة من اليمين إلى اليسار.
 5) انتقالات هادئة، موسيقى خافتة غير مشتتة، وخفض الموسيقى تلقائيًا أثناء الكلام.
 6) توحيد الخط والألوان والإيقاع، وعدم استخدام مؤثرات مبالغ فيها.
 7) تصدير 1080p بنسبة 16:9 للعرض، مع نسخة 9:16 عند الحاجة للهاتف.
 
-قاعدة الجودة: لا تختلق معلومات، لا تضع نصًا مشوهًا داخل الصور المولدة، ولا تعرض شعارًا أو نتيجة غير موجودة. اترك مواضع اللقطات المولدة أو المواد الأصلية قابلة للاستبدال داخل الخط الزمني.`;
+قاعدة الجودة: لا تختلق معلومات، ولا تنشئ أي كتابة داخل الصور أو اللقطات المولدة، ولا تعرض شعارًا أو نتيجة غير موجودة. أضف العربية لاحقًا كطبقة نصية يدوية داخل محرر CapCut، واختبرها في عينة تصدير قصيرة قبل التصدير النهائي. اترك مواضع اللقطات المولدة أو المواد الأصلية قابلة للاستبدال داخل الخط الزمني.`;
 }
 function videoRunwayPrompt(v){
  return `Cinematic ${v.style} video shot for an Arabic presentation about "${v.topic}", designed for ${v.audience}. Visually communicate the goal: "${v.goal}". One clear subject, coherent environment, natural human motion, realistic lighting, controlled camera movement, consistent wardrobe and color palette, clean negative space for later Arabic captions. No text, no logos, no distorted hands, no duplicated people, no sudden scene changes. Create a short self-contained shot that can be assembled with five matching shots in CapCut.`;
@@ -1159,7 +1159,7 @@ function videoScenes(v){
   {time:times[5],purpose:"الدعوة",visual:"خاتمة بسيطة مرتبطة بالموضوع دون شعارات أو ادعاءات غير مثبتة",voice:"ابدأ الآن بخطوة صحيحة وقابلة للتحقق.",screen:"ابدأ وتحقق"}
  ];
 }
-function sceneTable(v){return `<table class="scene-table"><thead><tr><th>الزمن</th><th>الغرض</th><th>الصورة</th><th>التعليق الصوتي</th><th>النص الظاهر</th></tr></thead><tbody>${videoScenes(v).map(s=>`<tr><td>${s.time}</td><td>${s.purpose}</td><td>${esc(s.visual)}</td><td>${esc(s.voice)}</td><td>${esc(s.screen)}</td></tr>`).join("")}</tbody></table>`}
+function sceneTable(v){return `<div class="production-note"><b>تنبيه العربية:</b> النصوص في العمود الأخير لا تُولّد داخل الصور؛ تُضاف يدويًا كطبقات نصية في محرر CapCut بعد إنشاء اللقطات.</div><table class="scene-table"><thead><tr><th>الزمن</th><th>الغرض</th><th>الصورة بلا كتابة</th><th>التعليق الصوتي</th><th>النص العربي — يضاف يدويًا</th></tr></thead><tbody>${videoScenes(v).map(s=>`<tr><td>${s.time}</td><td>${s.purpose}</td><td>${esc(s.visual)}</td><td>${esc(s.voice)}</td><td>${esc(s.screen)}</td></tr>`).join("")}</tbody></table>`}
 function voiceoverScript(v){return videoScenes(v).map(s=>s.voice).join(" ")}
 function runwayShotPrompts(v){return videoScenes(v).map((s,i)=>`SHOT ${i+1} — ${s.time}\n${videoRunwayPrompt(v)}\nSpecific action: ${s.visual}.`).join("\n\n")}
 function productionPackText(v){return `مسار AI — حزمة إنتاج الفيديو V5.6\n\nالموضوع: ${v.topic}\nالجمهور: ${v.audience}\nالهدف: ${v.goal}\nالمدة: ${v.duration}\nالأسلوب: ${v.style}\n\nسيناريو التعليق الصوتي:\n${voiceoverScript(v)}\n\nPrompts اللقطات في Runway:\n${runwayShotPrompts(v)}\n\nتعليمات التجميع النهائي في CapCut:\n${videoCapCutPrompt(v)}\n\nمعيار القبول:\nيفهم مشاهد جديد الموضوع والخطر أو المشكلة والإجراء الصحيح والدعوة خلال مشاهدة واحدة، دون شرح إضافي، وتبقى كل معلومة معروضة صادقة وقابلة للإثبات.`}
