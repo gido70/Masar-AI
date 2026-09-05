@@ -744,11 +744,11 @@ const toolsData={
    name:"CapCut",
    best:true,
    desc:"أفضل نقطة بداية في V5 عندما تريد مسودة سريعة مع إمكانية التحرير والصوت والنصوص في بيئة واحدة.",
-   badges:["اختبار داخلي فعلي","مناسب للبداية"],
+   badges:["جاهز للاختبار العملي","مناسب للبداية"],
    url:"https://www.capcut.com/tools/ai-video",
    docs:"https://www.capcut.com/tools/text-to-video-ai",
    verified:"23 أغسطس 2026",
-   proof:"اختبرناه فعليًا في مشروع توعوي عربي وأنتج فيديو أوليًا قابلًا للمراجعة."
+   proof:"اكتملت رحلة الترشيح وحزمة التنفيذ داخل مسار AI؛ لم يُنتج الفيديو فعليًا في CapCut بعد."
   },
   {
    name:"Runway",
@@ -1067,7 +1067,7 @@ function renderStage4(){
   <article class="toolx ${t.name===rec?"reco":""} ${chosen===t.name?"chosen":""}">
    <h4>${t.name}</h4><p>${t.desc}</p>
    <div class="v5-proof">
-    ${t.name==="CapCut"?'<span class="proof-badge proof-ok">✓ اختبرناه فعليًا</span>':'<span class="proof-badge proof-doc">✓ راجعنا التوثيق الرسمي</span>'}
+    ${t.name==="CapCut"?'<span class="proof-badge proof-doc">جاهز للاختبار في CapCut</span>':'<span class="proof-badge proof-doc">✓ راجعنا التوثيق الرسمي</span>'}
     ${t.name===rec?'<span class="proof-badge proof-ok">توصيتنا لك الآن</span>':''}
    </div>
    <div class="v5-toolmeta">
@@ -1110,7 +1110,7 @@ function renderStage5(){
    <div class="decision-review-grid">
     <div class="task-fact"><small>الأداة الأساسية</small><b>${tool}</b></div>
     <div class="task-fact"><small>البديل</small><b>${alt}</b></div>
-    <div class="task-fact"><small>حالة التحقق</small><b>${tool==="CapCut"?"مختبرة فعليًا":"مراجعة توثيق رسمي"}</b></div>
+    <div class="task-fact"><small>حالة التحقق</small><b>${tool==="CapCut"?"رحلة مسار مختبرة؛ التنفيذ الخارجي منتظر":"مراجعة توثيق رسمي"}</b></div>
     <div class="task-fact"><small>آخر تحقق</small><b>${obj.verified}</b></div>
    </div>
    <div class="decision-proof"><b>دليل الثقة:</b> ${esc(obj.proof)}</div>
