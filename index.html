@@ -353,7 +353,7 @@ footer{background:linear-gradient(135deg,#25151c,#4e1e2d);color:#fff;border-top:
   <h1>من «ماذا أستخدم؟» إلى «ابدأ من هنا»</h1>
   <p class="hero-sub">صف مهمتك بلغتك. يفهم مسار AI حاجتك وقيودك، يضيّق البدائل إلى خيارين، يوضح سبب الترشيح ودرجة التحقق، ثم يعطيك نقطة بداية ومعيار نجاح واضحًا.</p>
   <div class="need-box">
-    <textarea id="needInput" placeholder="مثال: أريد إنشاء فيديو توعوي عربي مدته دقيقة عن السلامة من الإبر المستخدمة في المستشفى.">أريد إنشاء فيديو توعوي عربي مدته دقيقة عن السلامة من الإبر المستخدمة في المستشفى</textarea>
+    <textarea id="needInput" placeholder="صف المهمة التي تريد تنفيذها.">أريد إنشاء فيديو توعوي عربي عن الاستخدام المسؤول للذكاء الاصطناعي في البحث العلمي</textarea>
     <div class="need-examples">
       <button data-q="أريد إنشاء فيديو عربي قصير من مواد جاهزة">فيديو من مواد جاهزة</button>
       <button data-q="أريد إنشاء لقطات فيديو جديدة بالذكاء الاصطناعي">توليد لقطات جديدة</button>
@@ -367,7 +367,8 @@ footer{background:linear-gradient(135deg,#25151c,#4e1e2d);color:#fff;border-top:
         <div><label for="confidenceInput">ما ثقتك في قرارك الآن؟</label><select id="confidenceInput"><option value="1">1 — مشتت جدًا</option><option value="2" selected>2 — غير واثق</option><option value="3">3 — متوسط</option><option value="4">4 — واثق</option><option value="5">5 — واضح جدًا</option></select></div>
       </div>
     </div>
-    <button class="primary" onclick="startWizard()">ابدأ مساري ←</button>
+    <button class="primary" onclick="loadApprovedVideoPilot()">تحميل رحلة الاختبار المعتمدة — Runway ←</button>
+    <button class="outline" onclick="startWizard()">ابدأ مسارًا جديدًا</button>
   </div>
   <p class="reassure-line">هدف V5 ليس تعليم كل أداة زرًا بزر؛ بل تقليل التشتت والوصول إلى اختيار واضح ومبرر يمكن تنفيذه.</p>
   <div class="quick-flow">
@@ -808,10 +809,27 @@ let wiz={
  baseline:{knownTool:"لا أعرف",confidence:"2"},
  feedback:{result:null,clarity:null,confidenceAfter:null},
  vals:{
-  video:{topic:"السلامة من الإبر المستخدمة في المستشفى",audience:"عمال النظافة والعاملون في المستشفى",duration:"دقيقة واحدة",goal:"التوعية بالخطر والتصرف الآمن",style:"واقعي تعليمي",voice:"رجل هادئ",priority:"ابدأ بالمجاني",device:"كمبيوتر",language:"العربية",budget:"مجاني أولًا",experience:"مبتدئ"}
+  video:{topic:"الاستخدام المسؤول للذكاء الاصطناعي في البحث العلمي",audience:"الباحثون والمهنيون العرب في مجموعات واتساب والمجتمعات المهنية",duration:"30 ثانية",goal:"التنبيه إلى ضرورة التحقق من مخرجات الذكاء الاصطناعي قبل اعتمادها",style:"واقعي تعليمي هادئ",voice:"رجل عربي هادئ وواضح",priority:"أعلى جودة",device:"كمبيوتر",language:"العربية",budget:"اشتراك مدفوع متاح",experience:"مبتدئ"}
  },
  gaps:[]
 };
+
+const WIZ_DRAFT_KEY="masar-ai-v56-current-journey";
+const WIZ_SAVED_KEY="masar-ai-v56-saved-journeys";
+function persistDraft(){
+ try{localStorage.setItem(WIZ_DRAFT_KEY,JSON.stringify({...wiz,savedAt:new Date().toISOString()}))}catch(e){}
+}
+function loadApprovedVideoPilot(){
+ wiz.domain="video";wiz.stage=6;wiz.maxStage=6;wiz.need="إنشاء فيديو توعوي عربي عن الاستخدام المسؤول للذكاء الاصطناعي في البحث العلمي";
+ wiz.startedAt=Date.now();wiz.tool={video:"Runway"};wiz.baseline={knownTool:"أعرف Runway وCapCut",confidence:"3"};wiz.feedback={result:null,clarity:null,confidenceAfter:null};
+ wiz.vals.video={topic:"الاستخدام المسؤول للذكاء الاصطناعي في البحث العلمي",audience:"الباحثون والمهنيون العرب في مجموعات واتساب والمجتمعات المهنية",duration:"30 ثانية",goal:"التنبيه إلى ضرورة التحقق من مخرجات الذكاء الاصطناعي قبل اعتمادها",style:"واقعي تعليمي هادئ",voice:"رجل عربي هادئ وواضح",priority:"أعلى جودة",device:"كمبيوتر",language:"العربية",budget:"اشتراك مدفوع متاح",experience:"مبتدئ"};
+ persistDraft();document.getElementById("wizard").classList.remove("hidden");renderWizard();document.getElementById("wizard").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function saveJourneyInPlatform(btn){
+ savePostConfidence();
+ const rec={id:Date.now(),version:"V5.6-review",date:new Date().toISOString(),need:wiz.need,taskCard:wiz.vals.video,baseline:wiz.baseline,selectedTool:wiz.tool.video,alternative:wiz.tool.video==="CapCut"?"Runway":"CapCut",decisionReason:decisionReason(wiz.tool.video,wiz.vals.video),productionPack:productionPackText(wiz.vals.video),feedback:wiz.feedback};
+ try{const rows=JSON.parse(localStorage.getItem(WIZ_SAVED_KEY)||"[]");rows.unshift(rec);localStorage.setItem(WIZ_SAVED_KEY,JSON.stringify(rows.slice(0,20)));persistDraft();if(btn){btn.textContent="تم حفظ الرحلة على هذا الجهاز ✓";btn.disabled=true}}catch(e){alert("تعذر الحفظ على هذا الجهاز. نزّل سجل الاختبار كنسخة احتياطية.")}
+}
 
 function esc(x){return String(x).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
 function scrollToStart(e){if(e)e.preventDefault();document.getElementById("top").scrollIntoView({behavior:"smooth"})}
@@ -838,6 +856,7 @@ function startWizard(){
  wiz.lastAnalysis=a;
  document.getElementById("wizard").classList.remove("hidden");
  renderWizard();
+ persistDraft();
  document.getElementById("wizard").scrollIntoView({behavior:"smooth",block:"start"});
 }
 
@@ -851,6 +870,7 @@ function nextStage(){
  wiz.stage=Math.min(6,wiz.stage+1);
  wiz.maxStage=Math.max(wiz.maxStage,wiz.stage);
  renderWizard();
+ persistDraft();
  document.getElementById("wizard").scrollIntoView({behavior:"smooth",block:"start"});
 }
 
@@ -1060,7 +1080,7 @@ function recommendedTool(){
  if(/أعلى جودة/.test(v.priority)||/أقبل المدفوع/.test(v.budget)) return "Runway";
  return "CapCut";
 }
-function chooseTool(name){wiz.tool.video=name;renderWizard()}
+function chooseTool(name){wiz.tool.video=name;persistDraft();renderWizard()}
 function renderStage4(){
  const chosen=wiz.tool.video,rec=recommendedTool(),v=wiz.vals.video;
  const cards=toolsData.video.map(t=>`
@@ -1287,7 +1307,8 @@ function renderStage6(){
    <div class="production-note"><b>نقطة التحقق الأخيرة:</b> لا نعد الفيديو جاهزًا لمجرد تصديره. يُعرض على 3 أشخاص على الأقل، ثم نسألهم: ما موضوع الفيديو؟ ما الخطر أو المشكلة؟ ما الإجراء الصحيح؟ وما الرسالة النهائية؟</div>
    <div class="production-actions"><button onclick="copyProductionPack()">نسخ حزمة الإنتاج كاملة</button></div>
   </section>
-  <div class="pack-actions" style="margin-top:16px"><button class="save" onclick="downloadPack()">حفظ الحزمة في Word</button><button onclick="copyPack()">نسخ الحزمة كاملة</button></div>
+  <div class="pack-actions" style="margin-top:16px"><button class="save" onclick="saveJourneyInPlatform(this)">حفظ الرحلة في المنصة على هذا الجهاز</button><button onclick="downloadPack()">حفظ الحزمة في Word</button><button onclick="copyPack()">نسخ الحزمة كاملة</button></div>
+  <div class="feedback-export">الحفظ المحلي يبقى بعد إغلاق الصفحة على هذا المتصفح والجهاز. لا ندّعي بعد مزامنة مركزية بين الأجهزة.</div>
 
   <div class="feedback-box">
    <b>اختبار V5 — هل قلّ التشتت فعلًا؟</b>
