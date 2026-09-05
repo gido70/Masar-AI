@@ -1124,7 +1124,7 @@ function videoCapCutPrompt(v){
 
 المطلوب في CapCut:
 1) خطاف بصري ونصي واضح خلال أول 3 ثوانٍ.
-2) تسلسل من 6 مشاهد قصيرة: المشكلة، أثرها، لحظة التحول، منهج الحل، النتيجة، والدعوة إلى الإجراء.
+2) تسلسل من 6 مشاهد قصيرة مبنية حصريًا على موضوع الفيديو وهدفه: تنبيه، خطر أو مشكلة، أثرها، الإجراء الصحيح، النتيجة، والدعوة إلى الإجراء. لا تحوّل الفيديو إلى إعلان عن أداة أو منصة أخرى.
 3) تعليق صوتي عربي فصيح بصوت ${v.voice}، بجمل قصيرة وطبيعية، مع ترجمة عربية متزامنة ودقيقة.
 4) نص واحد فقط على الشاشة في كل مشهد، بحد أقصى 7 كلمات، مع مساحة آمنة للحواف.
 5) انتقالات هادئة، موسيقى خافتة غير مشتتة، وخفض الموسيقى تلقائيًا أثناء الكلام.
@@ -1141,19 +1141,28 @@ function copyTextById(id,btn){const el=document.getElementById(id);navigator.cli
 
 function videoScenes(v){
  const times=v.duration==="30 ثانية"?["0–3 ث","3–8 ث","8–13 ث","13–20 ث","20–26 ث","26–30 ث"]:v.duration==="دقيقتان"?["0–10 ث","10–26 ث","26–44 ث","44–76 ث","76–104 ث","104–120 ث"]:["0–5 ث","5–13 ث","13–22 ث","22–38 ث","38–52 ث","52–60 ث"];
+ const verificationTopic=/ذكاء اصطناعي|البحث العلمي|تحقق|مخرجات/.test(`${v.topic} ${v.goal}`);
+ if(verificationTopic)return [
+  {time:times[0],purpose:"التنبيه",visual:"باحث أمام شاشة تعرض إجابة مولدة تبدو مقنعة",voice:"إجابة الذكاء الاصطناعي قد تبدو صحيحة... لكنها ليست دليلًا.",screen:"السرعة لا تعني الدقة"},
+  {time:times[1],purpose:"الخطر",visual:"تكبير على أرقام ومراجع داخل الإجابة مع علامة استفهام",voice:"قد تتضمن المخرجات معلومة أو رقمًا أو مرجعًا غير دقيق.",screen:"تحقق قبل الاعتماد"},
+  {time:times[2],purpose:"الأثر",visual:"باحث يراجع مسودة بحث ثم يتوقف عند استشهاد غير موثق",voice:"اعتماد معلومة غير موثقة قد يضعف البحث ونتائجه.",screen:"خطأ صغير، أثر كبير"},
+  {time:times[3],purpose:"الإجراء",visual:"مقارنة الادعاء بمصدر علمي أصلي وموثوق",voice:"ارجع إلى المصدر الأصلي، وافحص المؤلف والتاريخ والأرقام والاستشهادات.",screen:"راجع المصدر الأصلي"},
+  {time:times[4],purpose:"النتيجة",visual:"الباحث يصحح المسودة وتظهر علامة تحقق واضحة",voice:"استخدم الذكاء الاصطناعي للمساعدة، واجعل الأدلة أساس الاعتماد.",screen:"الأدلة أولًا"},
+  {time:times[5],purpose:"الدعوة",visual:"شاشة ختامية بسيطة تجمع الباحث والأداة والمصدر الموثوق",voice:"استخدمه مساعدًا... لا مصدرًا نهائيًا.",screen:"تحقق قبل أن تعتمد"}
+ ];
  return [
-  {time:times[0],purpose:"الخطاف",visual:`مستخدم يواجه خيارات كثيرة مرتبطة بـ ${v.topic}`,voice:"لديك مهمة واضحة... لكن الأدوات أكثر مما ينبغي.",screen:"المشكلة ليست نقص الأدوات"},
-  {time:times[1],purpose:"المشكلة",visual:"تنقل سريع بين نوافذ وأسماء وخيارات متشابهة",voice:"تبحث وتقارن، ثم تضيع البداية بين عشرات الخيارات.",screen:"التشتت يؤخر القرار"},
-  {time:times[2],purpose:"التحول",visual:"هدوء بصري وانتقال إلى بطاقة مهمة واحدة واضحة",voice:"مسار AI يبدأ من حاجتك وقيودك، لا من قائمة الأدوات.",screen:"ابدأ من مهمتك"},
-  {time:times[3],purpose:"المنهج",visual:"ست محطات متتابعة بإيقاع هادئ ومتسق",voice:"يفهم، يضيّق، يقارن، يتحقق، ثم يمنحك نقطة بداية قابلة للقياس.",screen:"افهم ← ضيّق ← قارن ← ابدأ"},
-  {time:times[4],purpose:"النتيجة",visual:"بطاقة قرار: أداة أساسية وبديل وسبب ومعيار نجاح",voice:"تحصل على قرار تستطيع تفسيره: أداة أساسية، بديل، سبب واضح، ومعيار نجاح.",screen:"قرار مفسّر، لا قائمة مشتتة"},
-  {time:times[5],purpose:"الدعوة",visual:"هوية مسار AI وشاشة البداية بصورة نظيفة",voice:"مسار AI. من ماذا أستخدم؟ إلى ابدأ من هنا.",screen:"مسار AI — ابدأ من هنا"}
+  {time:times[0],purpose:"التنبيه",visual:`مشهد واضح يعرّف موضوع «${v.topic}» لدى ${v.audience}`,voice:`ابدأ بفكرة واحدة واضحة عن ${v.topic}.`,screen:"انتبه إلى الموضوع"},
+  {time:times[1],purpose:"المشكلة",visual:`مثال واقعي يوضح المشكلة أو الحاجة المرتبطة بـ ${v.topic}`,voice:`المشكلة التي نعالجها هي: ${v.goal}.`,screen:"ما المشكلة؟"},
+  {time:times[2],purpose:"الأثر",visual:"إظهار أثر المشكلة على الجمهور بصورة واقعية غير مبالغ فيها",voice:"عندما نتجاهلها، يصبح الوصول إلى النتيجة أصعب.",screen:"الأثر واضح"},
+  {time:times[3],purpose:"الإجراء",visual:"عرض الإجراء الصحيح في خطوات بصرية بسيطة",voice:"ابدأ بإجراء واضح، ثم راجع النتيجة قبل اعتمادها.",screen:"طبّق ثم راجع"},
+  {time:times[4],purpose:"النتيجة",visual:`إظهار النتيجة المتوقعة بما يوافق الهدف: ${v.goal}`,voice:"بهذه الخطوة تصبح النتيجة أوضح وأكثر موثوقية.",screen:"نتيجة أفضل"},
+  {time:times[5],purpose:"الدعوة",visual:"خاتمة بسيطة مرتبطة بالموضوع دون شعارات أو ادعاءات غير مثبتة",voice:"ابدأ الآن بخطوة صحيحة وقابلة للتحقق.",screen:"ابدأ وتحقق"}
  ];
 }
 function sceneTable(v){return `<table class="scene-table"><thead><tr><th>الزمن</th><th>الغرض</th><th>الصورة</th><th>التعليق الصوتي</th><th>النص الظاهر</th></tr></thead><tbody>${videoScenes(v).map(s=>`<tr><td>${s.time}</td><td>${s.purpose}</td><td>${esc(s.visual)}</td><td>${esc(s.voice)}</td><td>${esc(s.screen)}</td></tr>`).join("")}</tbody></table>`}
 function voiceoverScript(v){return videoScenes(v).map(s=>s.voice).join(" ")}
 function runwayShotPrompts(v){return videoScenes(v).map((s,i)=>`SHOT ${i+1} — ${s.time}\n${videoRunwayPrompt(v)}\nSpecific action: ${s.visual}.`).join("\n\n")}
-function productionPackText(v){return `مسار AI — حزمة إنتاج الفيديو V5.5\n\nالموضوع: ${v.topic}\nالجمهور: ${v.audience}\nالهدف: ${v.goal}\nالمدة: ${v.duration}\nالأسلوب: ${v.style}\n\nسيناريو التعليق الصوتي:\n${voiceoverScript(v)}\n\nPrompts اللقطات في Runway:\n${runwayShotPrompts(v)}\n\nتعليمات التجميع النهائي في CapCut:\n${videoCapCutPrompt(v)}\n\nمعيار القبول:\nيفهم مشاهد جديد المشكلة والمنتج والتحول والدعوة خلال مشاهدة واحدة، دون شرح إضافي، وتبقى كل معلومة معروضة صادقة وقابلة للإثبات.`}
+function productionPackText(v){return `مسار AI — حزمة إنتاج الفيديو V5.6\n\nالموضوع: ${v.topic}\nالجمهور: ${v.audience}\nالهدف: ${v.goal}\nالمدة: ${v.duration}\nالأسلوب: ${v.style}\n\nسيناريو التعليق الصوتي:\n${voiceoverScript(v)}\n\nPrompts اللقطات في Runway:\n${runwayShotPrompts(v)}\n\nتعليمات التجميع النهائي في CapCut:\n${videoCapCutPrompt(v)}\n\nمعيار القبول:\nيفهم مشاهد جديد الموضوع والخطر أو المشكلة والإجراء الصحيح والدعوة خلال مشاهدة واحدة، دون شرح إضافي، وتبقى كل معلومة معروضة صادقة وقابلة للإثبات.`}
 function copyProductionPack(){navigator.clipboard.writeText(productionPackText(wiz.vals.video)).then(()=>alert("تم نسخ حزمة الإنتاج الكاملة."))}
 function switchProductionTab(name,btn){document.querySelectorAll('.production-panel').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.production-tabs button').forEach(x=>x.classList.remove('active'));document.getElementById('prod-'+name).classList.add('active');btn.classList.add('active')}
 
