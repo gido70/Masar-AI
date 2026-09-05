@@ -808,7 +808,7 @@ let wiz={
  baseline:{knownTool:"لا أعرف",confidence:"2"},
  feedback:{result:null,clarity:null,confidenceAfter:null},
  vals:{
-  video:{topic:"السلامة من الإبر المستخدمة في المستشفى",audience:"عمال النظافة والعاملون في المستشفى",duration:"دقيقة واحدة",goal:"التوعية بالخطر والتصرف الآمن",style:"واقعي تعليمي",priority:"ابدأ بالمجاني",device:"كمبيوتر",language:"العربية",budget:"مجاني أولًا",experience:"مبتدئ"}
+  video:{topic:"السلامة من الإبر المستخدمة في المستشفى",audience:"عمال النظافة والعاملون في المستشفى",duration:"دقيقة واحدة",goal:"التوعية بالخطر والتصرف الآمن",style:"واقعي تعليمي",voice:"رجل هادئ",priority:"ابدأ بالمجاني",device:"كمبيوتر",language:"العربية",budget:"مجاني أولًا",experience:"مبتدئ"}
  },
  gaps:[]
 };
@@ -831,7 +831,8 @@ function startWizard(){
  wiz.domain=a.route;
  if(a.route==="video"){
   const duration=/20\s*(?:إلى|-|–)\s*30|30\s*ثانية/.test(q)?"30 ثانية":/دقيقت/.test(q)?"دقيقتان":/دقيقة/.test(q)?"دقيقة واحدة":"30 ثانية";
-  wiz.vals.video={topic:q.trim(),audience:"",duration,goal:"",style:"واقعي تعليمي",priority:"ابدأ بالمجاني",device:"كمبيوتر",language:/إنجليزي|English/i.test(q)?"الإنجليزية":"العربية",budget:"مجاني أولًا",experience:"مبتدئ"};
+  const voice=/امرأة|نسائي/.test(q)?"امرأة هادئة":/رجل|رجالي/.test(q)?"رجل هادئ":"غير محدد";
+  wiz.vals.video={topic:q.trim(),audience:"",duration,goal:"",style:"واقعي تعليمي",voice,priority:"ابدأ بالمجاني",device:"كمبيوتر",language:/إنجليزي|English/i.test(q)?"الإنجليزية":"العربية",budget:"مجاني أولًا",experience:"مبتدئ"};
  }
  wiz.stage=1;wiz.maxStage=1;
  wiz.lastAnalysis=a;
@@ -937,6 +938,7 @@ function stageFieldsVideo(){
   <div class="pf"><label>كم تريد أن تكون مدة الفيديو؟</label><small>اختر مدة تقريبية؛ قد تُنتج الأداة الفيديو على لقطات أقصر ثم تُجمع.</small><select id="f_duration"><option ${v.duration==="30 ثانية"?"selected":""}>30 ثانية</option><option ${v.duration==="دقيقة واحدة"?"selected":""}>دقيقة واحدة</option><option ${v.duration==="دقيقتان"?"selected":""}>دقيقتان</option></select></div>
   <div class="pf"><label>ماذا تريد أن يحقق الفيديو؟</label><small>مثال: التوعية، الشرح، الإعلان، أو إقناع المشاهد بفكرة محددة.</small><input id="f_goal" value="${esc(v.goal)}"></div>
   <div class="pf"><label>كيف تريد أن يبدو الفيديو؟</label><small>واقعي: قريب من التصوير الحقيقي. سينمائي: مشاهد وإضاءة درامية. رسوم متحركة: أسلوب مرسوم. أفاتار: شخصية رقمية تتحدث.</small><select id="f_style"><option ${v.style==="واقعي تعليمي"?"selected":""}>واقعي تعليمي</option><option ${v.style==="سينمائي"?"selected":""}>سينمائي</option><option ${v.style==="رسوم متحركة"?"selected":""}>رسوم متحركة</option><option ${v.style==="أفاتار يتحدث"?"selected":""}>أفاتار يتحدث</option></select></div>
+  <div class="pf"><label>ما الصوت المطلوب؟</label><small>اختر نوع التعليق الصوتي الذي يناسب رسالتك.</small><select id="f_voice"><option ${v.voice==="غير محدد"?"selected":""}>غير محدد</option><option ${v.voice==="رجل هادئ"?"selected":""}>رجل هادئ</option><option ${v.voice==="امرأة هادئة"?"selected":""}>امرأة هادئة</option></select></div>
   <div class="pf"><label>ما أولويتك عند اختيار الأداة؟</label><small>ابدأ بالمجاني للتجربة، أو وازن بين الجودة والتكلفة، أو اختر أعلى جودة حتى لو كانت مدفوعة.</small><select id="f_priority"><option ${v.priority==="ابدأ بالمجاني"?"selected":""}>ابدأ بالمجاني</option><option ${v.priority==="توازن بين الجودة والتكلفة"?"selected":""}>توازن بين الجودة والتكلفة</option><option ${v.priority==="أعلى جودة"?"selected":""}>أعلى جودة</option></select></div>
   <div class="pf"><label>ما الجهاز الذي ستعمل منه؟</label><small>يساعدنا ذلك على استبعاد أداة لا تناسب جهازك.</small><select id="f_device"><option ${v.device==="هاتف"?"selected":""}>هاتف</option><option ${v.device==="كمبيوتر"?"selected":""}>كمبيوتر</option><option ${v.device==="كلاهما"?"selected":""}>كلاهما</option></select></div>
   <div class="pf"><label>ما لغة العمل الأساسية؟</label><small>لغة النصوص والتعليمات والصوت المطلوب.</small><select id="f_language"><option ${v.language==="العربية"?"selected":""}>العربية</option><option ${v.language==="الإنجليزية"?"selected":""}>الإنجليزية</option><option ${v.language==="العربية والإنجليزية"?"selected":""}>العربية والإنجليزية</option></select></div>
@@ -977,7 +979,7 @@ function renderStage2(){
 function saveStage2AndNext(){
  const d=wiz.domain;
  if(d==="video"){
-  wiz.vals.video={topic:val("f_topic"),audience:val("f_audience"),duration:val("f_duration"),goal:val("f_goal"),style:val("f_style"),priority:val("f_priority"),device:val("f_device"),language:val("f_language"),budget:val("f_budget"),experience:val("f_experience")};
+  wiz.vals.video={topic:val("f_topic"),audience:val("f_audience"),duration:val("f_duration"),goal:val("f_goal"),style:val("f_style"),voice:val("f_voice"),priority:val("f_priority"),device:val("f_device"),language:val("f_language"),budget:val("f_budget"),experience:val("f_experience")};
  }else if(d==="audio"){
   wiz.vals.audio={topic:val("f_topic"),language:val("f_language"),duration:val("f_duration"),privacy:val("f_privacy"),priority:val("f_priority")};
  }else{
@@ -1042,7 +1044,7 @@ function renderStage3(){
     <div class="task-fact"><small>الموضوع</small><b>${esc(v.topic)}</b></div>
     <div class="task-fact"><small>الجمهور</small><b>${esc(v.audience)}</b></div>
     <div class="task-fact"><small>الهدف</small><b>${esc(v.goal)}</b></div>
-    <div class="task-fact"><small>المخرج</small><b>فيديو ${esc(v.style)} — ${esc(v.duration)}</b></div>
+    <div class="task-fact"><small>المخرج</small><b>فيديو ${esc(v.style)} — ${esc(v.duration)} — ${esc(v.voice)}</b></div>
     <div class="task-fact"><small>الجهاز واللغة</small><b>${esc(v.device)} — ${esc(v.language)}</b></div>
     <div class="task-fact"><small>الميزانية والخبرة</small><b>${esc(v.budget)} — ${esc(v.experience)}</b></div>
    </div>
@@ -1123,7 +1125,7 @@ function videoCapCutPrompt(v){
 المطلوب في CapCut:
 1) خطاف بصري ونصي واضح خلال أول 3 ثوانٍ.
 2) تسلسل من 6 مشاهد قصيرة: المشكلة، أثرها، لحظة التحول، منهج الحل، النتيجة، والدعوة إلى الإجراء.
-3) تعليق صوتي عربي فصيح، جمل قصيرة وطبيعية، مع ترجمة عربية متزامنة ودقيقة.
+3) تعليق صوتي عربي فصيح بصوت ${v.voice}، بجمل قصيرة وطبيعية، مع ترجمة عربية متزامنة ودقيقة.
 4) نص واحد فقط على الشاشة في كل مشهد، بحد أقصى 7 كلمات، مع مساحة آمنة للحواف.
 5) انتقالات هادئة، موسيقى خافتة غير مشتتة، وخفض الموسيقى تلقائيًا أثناء الكلام.
 6) توحيد الخط والألوان والإيقاع، وعدم استخدام مؤثرات مبالغ فيها.
@@ -1138,13 +1140,14 @@ function videoToolPrompt(v,tool){return tool==="Runway"?videoRunwayPrompt(v):vid
 function copyTextById(id,btn){const el=document.getElementById(id);navigator.clipboard.writeText(el.innerText.trim());if(btn){const t=btn.textContent;btn.textContent="تم النسخ ✓";setTimeout(()=>btn.textContent=t,1200)}}
 
 function videoScenes(v){
+ const times=v.duration==="30 ثانية"?["0–3 ث","3–8 ث","8–13 ث","13–20 ث","20–26 ث","26–30 ث"]:v.duration==="دقيقتان"?["0–10 ث","10–26 ث","26–44 ث","44–76 ث","76–104 ث","104–120 ث"]:["0–5 ث","5–13 ث","13–22 ث","22–38 ث","38–52 ث","52–60 ث"];
  return [
-  {time:"0–5 ث",purpose:"الخطاف",visual:`مستخدم يواجه خيارات كثيرة مرتبطة بـ ${v.topic}`,voice:"لديك مهمة واضحة... لكن الأدوات أكثر مما ينبغي.",screen:"المشكلة ليست نقص الأدوات"},
-  {time:"5–13 ث",purpose:"المشكلة",visual:"تنقل سريع بين نوافذ وأسماء وخيارات متشابهة",voice:"تبحث وتقارن، ثم تضيع البداية بين عشرات الخيارات.",screen:"التشتت يؤخر القرار"},
-  {time:"13–22 ث",purpose:"التحول",visual:"هدوء بصري وانتقال إلى بطاقة مهمة واحدة واضحة",voice:"مسار AI يبدأ من حاجتك وقيودك، لا من قائمة الأدوات.",screen:"ابدأ من مهمتك"},
-  {time:"22–38 ث",purpose:"المنهج",visual:"ست محطات متتابعة بإيقاع هادئ ومتسق",voice:"يفهم، يضيّق، يقارن، يتحقق، ثم يمنحك نقطة بداية قابلة للقياس.",screen:"افهم ← ضيّق ← قارن ← ابدأ"},
-  {time:"38–52 ث",purpose:"النتيجة",visual:"بطاقة قرار: أداة أساسية وبديل وسبب ومعيار نجاح",voice:"تحصل على قرار تستطيع تفسيره: أداة أساسية، بديل، سبب واضح، ومعيار نجاح.",screen:"قرار مفسّر، لا قائمة مشتتة"},
-  {time:"52–60 ث",purpose:"الدعوة",visual:"هوية مسار AI وشاشة البداية بصورة نظيفة",voice:"مسار AI. من ماذا أستخدم؟ إلى ابدأ من هنا.",screen:"مسار AI — ابدأ من هنا"}
+  {time:times[0],purpose:"الخطاف",visual:`مستخدم يواجه خيارات كثيرة مرتبطة بـ ${v.topic}`,voice:"لديك مهمة واضحة... لكن الأدوات أكثر مما ينبغي.",screen:"المشكلة ليست نقص الأدوات"},
+  {time:times[1],purpose:"المشكلة",visual:"تنقل سريع بين نوافذ وأسماء وخيارات متشابهة",voice:"تبحث وتقارن، ثم تضيع البداية بين عشرات الخيارات.",screen:"التشتت يؤخر القرار"},
+  {time:times[2],purpose:"التحول",visual:"هدوء بصري وانتقال إلى بطاقة مهمة واحدة واضحة",voice:"مسار AI يبدأ من حاجتك وقيودك، لا من قائمة الأدوات.",screen:"ابدأ من مهمتك"},
+  {time:times[3],purpose:"المنهج",visual:"ست محطات متتابعة بإيقاع هادئ ومتسق",voice:"يفهم، يضيّق، يقارن، يتحقق، ثم يمنحك نقطة بداية قابلة للقياس.",screen:"افهم ← ضيّق ← قارن ← ابدأ"},
+  {time:times[4],purpose:"النتيجة",visual:"بطاقة قرار: أداة أساسية وبديل وسبب ومعيار نجاح",voice:"تحصل على قرار تستطيع تفسيره: أداة أساسية، بديل، سبب واضح، ومعيار نجاح.",screen:"قرار مفسّر، لا قائمة مشتتة"},
+  {time:times[5],purpose:"الدعوة",visual:"هوية مسار AI وشاشة البداية بصورة نظيفة",voice:"مسار AI. من ماذا أستخدم؟ إلى ابدأ من هنا.",screen:"مسار AI — ابدأ من هنا"}
  ];
 }
 function sceneTable(v){return `<table class="scene-table"><thead><tr><th>الزمن</th><th>الغرض</th><th>الصورة</th><th>التعليق الصوتي</th><th>النص الظاهر</th></tr></thead><tbody>${videoScenes(v).map(s=>`<tr><td>${s.time}</td><td>${s.purpose}</td><td>${esc(s.visual)}</td><td>${esc(s.voice)}</td><td>${esc(s.screen)}</td></tr>`).join("")}</tbody></table>`}
@@ -1187,6 +1190,7 @@ function packText(){
 المدة: ${v.duration}
 الهدف: ${v.goal}
 الأسلوب: ${v.style}
+الصوت: ${v.voice}
 الأولوية: ${v.priority}
 الجهاز: ${v.device}
 اللغة: ${v.language}
