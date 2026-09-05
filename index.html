@@ -1134,9 +1134,17 @@ function videoCapCutPrompt(v){
 قاعدة الجودة: لا تختلق معلومات، ولا تنشئ أي كتابة داخل الصور أو اللقطات المولدة، ولا تعرض شعارًا أو نتيجة غير موجودة. أضف العربية لاحقًا كطبقة نصية يدوية داخل محرر CapCut، واختبرها في عينة تصدير قصيرة قبل التصدير النهائي. اترك مواضع اللقطات المولدة أو المواد الأصلية قابلة للاستبدال داخل الخط الزمني.`;
 }
 function videoRunwayPrompt(v){
+ const verificationTopic=/ذكاء اصطناعي|البحث العلمي|تحقق|مخرجات/.test(`${v.topic} ${v.goal}`);
+ if(verificationTopic)return `Create a realistic, calm educational video shot for Arab researchers and professionals about responsible use of artificial intelligence in scientific research. Show an Arab researcher reviewing a convincing AI-generated answer, pausing, and comparing it with a trusted original academic source. Natural human movement, professional lighting, restrained camera motion, coherent wardrobe and setting, and clean negative space for Arabic captions added later. Do not generate visible text, letters, numbers, subtitles, logos, watermarks, fake interface content, or readable documents. Do not generate audio. This is one short shot in a six-shot, 30-second educational sequence.`;
  return `Cinematic ${v.style} video shot for an Arabic presentation about "${v.topic}", designed for ${v.audience}. Visually communicate the goal: "${v.goal}". One clear subject, coherent environment, natural human motion, realistic lighting, controlled camera movement, consistent wardrobe and color palette, clean negative space for later Arabic captions. No text, no logos, no distorted hands, no duplicated people, no sudden scene changes. Create a short self-contained shot that can be assembled with five matching shots in CapCut.`;
 }
-function videoToolPrompt(v,tool){return tool==="Runway"?videoRunwayPrompt(v):videoCapCutPrompt(v)}
+function videoPromptExplanation(v,tool){return `هذه الحزمة مخصصة لمهمة «${v.topic}» ولجمهور «${v.audience}». اخترنا ${tool} وفق الأولوية «${v.priority}» والميزانية «${v.budget}» والجهاز «${v.device}». الشرح والخطة بالعربية حتى تفهم ما سيحدث وتعدله، بينما النص داخل صندوق النسخ أدناه نسخة تنفيذية محسّنة للأداة. غالبًا تُصاغ النسخة التنفيذية لأدوات الفيديو بالإنجليزية لتحسين التوافق، ولا تغيّر الهدف أو القيود العربية.`}
+function videoCapCutExecutionPrompt(v){
+ const verificationTopic=/ذكاء اصطناعي|البحث العلمي|تحقق|مخرجات/.test(`${v.topic} ${v.goal}`);
+ if(verificationTopic)return `Create a realistic Arabic educational video about responsible use of artificial intelligence in scientific research, for Arab researchers and professionals. Duration: ${v.duration}. Build six short scenes: warning, risk, impact, correct verification action, reliable result, and final reminder. Use a calm professional Arab male researcher, natural movement, consistent setting and wardrobe, and restrained transitions. Generate silent visuals only. Do not create visible text, letters, numbers, subtitles, logos, watermarks, fake interface content, or readable documents. Leave safe empty space for Arabic captions to be added manually in CapCut. The Arabic voice-over will be generated separately at a slow, clear pace.`;
+ return `Create a ${v.style} video for an Arabic-speaking audience about the user's topic: "${v.topic}". Audience: "${v.audience}". Goal: "${v.goal}". Duration: ${v.duration}. Build six coherent short scenes covering the issue, its impact, the correct action, the result and the final call to action. Use natural movement, consistent visual identity and safe empty space for Arabic captions added manually later. Generate silent visuals only. Do not create visible text, letters, numbers, subtitles, logos, watermarks, fake interface content or readable documents.`;
+}
+function videoToolPrompt(v,tool){return tool==="Runway"?videoRunwayPrompt(v):videoCapCutExecutionPrompt(v)}
 function copyTextById(id,btn){const el=document.getElementById(id);navigator.clipboard.writeText(el.innerText.trim());if(btn){const t=btn.textContent;btn.textContent="تم النسخ ✓";setTimeout(()=>btn.textContent=t,1200)}}
 
 function videoScenes(v){
@@ -1254,8 +1262,11 @@ function renderStage6(){
   <p class="lead">هذه خطة انطلاق قابلة للتنفيذ: قرار مبرر + Prompt جاهز + روابط رسمية + معيار واضح لفحص النجاح.</p>
   <div class="stage-card">
    <div class="decision-card"><strong>لماذا ${tool}؟</strong><p style="margin:5px 0">${tool==="CapCut"?"لأن أولويتك الحالية تميل إلى بداية أبسط مع إمكانات تحرير وتجميع في مكان واحد.":"لأن حاجتك تميل إلى تحكم بصري وجودة لقطات أعلى."}</p><div class="verified-date">آخر تحقق: ${obj.verified}</div></div>
-   <h3>Prompt جاهز للنسخ</h3>
-   <div class="prompt-card" id="finalToolPrompt">${esc(prompt)}<button class="copy-prompt" onclick="copyTextById('finalToolPrompt',this)">نسخ الـ Prompt</button></div>
+   <h3>الشرح العربي للحزمة</h3>
+   <div class="decision-card"><p style="margin:0">${esc(videoPromptExplanation(v,tool))}</p></div>
+   <h3>الـ Prompt التنفيذي المحسّن للأداة</h3>
+   <div class="production-note"><b>مهم:</b> اقرأ الشرح العربي أولًا. انسخ الصندوق التالي إلى ${tool}. صيغته الإنجليزية مقصودة لتحسين التوافق مع أداة الفيديو، مع بقاء الهدف والشروط مأخوذة من إجاباتك العربية.</div>
+   <div class="prompt-card" id="finalToolPrompt">${esc(prompt)}<button class="copy-prompt" onclick="copyTextById('finalToolPrompt',this)">نسخ الـ Prompt التنفيذي</button></div>
    ${conceptualGuide(tool,v)}
    <div class="v5-boundary"><b>معيار نجاح البداية:</b> افتح الأداة الرسمية، وأنشئ مسودة أولى أو لقطة تجريبية بالـ Prompt المخصص، ثم افحص ملاءمة المحتوى للجمهور والهدف والمدة قبل استكمال الإنتاج.</div>
    <div class="tool-entry" style="margin-top:12px"><a class="btn-external" target="_blank" rel="noopener" href="${obj.url}">افتح ${tool} للتنفيذ ↗</a><a class="btn-external" target="_blank" rel="noopener" href="${obj.docs}">افتح الدليل الرسمي ↗</a></div>
