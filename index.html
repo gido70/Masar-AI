@@ -829,6 +829,10 @@ function startWizard(){
  wiz.feedback={result:null,clarity:null,confidenceAfter:null};
  const a=analyze(q);
  wiz.domain=a.route;
+ if(a.route==="video"){
+  const duration=/20\s*(?:إلى|-|–)\s*30|30\s*ثانية/.test(q)?"30 ثانية":/دقيقت/.test(q)?"دقيقتان":/دقيقة/.test(q)?"دقيقة واحدة":"30 ثانية";
+  wiz.vals.video={topic:q.trim(),audience:"",duration,goal:"",style:"واقعي تعليمي",priority:"ابدأ بالمجاني",device:"كمبيوتر",language:/إنجليزي|English/i.test(q)?"الإنجليزية":"العربية",budget:"مجاني أولًا",experience:"مبتدئ"};
+ }
  wiz.stage=1;wiz.maxStage=1;
  wiz.lastAnalysis=a;
  document.getElementById("wizard").classList.remove("hidden");
@@ -1056,7 +1060,7 @@ function recommendedTool(){
 }
 function chooseTool(name){wiz.tool.video=name;renderWizard()}
 function renderStage4(){
- const chosen=wiz.tool.video,rec=recommendedTool();
+ const chosen=wiz.tool.video,rec=recommendedTool(),v=wiz.vals.video;
  const cards=toolsData.video.map(t=>`
   <article class="toolx ${t.name===rec?"reco":""} ${chosen===t.name?"chosen":""}">
    <h4>${t.name}</h4><p>${t.desc}</p>
