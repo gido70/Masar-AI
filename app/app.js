@@ -6,12 +6,22 @@ const blank = () => ({
   task: { verb: "", type: "", topic: "", length: "", success: "" },
   aud: { who: "", level: "", where: "", lang: "", action: "" },
   con: { budget: "", time: "", privacy: "", skill: "" },
-  pick: "", checks: {}, log: ""
+  pick: "", checks: {}, log: "", other: "", sent: {}
 });
 let S = load();
 function load() { try { return Object.assign(blank(), JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) { return blank(); } }
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
 const app = document.getElementById("app"), nav = document.getElementById("steps");
+const SB = { url: "https://nmbbahzzogspuuvpsxud.supabase.co", key: "sb_publishable_OHbaA9Rse47v5pw_0Juafg_RbeorWMM" };
+function sessionId() { try { let v = localStorage.getItem("masar_v6_sid"); if (!v) { v = Math.random().toString(36).slice(2, 12); localStorage.setItem("masar_v6_sid", v); } return v; } catch (e) { return "na"; } }
+async function logEvent(ev) {
+  const clip = v => (v == null || v === "" ? null : String(v).slice(0, 40));
+  const row = { kind: ev.kind, video_type: clip(ev.video_type), tool: clip(ev.tool), budget: clip(S.con.budget), skill: clip(S.con.skill), lang: clip(S.aud.lang), useful: ev.useful || null, note: ev.note ? String(ev.note).slice(0, 500) : null, session: sessionId() };
+  try {
+    const r = await fetch(SB.url + "/rest/v1/masar_v6_events", { method: "POST", headers: { apikey: SB.key, "Content-Type": "application/json", Prefer: "return=minimal" }, body: JSON.stringify(row) });
+    return r.ok;
+  } catch (e) { return false; }
+}
 const esc = s => String(s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 const OPT = {
@@ -35,7 +45,7 @@ function text(group, field, ph) {
   return `<input type="text" data-g="${group}" data-f="${field}" value="${esc(S[group][field])}" placeholder="${esc(ph)}">`;
 }
 function bind() {
-  app.querySelectorAll(".chips").forEach(c => c.addEventListener("click", e => {
+  app.querySelectorAll(".chips[data-g]").forEach(c => c.addEventListener("click", e => {
     const b = e.target.closest("button"); if (!b) return;
     S[c.dataset.g][c.dataset.f] = b.textContent; save(); render();
   }));
@@ -53,7 +63,7 @@ function bind() {
 }
 function ready(step) {
   const t = S.task, a = S.aud, c = S.con;
-  if (step === 0) return t.verb && t.type && t.topic.trim() && t.length;
+  if (step === 0) return t.type !== "other" && t.verb && t.type && t.topic.trim() && t.length;
   if (step === 1) return a.who.trim() && a.level && a.where && a.lang && a.action && c.budget && c.time && c.privacy && c.skill;
   return true;
 }
@@ -112,7 +122,10 @@ const screens = [
   () => `<h1>ما المهمة التي تريد إنجازها؟</h1>
   <p class="lead">قبل أن تسأل «ما الأداة؟» اسأل: ماذا أريد بالضبط؟</p>
   <div class="card"><h3>نوع الفيديو</h3><div class="types">${Object.entries(VIDEO_TYPES).map(([k, v]) =>
-    `<button type="button" data-t="${k}" aria-pressed="${S.task.type === k}"><b>${v.label}</b><span>${v.hint}</span></button>`).join("")}</div></div>
+    `<button type="button" data-t="${k}" aria-pressed="${S.task.type === k}"><b>${v.label}</b><span>${v.hint}</span></button>`).join("")}
+    <button type="button" data-t="other" aria-pressed="${S.task.type === "other"}"><b>نوع آخر</b><span>لم أجد ما أحتاجه في القائمة</span></button></div>
+    ${S.task.type === "other" ? `<label class="f">ما الذي تحتاجه؟ <small>لا تكتب أسماء أو بيانات شخصية</small></label><textarea id="other" maxlength="500" placeholder="مثال: فيديو بلغة الإشارة، أو بث مباشر…">${esc(S.other)}</textarea>
+    <div class="actions"><button type="button" class="btn pri" id="sendReq">أرسل الطلب</button><span class="hint" id="reqMsg">${S.sent.request ? "سُجّل طلبك. شكرًا لك." : ""}</span></div>` : ""}</div>
   <div class="card"><h3>العناصر الأربعة</h3>
     <label class="f">1. الفعل المطلوب</label>${chips("task", "verb", OPT.verb)}
     <label class="f">2. الموضوع <small>عمّ يتحدث الفيديو؟</small></label>${text("task", "topic", "مثال: الاستخدام المسؤول للذكاء الاصطناعي في البحث العلمي")}
@@ -178,6 +191,10 @@ const screens = [
       <dt>الأداة المختارة</dt><dd>${esc(tool.name || "")}</dd>
       <dt>التعليمات</dt><dd style="white-space:pre-wrap">${esc(buildPrompt(tool).map(x => x[1]).join("\n"))}</dd>
       <dt>طريقة التحقق</dt><dd>${all ? "اجتازت النتيجة قائمة التحقق كاملة." : "قيد التحقق."}</dd></dl></div>
+    <div class="card no-print" style="margin-top:14px"><h3>هل كان الترشيح مفيدًا لك؟</h3>
+      ${S.sent.feedback ? `<p class="hint">شكرًا لك، سُجّل رأيك.</p>` : `<div class="chips" id="useful">${[["yes","نعم"],["partly","جزئيًا"],["no","لا"]].map(([v,l]) => `<button type="button" data-u="${v}" aria-pressed="${S.useful === v}">${l}</button>`).join("")}</div>
+      <label class="f">ملاحظة <small>اختيارية · لا تكتب بيانات شخصية</small></label><textarea id="fbNote" maxlength="500"></textarea>
+      <div class="actions"><button type="button" class="btn sec" id="sendFb" ${S.useful ? "" : "disabled"}>أرسل رأيك</button><span class="hint" id="fbMsg"></span></div>`}</div>
     <div class="actions"><button type="button" class="btn pri" onclick="window.print()">حفظ بطاقة القرار PDF</button>
     <button type="button" class="btn sec" id="reset">مهمة جديدة</button></div>`;
   }
@@ -200,6 +217,28 @@ function render() {
     try { await navigator.clipboard.writeText(v); } catch (e) { const t = document.createElement("textarea"); t.value = v; t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove(); }
     document.getElementById("copied").textContent = "تم النسخ";
   });
+  const ot = document.getElementById("other");
+  if (ot) ot.addEventListener("input", () => { S.other = ot.value; save(); });
+  const sr = document.getElementById("sendReq");
+  if (sr) sr.addEventListener("click", async () => {
+    if (!S.other.trim()) { document.getElementById("reqMsg").textContent = "اكتب ما تحتاجه أولًا."; return; }
+    sr.disabled = true; document.getElementById("reqMsg").textContent = "جارٍ الإرسال…";
+    const ok = await logEvent({ kind: "request", video_type: "other", note: S.other });
+    if (ok) { S.sent.request = true; save(); document.getElementById("reqMsg").textContent = "سُجّل طلبك. شكرًا لك."; }
+    else { sr.disabled = false; document.getElementById("reqMsg").textContent = "تعذّر الإرسال الآن. حاول لاحقًا."; }
+  });
+  app.querySelectorAll("[data-u]").forEach(b => b.addEventListener("click", () => { S.useful = b.dataset.u; save(); render(); }));
+  const sf = document.getElementById("sendFb");
+  if (sf) sf.addEventListener("click", async () => {
+    sf.disabled = true; document.getElementById("fbMsg").textContent = "جارٍ الإرسال…";
+    const ok = await logEvent({ kind: "feedback", video_type: S.task.type, tool: S.pick, useful: S.useful, note: document.getElementById("fbNote").value });
+    if (ok) { S.sent.feedback = true; save(); render(); }
+    else { sf.disabled = false; document.getElementById("fbMsg").textContent = "تعذّر الإرسال الآن. حاول لاحقًا."; }
+  });
+  if (S.step === 4 && S.pick && S.sent.decision !== S.pick + S.task.type) {
+    S.sent.decision = S.pick + S.task.type; save();
+    logEvent({ kind: "decision", video_type: S.task.type, tool: S.pick });
+  }
   const rs = document.getElementById("reset");
   if (rs) rs.addEventListener("click", () => { S = blank(); save(); render(); window.scrollTo(0, 0); });
 }
