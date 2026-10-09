@@ -60,3 +60,19 @@ input[type=text]:focus,textarea:focus{outline:2px solid var(--turq);border-color
 footer{margin-top:30px;color:var(--mute);font-size:14px;text-align:center}
 @media print{header .tag,nav,.actions,.no-print,footer{display:none!important} body{background:#fff}}
 @media (max-width:560px){h1{font-size:26px}.bars{grid-template-columns:105px 1fr 30px}nav#steps button{font-size:12px}}
+.intro{background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 14px;margin-bottom:16px}
+.intro summary{cursor:pointer;font-weight:700;color:var(--teal)}
+.intro video{width:100%;border-radius:12px;margin-top:10px;background:#000}
+.stage{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin-bottom:14px}
+.shd{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.shd h2{margin:0;font-size:24px} .shd h2 small{font-size:16px;color:var(--mute);font-weight:400}
+.snum{flex:none;width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+.opt2{font:inherit;text-align:right;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:10px 14px;cursor:pointer;color:var(--navy);display:flex;flex-direction:column;gap:2px}
+.opt2.on{border:2px solid var(--teal);background:var(--soft)}
+.opt2 .rk{font-size:13px;color:var(--mute);font-weight:700}
+.opt2 b{font-size:19px;line-height:1.4}
+.opt2 .ver{align-self:flex-start;font-size:13px;border-radius:999px;padding:0 9px;font-weight:700}
+.opt2 .cost{font-size:15px;color:var(--teal);font-weight:700}
+.opt2 .nt{font-size:15px;color:var(--body);line-height:1.5}
+.lesson{margin-top:10px;background:var(--gsoft);border-radius:12px;padding:8px 12px;font-size:16px;line-height:1.6}
