@@ -124,6 +124,7 @@ function rankStage(st) {
   return tools.map(t => {
     let total = Object.keys(w).reduce((x, k) => x + w[k] * (t.scores[k] || 3), 0);
     if (t.level === "tested") total += 6;
+    if (S.con.budget === "مجاني فقط" && !t.free && t.cost.indexOf("اشتراك") < 0) total -= 14;
     return { t, pct: Math.round(total / max * 100) };
   }).sort((a, b) => b.pct - a.pct);
 }

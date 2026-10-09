@@ -23,26 +23,26 @@ const PIPELINES = {
 const STAGE_TOOLS = {
   script: [
     { id: "claude", name: "Claude", url: "https://claude.ai/", level: "tested", cost: "ضمن اشتراكك", scores: { quality: 5, ease: 5, arabic: 5, cost: 4, privacy: 4 }, note: "كتب نص فيديو شرح مسار مشكولًا ومقسّمًا بالثواني." },
-    { id: "chatgpt", name: "ChatGPT", url: "https://chatgpt.com/", level: "reviewed", cost: "نسخة مجانية متاحة", scores: { quality: 4, ease: 5, arabic: 4, cost: 5, privacy: 3 }, note: "بديل شائع لكتابة النصوص." }
+    { id: "chatgpt", free: true, name: "ChatGPT", url: "https://chatgpt.com/", level: "reviewed", cost: "نسخة مجانية متاحة", scores: { quality: 4, ease: 5, arabic: 4, cost: 5, privacy: 3 }, note: "بديل شائع لكتابة النصوص." }
   ],
   voice: [
     { id: "elevenlabs", name: "ElevenLabs Multilingual V2 (على WaveSpeed)", url: "https://wavespeed.ai/", level: "tested", cost: "بضعة سنتات لنص دقيقة", scores: { quality: 5, ease: 4, arabic: 5, cost: 4, privacy: 3 }, note: "احترم التشكيل والوقفات (…) في التجربة." },
-    { id: "ownvoice", name: "صوتك أنت (تسجيل بالهاتف)", url: "", level: "reviewed", cost: "مجاني", scores: { quality: 3, ease: 4, arabic: 5, cost: 5, privacy: 5 }, note: "مجاني وشخصي، ويحتاج مكانًا هادئًا." }
+    { id: "ownvoice", free: true, name: "صوتك أنت (تسجيل بالهاتف)", url: "", level: "reviewed", cost: "مجاني", scores: { quality: 3, ease: 4, arabic: 5, cost: 5, privacy: 5 }, note: "مجاني وشخصي، ويحتاج مكانًا هادئًا." }
   ],
   avatar: [
     { id: "infinitetalk", name: "InfiniteTalk (على WaveSpeed)", url: "https://wavespeed.ai/", level: "tested", cost: "≈ 0.06 دولار للثانية بجودة 720p (18 ثانية = 1.14 دولار)", scores: { quality: 5, ease: 4, arabic: 4, cost: 3, privacy: 3 }, note: "وجه ثابت وخلفية ثابتة في المقطعين." },
-    { id: "heygen", name: "HeyGen", url: "https://www.heygen.com/", level: "reviewed", cost: "خطة مجانية محدودة بعلامة مائية", scores: { quality: 5, ease: 4, arabic: 4, cost: 2, privacy: 3 }, note: "متحدثون جاهزون ودبلجة." }
+    { id: "heygen", free: true, name: "HeyGen", url: "https://www.heygen.com/", level: "reviewed", cost: "خطة مجانية محدودة بعلامة مائية", scores: { quality: 5, ease: 4, arabic: 4, cost: 2, privacy: 3 }, note: "متحدثون جاهزون ودبلجة." }
   ],
   slides: [
     { id: "claude-design", name: "Claude (تصميم الصور)", url: "https://claude.ai/", level: "tested", cost: "ضمن اشتراكك", scores: { quality: 4, ease: 5, arabic: 5, cost: 4, privacy: 4 }, note: "صمّم صور الفيديو السبع بهوية مسار وخط كبير." },
-    { id: "canva", name: "Canva", url: "https://www.canva.com/", level: "reviewed", cost: "نسخة مجانية واسعة", scores: { quality: 4, ease: 5, arabic: 4, cost: 4, privacy: 3 }, note: "قوالب جاهزة كثيرة." }
+    { id: "canva", free: true, name: "Canva", url: "https://www.canva.com/", level: "reviewed", cost: "نسخة مجانية واسعة", scores: { quality: 4, ease: 5, arabic: 4, cost: 4, privacy: 3 }, note: "قوالب جاهزة كثيرة." }
   ],
   generate: [
     { id: "runway", name: "Runway", url: "https://runwayml.com/", level: "reviewed", cost: "بالرصيد، وقد ينفد بسرعة", scores: { quality: 5, ease: 3, arabic: 2, cost: 2, privacy: 3 }, note: "تحكم بصري عالٍ؛ واجهته إنجليزية." },
-    { id: "davinci", name: "DaVinci AI", url: "https://davinci.ai/", level: "reviewed", cost: "خطة مجانية للتجربة", scores: { quality: 4, ease: 4, arabic: 2, cost: 3, privacy: 3 }, note: "يجمع نماذج صور وفيديو متعددة في واجهة واحدة." }
+    { id: "davinci", free: true, name: "DaVinci AI", url: "https://davinci.ai/", level: "reviewed", cost: "خطة مجانية للتجربة", scores: { quality: 4, ease: 4, arabic: 2, cost: 3, privacy: 3 }, note: "يجمع نماذج صور وفيديو متعددة في واجهة واحدة." }
   ],
   recording: [
-    { id: "phone", name: "كاميرا الهاتف", url: "", level: "reviewed", cost: "مجاني", scores: { quality: 3, ease: 5, arabic: 5, cost: 5, privacy: 5 }, note: "كافية لفيديو تعليمي مع إضاءة جيدة." }
+    { id: "phone", free: true, name: "كاميرا الهاتف", url: "", level: "reviewed", cost: "مجاني", scores: { quality: 3, ease: 5, arabic: 5, cost: 5, privacy: 5 }, note: "كافية لفيديو تعليمي مع إضاءة جيدة." }
   ],
   translate: [
     { id: "claude-tr", name: "Claude (ترجمة النص)", url: "https://claude.ai/", level: "reviewed", cost: "ضمن اشتراكك", scores: { quality: 5, ease: 5, arabic: 5, cost: 4, privacy: 4 }, note: "ترجمة النص ومراجعته قبل الصوت." },
@@ -50,6 +50,6 @@ const STAGE_TOOLS = {
   ],
   montage: [
     { id: "claude-studio", name: "Claude (استوديو المونتاج)", url: "https://claude.ai/", level: "tested", cost: "ضمن اشتراكك", scores: { quality: 4, ease: 5, arabic: 5, cost: 4, privacy: 4 }, note: "جمع فيديو شرح مسار مع ترجمة نصية عربية متزامنة، بالمحادثة." },
-    { id: "capcut-m", name: "CapCut", url: "https://www.capcut.com/", level: "reviewed", cost: "نسخة مجانية", scores: { quality: 4, ease: 4, arabic: 4, cost: 5, privacy: 2 }, note: "خط زمني يدوي وموسيقى مجانية." }
+    { id: "capcut-m", free: true, name: "CapCut", url: "https://www.capcut.com/", level: "reviewed", cost: "نسخة مجانية", scores: { quality: 4, ease: 4, arabic: 4, cost: 5, privacy: 2 }, note: "خط زمني يدوي وموسيقى مجانية." }
   ]
 };
