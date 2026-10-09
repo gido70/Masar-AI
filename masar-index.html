@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>إندكس مسار — خارطة المشروع وسجله</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+<style>
+.ver{font-size:15px;color:var(--mute)}
+.now{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--line);border-right:6px solid var(--gold);border-radius:16px;padding:14px 18px;margin:14px 0}
+.now .ic{flex:none;width:52px;height:52px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px}
+.now b{display:block;font-size:20px} .now span{color:var(--body);font-size:16px}
+.badge{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:1px 10px;margin-inline-start:6px}
+.b-done{background:var(--soft);color:var(--teal)} .b-now{background:var(--gsoft);color:#8A6414} .b-next{background:#EEF1F4;color:var(--mute)}
+.resume{background:var(--soft);border-radius:14px;padding:12px 16px;margin-bottom:14px}
+.resume h3{margin:0 0 4px;color:var(--teal);font-size:18px}
+.road{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 4px}
+.road div{flex:1;min-width:120px;text-align:center;border-radius:12px;padding:8px 6px;font-weight:700;font-size:16px;border:1.5px solid var(--line);background:#fff}
+.road .done{background:var(--teal);color:#fff;border-color:var(--teal)} .road .now{display:block;background:var(--gold);color:var(--navy);border-color:var(--gold);margin:0}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 10px}
+.tabs button{font:inherit;font-size:16px;font-weight:700;border:1.5px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:4px 14px;cursor:pointer}
+.tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tools{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.tools input{flex:1;font:inherit;padding:6px 12px;border:1.5px solid var(--line);border-radius:12px}
+.item{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:8px}
+.item summary{cursor:pointer;padding:10px 14px;font-weight:700;font-size:18px;list-style:none;display:flex;gap:10px;align-items:center}
+.item summary::-webkit-details-marker{display:none}
+.item summary .d{margin-inline-start:auto;font-size:13px;color:var(--mute);font-weight:400}
+.item .body{padding:0 16px 12px;font-size:17px;line-height:1.8}
+.item table{width:100%;border-collapse:collapse;font-size:15px;margin:6px 0}
+.item th,.item td{border:1px solid var(--line);padding:5px 8px;text-align:right;vertical-align:top}
+.item th{background:#F6F1E4}
+.item a{color:var(--teal)}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="training/masar_logo.png" alt="شعار مُسار">
+    <nav class="top"><a href="./">الرئيسية: المنصة</a><a href="package.html">الحقيبة</a><a href="training/">الاختبارات</a><a href="masar-index.html" class="on">الإندكس</a></nav>
+  </header>
+  <h1>إندكس مسار</h1>
+  <p class="lead">خارطة المشروع وسجله: أين نحن، وما الذي قررناه، وما الخطوة التالية. يُحدَّث مع كل خطوة.</p>
+  <div class="ver" id="ver"></div>
+  <div class="now"><div class="ic">▶</div><div><span>نقطة العمل الحالية</span><b id="nowT"></b><span id="nowD"></span></div></div>
+  <div class="resume"><h3>الجلسة القادمة تبدأ من هنا</h3><div id="resume"></div></div>
+  <div class="road" id="road"></div>
+  <div class="tabs" id="tabs"></div>
+  <div class="tools"><input id="q" placeholder="ابحث في كل الإندكس…"><button class="btn sec" id="openAll" type="button">فتح الكل</button></div>
+  <div id="list"></div>
+  <footer>إندكس مسار · يُحدَّث بعد كل خطوة</footer>
+</div>
+<script src="index-data.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+$("ver").textContent = `الإصدار ${IDX.version} · آخر تحديث: ${IDX.updated}`;
+$("nowT").textContent = IDX.now.title; $("nowD").textContent = IDX.now.detail;
+$("resume").innerHTML = IDX.resume;
+$("road").innerHTML = IDX.road.map(r => `<div class="${r.s}">${r.t}${r.s === "done" ? " ✓" : r.s === "now" ? " ◀" : ""}</div>`).join("");
+let tab = 0, open = false;
+function draw() {
+  $("tabs").innerHTML = IDX.tabs.map((t, i) => `<button type="button" class="${i === tab ? "on" : ""}" data-i="${i}">${t.t} (${t.items.length})</button>`).join("");
+  $("tabs").querySelectorAll("button").forEach(b => b.onclick = () => { tab = +b.dataset.i; draw(); });
+  const q = $("q").value.trim();
+  const pool = q ? IDX.tabs.flatMap(t => t.items.map(x => ({ ...x, tab: t.t }))) : IDX.tabs[tab].items;
+  const items = pool.filter(x => !q || (x.h + x.b).includes(q));
+  $("list").innerHTML = items.length ? items.map(x => `<details class="item" ${open || q ? "open" : ""}><summary>${x.h}${x.st ? `<span class="badge b-${x.st}">${{ done: "منجز", now: "جارٍ", next: "قادم" }[x.st]}</span>` : ""}<span class="d">${x.tab ? x.tab + " · " : ""}${x.d || ""}</span></summary><div class="body">${x.b}</div></details>`).join("") : `<p class="hint">لا نتائج.</p>`;
+}
+$("q").oninput = draw;
+$("openAll").onclick = () => { open = !open; $("openAll").textContent = open ? "إغلاق الكل" : "فتح الكل"; draw(); };
+draw();
+</script>
+</body>
+</html>
