@@ -99,3 +99,5 @@ nav.top a.on{background:var(--navy);color:#fff;border-color:var(--navy)}
 .trio .card a{display:inline-block;margin-top:6px;font-weight:700;color:var(--navy)}
 .res a{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 16px;margin-bottom:8px;color:var(--navy);text-decoration:none;font-weight:700}
 .res a span{color:var(--mute);font-weight:400;font-size:15px}
+nav.top{flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:560px){header{flex-direction:column;align-items:flex-start;gap:8px}nav.top a{font-size:14px;padding:2px 10px}}
