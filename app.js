@@ -26,7 +26,7 @@ const esc = s => String(s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "
 
 const OPT = {
   verb: ["إنشاء", "تحرير", "تحويل", "ترجمة"],
-  length: ["أقل من دقيقة", "1–3 دقائق", "3–5 دقائق", "أكثر من 5 دقائق"],
+  length: ["أقل من دقيقة", "من 1 إلى 3 دقائق", "من 3 إلى 5 دقائق", "أكثر من 5 دقائق"],
   level: ["مبتدئ", "لديه معرفة أساسية", "متخصص"],
   where: ["الهاتف", "الحاسوب", "شاشة قاعة"],
   lang: ["العربية الفصحى", "لهجة محلية", "الإنجليزية", "العربية والإنجليزية"],
@@ -57,7 +57,14 @@ function bind() {
   }));
   const go = (d) => { S.step = Math.max(0, Math.min(4, S.step + d)); save(); render(); window.scrollTo(0, 0); };
   const n = document.getElementById("next"), p = document.getElementById("prev");
-  if (n) n.addEventListener("click", () => go(1));
+  if (n) n.addEventListener("click", () => {
+    const m = S.step < 2 ? missing(S.step) : [];
+    if (!m.length) return go(1);
+    app.querySelectorAll(".flag").forEach(e => e.classList.remove("flag"));
+    m.forEach(([f]) => { const el = f === "type" ? app.querySelector(".types") : app.querySelector(`[data-f="${f}"]`); if (el) el.classList.add("flag"); });
+    const first = m[0][0] === "type" ? app.querySelector(".types") : app.querySelector(`[data-f="${m[0][0]}"]`);
+    if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
   if (p) p.addEventListener("click", () => go(-1));
   updateNext();
 }
@@ -67,9 +74,32 @@ function ready(step) {
   if (step === 1) return a.who.trim() && a.level && a.where && a.lang && a.action && c.budget && c.time && c.privacy && c.skill;
   return true;
 }
+function missing(step) {
+  const t = S.task, a = S.aud, c = S.con, m = [];
+  if (step === 0) {
+    if (!t.type || t.type === "other") m.push(["type", "نوع الفيديو"]);
+    if (!t.verb) m.push(["verb", "الفعل المطلوب"]);
+    if (!t.topic.trim()) m.push(["topic", "الموضوع"]);
+    if (!t.length) m.push(["length", "المدة"]);
+  }
+  if (step === 1) {
+    if (!a.who.trim()) m.push(["who", "من سيستخدم الفيديو"]);
+    if (!a.level) m.push(["level", "ماذا يعرف مسبقًا"]);
+    if (!a.where) m.push(["where", "أين سيشاهده"]);
+    if (!a.lang) m.push(["lang", "اللغة والأسلوب"]);
+    if (!a.action) m.push(["action", "الإجراء المطلوب"]);
+    if (!c.budget) m.push(["budget", "الميزانية"]);
+    if (!c.time) m.push(["time", "موعد التسليم"]);
+    if (!c.privacy) m.push(["privacy", "الخصوصية"]);
+    if (!c.skill) m.push(["skill", "خبرتك بالأدوات"]);
+  }
+  return m;
+}
 function updateNext() {
+  const h = document.getElementById("need");
+  if (h && S.step < 2) { const m = missing(S.step); h.innerHTML = m.length ? "بقي: " + m.map(x => x[1]).join("، ") : "✓ اكتملت الخانات، اضغط «التالي»"; h.className = m.length ? "hint need" : "hint ok"; }
   const n = document.getElementById("next"); if (!n) return;
-  n.disabled = !ready(S.step);
+  n.classList.toggle("dim", !ready(S.step));
 }
 function taskSentence() {
   const t = S.task, a = S.aud, c = S.con;
@@ -229,12 +259,12 @@ const screens = [
 ];
 
 function render() {
-  nav.innerHTML = STEPS.map((s, i) => `<button type="button" class="${i < S.step ? "done" : i === S.step ? "cur" : ""}" ${i <= S.step ? "" : "disabled"} data-s="${i}"><span class="dot"></span>${i + 1}. ${s}</button>`).join("");
+  nav.innerHTML = STEPS.map((s, i) => `<button type="button" class="${i < S.step ? "done" : i === S.step ? "cur" : ""}" ${i <= S.step ? "" : "disabled title=\"أكمل الخطوة الحالية أولًا\""} data-s="${i}"><span class="dot"></span>${i + 1}. ${s}</button>`).join("");
   nav.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { S.step = +b.dataset.s; save(); render(); }));
   app.innerHTML = screens[S.step]() + (S.step < 4 ? `<div class="actions">
     ${S.step > 0 ? `<button type="button" class="btn sec" id="prev">→ السابق</button>` : ""}
     <button type="button" class="btn pri" id="next">التالي ←</button>
-    ${S.step < 2 ? `<span class="hint">أكمل الخانات المطلوبة للمتابعة</span>` : ""}</div>` :
+    ${S.step < 2 ? `<span class="hint need" id="need"></span>` : ""}</div>` :
     `<div class="actions no-print"><button type="button" class="btn sec" id="prev">→ السابق</button></div>`);
   bind();
   app.querySelectorAll("[data-stage]").forEach(b => b.addEventListener("click", () => { S.picks[b.dataset.stage] = b.dataset.tool; save(); render(); }));
