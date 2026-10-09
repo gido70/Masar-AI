@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حقائب مسار</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+<style>
+.pk{display:flex;gap:16px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin-bottom:12px;text-decoration:none;color:var(--navy)}
+.pk:hover{border-color:var(--teal)}
+.pk .ic{flex:none;width:58px;height:58px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--soft)}
+.pk b{display:block;font-size:22px} .pk span.s{color:var(--body);font-size:16px}
+.pk .tag2{margin-inline-start:auto;flex:none;font-size:14px;font-weight:700;border-radius:999px;padding:2px 12px}
+.t-free{background:var(--soft);color:var(--teal)} .t-build{background:var(--gsoft);color:#8A6414} .t-soon{background:#EEF1F4;color:var(--mute)}
+.pk.soon{opacity:.7}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.opt{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+.opt b{display:block;font-size:18px} .opt span{color:var(--body);font-size:15px;line-height:1.6;display:block}
+.opt .c{color:var(--teal);font-weight:700;font-size:14px}
+.unitrow{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-bottom:8px}
+.unitrow b{font-size:19px} .unitrow .o{color:var(--teal);font-weight:700;font-size:15px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="training/masar_logo.png" alt="شعار مُسار">
+    <nav class="top"><a href="./">الرئيسية: المنصة</a><a href="packages.html" class="on">الحقائب</a><a href="training/">الاختبارات</a><a href="masar-index.html">الإندكس</a></nav>
+  </header>
+
+  <h1>حقائب مسار</h1>
+  <p class="lead">حقيبة مجانية تعلّمك المنهج، ثم «مسارات تطبيق» تخرج من كل واحدة منها بعمل حقيقي في يدك.</p>
+  <a class="pk" href="package.html"><div class="ic">🧭</div><div><b>مسار الذكاء الاصطناعي: من التشتت إلى قرار وتنفيذ ذكي</b><span class="s">5 وحدات · كيف تختار الأداة المناسبة لأي مهمة</span></div><span class="tag2 t-free">مجانية · منشورة</span></a>
+  <a class="pk" href="video-package.html"><div class="ic">🎬</div><div><b>مسار الفيديو: أنتج فيديوك بالذكاء الاصطناعي</b><span class="s">6 وحدات · تخرج بفيديو حقيقي عن موضوعك، بالشكل الذي تختاره</span></div><span class="tag2 t-build">قيد البناء</span></a>
+  <div class="pk soon"><div class="ic">📊</div><div><b>مسار العروض التقديمية</b><span class="s">تخرج بعرض جاهز لمحاضرتك أو اجتماعك</span></div><span class="tag2 t-soon">قريبًا</span></div>
+  <div class="pk soon"><div class="ic">🔎</div><div><b>مسار البحث العلمي</b><span class="s">تخرج بمراجعة أدبيات موثقة أو خطة بحث</span></div><span class="tag2 t-soon">قريبًا</span></div>
+  <div class="pk soon"><div class="ic">🎙️</div><div><b>مسار الصوت والبودكاست</b><span class="s">تخرج بحلقة صوتية جاهزة</span></div><span class="tag2 t-soon">قريبًا</span></div>
+  <div class="pk soon"><div class="ic">🖼️</div><div><b>مسار الصور والتصميم</b><span class="s">تخرج بتصاميم جاهزة بهويتك</span></div><span class="tag2 t-soon">قريبًا</span></div>
+  <footer>برنامج التدريب التطبيقي المستمر · مسار الذكاء الاصطناعي</footer>
+</div>
+</body>
+</html>
