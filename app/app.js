@@ -1,12 +1,12 @@
 // مسار V6 — مختبر الفيديو. يتبع خطوات الحقيبة الخمس نفسها.
-const STEPS = ["المهمة", "الجمهور والقيود", "الترشيح", "البرومبت", "التحقق"];
+const STEPS = ["المهمة", "الجمهور والقيود", "خريطة فيديوك", "البرومبتات", "التحقق"];
 const KEY = "masar_v6_state";
 const blank = () => ({
   step: 0,
   task: { verb: "", type: "", topic: "", length: "", success: "" },
   aud: { who: "", level: "", where: "", lang: "", action: "" },
   con: { budget: "", time: "", privacy: "", skill: "" },
-  pick: "", checks: {}, log: "", other: "", sent: {}
+  pick: "", picks: {}, checks: {}, log: "", other: "", sent: {}
 });
 let S = load();
 function load() { try { return Object.assign(blank(), JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) { return blank(); } }
@@ -117,9 +117,38 @@ function buildPrompt(tool) {
   ];
 }
 
+// ---------- خريطة فيديوك ----------
+function rankStage(st) {
+  const w = weights(), tools = STAGE_TOOLS[st] || [];
+  const max = Object.values(w).reduce((x, y) => x + y * 5, 0);
+  return tools.map(t => {
+    let total = Object.keys(w).reduce((x, k) => x + w[k] * (t.scores[k] || 3), 0);
+    if (t.level === "tested") total += 6;
+    return { t, pct: Math.round(total / max * 100) };
+  }).sort((a, b) => b.pct - a.pct);
+}
+function toolById(st, id) { return (STAGE_TOOLS[st] || []).find(t => t.id === id); }
+function pickFor(st) { const r = rankStage(st); if (!S.picks) S.picks = {}; if (!S.picks[st] || !toolById(st, S.picks[st])) S.picks[st] = r.length ? r[0].t.id : ""; return S.picks[st]; }
+function stagePrompt(st, tool) {
+  const t = S.task, a = S.aud, c = S.con, typ = VIDEO_TYPES[t.type] ? VIDEO_TYPES[t.type].label : "فيديو";
+  const fmt = a.where === "الهاتف" ? "عمودي 9:16" : "أفقي 16:9";
+  const P = {
+    script: `أنت كاتب نصوص فيديو تعليمي. اكتب نص تعليق صوتي لفيديو من نوع «${typ}» مدته ${t.length}، عن: ${t.topic}.\nالجمهور: ${a.who}، مستواهم ${a.level}، ويشاهدون على ${a.where}. اللغة: ${a.lang}.\nابدأ بسؤال أو موقف يعرفه المشاهد، ثم الفكرة في خطوات قصيرة، واختم بدعوة واضحة لأن ${a.action}.\nقسّم النص إلى مقاطع مع توقيت تقريبي بالثواني، واقترح ما يظهر على الشاشة في كل مقطع.\nاكتب نسختين: نسخة مشكولة تشكيلًا كاملًا لأداة الصوت، ونسخة بلا تشكيل للترجمة النصية. تجنّب الاختصارات الإنجليزية.${t.success ? "\nمعيار النجاح: " + t.success + "." : ""}`,
+    voice: tool && tool.id === "ownvoice" ? `سجّل النص المشكول بصوتك في مكان هادئ، والهاتف على بعد شبر من فمك.\nسجّل أول جملتين واستمع لهما قبل تسجيل النص كاملًا.` : `في WaveSpeed افتح نموذج ElevenLabs Multilingual V2.\n1. الصق أول جملتين فقط من النص المشكول، وجرّب صوتًا أو صوتين.\n2. استمع للنطق والوقفات (…) ونبرة الأسئلة.\n3. بالصوت الفائز ولّد النص الكامل، وانظر إلى التكلفة قبل الضغط.\n4. قِس المدة الفعلية؛ عليها يُبنى توقيت المشاهد.`,
+    avatar: `اقطع من الصوت الكامل مقطع الافتتاح ومقطع الختام فقط (عند الوقفات).\nفي InfiniteTalk: صورة وجه أمامي ${fmt} بدقة 720p على الأقل + مقطع الصوت + 720p.\nابدأ بالمقطع الأقصر، وتأكد أن السعر يطابق مدته قبل الضغط.\nوصف الحركة:\nA friendly professional presenter speaking directly to the camera, natural subtle head movements, calm expression, steady background`,
+    slides: `صمّم صورًا بدقة ${a.where === "الهاتف" ? "1080×1920" : "1920×1080"} لفيديو عن: ${t.topic}.\nصورة لكل مقطع من النص، وفي كل صورة جملة واحدة كبيرة تُقرأ في 3 ثوانٍ من الهاتف.\nاستخدم ألوان هويتك وخطًا عربيًا واضحًا، واترك أسفل الصورة فارغًا للترجمة النصية.`,
+    generate: `مشهد بصري لفيديو عن: ${t.topic}.\nاكتب لكل مشهد: المكان، والإضاءة، وحركة الكاميرا، والمدة (3–5 ثوانٍ).\nولّد مشهدًا واحدًا أولًا واحكم عليه قبل البقية. لا تطلب نصوصًا مكتوبة داخل المشهد؛ أضفها في المونتاج.`,
+    recording: `قبل التصوير: إضاءة من الأمام، وخلفية هادئة، والهاتف ${fmt} على حامل.\nصوّر لقطة تجريبية من 10 ثوانٍ واسمعها.\nاقرأ النص بلا تشكيل من شاشة أمامك، ومقطعًا مقطعًا.`,
+    translate: `ترجم النص التالي إلى ${a.lang} لفيديو موجّه إلى ${a.who}.\nحافظ على المعنى لا الحرف، وبجمل قصيرة تصلح للترجمة النصية.\nأعطني نسختين: نصًا مقسّمًا للترجمة النصية بتوقيت تقريبي، ونسخة متصلة للدبلجة.`,
+    montage: tool && tool.id === "capcut-m" ? `في CapCut: ضع الصوت الكامل أولًا، ثم المشاهد فوقه بحسب التوقيت.\nأضف ترجمة نصية تلقائية وراجعها كلمة كلمة، ووحّد مستوى الصوت، ثم صدّر ${fmt} بدقة 1080p.` : `اجمع هذه الملفات في فيديو ${fmt} بدقة 1080p: [ارفع الصوت الكامل، ومقاطع الأفاتار أو التصوير، والصور].\nضع كل صورة على مقطعها من النص، بحركة تقريب بطيئة وانتقال ناعم.\nأضف ترجمة نصية عربية بجمل قصيرة متزامنة مع الكلام أسفل الشاشة، ووحّد مستوى الصوت قرب -16.\nأرسل لي الفيديو لأشاهده على الهاتف قبل الاعتماد.`
+  };
+  return P[st] || "";
+}
+
 // ---------- الشاشات ----------
 const screens = [
-  () => `<h1>ما المهمة التي تريد إنجازها؟</h1>
+  () => `<details class="intro" ${S.task.type ? "" : "open"}><summary>شاهد: كيف تعمل منصة مسار (دقيقة واحدة)</summary><video controls preload="metadata" playsinline src="media/masar-explainer-v1.mp4"></video></details>
+  <h1>ما المهمة التي تريد إنجازها؟</h1>
   <p class="lead">قبل أن تسأل «ما الأداة؟» اسأل: ماذا أريد بالضبط؟</p>
   <div class="card"><h3>نوع الفيديو</h3><div class="types">${Object.entries(VIDEO_TYPES).map(([k, v]) =>
     `<button type="button" data-t="${k}" aria-pressed="${S.task.type === k}"><b>${v.label}</b><span>${v.hint}</span></button>`).join("")}
@@ -149,49 +178,47 @@ const screens = [
   </div>
   <div class="sentence"><b>مهمتك في جملة واحدة:</b><br>${esc(taskSentence())}</div>`,
   () => {
-    const recs = recommend();
-    if (!recs.length) return `<h1>الترشيح</h1><div class="empty">لا توجد أداة في الكتالوج الحالي لهذا النوع من الفيديو بعد.</div>`;
-    if (!S.pick || !recs.find(r => r.t.id === S.pick)) { S.pick = recs[0].t.id; save(); }
-    return `<h1>أداتان مناسبتان لمهمتك</h1>
-    <p class="lead">قارنّا الأدوات بالمعايير الخمسة، ووزنّاها بحسب قيودك. اختر واحدة.</p>
-    ${recs.map((r, i) => `<div class="rec ${i === 0 ? "top" : ""}">
-      <div class="hd"><span class="rank">${i === 0 ? "الترشيح الأول" : "البديل"}</span><h2>${esc(r.t.name)}</h2>
-      <span class="ver ${r.t.verify.level}">${{ tested: "مختبرة فعليًا", reviewed: "مراجعة من التوثيق", unverified: "غير متحقق منها" }[r.t.verify.level]}</span>
-      <span class="hint">توافق ${r.pct}٪</span></div>
-      <div class="bars">${Object.keys(CRITERIA).map(k => `<span>${CRITERIA[k]}</span><span class="bar ${r.w[k] >= 4 ? "hi" : ""}"><i style="width:${r.t.scores[k] * 20}%"></i></span><span>${r.t.scores[k]}/5</span>`).join("")}</div>
-      ${r.reasons.length ? `<b>لماذا تناسبك:</b><ul class="why">${r.reasons.map(k => `<li>${esc(r.t.why[k])}</li>`).join("")}</ul>` : ""}
-      <div class="watch">انتبه: ${esc(r.t.watch)}</div>
-      <div class="vnote">آخر مراجعة: ${r.t.verify.date} · ${esc(r.t.verify.note)} · <a href="${r.t.url}" target="_blank" rel="noopener">الموقع الرسمي</a></div>
-      <div class="actions"><button type="button" class="btn ${S.pick === r.t.id ? "pri" : "sec"}" data-pick="${r.t.id}">${S.pick === r.t.id ? "✓ اخترتها" : "اختر هذه الأداة"}</button></div>
-    </div>`).join("")}
-    <p class="hint">الأشرطة الداكنة هي المعايير الأهم لقيودك. الدرجات تقدير أولي من التوثيق وليست نتيجة اختبار عملي.</p>`;
+    const stages = PIPELINES[S.task.type] || [];
+    if (!stages.length) return `<h1>خريطة فيديوك</h1><div class="empty">لا توجد خريطة لهذا النوع بعد.</div>`;
+    return `<h1>خريطة فيديوك</h1>
+    <p class="lead">فيديو «${esc(VIDEO_TYPES[S.task.type].label)}» يمر بـ${stages.length} مراحل. في كل مرحلة: أداة مرشحة، وبديل، ودرس من تجربة حقيقية.</p>
+    ${stages.map((st, i) => {
+      const def = STAGE_DEFS[st], ranked = rankStage(st), cur = pickFor(st);
+      return `<div class="stage"><div class="shd"><span class="snum">${i + 1}</span><h2>${def.icon} ${def.name}</h2></div>
+      <div class="opts">${ranked.slice(0, 2).map((r, j) => `<button type="button" class="opt2 ${cur === r.t.id ? "on" : ""}" data-stage="${st}" data-tool="${r.t.id}">
+        <span class="rk">${j === 0 ? "الترشيح" : "البديل"}</span><b>${esc(r.t.name)}</b>
+        <span class="ver ${r.t.level}">${r.t.level === "tested" ? "مختبرة فعليًا" : "مراجعة من التوثيق"}</span>
+        <span class="cost">${esc(r.t.cost)}</span><span class="nt">${esc(r.t.note)}</span></button>`).join("")}</div>
+      <div class="lesson"><b>درس من التجربة:</b> ${esc(def.lesson)}</div></div>`;
+    }).join("")}
+    <p class="hint">«مختبرة فعليًا» = استُخدمت في صنع فيديو حقيقي. «مراجعة» = من توثيق الأداة فقط.</p>`;
   },
   () => {
-    const tool = TOOLS.find(t => t.id === S.pick);
-    const p = buildPrompt(tool);
-    const plain = p.map(x => x[1]).join("\n");
-    return `<h1>تعليماتك جاهزة</h1>
-    <p class="lead">برومبت بعناصره الستة، مبني من بطاقة مهمتك. انسخه والصقه في ${esc(tool ? tool.name : "الأداة")}.</p>
-    <div class="prompt">${p.map(x => `<span class="el">${x[0]}</span>${esc(x[1])}`).join("\n")}</div>
-    <div class="actions"><button type="button" class="btn pri" id="copy">نسخ البرومبت</button><span class="hint" id="copied"></span></div>
-    <textarea id="plain" hidden>${esc(plain)}</textarea>
-    <p class="hint">بعض الأدوات لا تقبل برومبتًا طويلًا دفعة واحدة؛ استخدم أجزاءه في الخانات المناسبة داخل الأداة.</p>`;
+    const stages = PIPELINES[S.task.type] || [];
+    return `<h1>برومبتات جاهزة لكل مرحلة</h1>
+    <p class="lead">انسخ برومبت كل مرحلة والصقه في أداتها، بالترتيب.</p>
+    ${stages.map((st, i) => {
+      const tool = toolById(st, pickFor(st)), p = stagePrompt(st, tool);
+      return `<div class="stage"><div class="shd"><span class="snum">${i + 1}</span><h2>${STAGE_DEFS[st].icon} ${STAGE_DEFS[st].name} <small>· ${esc(tool ? tool.name : "")}</small></h2></div>
+      <div class="prompt">${esc(p)}</div>
+      <div class="actions"><button type="button" class="btn sec" data-copy="${i}">نسخ</button><span class="hint" id="cp${i}"></span></div>
+      <textarea id="pt${i}" hidden>${esc(p)}</textarea></div>`;
+    }).join("")}`;
   },
   () => {
-    const tool = TOOLS.find(t => t.id === S.pick) || {};
+    const stages = PIPELINES[S.task.type] || [];
     const items = ["هل تحقق الهدف؟", "هل المعلومات دقيقة؟", "هل يعمل الملف بصورة صحيحة؟", "هل النص واضح؟", "هل الروابط صحيحة؟", "هل حميت البيانات الحساسة؟", "هل يناسب المُخرَج الجمهور والجهاز؟"];
     const all = items.every((_, i) => S.checks[i]);
     return `<h1>نفّذ نسخة صغيرة… ثم تحقق</h1>
-    <p class="lead">لا تعتمد أول نتيجة. نفّذ نسخة قصيرة أولًا، ثم افحصها بهذه القائمة.</p>
+    <p class="lead">لا تعتمد أول نتيجة. شاهد الفيديو على الهاتف، ثم افحصه بهذه القائمة.</p>
     <div class="card checks no-print"><h3>قائمة التحقق النهائية</h3>${items.map((t, i) =>
       `<label><input type="checkbox" data-c="${i}" ${S.checks[i] ? "checked" : ""}><span>${t}</span></label>`).join("")}
       <p class="hint">${all ? "كل الإجابات «نعم»: يمكنك اعتماد النتيجة." : "إذا كانت إجابة أي سؤال «لا»، فعدّل التعليمات وأعد التنفيذ الصغير."}</p></div>
     <div class="summary"><h3 style="margin:0;color:var(--gold)">بطاقة القرار</h3><dl>
       <dt>المهمة</dt><dd>${esc(taskSentence())}</dd>
-      <dt>الأداة المختارة</dt><dd>${esc(tool.name || "")}</dd>
-      <dt>التعليمات</dt><dd style="white-space:pre-wrap">${esc(buildPrompt(tool).map(x => x[1]).join("\n"))}</dd>
+      <dt>خريطة الفيديو</dt><dd>${stages.map((st, i) => `${i + 1}. ${STAGE_DEFS[st].name}: <b>${esc((toolById(st, pickFor(st)) || {}).name || "")}</b>`).join("<br>")}</dd>
       <dt>طريقة التحقق</dt><dd>${all ? "اجتازت النتيجة قائمة التحقق كاملة." : "قيد التحقق."}</dd></dl></div>
-    <div class="card no-print" style="margin-top:14px"><h3>هل كان الترشيح مفيدًا لك؟</h3>
+    <div class="card no-print" style="margin-top:14px"><h3>هل كانت الخريطة مفيدة لك؟</h3>
       ${S.sent.feedback ? `<p class="hint">شكرًا لك، سُجّل رأيك.</p>` : `<div class="chips" id="useful">${[["yes","نعم"],["partly","جزئيًا"],["no","لا"]].map(([v,l]) => `<button type="button" data-u="${v}" aria-pressed="${S.useful === v}">${l}</button>`).join("")}</div>
       <label class="f">ملاحظة <small>اختيارية · لا تكتب بيانات شخصية</small></label><textarea id="fbNote" maxlength="500"></textarea>
       <div class="actions"><button type="button" class="btn sec" id="sendFb" ${S.useful ? "" : "disabled"}>أرسل رأيك</button><span class="hint" id="fbMsg"></span></div>`}</div>
@@ -209,6 +236,12 @@ function render() {
     ${S.step < 2 ? `<span class="hint">أكمل الخانات المطلوبة للمتابعة</span>` : ""}</div>` :
     `<div class="actions no-print"><button type="button" class="btn sec" id="prev">→ السابق</button></div>`);
   bind();
+  app.querySelectorAll("[data-stage]").forEach(b => b.addEventListener("click", () => { S.picks[b.dataset.stage] = b.dataset.tool; save(); render(); }));
+  app.querySelectorAll("[data-copy]").forEach(b => b.addEventListener("click", async () => {
+    const i = b.dataset.copy, v = document.getElementById("pt" + i).value;
+    try { await navigator.clipboard.writeText(v); } catch (e) { const t = document.createElement("textarea"); t.value = v; t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove(); }
+    document.getElementById("cp" + i).textContent = "تم النسخ";
+  }));
   app.querySelectorAll("[data-pick]").forEach(b => b.addEventListener("click", () => { S.pick = b.dataset.pick; save(); render(); }));
   app.querySelectorAll("[data-c]").forEach(c => c.addEventListener("change", () => { S.checks[c.dataset.c] = c.checked; save(); render(); }));
   const cp = document.getElementById("copy");
@@ -231,13 +264,13 @@ function render() {
   const sf = document.getElementById("sendFb");
   if (sf) sf.addEventListener("click", async () => {
     sf.disabled = true; document.getElementById("fbMsg").textContent = "جارٍ الإرسال…";
-    const ok = await logEvent({ kind: "feedback", video_type: S.task.type, tool: S.pick, useful: S.useful, note: document.getElementById("fbNote").value });
+    const ok = await logEvent({ kind: "feedback", video_type: S.task.type, tool: (PIPELINES[S.task.type] || []).map(st => pickFor(st)).join(","), useful: S.useful, note: document.getElementById("fbNote").value });
     if (ok) { S.sent.feedback = true; save(); render(); }
     else { sf.disabled = false; document.getElementById("fbMsg").textContent = "تعذّر الإرسال الآن. حاول لاحقًا."; }
   });
-  if (S.step === 4 && S.pick && S.sent.decision !== S.pick + S.task.type) {
-    S.sent.decision = S.pick + S.task.type; save();
-    logEvent({ kind: "decision", video_type: S.task.type, tool: S.pick });
+  if (S.step === 4) {
+    const sig = (PIPELINES[S.task.type] || []).map(st => pickFor(st)).join(",");
+    if (S.sent.decision !== sig) { S.sent.decision = sig; save(); logEvent({ kind: "decision", video_type: S.task.type, tool: sig, note: sig }); }
   }
   const rs = document.getElementById("reset");
   if (rs) rs.addEventListener("click", () => { S = blank(); save(); render(); window.scrollTo(0, 0); });
