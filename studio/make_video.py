@@ -227,7 +227,7 @@ def main(spec_path):
         pg = p.chromium.launch().new_page()
         for i, s in enumerate(segs):
             d = plan[i]; scene = f'المشهد {i+1} من {N}'
-            h = hashlib.md5(json.dumps([s, label, d], ensure_ascii=False, sort_keys=True).encode()).hexdigest()[:8]
+            h = hashlib.md5(json.dumps([{k: v for k, v in s.items() if k != 'captions'}, label, d], ensure_ascii=False, sort_keys=True).encode()).hexdigest()[:8]
             out = os.path.join(work, f'seg{i}_{h}.mp4')
             for a, b, txt in s.get('captions', []): caps.append((t + a, t + b, txt))
             if os.path.exists(out) and os.path.getsize(out) > 1000 and not os.environ.get('FORCE'):
