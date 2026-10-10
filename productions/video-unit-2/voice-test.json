@@ -1,0 +1,8 @@
+{
+ "model": "elevenlabs/multilingual-v2", "voice_id": "George", "stability": 0.5, "similarity": 0.75, "use_speaker_boost": true,
+ "clips": [
+  {"output": "test-1.mp3", "text": "ثمّ احسبْ طولَ نصِّك من بطاقتِكْ: اضربِ الثوانيَ في واحدٍ فاصلةَ ثمانيةْ."},
+  {"output": "test-2.mp3", "text": "ولا تشكِّلِ الكلماتِ الدخيلةَ، مثل: فيديو وكاميرا."},
+  {"output": "test-3.mp3", "text": "وأشيعُ خطأٍ هنا: أن تسبقَ الشاشةُ الصوتَ… فتُعيدَ الفيديو كلَّهْ."}
+ ]
+}

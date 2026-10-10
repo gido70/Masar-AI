@@ -1,0 +1,42 @@
+name: الأصوات (WaveSpeed ElevenLabs — مدفوع)
+
+on:
+  workflow_dispatch:
+    inputs:
+      production:
+        description: "اسم مجلد الإنتاج"
+        required: true
+      config:
+        description: "ملف الإعداد داخل المجلد"
+        required: true
+        default: voice.json
+      max_chars:
+        description: "أقصى عدد أحرف"
+        required: true
+        default: "6000"
+
+concurrency:
+  group: voice
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: توليد الأصوات
+        env:
+          WAVESPEED_API_KEY: ${{ secrets.WAVESPEED_API_KEY }}
+          MAX_CHARS: ${{ inputs.max_chars }}
+        run: python studio/make_voice.py "${{ inputs.production }}" "${{ inputs.config }}"
+      - name: حفظ الأصوات في المستودع
+        run: |
+          git config user.name "Masar Factory"
+          git config user.email "factory@users.noreply.github.com"
+          git add "productions/${{ inputs.production }}/"*.mp3 2>/dev/null || true
+          git commit -m "factory: voices for ${{ inputs.production }} (run ${{ github.run_number }})" || exit 0
+          git pull --rebase -q && git push
