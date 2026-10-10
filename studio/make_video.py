@@ -80,7 +80,7 @@ def card_html(c, T, label, scene):
     elif k == 'tree':
         rows = ''.join(f'''<div class="rv" style="display:flex;align-items:center;gap:26px;margin-bottom:18px"><div style="width:340px;font-size:52px;font-weight:700;background:{T['PAPER']};border:3px solid {T['LINE']};border-radius:20px;padding:8px 28px">{a}</div>
 <div style="flex:none;width:80px;height:6px;background:{T['ACC']};border-radius:3px"></div><div style="font-size:52px;color:{T['SEC']};font-weight:700">{b}</div></div>''' for a, b in c['rows'])
-        side = f'<div style="position:absolute;top:360px;left:110px;width:430px;background:{T["PAPER"]};border:3px dashed {T["LINE"]};border-radius:24px;padding:24px 30px;font-size:40px;line-height:1.4">{em(c["note"],T)}</div>' if c.get('note') else ''
+        side = f'<div class="rv" style="position:absolute;top:360px;left:110px;width:430px;background:{T["PAPER"]};border:3px dashed {T["LINE"]};border-radius:24px;padding:24px 30px;font-size:40px;line-height:1.4">{em(c["note"],T)}</div>' if c.get('note') else ''
         body = title + f'<div style="position:absolute;top:340px;right:110px">{rows}</div>' + side
     elif k == 'rule_bars':
         r = c['rule']
@@ -109,9 +109,9 @@ def card_html(c, T, label, scene):
 
 def screen_html(s, T):
     """محتوى شاشة المقدّم (1080×750)."""
-    lines = ''.join(f'<div style="font-size:48px;line-height:1.5">{x}</div>' for x in s.get('lines', []))
-    btn = f'<div style="margin-top:26px;display:inline-block;background:{T["ACC"]};color:#fff;border-radius:22px;padding:14px 34px;font-size:54px;font-weight:700">{s["button"]}</div>' if s.get('button') else ''
-    foot = f'<div style="margin-top:16px;font-size:40px;color:{T["MUT"]}">{s["foot"]}</div>' if s.get('foot') else ''
+    lines = ''.join(f'<div class="rv" style="font-size:62px;line-height:1.45;font-weight:700">{x}</div>' for x in s.get('lines', []))
+    btn = f'<div class="rv" style="margin-top:26px;display:inline-block;background:{T["ACC"]};color:#fff;border-radius:22px;padding:14px 34px;font-size:54px;font-weight:700">{s["button"]}</div>' if s.get('button') else ''
+    foot = f'<div class="rv" style="margin-top:16px;font-size:40px;color:{T["MUT"]}">{s["foot"]}</div>' if s.get('foot') else ''
     return f'''<!doctype html><html><head><meta charset="utf-8"><style>{css(T,1080,750)}</style></head><body><div style="position:absolute;top:44px;right:64px;left:64px">
 <div class="rec"><b></b>{s.get('kicker','')}</div>
 <div style="font-size:92px;font-weight:700;line-height:1.15;margin-top:18px">{em(s['title'],T)}</div>{lines}{btn}{foot}</div></body></html>'''
@@ -122,19 +122,22 @@ def render_states(pg, html, out_prefix, w=1920, h=1080):
     pg.set_viewport_size({'width': w, 'height': h})
     for i in range(n + 1):
         hh = html.replace('</body>', f'<script>document.querySelectorAll(".rv").forEach((e,j)=>{{if(j>={i})e.style.visibility="hidden"}})</script></body>') if n else html
-        p = f'{out_prefix}.html'; open(p, 'w').write(hh)
+        p = f'{out_prefix}.html'; open(p, 'w', encoding='utf-8').write(hh)
         pg.goto('file://' + os.path.abspath(p)); pg.wait_for_timeout(250)
         f = f'{out_prefix}_r{i}.png'; pg.screenshot(path=f); files.append(f)
         if not n: break
     return files
 
 # ---------------------------------------------------------------- تركيب الشاشة على المقدّم
-def composite_screen(src, content_png, out, work):
+def composite_screen(src, states, reveal, out, work, fps=25):
+    """يركّب محتوى الشاشة على فيديو المقدّم. states: صور حالات الظهور، reveal: توقيت ظهور كل عنصر."""
     fr = os.path.join(work, 'fr'); shutil.rmtree(fr, ignore_errors=True); os.makedirs(fr)
-    ff('-i', src, os.path.join(fr, '%04d.png'))
-    content = Image.open(content_png).convert('RGB'); bbox = None
+    ff('-i', src, '-vf', f'fps={fps}', os.path.join(fr, '%04d.png'))
+    contents = [Image.open(x).convert('RGB') for x in states]; bbox = None; cache = {}
     files = sorted(os.listdir(fr))
     for i, f in enumerate(files):
+        tt = i / fps; k = sum(1 for r in reveal if tt >= r) if len(states) > 1 else 0
+        content = contents[min(k, len(contents) - 1)]
         a = np.asarray(Image.open(os.path.join(fr, f)).convert('RGB')).astype(float)
         H, W, _ = a.shape; X0 = int(W * 0.40)
         reg = a[:, X0:]; m = (reg.mean(-1) > 200) & ((reg.max(-1) - reg.min(-1)) < 38)
@@ -143,14 +146,16 @@ def composite_screen(src, content_png, out, work):
             if len(cols) and len(rows): bbox = (X0 + cols.min(), rows.min(), X0 + cols.max() + 1, rows.max() + 1)
         x0, y0, x1, y1 = bbox; pad = int((y1 - y0) * 0.04)
         cw, ch = x1 - x0 - 2 * pad, y1 - y0 - 2 * pad; r = min(cw / content.width, ch / content.height)
-        c = content.resize((int(content.width * r), int(content.height * r)), Image.LANCZOS)
+        key = (id(content), int(content.width * r), int(content.height * r))
+        if key not in cache: cache[key] = content.resize(key[1:], Image.LANCZOS)
+        c = cache[key]
         layer = Image.new('RGB', (W, H), (255, 255, 255)); layer.paste(c, (x1 - pad - c.width, y0 + pad))
         full = np.zeros((H, W), bool); full[:, X0:] = m
         box = np.zeros((H, W), bool); box[y0:y1, x0:x1] = True
         mm = np.asarray(Image.fromarray(((full & box) * 255).astype('uint8')).filter(ImageFilter.GaussianBlur(1.2))).astype(float) / 255
         o = a * (1 - mm[..., None]) + np.asarray(layer).astype(float) * mm[..., None]
         Image.fromarray(o.clip(0, 255).astype('uint8')).save(os.path.join(fr, f))
-    ff('-framerate', '25', '-i', os.path.join(fr, '%04d.png'), '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '18', out)
+    ff('-framerate', str(fps), '-i', os.path.join(fr, '%04d.png'), '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '18', out)
 
 # ---------------------------------------------------------------- الترجمة النصية
 def ass(captions, path):
@@ -168,49 +173,105 @@ Style: Cap,Amiri,124,&H00FFFFFF,&H00FFFFFF,&H40221B1A,&H40221B1A,1,0,0,0,100,100
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 '''
-    open(path, 'w').write(head + ''.join(f'Dialogue: 0,{ts(a)},{ts(b)},Cap,,0,0,0,,{t}\n' for a, b, t in captions))
+    open(path, 'w', encoding='utf-8').write(head + ''.join(f'Dialogue: 0,{ts(a)},{ts(b)},Cap,,0,0,0,,{t}\n' for a, b, t in captions))
+
+# ---------------------------------------------------------------- فحص الإيقاع
+MIN_ITEM, HOLD = 2.0, 1.0
+
+def check_rhythm(name, reveal, n, d, hold):
+    """قواعد الإيقاع: عنصر لكل توقيت، ثانيتان على الأقل لكل عنصر، وثبات قبل الانتقال."""
+    errs = []
+    if len(reveal) != n: errs.append(f'عدد reveal_at = {len(reveal)} وعدد العناصر = {n}')
+    for k in range(1, len(reveal)):
+        if reveal[k] - reveal[k-1] < MIN_ITEM - 1e-6: errs.append(f'العنصر {k} ظاهر {reveal[k]-reveal[k-1]:.2f} ث فقط')
+    if reveal and d - reveal[-1] < MIN_ITEM + hold - 1e-6: errs.append(f'العنصر الأخير ظاهر {d-reveal[-1]:.2f} ث قبل الانتقال (المطلوب {MIN_ITEM+hold:.1f})')
+    if reveal and (reveal[0] < 0 or reveal[-1] > d): errs.append('توقيت خارج مدة المشهد')
+    for e in errs: print(f'⚠ {name}: {e}', flush=True)
+    return errs
 
 # ---------------------------------------------------------------- التجميع
 def main(spec_path):
-    spec = json.load(open(spec_path)); base = os.path.dirname(os.path.abspath(spec_path))
+    import hashlib
+    spec = json.load(open(spec_path, encoding='utf-8')); base = os.path.dirname(os.path.abspath(spec_path))
     T = THEMES[spec.get('theme', 'video')]; work = os.path.join(base, '_work'); os.makedirs(work, exist_ok=True)
     P = lambda x: x if os.path.isabs(x) else os.path.join(base, x)
     label = spec['label']; segs = spec['segments']; N = len([s for s in segs if s['type'] != 'end'])
+    strict = not os.environ.get('NO_STRICT')
+
+    # 1) مدة كل مشهد، والصوت الخاص به (الصوت جزء من المشهد فيبقى التزامن مضمونًا)
+    plan, problems = [], []
+    for i, s in enumerate(segs):
+        au = s.get('audio')
+        if s['type'] == 'presenter':
+            d = dur(P(s['video']))
+            if au:
+                alen = dur(P(au['file'])) - au.get('start', 0) if 'end' not in au else au['end'] - au.get('start', 0)
+                if alen > d + 0.15: problems.append(f'المشهد {i+1}: الصوت ({alen:.2f} ث) أطول من فيديو المقدّم ({d:.2f} ث) فسيُقطع'); print('⚠', problems[-1])
+        elif s['type'] == 'card' and au:
+            alen = au['end'] - au['start']; d = alen + s.get('hold', HOLD)
+        else:
+            d = s.get('duration', 3.0)
+        plan.append(d)
+        if s['type'] == 'card':
+            n = card_html(s['card'], T, label, '').count('class="rv"')
+            problems += check_rhythm(f'المشهد {i+1}', s['card'].get('reveal_at', []), n, d, s.get('hold', HOLD))
+        if s['type'] == 'presenter' and 'reveal_at' in s.get('screen', {}):
+            n = screen_html(s['screen'], T).count('class="rv"'); rv = s['screen']['reveal_at']
+            if len(rv) != n: problems.append(f'المشهد {i+1}: عدد reveal_at = {len(rv)} وعدد العناصر = {n}'); print('⚠', problems[-1])
+    if problems and strict: sys.exit('✗ أوقفت الإنتاج: قواعد الإيقاع غير متحققة (للتجاوز: NO_STRICT=1)')
+
+    # 2) المشاهد
     from playwright.sync_api import sync_playwright
-    clips, caps, audio_parts, t = [], [], [], 0.0
+    clips, caps, t = [], [], 0.0
     with sync_playwright() as p:
         pg = p.chromium.launch().new_page()
         for i, s in enumerate(segs):
-            out = os.path.join(work, f'seg{i}.mp4'); scene = f'المشهد {i+1} من {N}'
+            d = plan[i]; scene = f'المشهد {i+1} من {N}'
+            h = hashlib.md5(json.dumps([s, label, d], ensure_ascii=False, sort_keys=True).encode()).hexdigest()[:8]
+            out = os.path.join(work, f'seg{i}_{h}.mp4')
+            for a, b, txt in s.get('captions', []): caps.append((t + a, t + b, txt))
             if os.path.exists(out) and os.path.getsize(out) > 1000 and not os.environ.get('FORCE'):
-                d = dur(out) if s['type'] == 'presenter' else (s['duration'] if s['type'] == 'card' else s.get('duration', 3.0))
-                for a, b, txt in s.get('captions', []): caps.append((t + a, t + b, txt))
                 clips.append((out, t, t + d)); t += d; print('↺ موجود:', out, flush=True); continue
             if s['type'] == 'presenter':
-                scr = os.path.join(work, f'scr{i}'); render_states(pg, screen_html(s['screen'], T), scr, 1080, 750)
-                composite_screen(P(s['video']), scr + '_r0.png', out, work); d = dur(out)
-                for a, b, txt in s.get('captions', []): caps.append((t + a, t + b, txt))
+                scr = os.path.join(work, f'scr{i}'); states = render_states(pg, screen_html(s['screen'], T), scr, 1080, 750)
+                composite_screen(P(s['video']), states, s['screen'].get('reveal_at', [0] * (len(states) - 1)), out, work)
             elif s['type'] == 'card':
-                d = s['duration']; states = render_states(pg, card_html(s['card'], T, label, scene), os.path.join(work, f'card{i}'))
+                states = render_states(pg, card_html(s['card'], T, label, scene), os.path.join(work, f'card{i}'))
                 n = len(states) - 1; lst = os.path.join(work, f'card{i}.txt')
+                rv = s['card'].get('reveal_at') or [0.5 + k * (d - 1.6) / max(n, 1) for k in range(n)]
+                marks = [0.0] + list(rv) + [d]
                 with open(lst, 'w') as f:
-                    if n == 0: f.write(f"file '{states[0]}'\nduration {d:.3f}\n")
-                    else:
-                        step = (d - 1.6) / n; f.write(f"file '{states[0]}'\nduration 0.5\n")
-                        for k in range(1, n + 1):
-                            f.write(f"file '{states[k]}'\nduration {(step if k < n else d - 0.5 - step*(n-1)):.3f}\n")
+                    for k in range(n + 1):
+                        f.write(f"file '{states[k]}'\nduration {max(marks[k+1]-marks[k], 0.04):.3f}\n")
                     f.write(f"file '{states[-1]}'\n")
                 ff('-f', 'concat', '-safe', '0', '-i', lst, '-vf', 'fps=25,scale=1920:1080,format=yuv420p', '-c:v', 'libx264', '-crf', '18', out)
             elif s['type'] == 'end':
-                d = s.get('duration', 3.0); img = render_states(pg, card_html(dict(kind='end', **s), T, label, ''), os.path.join(work, 'end'))[0]
+                img = render_states(pg, card_html(dict(kind='end', **s), T, label, ''), os.path.join(work, 'end'))[0]
                 ff('-loop', '1', '-framerate', '25', '-t', str(d + 0.5), '-i', img, '-vf', 'format=yuv420p', '-c:v', 'libx264', '-crf', '18', out)
-            clips.append((out, t, t + d)); t += d; print('✓ مشهد', i + 1, flush=True)
-    # صوت: أجزاء متتالية من الملفات المحددة
-    a_in, a_fl = [], []
-    for k, part in enumerate(spec['audio']):
-        a_in += ['-i', P(part['file'])]
-        a_fl.append(f"[{len(clips)+k}:a]atrim={part.get('start',0)}:{part.get('end',99999)},asetpts=PTS-STARTPTS[a{k}]")
-    END = t; xd = spec.get('crossfade', 0.4); v_in, v_fl = [], []
+            clips.append((out, t, t + d)); t += d; print('✓ مشهد', i + 1, f'({d:.2f} ث)', flush=True)
+
+    # 3) الصوت: لكل مشهد مقطعه، مُكمَّل بصمت حتى نهاية المشهد
+    END = t; a_in, a_fl, a_lab = [], [], []
+    seg_audio = any(s.get('audio') for s in segs)
+    if seg_audio:
+        for i, s in enumerate(segs):
+            k = len(clips) + len(a_in) // 2; au = s.get('audio')
+            if au:
+                a_in += ['-i', P(au['file'])]
+                tr = f"atrim={au.get('start',0)}:{au['end']}," if 'end' in au else (f"atrim=start={au['start']}," if 'start' in au else '')
+                a_fl.append(f"[{k}:a]{tr}asetpts=PTS-STARTPTS,aresample=44100,aformat=channel_layouts=mono,apad=whole_dur={plan[i]:.3f},atrim=0:{plan[i]:.3f}[s{i}]")
+            else:
+                a_fl.append(f"anullsrc=r=44100:cl=mono,atrim=0:{plan[i]:.3f}[s{i}]")
+            a_lab.append(f'[s{i}]')
+        a_fl.append(''.join(a_lab) + f"concat=n={len(segs)}:v=0:a=1,afade=t=out:st={END-1}:d=1[aout]")
+    else:  # الطريقة القديمة: أجزاء متتالية على مستوى الملف
+        for k, part in enumerate(spec['audio']):
+            a_in += ['-i', P(part['file'])]
+            a_fl.append(f"[{len(clips)+k}:a]atrim={part.get('start',0)}:{part.get('end',99999)},asetpts=PTS-STARTPTS[a{k}]")
+        a_fl.append(''.join(f'[a{k}]' for k in range(len(spec['audio']))) + f"concat=n={len(spec['audio'])}:v=0:a=1,apad=whole_dur={END},afade=t=out:st={END-1}:d=1,atrim=0:{END}[aout]")
+
+    # 4) الصورة: انتقالات ناعمة بلا إزاحة للتوقيت
+    xd = spec.get('crossfade', 0.4); v_in, v_fl = [], []
     for k, (c, a, b) in enumerate(clips):
         pre = 0 if k == 0 else xd / 2; post = 0 if k == len(clips) - 1 else xd / 2; L = (b - a) + pre + post
         v_in += ['-i', c]
@@ -218,12 +279,17 @@ def main(spec_path):
     prev = 'v0'
     for k in range(1, len(clips)):
         v_fl.append(f"[{prev}][v{k}]xfade=transition=fade:duration={xd}:offset={clips[k][1]-xd/2:.3f}[x{k}]"); prev = f'x{k}'
-    cap = os.path.join(work, 'cap.ass'); ass(caps, cap); v_fl.append(f"[{prev}]ass={cap}[vout]")
-    a_fl.append(''.join(f'[a{k}]' for k in range(len(spec['audio']))) + f"concat=n={len(spec['audio'])}:v=0:a=1,apad=whole_dur={END},afade=t=out:st={END-1}:d=1,atrim=0:{END}[aout]")
+    cap = os.path.join(work, 'cap.ass'); ass(caps, cap); v_fl.append(f"[{prev}]ass={cap},format=yuv420p[vout]")
     out = P(spec.get('output', 'output.mp4'))
-    ff(*v_in, *a_in, '-filter_complex', ';'.join(v_fl + a_fl), '-map', '[vout]', '-map', '[aout]', '-c:v', 'libx264', '-crf', '20',
-       '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-t', f'{END:.3f}', out)
+    # yuv420p + High: يعمل على الهواتف والمتصفحات (yuv444p لا يعمل عليها)
+    ff(*v_in, *a_in, '-filter_complex', ';'.join(v_fl + a_fl), '-map', '[vout]', '-map', '[aout]',
+       '-c:v', 'libx264', '-crf', '20', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-level', '4.1',
+       '-c:a', 'aac', '-b:a', '192k', '-ar', '44100', '-movflags', '+faststart', '-t', f'{END:.3f}', out)
     print(f'✓ {out}  ({END:.1f} ثانية)')
+    tl = [dict(scene=i+1, type=s['type'], start=round(c[1],2), end=round(c[2],2),
+               reveal=[round(c[1]+r,2) for r in (s.get('card',{}).get('reveal_at') or s.get('screen',{}).get('reveal_at') or [])])
+          for i, (s, c) in enumerate(zip(segs, clips))]
+    json.dump(tl, open(os.path.join(work, 'timeline.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 
 if __name__ == '__main__':
     main(sys.argv[1])
