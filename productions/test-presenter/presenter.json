@@ -1,0 +1,5 @@
+{
+ "image": "studio/assets/presenter-screen.png",
+ "resolution": "720p",
+ "clips": [{"audio": "test-5s.mp3", "output": "presenter-test.mp4"}]
+}

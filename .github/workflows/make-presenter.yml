@@ -1,0 +1,41 @@
+name: مقاطع المقدّم (WaveSpeed — مدفوع)
+
+on:
+  workflow_dispatch:
+    inputs:
+      production:
+        description: "اسم مجلد الإنتاج داخل productions (فيه presenter.json)"
+        required: true
+        default: test-presenter
+      max_total:
+        description: "أقصى تكلفة تقديرية مسموحة بالدولار"
+        required: true
+        default: "3"
+
+concurrency:
+  group: presenter
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  presenter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: تثبيت ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: توليد مقاطع المقدّم
+        env:
+          WAVESPEED_API_KEY: ${{ secrets.WAVESPEED_API_KEY }}
+          MAX_TOTAL: ${{ inputs.max_total }}
+        run: python studio/make_presenter.py "${{ inputs.production }}"
+      - name: حفظ المقاطع في المستودع
+        run: |
+          git config user.name "Masar Factory"
+          git config user.email "factory@users.noreply.github.com"
+          git add "productions/${{ inputs.production }}/"*.mp4 2>/dev/null || true
+          git commit -m "factory: presenter clips for ${{ inputs.production }} (run ${{ github.run_number }})" || exit 0
+          git pull --rebase -q && git push
