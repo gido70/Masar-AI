@@ -28,6 +28,8 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: تحديد الإنتاج
         id: pick
@@ -38,6 +40,7 @@ jobs:
             names=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- 'productions/*/spec.json' 2>/dev/null | cut -d/ -f2 | sort -u | tr '\n' ' ')
             echo "names=$names" >> "$GITHUB_OUTPUT"
           fi
+          echo "الإنتاج: $(grep names= "$GITHUB_OUTPUT")"
 
       - uses: actions/setup-python@v5
         with:
@@ -56,6 +59,7 @@ jobs:
         run: |
           set -e
           mkdir -p out
+          if [ -z "$(echo '${{ steps.pick.outputs.names }}' | tr -d ' ')" ]; then echo "::error::لم يُحدَّد أي إنتاج"; exit 1; fi
           for n in ${{ steps.pick.outputs.names }}; do
             echo "::group::إنتاج $n"
             python studio/make_video.py "productions/$n/spec.json"
@@ -72,6 +76,7 @@ jobs:
           name: video-${{ github.run_number }}
           path: out/
           retention-days: 30
+          if-no-files-found: error
 
       - name: نسخ إلى media (عند الطلب)
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish }}
