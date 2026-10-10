@@ -279,7 +279,7 @@ def main(spec_path):
     prev = 'v0'
     for k in range(1, len(clips)):
         v_fl.append(f"[{prev}][v{k}]xfade=transition=fade:duration={xd}:offset={clips[k][1]-xd/2:.3f}[x{k}]"); prev = f'x{k}'
-    cap = os.path.join(work, 'cap.ass'); ass(caps, cap); v_fl.append(f"[{prev}]ass={cap},format=yuv420p[vout]")
+    cap = os.path.join(work, 'cap.ass'); ass(caps, cap); v_fl.append(f"[{prev}]ass={cap}:fontsdir={FONTS},format=yuv420p[vout]")  # بدون fontsdir يُستبدل الأميري بخط آخر أكبر بكثير
     out = P(spec.get('output', 'output.mp4'))
     # yuv420p + High: يعمل على الهواتف والمتصفحات (yuv444p لا يعمل عليها)
     ff(*v_in, *a_in, '-filter_complex', ';'.join(v_fl + a_fl), '-map', '[vout]', '-map', '[aout]',
