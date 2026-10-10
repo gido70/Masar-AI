@@ -96,6 +96,13 @@ def card_html(c, T, label, scene):
 <div style="font-size:42px;font-weight:700;line-height:1.3">{it[0]}</div><div style="margin-top:14px;font-size:48px;font-weight:700;color:{colors.get(it[2],T['SEC'])}">{it[1]}</div></div>''' for it in c['items'])
         warn = f'<div class="rv" style="position:absolute;bottom:120px;right:110px;left:110px;background:{T["PAPER"]};border-radius:24px;padding:22px 34px;font-size:46px">{em(c["warning"],T)}</div>' if c.get('warning') else ''
         body = title + f'<div style="position:absolute;top:340px;right:110px;left:110px;display:grid;grid-template-columns:repeat({len(c["items"])},1fr);gap:22px">{items}</div>' + warn
+    elif k == 'compare':
+        def side(sd, col):
+            return f'''<div style="flex:1;border:5px solid {col};border-radius:28px;background:#fff;padding:30px 40px">
+<div style="display:inline-block;background:{col};color:#fff;font-family:Tajawal;font-size:38px;border-radius:14px;padding:6px 26px">{sd.get('label','')}</div>
+<div class="rv" style="font-size:50px;line-height:1.5;margin-top:22px;min-height:300px">«{sd['text']}»</div>
+<div class="rv" style="font-size:44px;font-weight:700;color:{col};border-top:3px solid {T['LINE']};padding-top:16px">{sd['verdict']}</div></div>'''
+        body = title + f'<div style="position:absolute;top:340px;right:110px;left:110px;display:flex;gap:40px">{side(c["before"], T["ACC"])}{side(c["after"], T["GRN"])}</div>'
     elif k == 'end':
         st = ''.join('<i></i>' for _ in range(40))
         return f'''<!doctype html><html><head><meta charset="utf-8"><style>{css(T,1920,1080)}</style></head><body>
