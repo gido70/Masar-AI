@@ -1,0 +1,9 @@
+{
+ "model": "google/nano-banana-2/edit",
+ "image": "studio/assets/presenter-screen.png",
+ "cost_each": 0.07,
+ "variants": [
+  {"output": "presenter-a.png", "prompt": "Change only the man's clothing to a charcoal grey two-piece suit with a crisp white shirt and no tie. Keep everything else exactly identical: the same man with the identical face, facial features, beard, skin tone and hairstyle; the same pose, arm position and pointing hand gesture; the same office background and plants; the same camera framing; and the same large blank pure white screen on the right, same position and size, with nothing on it. Photorealistic, same lighting."},
+  {"output": "presenter-b.png", "prompt": "Change only the man's clothing to a light grey blazer over a black crew-neck t-shirt. Keep everything else exactly identical: the same man with the identical face, facial features, beard, skin tone and hairstyle; the same pose, arm position and pointing hand gesture; the same office background and plants; the same camera framing; and the same large blank pure white screen on the right, same position and size, with nothing on it. Photorealistic, same lighting."}
+ ]
+}
