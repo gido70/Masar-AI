@@ -1,0 +1,84 @@
+name: إنتاج فيديو (مصنع مسار)
+
+on:
+  workflow_dispatch:
+    inputs:
+      production:
+        description: "اسم مجلد الإنتاج داخل productions (مثال: video-unit-2)"
+        required: true
+        default: video-unit-1
+      publish:
+        description: "انسخ الفيديو النهائي إلى media/ في المستودع"
+        type: boolean
+        default: false
+  push:
+    paths:
+      - "productions/*/spec.json"
+
+concurrency:
+  group: render-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: تحديد الإنتاج
+        id: pick
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "names=${{ inputs.production }}" >> "$GITHUB_OUTPUT"
+          else
+            names=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- 'productions/*/spec.json' 2>/dev/null | cut -d/ -f2 | sort -u | tr '\n' ' ')
+            echo "names=$names" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: studio/requirements.txt
+
+      - name: تثبيت الأدوات
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          pip install -q -r studio/requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: إنتاج الفيديو
+        run: |
+          set -e
+          mkdir -p out
+          for n in ${{ steps.pick.outputs.names }}; do
+            echo "::group::إنتاج $n"
+            python studio/make_video.py "productions/$n/spec.json"
+            o=$(python -c "import json;print(json.load(open('productions/$n/spec.json',encoding='utf-8')).get('output','output.mp4'))")
+            cp "productions/$n/$o" "out/$o"
+            ffprobe -v error -show_entries stream=codec_name,profile,pix_fmt:format=duration -of compact=p=0 "out/$o"
+            cp "productions/$n/_work/timeline.json" "out/$n-timeline.json" 2>/dev/null || true
+            echo "::endgroup::"
+          done
+
+      - name: رفع الفيديو للتنزيل
+        uses: actions/upload-artifact@v4
+        with:
+          name: video-${{ github.run_number }}
+          path: out/
+          retention-days: 30
+
+      - name: نسخ إلى media (عند الطلب)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish }}
+        run: |
+          cp out/*.mp4 media/
+          git config user.name "Masar Factory"
+          git config user.email "factory@users.noreply.github.com"
+          git add media/*.mp4
+          git commit -m "factory: render ${{ inputs.production }} (run ${{ github.run_number }})" || exit 0
+          git push
