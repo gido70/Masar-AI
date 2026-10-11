@@ -30,7 +30,7 @@ def main(name):
     print(f'{len(todo)} صورة ← تقدير {total:.2f} دولار (الحد {MAX_TOTAL:.2f})')
     if total > MAX_TOTAL: sys.exit('✗ التكلفة أعلى من الحد.')
     for v in todo:
-        r = call('POST', f"{API}/{cfg['model']}", key, {'images': [raw_url(cfg['image'])], 'prompt': v['prompt']})
+        r = call('POST', f"{API}/{cfg['model']}", key, {'images': [raw_url(x) for x in v.get('images', cfg.get('images', [cfg['image']]))], 'prompt': v['prompt']})
         pid = (r.get('data') or {}).get('id') or sys.exit(f'✗ لا رقم: {r}')
         print(f"→ {v['output']} (رقم {pid})"); t0 = time.time()
         while True:

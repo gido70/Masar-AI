@@ -30,6 +30,14 @@
   {
    "output": "guest-e.png",
    "prompt": "Edit this photo. Keep the same woman with the same face shape and features, the same toob fabric, print and colors, the same pose and hands. Fix the toob: it must cover BOTH shoulders and both upper arms completely. Her right shoulder and upper arm (on the left side of the image), which currently shows the dark teal sleeve, must be fully covered by the toob fabric draping over it, as a traditional Sudanese toob is worn: the fabric drawn loosely over the head, falling over both shoulders like a wrap, enveloping the upper body, with one end crossing the chest; only the teal sleeves are visible from the forearms to the wrists. No bare or exposed sleeve on the shoulder or upper arm. Make her skin tone clearly lighter and brighter: a fair, light, luminous honey complexion, natural and realistic. Enhance her beauty subtly: smooth radiant skin, softly defined eyebrows, light natural makeup with soft rosy lips and gentle eyeliner, bright eyes, warm gentle smile. Make the henna on her hands lighter and finer. Keep exactly identical: the studio background, softbox lights, camera on tripod, walls, framing, lighting, and the large blank pure white screen on the right with nothing on it. Photorealistic."
+  },
+  {
+   "output": "two-shot.png",
+   "images": [
+    "productions/video-unit-4/presenter-a.png",
+    "productions/video-unit-4/guest-e.png"
+   ],
+   "prompt": "Combine the two people into one photo, using the first image as the base scene. Keep the first image's bright video studio, framing, lighting and the large blank pure white screen on the right exactly the same position and size, with nothing on it and nothing overlapping it. The man from the first image stands in the left half, slightly turned toward the screen, raising one hand and pointing at the white screen as if explaining it. The woman from the second image stands beside him on the far left, a little behind him, turned toward the screen, looking at it attentively, hands lowered and away from her face. Both people stay entirely inside the left 45 percent of the frame. Keep exactly identical: the man's face, beard, skin tone, hairstyle and clothing (camel beige linen overshirt over white t-shirt); the woman's face, skin tone, Sudanese toob, colors, light henna. Mouths closed, natural expressions. Photorealistic, same color grading, no text."
   }
  ]
 }
