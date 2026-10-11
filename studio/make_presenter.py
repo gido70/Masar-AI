@@ -45,7 +45,7 @@ def main(name):
         d = dur(a)
         if d > c.get('max_seconds', MAX_SECONDS): sys.exit(f'✗ {a} مدته {d:.1f} ث، أطول من الحد {MAX_SECONDS:.0f} ث. أُوقف كل شيء.')
         cost = math.ceil(d / 5) * 5 * RATE; total += cost; todo.append((a, o, d, cost, c))
-        print(f'• {c["audio"]}: {d:.1f} ث ← تقدير {cost:.2f} دولار')
+        print(f'• {c.get("audio") or c["output"]}: {d:.1f} ث ← تقدير {cost:.2f} دولار')
     if not todo: print('لا شيء جديد للتوليد.'); return
     print(f'المجموع التقديري: {total:.2f} دولار (الحد {MAX_TOTAL:.2f})')
     if total > MAX_TOTAL: sys.exit('✗ التكلفة التقديرية أعلى من الحد. أُوقف كل شيء.')
