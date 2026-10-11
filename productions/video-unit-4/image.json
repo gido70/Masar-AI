@@ -38,6 +38,13 @@
     "productions/video-unit-4/guest-e.png"
    ],
    "prompt": "Combine the two people into one photo, using the first image as the base scene. Keep the first image's bright video studio, framing, lighting and the large blank pure white screen on the right exactly the same position and size, with nothing on it and nothing overlapping it. The man from the first image stands in the left half, slightly turned toward the screen, raising one hand and pointing at the white screen as if explaining it. The woman from the second image stands beside him on the far left, a little behind him, turned toward the screen, looking at it attentively, hands lowered and away from her face. Both people stay entirely inside the left 45 percent of the frame. Keep exactly identical: the man's face, beard, skin tone, hairstyle and clothing (camel beige linen overshirt over white t-shirt); the woman's face, skin tone, Sudanese toob, colors, light henna. Mouths closed, natural expressions. Photorealistic, same color grading, no text."
+  },
+  {
+   "output": "two-shot-b.png",
+   "images": [
+    "productions/video-unit-4/two-shot.png"
+   ],
+   "prompt": "Edit only the two people's head direction: turn both faces about halfway toward the camera (three-quarter view, both eyes and the full mouth clearly visible), as if they just glanced from the screen toward the viewer while still standing toward the screen. The man keeps pointing at the white screen with the same arm and hand. Keep exactly identical everything else: both faces' identity and features, beard, skin tones, hairstyle, clothing, henna, body positions, the studio, lights, camera, framing and the large blank pure white screen with nothing on it. Mouths closed, calm natural expressions. Photorealistic, no text."
   }
  ]
 }
