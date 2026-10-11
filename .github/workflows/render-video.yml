@@ -86,4 +86,4 @@ jobs:
           git config user.email "factory@users.noreply.github.com"
           git add media/*.mp4
           git commit -m "factory: render ${{ inputs.production }} (run ${{ github.run_number }})" || exit 0
-          git push
+          git pull --rebase -q && git push
