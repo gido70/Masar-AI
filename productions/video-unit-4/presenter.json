@@ -1,0 +1,23 @@
+{
+ "image": "productions/video-unit-4/presenter-a.png",
+ "resolution": "720p",
+ "clips": [
+  {
+   "audio": "narration-open.mp3",
+   "output": "presenter-open.mp4"
+  },
+  {
+   "audio": "narration-close.mp3",
+   "output": "presenter-close.mp4"
+  },
+  {
+   "image": "productions/video-unit-4/two-shot-b.png",
+   "left_audio": "dialog-left.mp3",
+   "right_audio": "dialog-right.mp3",
+   "order": "meanwhile",
+   "max_seconds": 40,
+   "output": "dialog.mp4",
+   "prompt": "Two people in a bright video studio. The man on the right explains, pointing at the white screen; the woman on the left asks questions and listens. Natural, calm head movements, the screen stays blank white."
+  }
+ ]
+}

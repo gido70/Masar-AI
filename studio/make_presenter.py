@@ -9,7 +9,7 @@
 الضوابط: لا يولّد مقطعًا موجودًا · يرفض أي صوت أطول من MAX_SECONDS · يرفض إن تجاوزت
 التكلفة التقديرية MAX_TOTAL · مهلة قصوى للانتظار · المفتاح من متغير البيئة WAVESPEED_API_KEY فقط.
 """
-import json, math, os, subprocess, sys, time, urllib.request
+import json, math, os, subprocess, sys, time, urllib.request, urllib.error
 
 API = 'https://api.wavespeed.ai/api/v3'
 MODEL = 'wavespeed-ai/infinitetalk'
@@ -39,19 +39,27 @@ def main(name):
     if not os.path.exists(image): sys.exit(f'✗ الصورة غير موجودة: {image}')
     todo, total = [], 0.0
     for c in cfg['clips']:
-        a, o = f"{base}/{c['audio']}", f"{base}/{c['output']}"
+        a, o = f"{base}/{c.get('audio') or c['right_audio']}", f"{base}/{c['output']}"
         if os.path.exists(o): print(f'↺ موجود، لن يُولَّد ولن يُدفع: {o}'); continue
         if not os.path.exists(a): sys.exit(f'✗ الصوت غير موجود: {a}')
         d = dur(a)
-        if d > MAX_SECONDS: sys.exit(f'✗ {a} مدته {d:.1f} ث، أطول من الحد {MAX_SECONDS:.0f} ث. أُوقف كل شيء.')
-        cost = math.ceil(d / 5) * 5 * RATE; total += cost; todo.append((a, o, d, cost))
+        if d > c.get('max_seconds', MAX_SECONDS): sys.exit(f'✗ {a} مدته {d:.1f} ث، أطول من الحد {MAX_SECONDS:.0f} ث. أُوقف كل شيء.')
+        cost = math.ceil(d / 5) * 5 * RATE; total += cost; todo.append((a, o, d, cost, c))
         print(f'• {c["audio"]}: {d:.1f} ث ← تقدير {cost:.2f} دولار')
     if not todo: print('لا شيء جديد للتوليد.'); return
     print(f'المجموع التقديري: {total:.2f} دولار (الحد {MAX_TOTAL:.2f})')
     if total > MAX_TOTAL: sys.exit('✗ التكلفة التقديرية أعلى من الحد. أُوقف كل شيء.')
-    for a, o, d, cost in todo:
-        body = {'image': raw_url(image), 'audio': raw_url(a), 'resolution': res, 'seed': -1}
-        r = call('POST', f'{API}/{MODEL}', key, body); pid = (r.get('data') or {}).get('id')
+    for a, o, d, cost, c in todo:
+        if c.get('left_audio'):  # حوار بشخصين: صورة واحدة وصوتان متساويان في الطول (النموذج Multi)
+            body = {'image': raw_url(c['image']), 'left_audio': raw_url(f"{base}/{c['left_audio']}"), 'right_audio': raw_url(a),
+                    'order': c.get('order', 'meanwhile'), 'resolution': res, 'seed': -1}
+            if c.get('prompt'): body['prompt'] = c['prompt']
+            model = c.get('model', 'wavespeed-ai/infinitetalk/multi')
+        else:
+            body = {'image': raw_url(image), 'audio': raw_url(a), 'resolution': res, 'seed': -1}; model = MODEL
+        try: r = call('POST', f'{API}/{model}', key, body)
+        except urllib.error.HTTPError as e: sys.exit(f'✗ رُفض الطلب ({e.code}): {e.read().decode()[:500]}')
+        pid = (r.get('data') or {}).get('id')
         if not pid: sys.exit(f'✗ لم يُرجع الطلب رقمًا: {r}')
         print(f'→ أُرسل {a} (رقم {pid})'); t0 = time.time()
         while True:
