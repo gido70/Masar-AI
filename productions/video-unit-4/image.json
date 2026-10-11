@@ -1,6 +1,6 @@
 {
  "model": "google/nano-banana-2/edit",
- "image": "productions/video-unit-4/presenter-a.png",
+ "image": "productions/video-unit-4/guest-c.png",
  "cost_each": 0.07,
  "variants": [
   {
@@ -22,6 +22,10 @@
   {
    "output": "guest-c.png",
    "prompt": "Replace the man with a completely different person: an elegant, beautiful Sudanese woman, about 30 years old, with refined natural Sudanese facial features, large dark expressive eyes, and a light warm-brown skin tone, realistic and not artificially whitened; clearly different from the man in face, age and clothing. Calm, polite, attentive expression, slight friendly smile, as a trainee about to ask a question. Clothing: a traditional Sudanese toob (a long single wrapped fabric) wound around her body and draped over her head and shoulders, covering her hair, in formal, professional muted colors: deep navy blue with soft dusty-rose and muted gold accents in a subtle elegant pattern; underneath, a long-sleeved top in plain navy. Modest and elegant, nothing tight. Delicate traditional henna on the backs of her hands and one thin gold bangle, minimal and tasteful. Both hands lowered and relaxed at waist level, holding the edge of the toob, far from her face. Keep exactly identical: the same bright video production studio background with the softbox lights, camera on tripod and light grey walls; the same camera framing and lighting; and the same large blank pure white screen on the right, same position and size, with nothing on it. Nothing may overlap the screen. Photorealistic, same camera, natural soft lighting on her face."
+  },
+  {
+   "output": "guest-d.png",
+   "prompt": "Edit this photo. Keep the same woman with the same face, facial features, eyes and smile, but make her skin tone noticeably lighter: a fair, light honey tone, natural and realistic. Re-dress her in a correctly worn traditional Sudanese toob: one single very long piece of light, soft, flowing, slightly sheer fabric, wrapped around her waist and hips in soft layers, then brought diagonally across her chest and over one shoulder, and finally drawn up loosely over her head like a soft hood that frames her face and falls softly onto her shoulders; not a tightly pinned hijab and not a sari. Her hair stays covered under the loose drape. Underneath, a plain long-sleeved fitted-sleeve top in deep teal-navy, the sleeves visible from the elbows to the wrists. Toob colors formal and calm: soft blue-grey and deep navy in a gentle watercolor-like abstract print with faint dusty-rose touches; no paisley, no wide decorative border. Light, delicate henna only on the backs of her hands, one thin gold bangle. Both hands lowered and relaxed at waist level, far from her face. Modest and elegant. Keep exactly identical: the studio background, softbox lights, camera on tripod, light grey walls, camera framing and lighting, and the large blank pure white screen on the right with nothing on it. Nothing may overlap the screen. Photorealistic, natural soft lighting on her face."
   }
  ]
 }
