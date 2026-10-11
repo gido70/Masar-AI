@@ -37,6 +37,15 @@
    "image": "productions/video-unit-4/crop-man.png",
    "audio": "voice-man.mp3",
    "output": "talk-man.mp4"
+  },
+  {
+   "image": "productions/video-unit-4/guest-e.png",
+   "audio": "voice-woman.mp3",
+   "output": "solo-woman.mp4"
+  },
+  {
+   "audio": "voice-man.mp3",
+   "output": "solo-man.mp4"
   }
  ]
 }
