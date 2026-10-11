@@ -27,6 +27,16 @@
    "max_seconds": 12,
    "output": "test-lr.mp4",
    "prompt": "Two people facing the camera in a bright studio. First the woman on the left speaks to the camera while the man listens with his mouth closed; then the man on the right answers to the camera while the woman listens with her mouth closed. Both faces stay turned toward the camera, natural small head movements, the white screen stays blank."
+  },
+  {
+   "image": "productions/video-unit-4/crop-woman.png",
+   "audio": "voice-woman.mp3",
+   "output": "talk-woman.mp4"
+  },
+  {
+   "image": "productions/video-unit-4/crop-man.png",
+   "audio": "voice-man.mp3",
+   "output": "talk-man.mp4"
   }
  ]
 }

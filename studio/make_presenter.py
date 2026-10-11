@@ -57,7 +57,7 @@ def main(name):
             if c.get('prompt'): body['prompt'] = c['prompt']
             model = c.get('model', 'wavespeed-ai/infinitetalk/multi')
         else:
-            body = {'image': raw_url(image), 'audio': raw_url(a), 'resolution': res, 'seed': -1}; model = MODEL
+            body = {'image': raw_url(c.get('image', image)), 'audio': raw_url(a), 'resolution': res, 'seed': -1}; model = MODEL
         try: r = call('POST', f'{API}/{model}', key, body)
         except urllib.error.HTTPError as e: sys.exit(f'✗ رُفض الطلب ({e.code}): {e.read().decode()[:500]}')
         pid = (r.get('data') or {}).get('id')
