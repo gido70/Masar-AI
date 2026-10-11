@@ -1,0 +1,25 @@
+{
+ "model": "elevenlabs/multilingual-v2",
+ "stability": 0.7,
+ "similarity": 0.75,
+ "use_speaker_boost": true,
+ "voice_id": "George",
+ "clips": [
+  {
+   "output": "test-1a.mp3",
+   "text": "وأخيرًا التصديرْ: ملفُّ إمْ بي فور، بدقّةِ ألفٍ وثمانينْ."
+  },
+  {
+   "output": "test-1b.mp3",
+   "text": "وأخيرًا التصديرْ: ملفُّ فيديو، بدقّةٍ عاليةْ."
+  },
+  {
+   "output": "test-2a.mp3",
+   "text": "أو ملفٌّ يُرفعُ معَ الفيديو، يُشغَّلُ ويُطفأْ."
+  },
+  {
+   "output": "test-2b.mp3",
+   "text": "أو ملفٌّ يُرفعُ معَ الفيديو، يُظهِرُهُ المشاهدُ أو يُخفيهْ."
+  }
+ ]
+}

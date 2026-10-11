@@ -96,6 +96,29 @@ def card_html(c, T, label, scene):
 <div style="font-size:42px;font-weight:700;line-height:1.3">{it[0]}</div><div style="margin-top:14px;font-size:48px;font-weight:700;color:{colors.get(it[2],T['SEC'])}">{it[1]}</div></div>''' for it in c['items'])
         warn = f'<div class="rv" style="position:absolute;bottom:120px;right:110px;left:110px;background:{T["PAPER"]};border-radius:24px;padding:22px 34px;font-size:46px">{em(c["warning"],T)}</div>' if c.get('warning') else ''
         body = title + f'<div style="position:absolute;top:340px;right:110px;left:110px;display:grid;grid-template-columns:repeat({len(c["items"])},1fr);gap:22px">{items}</div>' + warn
+    elif k == 'timeline':
+        # خط زمني مبسّط لمحرر فيديو: الإطار ← الصوت ← المشاهد ← القص ← المشاهدة. كل طبقة تظهر بدورها.
+        L, W = 440, 1370          # حدود المسارات (يسار→يمين كما في المحررات)
+        lab = lambda t, y: f'<div style="position:absolute;top:{y}px;left:110px;width:{L-150}px;text-align:right;font-family:Tajawal;font-size:36px;color:{T['MUT']};white-space:nowrap">{t}</div>'
+        ticks = ''.join(f'<div style="position:absolute;left:{L+int(W*i/10)}px;top:372px;width:2px;height:{18 if i%5 else 30}px;background:{T['LINE']}"></div>' for i in range(11))
+        frame_ = f'''<div class="rv"><div style="position:absolute;top:350px;left:{L-20}px;width:{W+40}px;height:500px;border:3px solid {T['LINE']};border-radius:24px;background:{T['PAPER']}"></div>{ticks}
+<div style="position:absolute;top:300px;left:{L}px;font-family:Tajawal;font-size:34px;color:{T['MUT']};direction:ltr">{c.get('project','1920×1080')}</div>
+<div style="position:absolute;top:284px;right:{1920-L-W}px;font-size:40px;font-weight:700">{c['steps'][0]}</div></div>'''
+        import random; rnd = random.Random(5)
+        bars = ''.join(f'<div style="position:absolute;left:{L+x}px;top:{735-h//2}px;width:7px;height:{h}px;background:{T['GRN']};border-radius:3px"></div>' for x, h in [(x, 0 if any(a <= x <= b for a, b in c.get('gaps', [])) else rnd.randint(16, 80)) for x in range(0, W, 12)])
+        audio = f'<div class="rv">{lab(c["steps"][1], 712)}<div style="position:absolute;top:690px;left:{L}px;width:{W}px;height:90px;border-radius:14px;background:#E6F2EB"></div>{bars}</div>'
+        sc = c.get('scenes', ['scene-01', 'scene-02', 'scene-03', 'scene-04', 'scene-05']); n = len(sc); gw = W // n
+        cols = [T['SEC'], T['INK'], T['ACC'], T['GRN'], T['MUT']]
+        blocks = ''.join(f'<div style="position:absolute;top:470px;left:{L+i*gw+4}px;width:{gw-8}px;height:150px;border-radius:14px;background:{cols[i%5]};color:#fff;font-family:Tajawal;font-size:34px;display:flex;align-items:center;justify-content:center;direction:ltr">{t}</div>' for i, t in enumerate(sc))
+        scenes = f'<div class="rv">{lab(c["steps"][2], 520)}{blocks}</div>'
+        cuts = ''.join(f'''<div style="position:absolute;top:455px;left:{L+a}px;width:{b-a}px;height:340px;background:repeating-linear-gradient(45deg,rgba(214,40,40,.18) 0 14px,rgba(214,40,40,.05) 14px 28px);border:4px dashed {T['ACC']};border-radius:10px"></div>
+<div style="position:absolute;top:800px;left:{L+a+(b-a)//2-24}px;font-size:46px;color:{T['ACC']}">✂</div>''' for a, b in c.get('gaps', []))
+        cut = f'<div class="rv">{cuts}<div style="position:absolute;top:870px;left:{L}px;font-size:40px;font-weight:700;color:{T['ACC']}">✂ {c['steps'][3]}</div></div>'
+        px = L + int(W * c.get('play_at', 0.62))
+        play = f'''<div class="rv"><div style="position:absolute;top:385px;left:{px-3}px;width:6px;height:445px;background:{T['ACC']}"></div>
+<div style="position:absolute;top:360px;left:{px-18}px;width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;border-top:26px solid {T['ACC']}"></div>
+<div style="position:absolute;top:870px;right:{1920-L-W}px;font-size:40px;font-weight:700">▶ {c['steps'][4]}</div></div>'''
+        body = title + frame_ + audio + scenes + cut + play
     elif k == 'compare':
         def side(sd, col):
             return f'''<div style="flex:1;border:5px solid {col};border-radius:28px;background:#fff;padding:30px 40px">
