@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """الصورة المصغرة ليوتيوب بقالب مسار الثابت (1280×720).
-الخطوط ثابتة لكل الوحدات: العنوان بالأميري العريض (Amiri-Bold)، والشارة والسطر الفرعي بتجوال العريض.
+الخط ثابت لكل الوحدات: كل النصوص بالأميري العريض (Amiri-Bold): العنوان والشارة والسطر الفرعي (قرار 11 أكتوبر).
 التشغيل: python studio/make_thumbnail.py <صورة المقدّم> <رقم الوحدة> "<السطر الأول>" "<السطر الثاني بالأحمر>" "<السطر الفرعي>" <ملف الناتج.jpg> [قص_يسار]
 """
 import os, sys, tempfile
@@ -18,11 +18,11 @@ body{{margin:0;width:1280px;height:720px;overflow:hidden;background:#fff;positio
 .ph{{position:absolute;left:0;top:0;width:720px;height:720px;background:url(p.png) center/cover}}
 .fade{{position:absolute;left:470px;top:0;width:260px;height:720px;background:linear-gradient(to right,rgba(255,255,255,0),#fff 85%)}}
 .tx{{position:absolute;right:70px;top:0;width:540px;height:720px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding-bottom:40px}}
-.b{{font-family:T;background:#D62828;color:#fff;font-size:36px;padding:8px 26px 4px;border-radius:12px}}
+.b{{font-family:A;background:#D62828;color:#fff;font-size:36px;padding:8px 26px 4px;border-radius:12px}}
 .h{{font-family:A;font-size:{fs}px;white-space:nowrap;line-height:1.12;color:#1B1B2F;margin-top:6px}}
 .h span{{color:#D62828}}
 .ln{{width:100%;height:5px;background:#D62828;margin:18px 0 18px}}
-.s{{font-family:T;font-size:44px;color:#1B1B2F}}
+.s{{font-family:A;font-size:50px;color:#1B1B2F}}
 .logo{{position:absolute;right:70px;bottom:40px;height:62px}}
 </style></head><body><div class="ph"></div><div class="fade"></div>
 <div class="tx"><div class="b">الوحدة {n}</div><div class="h">{l1}<br><span>{l2}</span></div><div class="ln"></div><div class="s">{sub}</div></div>
