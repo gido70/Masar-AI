@@ -1,0 +1,25 @@
+{
+ "model": "elevenlabs/multilingual-v2",
+ "voice_id": "George",
+ "stability": 0.5,
+ "similarity": 0.75,
+ "use_speaker_boost": true,
+ "clips": [
+  {
+   "output": "test-1a.mp3",
+   "text": "وأكبرُ تحسينٍ بأقلِّ تكلفةْ: ميكروفونُ المِشبَكْ."
+  },
+  {
+   "output": "test-1b.mp3",
+   "text": "وأكبرُ تحسينٍ بأقلِّ تكلفةْ: ميكروفونٌ صغيرٌ يُثبَّتُ على الياقةْ."
+  },
+  {
+   "output": "test-2a.mp3",
+   "text": "ولا تسرِّعِ الصوتَ، فالتسريعُ يشوِّهُهْ."
+  },
+  {
+   "output": "test-2b.mp3",
+   "text": "ولا تسرِّعِ الصوتَ، فالتسريعُ يُفسِدُهْ."
+  }
+ ]
+}
