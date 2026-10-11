@@ -1,0 +1,25 @@
+{
+ "model": "elevenlabs/multilingual-v2",
+ "stability": 0.5,
+ "similarity": 0.75,
+ "use_speaker_boost": true,
+ "voice_id": "George",
+ "clips": [
+  {
+   "output": "test-g-1a.mp3",
+   "text": "والعاشرْ: فيديو موجودْ، تترجمُهُ أو تدبلجُهْ."
+  },
+  {
+   "output": "test-g-1b.mp3",
+   "text": "والعاشرْ: فيديو موجودْ، تترجمُهُ إلى لغةٍ أخرى."
+  },
+  {
+   "output": "test-g-2a.mp3",
+   "text": "الثاني: أفاتارٌ يتكلّمُ بصوتِك… مثلي."
+  },
+  {
+   "output": "test-g-2b.mp3",
+   "text": "الثاني: شخصيّةٌ رقميّةٌ تتكلّمُ بصوتِك… مثلي."
+  }
+ ]
+}
