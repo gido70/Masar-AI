@@ -74,7 +74,7 @@ def card_html(c, T, label, scene):
     k = c['kind']; title = f'<h1 style="position:absolute;top:150px;right:110px">{em(c["title"], T)}</h1>'
     if k == 'grid':
         items = ''.join(f'''<div class="rv" style="background:{T['PAPER']};border:3px solid {T['LINE']};border-radius:24px;padding:22px 24px;min-height:200px">
-<div style="width:64px;height:64px;border-radius:50%;background:{T['ACC']};color:#fff;font-family:Tajawal;font-size:36px;display:flex;align-items:center;justify-content:center">{i+1}</div>
+<div style="width:64px;height:64px;border-radius:50%;background:{T['ACC']};color:#fff;font-family:Tajawal;font-size:36px;display:flex;align-items:center;justify-content:center">{i+c.get('start',1)}</div>
 <div style="font-size:50px;font-weight:700;margin-top:10px">{it[0]}</div><div style="font-size:34px;color:{T['MUT']}">{it[1] if len(it)>1 else ''}</div></div>''' for i, it in enumerate(c['items']))
         body = title + f'<div style="position:absolute;top:350px;right:110px;left:110px;display:grid;grid-template-columns:repeat({c.get("cols",4)},1fr);gap:22px">{items}</div>'
     elif k == 'tree':
@@ -136,11 +136,11 @@ def render_states(pg, html, out_prefix, w=1920, h=1080):
     return files
 
 # ---------------------------------------------------------------- تركيب الشاشة على المقدّم
-def composite_screen(src, states, reveal, out, work, fps=25):
+def composite_screen(src, states, reveal, out, work, fps=25, fixed_box=None):
     """يركّب محتوى الشاشة على فيديو المقدّم. states: صور حالات الظهور، reveal: توقيت ظهور كل عنصر."""
     fr = os.path.join(work, 'fr'); shutil.rmtree(fr, ignore_errors=True); os.makedirs(fr)
     ff('-i', src, '-vf', f'fps={fps}', os.path.join(fr, '%04d.png'))
-    contents = [Image.open(x).convert('RGB') for x in states]; bbox = None; cache = {}
+    contents = [Image.open(x).convert('RGB') for x in states]; bbox = tuple(fixed_box) if fixed_box else None; cache = {}
     files = sorted(os.listdir(fr))
     for i, f in enumerate(files):
         tt = i / fps; k = sum(1 for r in reveal if tt >= r) if len(states) > 1 else 0
@@ -148,7 +148,7 @@ def composite_screen(src, states, reveal, out, work, fps=25):
         a = np.asarray(Image.open(os.path.join(fr, f)).convert('RGB')).astype(float)
         H, W, _ = a.shape; X0 = int(W * 0.40)
         reg = a[:, X0:]; m = (reg.mean(-1) > 200) & ((reg.max(-1) - reg.min(-1)) < 38)
-        if bbox is None or i % 10 == 0:
+        if not fixed_box and (bbox is None or i % 10 == 0):  # screen_box ثابت يمنع البقع على الجدار المضيء
             cols = np.where(m.sum(0) > H * 0.35)[0]; rows = np.where(m.sum(1) > (W - X0) * 0.35)[0]
             if len(cols) and len(rows): bbox = (X0 + cols.min(), rows.min(), X0 + cols.max() + 1, rows.max() + 1)
         x0, y0, x1, y1 = bbox; pad = int((y1 - y0) * 0.04)
@@ -241,7 +241,7 @@ def main(spec_path):
                 clips.append((out, t, t + d)); t += d; print('↺ موجود:', out, flush=True); continue
             if s['type'] == 'presenter':
                 scr = os.path.join(work, f'scr{i}'); states = render_states(pg, screen_html(s['screen'], T), scr, 1080, 750)
-                composite_screen(P(s['video']), states, s['screen'].get('reveal_at', [0] * (len(states) - 1)), out, work)
+                composite_screen(P(s['video']), states, s['screen'].get('reveal_at', [0] * (len(states) - 1)), out, work, fixed_box=s.get('screen_box') or spec.get('screen_box'))
             elif s['type'] == 'card':
                 states = render_states(pg, card_html(s['card'], T, label, scene), os.path.join(work, f'card{i}'))
                 n = len(states) - 1; lst = os.path.join(work, f'card{i}.txt')

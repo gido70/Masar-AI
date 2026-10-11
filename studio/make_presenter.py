@@ -43,6 +43,7 @@ def main(name):
         if os.path.exists(o): print(f'↺ موجود، لن يُولَّد ولن يُدفع: {o}'); continue
         if not os.path.exists(a): sys.exit(f'✗ الصوت غير موجود: {a}')
         d = dur(a)
+        if c.get('order') in ('left_right', 'right_left'): d += dur(f"{base}/{c['left_audio']}")  # الصوتان متتاليان فتُدفع مدتهما معًا
         if d > c.get('max_seconds', MAX_SECONDS): sys.exit(f'✗ {a} مدته {d:.1f} ث، أطول من الحد {MAX_SECONDS:.0f} ث. أُوقف كل شيء.')
         cost = math.ceil(d / 5) * 5 * RATE; total += cost; todo.append((a, o, d, cost, c))
         print(f'• {c.get("audio") or c["output"]}: {d:.1f} ث ← تقدير {cost:.2f} دولار')
