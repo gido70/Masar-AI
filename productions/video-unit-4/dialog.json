@@ -1,0 +1,61 @@
+{
+ "base": "two-shot-b.png",
+ "speakers": {
+  "woman": {
+   "video": "talk-woman.mp4",
+   "crop": [
+    60,
+    0,
+    465,
+    720
+   ],
+   "face": [
+    300,
+    215,
+    88,
+    125
+   ]
+  },
+  "man": {
+   "video": "talk-man.mp4",
+   "crop": [
+    340,
+    0,
+    745,
+    720
+   ],
+   "face": [
+    492,
+    165,
+    95,
+    135
+   ]
+  }
+ },
+ "turns": [
+  {
+   "speaker": "woman",
+   "start": 0.0,
+   "dur": 4.48,
+   "output": "dialog-q1.mp4"
+  },
+  {
+   "speaker": "man",
+   "start": 0.0,
+   "dur": 11.97,
+   "output": "dialog-a1.mp4"
+  },
+  {
+   "speaker": "woman",
+   "start": 4.48,
+   "dur": 3.29,
+   "output": "dialog-q2.mp4"
+  },
+  {
+   "speaker": "man",
+   "start": 11.97,
+   "dur": 17.35,
+   "output": "dialog-a2.mp4"
+  }
+ ]
+}
