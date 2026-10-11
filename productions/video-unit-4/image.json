@@ -1,6 +1,6 @@
 {
  "model": "google/nano-banana-2/edit",
- "image": "productions/video-unit-4/guest-c.png",
+ "image": "productions/video-unit-4/guest-d.png",
  "cost_each": 0.07,
  "variants": [
   {
@@ -26,6 +26,10 @@
   {
    "output": "guest-d.png",
    "prompt": "Edit this photo. Keep the same woman with the same face, facial features, eyes and smile, but make her skin tone noticeably lighter: a fair, light honey tone, natural and realistic. Re-dress her in a correctly worn traditional Sudanese toob: one single very long piece of light, soft, flowing, slightly sheer fabric, wrapped around her waist and hips in soft layers, then brought diagonally across her chest and over one shoulder, and finally drawn up loosely over her head like a soft hood that frames her face and falls softly onto her shoulders; not a tightly pinned hijab and not a sari. Her hair stays covered under the loose drape. Underneath, a plain long-sleeved fitted-sleeve top in deep teal-navy, the sleeves visible from the elbows to the wrists. Toob colors formal and calm: soft blue-grey and deep navy in a gentle watercolor-like abstract print with faint dusty-rose touches; no paisley, no wide decorative border. Light, delicate henna only on the backs of her hands, one thin gold bangle. Both hands lowered and relaxed at waist level, far from her face. Modest and elegant. Keep exactly identical: the studio background, softbox lights, camera on tripod, light grey walls, camera framing and lighting, and the large blank pure white screen on the right with nothing on it. Nothing may overlap the screen. Photorealistic, natural soft lighting on her face."
+  },
+  {
+   "output": "guest-e.png",
+   "prompt": "Edit this photo. Keep the same woman with the same face shape and features, the same toob fabric, print and colors, the same pose and hands. Fix the toob: it must cover BOTH shoulders and both upper arms completely. Her right shoulder and upper arm (on the left side of the image), which currently shows the dark teal sleeve, must be fully covered by the toob fabric draping over it, as a traditional Sudanese toob is worn: the fabric drawn loosely over the head, falling over both shoulders like a wrap, enveloping the upper body, with one end crossing the chest; only the teal sleeves are visible from the forearms to the wrists. No bare or exposed sleeve on the shoulder or upper arm. Make her skin tone clearly lighter and brighter: a fair, light, luminous honey complexion, natural and realistic. Enhance her beauty subtly: smooth radiant skin, softly defined eyebrows, light natural makeup with soft rosy lips and gentle eyeliner, bright eyes, warm gentle smile. Make the henna on her hands lighter and finer. Keep exactly identical: the studio background, softbox lights, camera on tripod, walls, framing, lighting, and the large blank pure white screen on the right with nothing on it. Photorealistic."
   }
  ]
 }
