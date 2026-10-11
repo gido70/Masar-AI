@@ -1,0 +1,17 @@
+{
+ "model": "elevenlabs/multilingual-v2",
+ "stability": 0.7,
+ "similarity": 0.75,
+ "use_speaker_boost": true,
+ "voice_id": "Sarah",
+ "clips": [
+  {
+   "output": "seg-q1.mp3",
+   "text": "وإنْ أردتُ أنْ أظهرَ بنفسي أمامَ الكاميرا… من أينَ أبدأْ؟"
+  },
+  {
+   "output": "seg-q2.mp3",
+   "text": "وهلْ أصوِّرُ الفيديو كلَّهُ مرّةً واحدةْ؟"
+  }
+ ]
+}
