@@ -33,6 +33,7 @@ jobs:
           MAX_TOTAL: ${{ inputs.max_total }}
         run: python studio/make_presenter.py "${{ inputs.production }}"
       - name: حفظ المقاطع في المستودع
+        if: always()
         run: |
           git config user.name "Masar Factory"
           git config user.email "factory@users.noreply.github.com"
