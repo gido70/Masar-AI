@@ -1,0 +1,15 @@
+{
+ "model": "google/nano-banana-2/edit",
+ "image": "studio/assets/presenter-screen.png",
+ "cost_each": 0.07,
+ "variants": [
+  {
+   "output": "presenter-a.png",
+   "prompt": "Change the man's clothing to a dark olive-green knit crew-neck sweater over a white collared shirt, with black over-ear studio headphones resting around his neck. Change the room behind him into a professional voice-recording studio: dark charcoal acoustic foam panels on the walls, a warm desk lamp, and a studio microphone on a boom arm standing in the background behind him on the left. Keep exactly identical: the same man with the identical face, facial features, beard, skin tone and hairstyle; the same pose, arm position and pointing hand gesture; the same camera framing; and the same large blank pure white screen on the right, same position and size, with nothing on it. Nothing may overlap the man or the screen. Photorealistic, same camera, natural soft lighting on his face."
+  },
+  {
+   "output": "presenter-b.png",
+   "prompt": "Change the man's clothing to a navy blue polo shirt, with black over-ear studio headphones resting around his neck. Change the room behind him into a warm podcast studio: vertical wooden slat acoustic panels on the walls, soft warm amber lighting, a podcast microphone on a stand and a small plant in the background behind him on the left. Keep exactly identical: the same man with the identical face, facial features, beard, skin tone and hairstyle; the same pose, arm position and pointing hand gesture; the same camera framing; and the same large blank pure white screen on the right, same position and size, with nothing on it. Nothing may overlap the man or the screen. Photorealistic, same camera, natural soft lighting on his face."
+  }
+ ]
+}
