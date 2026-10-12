@@ -1,0 +1,8 @@
+{
+ "image": "productions/video-unit-5/presenter-c.png",
+ "resolution": "720p",
+ "clips": [
+  {"audio": "narration-open.mp3", "output": "presenter-open.mp4"},
+  {"audio": "narration-close.mp3", "output": "presenter-close.mp4"}
+ ]
+}
