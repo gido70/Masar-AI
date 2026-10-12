@@ -10,6 +10,20 @@
   {
    "output": "presenter-b.png",
    "prompt": "Change the man's clothing to a tailored dark charcoal grey suit jacket over a crisp white shirt with an open collar, no tie. Change the room behind him into a calm modern publishing office in the evening: behind him on the left, a wooden desk with a smartphone on a small stand and a laptop showing a simple generic analytics chart, a desk lamp with warm light, deep navy blue wall with a few framed abstract prints. Keep exactly identical: the same man with the identical face, facial features, beard, skin tone and hairstyle; the same pose, body position, arm position and pointing hand gesture; the same camera framing; and the same large blank pure white screen on the right, same position and size, with nothing on it. Nothing may overlap the man or the screen. No logos, no brand names, no readable text anywhere. Photorealistic, same camera, natural soft lighting on his face."
+  },
+  {
+   "output": "presenter-c.png",
+   "prompt": "Change the man's clothing to an elegant, perfectly tailored full two-piece suit in deep navy blue: matching suit jacket buttoned, crisp white dress shirt with a classic collar, a deep burgundy silk necktie with a neat knot, and a folded white pocket square. Refined gentleman look. Keep exactly identical: the same man with the identical face, facial features, beard, skin tone and hairstyle; the same pose, body position, arm position and pointing hand gesture; the same camera framing; the same publishing office background with the desk, smartphone on tripod, side monitor and lighting; and the same large blank pure white screen on the right, same position and size, with nothing on it. Change only the clothing. Nothing may overlap the man or the screen. No logos, no readable text. Photorealistic, same camera, natural soft lighting on his face.",
+   "images": [
+    "productions/video-unit-6/presenter-a.png"
+   ]
+  },
+  {
+   "output": "presenter-d.png",
+   "prompt": "Change the man's clothing to an elegant, perfectly tailored full two-piece suit in charcoal grey: matching suit jacket buttoned, crisp white dress shirt with a classic collar, a navy blue silk necktie with a subtle pattern and a neat knot, and a folded light grey pocket square. Refined gentleman look. Keep exactly identical: the same man with the identical face, facial features, beard, skin tone and hairstyle; the same pose, body position, arm position and pointing hand gesture; the same camera framing; the same publishing office background with the desk, smartphone on tripod, side monitor and lighting; and the same large blank pure white screen on the right, same position and size, with nothing on it. Change only the clothing. Nothing may overlap the man or the screen. No logos, no readable text. Photorealistic, same camera, natural soft lighting on his face.",
+   "images": [
+    "productions/video-unit-6/presenter-a.png"
+   ]
   }
  ]
 }
