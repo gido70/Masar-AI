@@ -78,6 +78,9 @@ def card_html(c, T, label, scene):
 <div style="width:64px;height:64px;border-radius:50%;background:{T['ACC']};color:#fff;font-family:Tajawal;font-size:36px;display:flex;align-items:center;justify-content:center">{i+c.get('start',1)}</div>
 <div style="font-size:50px;font-weight:700;margin-top:10px">{it[0]}</div><div style="font-size:34px;color:{T['MUT']}">{it[1] if len(it)>1 else ''}</div></div>''' for i, it in enumerate(c['items']))
         body = title + f'<div style="position:absolute;top:350px;right:110px;left:110px;display:grid;grid-template-columns:repeat({c.get("cols",4)},1fr);gap:22px">{items}</div>'
+    elif k == 'thumbs':  # شبكة صور حقيقية (مثل الصور المصغرة للوحدات، وفيها رقمها وعنوانها): items = [[الاسم للتوثيق، مسار الصورة نسبةً إلى جذر المستودع]]
+        items = ''.join(f'''<div class="rv" style="border-radius:20px;overflow:hidden;border:3px solid {T['LINE']};aspect-ratio:16/9;background:#fff"><img src="file://{os.path.join(ROOT_DIR, it[1])}" alt="{it[0]}" style="width:100%;height:100%;object-fit:cover;display:block"></div>''' for it in c['items'])
+        body = title + f'<div style="position:absolute;top:300px;right:110px;left:110px;display:grid;grid-template-columns:repeat({c.get("cols",3)},1fr);gap:26px">{items}</div>'
     elif k == 'tree':
         rows = ''.join(f'''<div class="rv" style="display:flex;align-items:center;gap:26px;margin-bottom:18px"><div style="width:340px;font-size:52px;font-weight:700;background:{T['PAPER']};border:3px solid {T['LINE']};border-radius:20px;padding:8px 28px">{a}</div>
 <div style="flex:none;width:80px;height:6px;background:{T['ACC']};border-radius:3px"></div><div style="font-size:52px;color:{T['SEC']};font-weight:700">{b}</div></div>''' for a, b in c['rows'])
