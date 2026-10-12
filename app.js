@@ -1,5 +1,6 @@
 // مسار V6 — مختبر الفيديو. يتبع خطوات الحقيبة الخمس نفسها.
-const STEPS = ["المهمة", "الجمهور والقيود", "خريطة فيديوك", "البرومبتات", "التحقق"];
+const STEPS = ["المهمة", "الجمهور والقيود", "خريطة الفيديو", "البرومبتات", "التحقق"];
+const STEP_SUBS = ["ماذا تريد؟", "لمن، وبأي حدود؟", "المراحل والأدوات", "جاهزة للنسخ", "قبل أن تنشر"];
 const KEY = "masar_v6_state";
 const blank = () => ({
   step: 0,
@@ -147,7 +148,7 @@ function buildPrompt(tool) {
   ];
 }
 
-// ---------- خريطة فيديوك ----------
+// ---------- خريطة الفيديو ----------
 function rankStage(st) {
   const w = weights(), tools = STAGE_TOOLS[st] || [];
   const max = Object.values(w).reduce((x, y) => x + y * 5, 0);
@@ -210,8 +211,8 @@ const screens = [
   <div class="sentence"><b>مهمتك في جملة واحدة:</b><br>${esc(taskSentence())}</div>`,
   () => {
     const stages = PIPELINES[S.task.type] || [];
-    if (!stages.length) return `<h1>خريطة فيديوك</h1><div class="empty">لا توجد خريطة لهذا النوع بعد.</div>`;
-    return `<h1>خريطة فيديوك</h1>
+    if (!stages.length) return `<h1>خريطة الفيديو الخاص بك</h1><div class="empty">لا توجد خريطة لهذا النوع بعد.</div>`;
+    return `<h1>خريطة الفيديو الخاص بك</h1>
     <p class="lead">فيديو «${esc(VIDEO_TYPES[S.task.type].label)}» يمر بـ${stages.length} مراحل. في كل مرحلة: أداة مرشحة، وبديل، ودرس من تجربة حقيقية.</p>
     ${stages.map((st, i) => {
       const def = STAGE_DEFS[st], ranked = rankStage(st), cur = pickFor(st);
@@ -259,7 +260,11 @@ const screens = [
 ];
 
 function render() {
-  nav.innerHTML = STEPS.map((s, i) => `<button type="button" class="${i < S.step ? "done" : i === S.step ? "cur" : ""}" ${i <= S.step ? "" : "disabled title=\"أكمل الخطوة الحالية أولًا\""} data-s="${i}"><span class="dot"></span>${i + 1}. ${s}</button>`).join("");
+  nav.innerHTML = STEPS.map((s, i) => `<button type="button" class="${i < S.step ? "done" : i === S.step ? "cur" : ""}" ${i <= S.step ? "" : "disabled title=\"تُفتح بعد إكمال الخطوة الحالية\""} data-s="${i}"><span class="dot"></span><span class="sl">${i > S.step ? "🔒 " : i < S.step ? "✓ " : ""}${i + 1}. ${s}</span><small class="ss">${STEP_SUBS[i]}</small></button>`).join("");
+  const sg = document.getElementById("stepguide");
+  if (sg) sg.innerHTML = S.step < 4
+    ? `<b>أنت في الخطوة ${S.step + 1} من 5.</b> املأ الخانات أدناه، ثم اضغط <a href="#next" class="jump">«التالي» أسفل الصفحة ↓</a>. الخطوات المكتملة (✓) تعود إليها بالضغط عليها، والمقفلة (🔒) تُفتح حين تكمل الحالية.`
+    : `<b>الخطوة الأخيرة.</b> راجع قائمة التحقق قبل أن تنشر. تستطيع العودة إلى أي خطوة بالضغط عليها في الشريط.`;
   nav.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { S.step = +b.dataset.s; save(); render(); }));
   app.innerHTML = screens[S.step]() + (S.step < 4 ? `<div class="actions">
     ${S.step > 0 ? `<button type="button" class="btn sec" id="prev">→ السابق</button>` : ""}
