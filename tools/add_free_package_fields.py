@@ -56,6 +56,16 @@ def units(doc,f):
 def run(src,dst):
     doc=pymupdf.open(src);f=F(doc)
     (workbook if 'workbook' in src else units)(doc,f)
+    af=doc.pdf_catalog(); k=doc.xref_get_key(af,'AcroForm')
+    if k[0]=='xref': ax=int(k[1].split()[0])
+    else: ax=None
+    if ax is None:  # AcroForm مدمج في الفهرس: نعدّله عبر المسار
+        doc.xref_set_key(af,'AcroForm/NeedAppearances','true'); doc.xref_set_key(af,'AcroForm/Q','2'); doc.xref_set_key(af,'AcroForm/DA','(0 0 0 rg /Helv 0 Tf)')
+    else:
+        doc.xref_set_key(ax,'NeedAppearances','true'); doc.xref_set_key(ax,'Q','2'); doc.xref_set_key(ax,'DA','(0 0 0 rg /Helv 0 Tf)')
+    for pg in doc:  # إعادة رسم المظهر بعد المحاذاة لليمين
+        for w in pg.widgets():
+            if w.field_type==pymupdf.PDF_WIDGET_TYPE_TEXT: w.update()
     doc.save(dst,garbage=3,deflate=True);print(os.path.basename(dst),doc.page_count,'صفحات',f.n,'حقلًا')
 if __name__=='__main__':
     for n in sys.argv[2:]: run(os.path.join(sys.argv[1],n+'.pdf'),os.path.join('out',n+'.pdf'))
