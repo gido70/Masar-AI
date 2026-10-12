@@ -10,6 +10,13 @@
   {
    "output": "presenter-b.png",
    "prompt": "Change the man's clothing to a mid-blue denim shirt, buttoned, long sleeves, over a dark grey t-shirt visible at the collar. Change the room behind him into a professional video editing suite: on a desk in the background behind him on the left, two wide computer monitors showing a colorful video editing timeline with clip blocks and audio waveforms, a small editing keyboard, dim room with soft warm bias lighting behind the monitors and a dark charcoal wall. Keep exactly identical: the same man with the identical face, facial features, beard, skin tone and hairstyle; the same pose, arm position and pointing hand gesture; the same camera framing; and the same large blank pure white screen on the right, same position and size, with nothing on it. Nothing may overlap the man or the screen. Photorealistic, same camera, natural soft lighting on his face."
+  },
+  {
+   "output": "presenter-c.png",
+   "prompt": "Change the man's clothing to a mid-blue denim shirt, buttoned, long sleeves, over a dark grey t-shirt visible at the collar. Keep exactly identical: the same man with the identical face, facial features, beard, skin tone and hairstyle; the same pose, body position, arm position and pointing hand gesture; the same camera framing; the same video editing room background with the monitors, desk and lighting; and the same large blank pure white screen on the right, same position and size, with nothing on it. Change only the clothing. Nothing may overlap the man or the screen. Photorealistic, same camera, natural soft lighting on his face.",
+   "images": [
+    "productions/video-unit-5/presenter-a.png"
+   ]
   }
  ]
 }
