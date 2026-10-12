@@ -2,7 +2,7 @@
  "title": "مسار الفيديو · الوحدة 6: التحقق والنشر",
  "theme": "video",
  "label": "مسار الفيديو · الوحدة 6: التحقق والنشر",
- "output": "video-unit-6-draft.mp4",
+ "output": "video-unit-6.mp4",
  "crossfade": 0.4,
  "screen_box": [
   562,
@@ -13,7 +13,7 @@
  "segments": [
   {
    "type": "presenter",
-   "video": "draft-open.mp4",
+   "video": "presenter-open.mp4",
    "audio": {
     "file": "narration-open.mp3"
    },
@@ -249,7 +249,7 @@
   },
   {
    "type": "presenter",
-   "video": "draft-close.mp4",
+   "video": "presenter-close.mp4",
    "audio": {
     "file": "narration-close.mp3"
    },
