@@ -104,11 +104,19 @@ CARDS = [
      'warning': '<b style="color:#D62828">تنبيه:</b> جرّب جملتين قبل توليد النص كاملًا.'},
 ]
 
+def tools_page():
+    items = [('الكتابة','Google Docs (مجاني، يحفظ تلقائيًا، على الهاتف والحاسوب) أو Word. اجعل النسختين في مستند واحد: نسخة الصوت مشكولة، ونسخة الترجمة بلا تشكيل.'),
+             ('جدول المشاهد','جدول داخل المستند نفسه، أو Google Sheets، بأربعة أعمدة: # · ما يُقال · ما يظهر · المدة.'),
+             ('التشكيل','الصق النص في Claude أو ChatGPT مع البرومبت في هذا الملف، ثم راجع بنفسك الكلمات الملتبسة وآخر كل جملة. الأداة تخطئ، فلا تعتمدها دون مراجعة.'),
+             ('قياس المدة','اقرأ النص بصوت مسموع مع ساعة الإيقاف في الهاتف. إن زاد عن مدتك بأكثر من 10٪، احذف ولا تسرع.')]
+    blocks = ''.join(f'<div style="{BOX};padding:20px 28px"><div style="font-size:42px;font-weight:700;color:{T["ACC"]}">{h}</div><div style="font-size:33px;line-height:1.5">{b}</div></div>' for h, b in items)
+    return H1('أين تكتب نصك [[وتشكّله]]؟') + f'<div style="position:absolute;top:290px;right:110px;left:110px;display:grid;grid-template-columns:1fr 1fr;gap:24px">{blocks}</div>'
+
 def pages():
     out = [cover()]
     for c in CARDS:
         out.append(compare(c) if c['kind'] == 'compare' else c)
-    out += [prompt_page(), example_page(), mistakes_page(), check_page(), worksheet()]
+    out += [tools_page(), prompt_page(), example_page(), mistakes_page(), check_page(), worksheet()]
     return out
 
 def main():
