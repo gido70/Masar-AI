@@ -1,0 +1,25 @@
+{
+ "model": "elevenlabs/multilingual-v2",
+ "stability": 0.7,
+ "similarity": 0.75,
+ "use_speaker_boost": true,
+ "voice_id": "George",
+ "clips": [
+  {
+   "output": "seg-c7_1.mp3",
+   "text": "هَلْ وَصَلَتْ رِسالَتُكَ الَّتي خَطَّطْتَ لَها؟"
+  },
+  {
+   "output": "seg-c7_2.mp3",
+   "text": "وما التَّكْلِفَةُ المُتَوَقَّعَةْ، والفِعْلِيَّةْ؟"
+  },
+  {
+   "output": "seg-c7_3.mp3",
+   "text": "وما الَّذي نَجَحْ، فَتُكَرِّرُهْ؟"
+  },
+  {
+   "output": "seg-c7_4.mp3",
+   "text": "وما الَّذي تَوَدُّ أنْ تُغَيِّرَهُ، في الفيديو القادِمْ؟"
+  }
+ ]
+}
