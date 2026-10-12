@@ -2,7 +2,7 @@
  "title": "إعلان حقيبة مسار الفيديو",
  "theme": "video",
  "label": "حقيبة مسار الفيديو",
- "output": "masar-video-promo-draft.mp4",
+ "output": "masar-video-promo.mp4",
  "crossfade": 0.4,
  "screen_box": [
   562,
@@ -13,7 +13,7 @@
  "segments": [
   {
    "type": "presenter",
-   "video": "draft-open.mp4",
+   "video": "presenter-open.mp4",
    "audio": {
     "file": "narration-open.mp3"
    },
@@ -121,7 +121,7 @@
   },
   {
    "type": "presenter",
-   "video": "draft-close.mp4",
+   "video": "presenter-close.mp4",
    "audio": {
     "file": "narration-close.mp3"
    },
