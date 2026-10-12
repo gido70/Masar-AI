@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """الصورة المصغرة ليوتيوب بقالب مسار الثابت (1280×720).
 الخط ثابت لكل الوحدات: كل النصوص بالأميري العريض (Amiri-Bold): العنوان والشارة والسطر الفرعي (قرار 11 أكتوبر).
-التشغيل: python studio/make_thumbnail.py <صورة المقدّم> <رقم الوحدة> "<السطر الأول>" "<السطر الثاني بالأحمر>" "<السطر الفرعي>" <ملف الناتج.jpg> [قص_يسار]
+التشغيل: python studio/make_thumbnail.py <صورة المقدّم> <رقم الوحدة أو نص الشارة> "<السطر الأول>" "<السطر الثاني بالأحمر>" "<السطر الفرعي>" <ملف الناتج.jpg> [قص_يسار]
 """
 import os, sys, tempfile
 from PIL import Image
 R = os.path.dirname(os.path.abspath(__file__))
 def main(photo, n, l1, l2, sub, out, crop_x='40'):
     cx = int(crop_x); d = tempfile.mkdtemp()
+    badge = f'الوحدة {n}' if str(n).isdigit() else n  # نص غير رقمي يُعرض كما هو (مثل: المثال المكتمل)
     fs = min(138, int(138 * 7.5 / max(len(l1), len(l2), 1)))  # سطر واحد لكل جزء، يصغر الخط مع الطول
     im = Image.open(photo).convert('RGB'); s = 720 / im.height; im = im.resize((int(im.width * s), 720))
     im.crop((cx, 0, cx + 720, 720)).save(f'{d}/p.png')
@@ -25,7 +26,7 @@ body{{margin:0;width:1280px;height:720px;overflow:hidden;background:#fff;positio
 .s{{font-family:A;font-size:50px;color:#1B1B2F}}
 .logo{{position:absolute;right:70px;bottom:40px;height:62px}}
 </style></head><body><div class="ph"></div><div class="fade"></div>
-<div class="tx"><div class="b">الوحدة {n}</div><div class="h">{l1}<br><span>{l2}</span></div><div class="ln"></div><div class="s">{sub}</div></div>
+<div class="tx"><div class="b">{badge}</div><div class="h">{l1}<br><span>{l2}</span></div><div class="ln"></div><div class="s">{sub}</div></div>
 <img class="logo" src="file://{R}/assets/logo.png"></body></html>'''
     open(f'{d}/t.html', 'w', encoding='utf-8').write(html)
     from playwright.sync_api import sync_playwright
