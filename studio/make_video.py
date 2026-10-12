@@ -70,6 +70,7 @@ def frame(T, label, scene, body):
 <div style="position:absolute;bottom:58px;left:110px;font-family:Tajawal;font-size:26px;color:{T['MUT']}">{scene}</div>
 {body}</body></html>'''
 
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))  # صور compare (img) نسبةً إلى جذر المستودع
 def card_html(c, T, label, scene):
     k = c['kind']; title = f'<h1 style="position:absolute;top:150px;right:110px">{em(c["title"], T)}</h1>'
     if k == 'grid':
@@ -123,7 +124,7 @@ def card_html(c, T, label, scene):
         def side(sd, col):
             return f'''<div style="flex:1;border:5px solid {col};border-radius:28px;background:#fff;padding:30px 40px">
 <div style="display:inline-block;background:{col};color:#fff;font-family:Tajawal;font-size:38px;border-radius:14px;padding:6px 26px">{sd.get('label','')}</div>
-<div class="rv" style="font-size:50px;line-height:1.5;margin-top:22px;min-height:300px">«{sd['text']}»</div>
+<div class="rv" style="font-size:50px;line-height:1.5;margin-top:22px;min-height:300px">{('<img src="file://' + os.path.join(ROOT_DIR, sd['img']) + '" style="width:100%;border-radius:14px;border:2px solid #ccc;display:block">') if sd.get('img') else '«' + sd['text'] + '»'}</div>
 <div class="rv" style="font-size:44px;font-weight:700;color:{col};border-top:3px solid {T['LINE']};padding-top:16px">{sd['verdict']}</div></div>'''
         body = title + f'<div style="position:absolute;top:340px;right:110px;left:110px;display:flex;gap:40px">{side(c["before"], T["ACC"])}{side(c["after"], T["GRN"])}</div>'
     elif k == 'end':
