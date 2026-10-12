@@ -1,0 +1,54 @@
+<!doctype html><html dir="rtl"><head><meta charset="utf-8"><style>
+@font-face{font-family:Amiri;src:url(Amiri-Bold.ttf);font-weight:700}
+@font-face{font-family:Tajawal;src:url(Tajawal-Bold.ttf);font-weight:700}
+:root{--ink:#1B1B2F;--red:#D62828;--film:#ECEAE6;--mut:#5E5E70}
+*{box-sizing:border-box;margin:0}
+body{width:1280px;height:720px;background:#fff;position:relative;overflow:hidden;color:var(--ink)}
+.strip{position:absolute;left:0;right:0;height:34px;background:var(--film);display:flex;justify-content:space-between;align-items:center;padding:0 18px}
+.strip i{width:20px;height:16px;border-radius:4px;background:#fff;display:block}
+.t{top:0}.b{bottom:0}
+.rl{position:absolute;left:0;right:0;height:4px;background:var(--red)}
+/* شاشة الفيديو */
+.screen{position:absolute;left:52px;top:92px;width:520px;height:400px;border-radius:22px;overflow:hidden;box-shadow:0 18px 40px rgba(27,27,47,.18);border:5px solid var(--ink)}
+.screen img{width:100%;height:100%;object-fit:cover;object-position:28% 30%}
+.rec{position:absolute;top:16px;left:16px;background:rgba(27,27,47,.78);color:#fff;font-family:Tajawal;font-size:20px;padding:4px 12px 4px 14px;border-radius:999px;display:flex;align-items:center;gap:8px;direction:rtl}
+.rec b{width:12px;height:12px;border-radius:50%;background:var(--red);display:block}
+.bar{position:absolute;left:0;right:0;bottom:0;height:52px;background:linear-gradient(transparent,rgba(27,27,47,.85));display:flex;align-items:flex-end;padding:0 18px 14px;gap:12px;direction:ltr}
+.bar .play{width:0;height:0;border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent}
+.bar .tr{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.35);position:relative;margin-bottom:7px}
+.bar .tr i{position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--red);border-radius:3px}
+.bar .tr i:after{content:"";position:absolute;right:-7px;top:-5px;width:16px;height:16px;border-radius:50%;background:var(--red)}
+/* النص */
+.txt{position:absolute;right:62px;top:78px;width:600px;text-align:right}
+.badges{display:flex;gap:10px;justify-content:flex-start;margin-bottom:18px}
+.bd{font-family:Tajawal;font-size:22px;padding:6px 16px;border-radius:999px}
+.bd.r{background:var(--red);color:#fff}.bd.o{border:2px solid var(--ink)}
+h1{font-family:Amiri;font-size:104px;line-height:1.05}
+h1 span{color:var(--red)}
+h2{font-family:Tajawal;font-size:33px;margin-top:14px;line-height:1.35}
+.line{width:120px;height:6px;background:var(--red);border-radius:3px;margin:20px 0 16px}
+p{font-family:Tajawal;font-size:24px;color:var(--mut)}
+/* شريط الوحدات */
+.units{position:absolute;left:52px;right:62px;bottom:62px;display:flex;gap:10px;direction:rtl}
+.u{flex:1;border:3px solid var(--ink);border-radius:12px;padding:6px 8px;background:#fff;font-family:Tajawal;text-align:center}
+.u small{display:block;font-size:15px;color:var(--red)}
+.u b{font-size:22px}
+.u.last{background:var(--ink);color:#fff}.u.last small{color:#fff}
+.logo{position:absolute;top:44px;left:52px;height:40px;display:none}
+</style></head><body>
+<div class="strip t" id="s1"></div><div class="rl" style="top:34px"></div>
+<div class="strip b" id="s2"></div><div class="rl" style="bottom:34px"></div>
+<div class="screen"><img src="presenter-c.png"><div class="rec"><b></b>مسار</div><div class="bar"><div class="play"></div><div class="tr"><i></i></div></div></div>
+<div class="txt">
+<div class="badges"><span class="bd r">حقيبة تطبيقية</span><span class="bd o">ست وحدات · شهادة</span></div>
+<h1>مسار <span>الفيديو</span></h1>
+<h2>أنتج الفيديو الخاص بك<br>بالذكاء الاصطناعي</h2>
+<div class="line"></div>
+<p>من بطاقة إلى فيديو منشور، خطوة خطوة</p>
+<img src="masar_logo.png" style="height:58px;margin-top:26px">
+</div>
+<div class="units">
+<div class="u"><small>1</small><b>البطاقة</b></div><div class="u"><small>2</small><b>النص</b></div><div class="u"><small>3</small><b>الصوت</b></div>
+<div class="u"><small>4</small><b>الصورة</b></div><div class="u"><small>5</small><b>المونتاج</b></div><div class="u last"><small>6 ▶</small><b>النشر</b></div></div>
+<script>for(const id of['s1','s2']){const s=document.getElementById(id);for(let i=0;i<40;i++)s.appendChild(document.createElement('i'))}</script>
+</body></html>
