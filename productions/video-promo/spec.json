@@ -1,0 +1,160 @@
+{
+ "title": "إعلان حقيبة مسار الفيديو",
+ "theme": "video",
+ "label": "حقيبة مسار الفيديو",
+ "output": "masar-video-promo-draft.mp4",
+ "crossfade": 0.4,
+ "screen_box": [
+  562,
+  27,
+  1280,
+  534
+ ],
+ "segments": [
+  {
+   "type": "presenter",
+   "video": "draft-open.mp4",
+   "audio": {
+    "file": "narration-open.mp3"
+   },
+   "screen": {
+    "kicker": "حقيبة مسار الفيديو",
+    "title": "أنتج الفيديو<br>[[الخاص بك]]",
+    "button": "ست وحدات · من بطاقة إلى فيديو منشور",
+    "reveal_at": [
+     4.04
+    ]
+   },
+   "captions": [
+    [
+     0.25,
+     3.72,
+     "تريد فيديو لمشروعك، ولا تعرف من أين تبدأ؟"
+    ],
+    [
+     4.14,
+     8.92,
+     "في حقيبة مسار الفيديو، تصنعه بنفسك، في ست وحدات."
+    ]
+   ]
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "narration-cards.mp3",
+    "start": 0,
+    "end": 13.77
+   },
+   "card": {
+    "kind": "thumbs",
+    "title": "[[ست]] وحدات",
+    "cols": 3,
+    "items": [
+     [
+      "البطاقة",
+      "publish/youtube/unit-1.jpg"
+     ],
+     [
+      "النص",
+      "publish/youtube/unit-2.jpg"
+     ],
+     [
+      "الصوت",
+      "publish/youtube/unit-3.jpg"
+     ],
+     [
+      "الصورة",
+      "publish/youtube/unit-4.jpg"
+     ],
+     [
+      "المونتاج",
+      "publish/youtube/unit-5.jpg"
+     ],
+     [
+      "النشر",
+      "publish/youtube/unit-6.jpg"
+     ]
+    ],
+    "reveal_at": [
+     0.7,
+     2.85,
+     5.0,
+     7.15,
+     9.3,
+     11.45
+    ]
+   }
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "narration-cards.mp3",
+    "start": 13.77,
+    "end": 26.05
+   },
+   "card": {
+    "kind": "cards",
+    "title": "في كل [[وحدة]]",
+    "items": [
+     [
+      "فيديو قصير",
+      "يشرح ويُري",
+      "green"
+     ],
+     [
+      "ملف وورقة عمل",
+      "تطبّق فيها",
+      "green"
+     ],
+     [
+      "برومبت جاهز",
+      "وأدوات مع بديل مجاني",
+      "amber"
+     ]
+    ],
+    "reveal_at": [
+     0.7,
+     3.71,
+     5.97
+    ]
+   }
+  },
+  {
+   "type": "presenter",
+   "video": "draft-close.mp4",
+   "audio": {
+    "file": "narration-close.mp3"
+   },
+   "screen": {
+    "kicker": "سجّل الآن",
+    "title": "من بطاقة إلى<br>[[فيديو منشور]]",
+    "lines": [
+     "هذا الإعلان صُنع بالطريقة نفسها"
+    ],
+    "foot": "حقيبة مسار الفيديو · منصة مسار",
+    "reveal_at": [
+     0.2,
+     5.01
+    ]
+   },
+   "captions": [
+    [
+     0.25,
+     4.69,
+     "وهذا الإعلان نفسه، صنع بالطريقة التي ستتعلمها."
+    ],
+    [
+     5.11,
+     7.93,
+     "سجل الآن، واصنع الفيديو الخاص بك."
+    ]
+   ]
+  },
+  {
+   "type": "end",
+   "title": "مسار [[الفيديو]]",
+   "sub": "حقيبة تدريبية من منصة مسار",
+   "duration": 3.0
+  }
+ ]
+}
