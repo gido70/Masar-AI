@@ -1,0 +1,63 @@
+<!doctype html><html dir="rtl"><head><meta charset="utf-8"><style>
+@font-face{font-family:Amiri;src:url(Amiri-Regular.ttf);font-weight:400}
+@font-face{font-family:Amiri;src:url(Amiri-Bold.ttf);font-weight:700}
+@font-face{font-family:Tajawal;src:url(Tajawal-Bold.ttf);font-weight:700}
+:root{--ink:#1B1B2F;--red:#D62828;--film:#ECEAE6;--mut:#6B6B7B;--line:#D9D6D0}
+*{box-sizing:border-box;margin:0}
+body{width:2000px;height:1414px;background:#fff;position:relative;overflow:hidden;font-family:Amiri;color:var(--ink)}
+.strip{position:absolute;left:0;right:0;height:58px;background:var(--film)}
+.strip.t{top:0}.strip.b{bottom:0}
+.holes{position:absolute;left:0;right:0;top:15px;height:28px;display:flex;justify-content:space-between;padding:0 30px}
+.holes i{display:block;width:32px;height:28px;border-radius:7px;background:#fff}
+.rl{position:absolute;left:0;right:0;height:5px;background:var(--red)}
+.logo{position:absolute;top:104px;left:50%;transform:translateX(-50%);height:150px}
+.tag{position:absolute;top:120px;right:120px;font-family:Tajawal;font-size:34px;display:flex;align-items:center;gap:16px;color:var(--ink)}
+.tag b{width:26px;height:26px;border-radius:50%;background:var(--red);display:block}
+.tc{position:absolute;top:120px;left:120px;font-family:Tajawal;font-size:34px;color:var(--mut);direction:rtl}
+.tc span{color:var(--red)}
+/* شريط التقدم: الفاصل العلوي، داخل 285–320 */
+.bar{position:absolute;top:296px;left:520px;right:520px;height:8px;border-radius:4px;background:var(--red)}
+.bar:after{content:"";position:absolute;left:-14px;top:-11px;width:30px;height:30px;border-radius:50%;background:var(--red);box-shadow:0 0 0 7px #fff,0 0 0 9px var(--red)}
+.bar:before{content:"";position:absolute;right:-6px;top:-6px;width:20px;height:20px;border-radius:50%;background:var(--ink)}
+/* زوايا عدسة التصوير حول منطقة الاسم (خارج العمودين 400–1600) */
+.vf{position:absolute;width:90px;height:90px;border:0 solid var(--red)}
+.vf.tr{top:350px;right:130px;border-top-width:7px;border-right-width:7px}
+.vf.tl{top:350px;left:130px;border-top-width:7px;border-left-width:7px}
+.vf.br{top:850px;right:130px;border-bottom-width:7px;border-right-width:7px}
+.vf.bl{top:850px;left:130px;border-bottom-width:7px;border-left-width:7px}
+/* إطارات الوحدات الست: 968–1046 */
+.frames{position:absolute;top:972px;left:50%;transform:translateX(-50%);display:flex;gap:14px;direction:rtl}
+.fr{width:196px;height:70px;border:3px solid var(--ink);border-radius:10px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:Tajawal;font-size:27px;background:#fff}
+.fr em{font-style:normal;color:var(--red);font-size:24px}
+.meta{position:absolute;top:1058px;left:0;right:0;text-align:center;font-family:Tajawal;font-size:27px;color:var(--mut)}
+.sig{position:absolute;top:1100px;width:600px;text-align:center}
+.sig.r{right:190px}.sig.l{left:190px}
+.sig h4{font-size:42px;font-weight:700;line-height:1.2;white-space:nowrap}
+.sig p{font-size:28px;color:var(--mut);line-height:1.35}
+.sig .ln{margin:44px auto 6px;width:440px;height:2px;background:var(--ink)}
+.sig small{font-size:25px;color:var(--mut)}
+.seal{position:absolute;top:1096px;left:50%;transform:translateX(-50%);width:196px;height:196px;border-radius:50%;border:6px solid var(--ink);display:flex;align-items:center;justify-content:center}
+.seal:before{content:"";position:absolute;inset:12px;border-radius:50%;border:2px dashed var(--red)}
+.seal i{position:absolute;width:18px;height:18px;border-radius:50%;background:var(--film);border:2px solid var(--ink)}
+.seal span{font-size:40px;font-weight:700;color:var(--red);position:relative}
+.foot{position:absolute;top:1306px;left:0;right:0;text-align:center;font-size:27px;color:var(--mut)}
+</style></head><body>
+<div class="strip t"><div class="holes" id="h1"></div></div><div class="rl" style="top:58px"></div>
+<div class="strip b"><div class="holes" id="h2"></div></div><div class="rl" style="bottom:58px"></div>
+<img class="logo" src="masar_logo.png">
+<div class="tag"><b></b>حقيبة مسار الفيديو</div>
+<div class="tc">الوحدات <span>6</span> / 6</div>
+<div class="bar"></div>
+<div class="vf tr"></div><div class="vf tl"></div><div class="vf br"></div><div class="vf bl"></div>
+<div class="frames">
+<div class="fr"><em>✓</em>البطاقة</div><div class="fr"><em>✓</em>النص</div><div class="fr"><em>✓</em>الصوت</div>
+<div class="fr"><em>✓</em>الصورة</div><div class="fr"><em>✓</em>المونتاج</div><div class="fr"><em>✓</em>النشر</div></div>
+<div class="meta">ست وحدات تطبيقية · نسبة الاجتياز 80% في كل وحدة · من بطاقة إلى فيديو منشور</div>
+<div class="sig r"><h4>د. سيف السويدي</h4><p>رئيس مؤسسة أريد العلمية<br>والمشرف على برنامج الحقيبة التدريبية</p><div class="ln" style="margin-top:8px"></div><small>التوقيع</small></div>
+<div class="sig l"><h4>عبد الرحمن عوض الكريم عبد الرحمن</h4><p>مدير البرنامج<br>&nbsp;</p><div class="ln" style="margin-top:8px"></div><small>التوقيع</small></div>
+<div class="seal" id="seal"><span>الختم</span></div>
+<div class="foot">تُمنح هذه الشهادة بعد إكمال جميع متطلبات الحقيبة التدريبية بنجاح</div>
+<script>
+for(const id of ['h1','h2']){const h=document.getElementById(id);for(let i=0;i<34;i++)h.appendChild(document.createElement('i'))}
+const s=document.getElementById('seal');for(let k=0;k<6;k++){const a=k*Math.PI/3,i=document.createElement('i');i.style.left=(92+66*Math.cos(a+Math.PI/6)-11)+'px';i.style.top=(92+66*Math.sin(a+Math.PI/6)-11)+'px';s.appendChild(i)}
+</script></body></html>
