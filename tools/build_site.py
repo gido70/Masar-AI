@@ -31,7 +31,7 @@ def ic(name, cls=''):
     return f'<span class="ic {cls}"><svg viewBox="0 0 24 24">{ICONS[name]}</svg></span>'
 
 SITE = 'https://gido70.github.io/Masar-AI/'
-DESC = 'حقائب تطبيقية بالعربية في الذكاء الاصطناعي: تعلّم طريقًا واضحًا، واخرج بعمل حقيقي وشهادة.'
+DESC = 'حقائب تطبيقية بالعربية في الذكاء الاصطناعي'
 def page(title, body, pre, on, extra_head='', desc=DESC, img='assets/og-masar.png', path=''):
     nav = [('home', pre or './', 'الرئيسية'), ('packages', pre + 'packages.html', 'الحقائب'), ('tool', pre + 'tool.html', 'الأداة المجانية')]
     navh = ''.join(f'<a href="{h}"' + (' class="on"' if k == on else '') + f'>{t}</a>' for k, h, t in nav)
@@ -48,9 +48,15 @@ def page(title, body, pre, on, extra_head='', desc=DESC, img='assets/og-masar.pn
 <meta property="og:image" content="{SITE}{img}"><meta property="og:url" content="{SITE}{path}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="{pre}assets/favicon.png">
+<link rel="manifest" href="{pre}manifest.webmanifest">
+<meta name="theme-color" content="#123E6B">
+<link rel="apple-touch-icon" href="{pre}assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="مسار"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{pre}assets/site.css">{extra_head}
+<script src="{pre}assets/site.js" defer></script>
 </head>
 <body>
 <div class="bar"><div class="wrap"><a href="{pre or './'}"><img src="{pre}training/masar_logo.png" alt="مسار"></a><nav class="nav">{navh}</nav></div></div>
@@ -63,9 +69,18 @@ def page(title, body, pre, on, extra_head='', desc=DESC, img='assets/og-masar.pn
 def theme(p):
     t = p['theme']; return f' style="--a:{t["a"]};--b:{t["b"]};--soft:{t["soft"]}"'
 
+DOC_PAGES = {}
 def md(path, strip_answers=False):
     s = open(os.path.join(ROOT, path), encoding='utf-8').read()
-    return markdown.markdown(s, extensions=['tables'])
+    h = markdown.markdown(s, extensions=['tables'])
+    def link(m):
+        u = m.group(0).rstrip('.,،)')
+        tail = m.group(0)[len(u):]
+        rel = re.sub(r'^https://(?:raw\.githubusercontent\.com/gido70/Masar-AI/main/|github\.com/gido70/Masar-AI/blob/main/)', '', u)
+        if rel in DOC_PAGES: return f'<a href="{DOC_PAGES[rel]}">{E(DOC_PAGES[rel + "#t"])}</a>' + tail
+        if rel != u: return E(rel) + tail
+        return f'<a href="{u}">{u}</a>' + tail
+    return re.sub(r'(?<![\"=>])https://[^\s<"]+', link, h)
 
 def write(rel, s):
     path = os.path.join(ROOT, rel); os.makedirs(os.path.dirname(path) or '.', exist_ok=True)
@@ -133,7 +148,7 @@ def build_home():
 <div class="card tile">{ic("file","gold")}<div><h3>تطبّق وحدة وحدة</h3><p>فيديو قصير، وملف بورقة عمل تكتب فيها على مهمتك، وأداة مع بديل مجاني.</p></div></div>
 <div class="card tile">{ic("award","navy")}<div><h3>تخرج بنتيجة وشهادة</h3><p>امتحان قصير يفتح الوحدة التالية، وفي النهاية عمل منجز وشهادة إتمام.</p></div></div>
 </div></div></section>'''
-    write('index.html', page('مسار · حقائب تطبيقية في الذكاء الاصطناعي', body, '', 'home', path=''))
+    write('index.html', page('مسار', body, '', 'home', path=''))
 
 def build_packages():
     cards = ''.join(pk_card(p, '', f'p/{p["slug"]}.html') for p in PUB)
@@ -186,10 +201,10 @@ def build_ws_pkg(p):
         extra = ''
         if u.get('quiz'): extra += f'<details class="more"><summary>📝 الامتحان (بالإجابات)</summary><div>{quiz_html(u["quiz"])}</div></details>'
         if u.get('text'): extra += f'<details class="more"><summary>📜 نص المحتوى</summary><div>{md(u["text"])}</div></details>'
-        units += f'''<div class="card unit"><a class="th" href="https://youtu.be/{u["video"]}" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/{u["video"]}/hqdefault.jpg" alt="" loading="lazy"></a>
+        units += f'''<div class="card unit"><a class="th" href="https://youtu.be/{u["video"]}" data-title="الوحدة {u["n"]}: {E(u["title"])}"><img src="https://i.ytimg.com/vi/{u["video"]}/hqdefault.jpg" alt="" loading="lazy"></a>
 <div><span class="n">الوحدة {u["n"]}</span><h3>{E(u["title"])}</h3><span class="out">تخرج بـ: {E(u["out"])}</span>
-<div class="acts"><a href="https://youtu.be/{u["video"]}" target="_blank" rel="noopener">▶ الفيديو</a><a href="{pre}{u["pdf"]}" target="_blank" rel="noopener">📄 الملف PDF</a></div>{extra}</div></div>'''
-    files = ''.join(f'<a class="card tile" href="{pre}{f["href"]}" target="_blank" rel="noopener">{ic(f["icon"],"sm gold")}<div><h3 style="font-size:19px">{E(f["title"])}</h3></div></a>' for f in p['files'])
+<div class="acts"><a href="https://youtu.be/{u["video"]}" data-title="الوحدة {u["n"]}: {E(u["title"])}">▶ الفيديو</a><a href="{pre}{u["pdf"]}" data-title="ملف الوحدة {u["n"]}: {E(u["title"])}">📄 الملف PDF</a></div>{extra}</div></div>'''
+    files = ''.join(f'<a class="card tile" href="{pre}{f["href"]}" data-title="{E(f["title"])}">{ic(f["icon"],"sm gold")}<div><h3 style="font-size:19px">{E(f["title"])}</h3></div></a>' for f in p['files'])
     docs = ''
     for i, d in enumerate(p['docs']):
         slug = f'doc-{p["slug"]}-{i+1}'
@@ -319,6 +334,8 @@ def redirects():
         write(old, f'<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url={new}"><link rel="canonical" href="{new}"><a href="{new}">انتقل</a>')
 
 if __name__ == '__main__':
+    for p in D['packages']:
+        for i, d in enumerate(p['docs']): DOC_PAGES[d['md']] = f'doc-{p["slug"]}-{i+1}.html'; DOC_PAGES[d['md'] + '#t'] = d['title']
     build_home(); build_packages()
     for p in PUB: build_public(p)
     build_workshop()
