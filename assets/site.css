@@ -144,3 +144,7 @@ footer.ft .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wr
 .qo button.ok{border-color:#1F7A4D;background:#E6F5EC}.qo button.no{border-color:#B51F1F;background:#FDECEC}
 .qs{font-size:21px;font-weight:700;color:var(--b)}
 @media (max-width:900px){.cp{grid-template-columns:1fr}.cp-list{position:static;max-height:none;flex-direction:row;overflow-x:auto}.cp-list button{flex:0 0 240px}.cp-pdf{height:70vh}}
+.qo button.sel{border-color:var(--b);background:var(--soft);font-weight:700}
+.qo button:disabled{cursor:default;opacity:1;color:inherit}
+.qbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}

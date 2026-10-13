@@ -68,10 +68,21 @@ function pane(){
   else{box.innerHTML='<div class="cp-text">'+u.text+'</div>';}
 }
 function quiz(u,box){
-  let done=0,ok=0;
-  box.innerHTML='<div class="cp-quiz">'+u.quiz.map((q,qi)=>'<div class="qz" data-a="'+q.a+'"><b>'+(qi+1)+'. '+q.q+'</b><div class="qo">'+q.o.map((o,oi)=>'<button type="button" data-i="'+oi+'">'+o+'</button>').join('')+'</div></div>').join('')+'<p class="qs" id="qs"></p><button type="button" class="btn s" id="qr">أعد المحاولة</button></div>';
-  box.querySelectorAll('.qz').forEach(z=>z.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(z.dataset.done)return;z.dataset.done=1;done++;const a=+z.dataset.a,i=+b.dataset.i;b.classList.add(i===a?'ok':'no');if(i===a)ok++;else z.querySelector('[data-i="'+a+'"]').classList.add('ok');
-    if(done===u.quiz.length){const pct=Math.round(ok/u.quiz.length*100);$('#qs').innerHTML=(pct>=80?'✅ ناجح: ':'⏳ لم تبلغ 80%: ')+ok+' من '+u.quiz.length+' ('+pct+'%)';}}));
+  const sel={};let sent=false;const N=u.quiz.length;
+  box.innerHTML='<div class="cp-quiz"><p class="cp-tip">اختر إجابة لكل سؤال، وغيّرها كما تشاء، ثم اضغط «أرسل الإجابات». بعد الإرسال تُثبَّت الإجابات وتظهر النتيجة.</p>'+u.quiz.map((q,qi)=>'<div class="qz" data-q="'+qi+'"><b>'+(qi+1)+'. '+q.q+'</b><div class="qo">'+q.o.map((o,oi)=>'<button type="button" data-i="'+oi+'">'+o+'</button>').join('')+'</div></div>').join('')+'<div class="qbar"><button type="button" class="btn p" id="qsend" disabled>أرسل الإجابات (0 من '+N+')</button><button type="button" class="btn s" id="qr" style="display:none">أعد المحاولة</button></div><p class="qs" id="qs"></p></div>';
+  const send=$('#qsend');
+  box.querySelectorAll('.qz').forEach(z=>z.querySelectorAll('.qo button').forEach(b=>b.onclick=()=>{
+    if(sent)return;const qi=+z.dataset.q;sel[qi]=+b.dataset.i;
+    z.querySelectorAll('.qo button').forEach(x=>x.classList.toggle('sel',x===b));
+    const n=Object.keys(sel).length;send.textContent='أرسل الإجابات ('+n+' من '+N+')';send.disabled=n<N;
+  }));
+  send.onclick=()=>{
+    if(sent)return;sent=true;let ok=0;
+    u.quiz.forEach((q,qi)=>{const z=box.querySelector('.qz[data-q="'+qi+'"]');const bs=z.querySelectorAll('.qo button');bs.forEach(x=>{x.classList.remove('sel');x.disabled=true;});
+      if(sel[qi]===q.a){ok++;bs[q.a].classList.add('ok');}else{bs[sel[qi]].classList.add('no');bs[q.a].classList.add('ok');}});
+    const pct=Math.round(ok/N*100);$('#qs').innerHTML=(pct>=80?'✅ ناجح: ':'⏳ لم تبلغ 80%: ')+ok+' من '+N+' ('+pct+'%)'+(pct>=80?' · تُفتح الوحدة التالية':' · راجع الوحدة وأعد المحاولة');
+    send.style.display='none';$('#qr').style.display='';$('#qs').scrollIntoView({behavior:'smooth',block:'center'});
+  };
   $('#qr').onclick=()=>quiz(u,box);
 }
 document.querySelectorAll('.cp-list button').forEach((b,i)=>b.onclick=()=>{show(i);if(innerWidth<900)$('#cp-main').scrollIntoView({behavior:'smooth'});});
