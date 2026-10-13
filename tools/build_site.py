@@ -68,6 +68,38 @@ PUB = [p for p in D['packages'] if p.get('public')]
 def pk_card(p, pre, href):
     return f'''<a class="card pk" href="{href}"{theme(p)}><img src="{pre}{p["cover"]}" alt="غلاف {E(p["name"])}" loading="lazy"><div class="in"><h3>{E(p["name"])}</h3><p>{E(p["tagline"])}</p><div class="chips"><span class="chip">{len(p["units"])} وحدات</span><span class="chip st">{E(p["status"])}</span><span class="chip price">{E(p["price"])}</span></div></div></a>'''
 
+
+# ---------- البوابات الثلاث للمنهجية ----------
+RANK = {'✅': 2, '📝': 1, '⏳': 0}
+GATES = [
+ ('أ', 'الفكرة والعميل', 'قبل إنتاج المحتوى', {n: '✅' for n in (1, 2, 3, 5, 6, 7, 8, 9)}),
+ ('ب', 'السوق والسعر', 'قبل صفحة الهبوط والتسعير', {**{n: '📝' for n in (4, 10, 11)}, **{n: '✅' for n in (12, 15, 16)}}),
+ ('ج', 'الإطلاق', 'قبل التفعيل للجمهور', {**{n: '✅' for n in (18, 19, 20, 21)}, **{n: '📝' for n in (13, 14, 17, 22, 23)}}),
+]
+STEP_NAMES = {}
+def load_status(p):
+    mp = next((d['md'] for d in p.get('docs', []) if 'method-24' in d['md']), None)
+    if not mp: return None
+    txt = open(os.path.join(ROOT, mp), encoding='utf-8').read()
+    for n, name, st in re.findall(r'^\| (\d+) \| ([^|]+) \| (✅|📝|⏳) \|', txt, flags=re.M): STEP_NAMES[int(n)] = name.strip()
+    return {int(n): st for n, _, st in re.findall(r'^\| (\d+) \| ([^|]+) \| (✅|📝|⏳) \|', txt, flags=re.M)}
+def gate_report(stat):
+    out = []
+    for code, title, when, req in GATES:
+        missing = [n for n, need in req.items() if RANK.get(stat.get(n, '⏳'), 0) < RANK[need]]
+        out.append((code, title, when, not missing, missing))
+    return out
+def gates_html(p):
+    stat = load_status(p)
+    if stat is None: return ''
+    rep = gate_report(stat); nxt = next((g for g in rep if not g[3]), None)
+    cards = ''
+    for code, title, when, ok, miss in rep:
+        mtxt = 'مكتملة' if ok else 'ينقص: ' + '، '.join(f'{n} {STEP_NAMES.get(n, "")}' for n in miss)
+        cards += f'<div class="card tile">{ic("award" if ok else "lock", "green" if ok else "gold")}<div><h3 style="font-size:21px;margin-top:2px">البوابة {code}: {E(title)}</h3><p style="font-size:17px;color:var(--mute)">{E(when)}</p><p>{"✅ " if ok else "⏳ "}{E(mtxt)}</p></div></div>'
+    nx = f'<p class="note" style="margin-top:14px"><b>الخطوة التالية:</b> البوابة {nxt[0]} ({E(nxt[1])}): ابدأ بالخطوة {nxt[4][0]} «{E(STEP_NAMES.get(nxt[4][0], ""))}».</p>' if nxt else '<p class="note" style="margin-top:14px"><b>عبرت الحقيبة البوابات الثلاث:</b> جاهزة للإطلاق على المنهجية.</p>'
+    return f'<section class="sec" id="gates"><div class="wrap"><div class="sec-h"><div><h2>مسار الحقيبة على المنهجية</h2><p>ثلاث بوابات من الخطوات الأربع والعشرين. لا تنتقل الحقيبة إلى مرحلة قبل عبور بوابتها.</p></div></div><div class="grid g3">{cards}</div>{nx}</div></section>'
+
 # ---------- الرئيسية ----------
 def build_home():
     cards = ''.join(pk_card(p, '', f'p/{p["slug"]}.html') for p in PUB)
@@ -155,12 +187,13 @@ def build_ws_pkg(p):
         slug = f'doc-{p["slug"]}-{i+1}'
         write(f'workshop/{slug}.html', page(f'{d["title"]} · {p["name"]}', f'<div class="wrap"><p class="crumb"><a href="../workshop.html">الورشة</a> ← <a href="{p["slug"]}.html">{E(p["name"])}</a></p><div class="doc" style="margin-top:12px">{md(d["md"])}</div></div>', pre, 'workshop', '\n<meta name="robots" content="noindex">'))
         docs += f'<a class="card tile" href="{slug}.html">{ic(d["icon"],"sm")}<div><h3 style="font-size:19px">{E(d["title"])}</h3></div></a>'
-    tabs = '<a href="#units">الوحدات</a>' + ('<a href="#docs">التسويق وCPS والمنهجية</a>' if docs else '') + '<a href="#files">الملفات</a><a href="#cert">الشهادة</a>' + (f'<a href="{pre}{p["trainer"]}">مسار المدرّب</a>' if p.get('trainer') else '') + f'<a href="{pre}p/{p["slug"]}.html">الصفحة العامة</a>'
+    tabs = ('<a href="#gates">مسار المنهجية</a>' if gates_html(p) else '') + '<a href="#units">الوحدات</a>' + ('<a href="#docs">التسويق وCPS والمنهجية</a>' if docs else '') + '<a href="#files">الملفات</a><a href="#cert">الشهادة</a>' + (f'<a href="{pre}{p["trainer"]}">مسار المدرّب</a>' if p.get('trainer') else '') + f'<a href="{pre}p/{p["slug"]}.html">الصفحة العامة</a>'
     body = f'''<div{theme(p)}>
 <section class="phero"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← {E(p["name"])}</p><div class="g">
 <div><span class="kicker">{E(p["status"])} · {E(p["price"])}</span><h1>{E(p["name"])}</h1><p class="lead">{E(p["tagline"])}. ملف الحقيبة الكامل لصاحب المشروع.</p></div>
 <div><img src="{pre}{p["cover"]}" alt="" style="width:100%;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,.15)"></div></div></div></section>
 <div class="tabs"><div class="wrap">{tabs}</div></div>
+{gates_html(p)}
 <section class="sec" id="units"><div class="wrap"><div class="sec-h"><div><h2>الوحدات</h2><p>الفيديو، والملف، والامتحان بإجاباته، ونص المحتوى.</p></div></div><div class="grid">{units}</div></div></section>
 {f'<section class="sec" id="docs"><div class="wrap"><div class="sec-h"><div><h2>التسويق وCPS والمنهجية</h2></div></div><div class="grid g2">{docs}</div></div></section>' if docs else ''}
 <section class="sec" id="files"><div class="wrap"><div class="sec-h"><div><h2>الملفات</h2></div></div><div class="grid g3">{files}</div></div></section>
@@ -178,6 +211,7 @@ def build_method():
     for i, a in enumerate(axes):
         title, rest = a.split('\n', 1)
         rows = re.findall(r'^\| (\d+) \| ([^|]+) \| ([^|]+) \|', rest, flags=re.M)
+        if not rows: continue
         items = ''.join(f'<li><span class="num">{n}</span><div><b>{E(t.strip())}</b><span>{E(q.strip())}</span></div></li>' for n, t, q in rows)
         blocks += f'<div class="card"><div class="tile">{ic(icons[i%6], colors[i%6])}<div><h3 style="margin-top:4px">{E(title.strip())}</h3></div></div><ol class="ulist" style="margin-top:14px">{items}</ol></div>'
     # مصفوفة الحالة: كل خطوة × كل حقيبة
@@ -193,7 +227,7 @@ def build_method():
         for n, t, q in re.findall(r'^\| (\d+) \| ([^|]+) \| ([^|]+) \|', a, flags=re.M): names[int(n)] = t.strip()
     head = ''.join(f'<th><a href="doc-{p["slug"]}-1.html" style="color:#fff">{E(p["name"])}</a></th>' for p in pk)
     body_rows = ''.join(f'<tr><td>{n}</td><td>{E(names.get(n, ""))}</td>' + ''.join(f'<td style="text-align:center;font-size:20px">{stat[p["slug"]].get(n, "·")}</td>' for p in pk) + '</tr>' for n in range(1, 25))
-    totals = ''.join(f'<div class="card tile"{theme(p)}>{ic("compass","sm")}<div><h3 style="font-size:19px">{E(p["name"])}</h3><p>✅ {list(stat[p["slug"]].values()).count("✅")} · 📝 {list(stat[p["slug"]].values()).count("📝")} · ⏳ {list(stat[p["slug"]].values()).count("⏳")}</p></div></div>' for p in pk)
+    totals = ''.join(f'<div class="card tile"{theme(p)}>{ic("compass","sm")}<div><h3 style="font-size:19px">{E(p["name"])}</h3><p>✅ {list(stat[p["slug"]].values()).count("✅")} · 📝 {list(stat[p["slug"]].values()).count("📝")} · ⏳ {list(stat[p["slug"]].values()).count("⏳")}</p><p>البوابات: {" · ".join(("✅ " if g[3] else "⏳ ") + g[0] for g in gate_report(stat[p["slug"]]))} · <a href="{p["slug"]}.html#gates">التفاصيل</a></p></div></div>' for p in pk)
     status = f'<div class="grid g2">{totals}</div><div class="doc" style="margin-top:18px"><h2 style="margin-top:0">مسار الحقائب على المنهجية</h2><table><tr><th>#</th><th>الخطوة</th>{head}</tr>{body_rows}</table></div>'
     body = f'''<section class="hero"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← المنهجية</p><span class="kicker">لكل حقيبة</span><h1>المنهجية الأربع والعشرون</h1><p class="lead">خطوات «مخيم صناعة المنتج الرقمي» التي بُنيت بها الحقيبة الأولى. كل حقيبة جديدة تجيب عن سؤال كل خطوة، وتُسجَّل حالتها: ✅ منفذة · 📝 موثقة فقط · ⏳ لم تبدأ.</p></div></section>
 <section class="sec"><div class="wrap">{status}</div></section>
@@ -282,3 +316,6 @@ if __name__ == '__main__':
     build_workshop()
     for p in D['packages']: build_ws_pkg(p)
     build_method(); build_tool(); redirects()
+    for p in PUB:
+        st = load_status(p)
+        if st and not gate_report(st)[2][3]: print(f'⚠ {p["name"]}: معروضة للجمهور ولم تعبر البوابة ج (الإطلاق) بعد')
