@@ -5,47 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>مسار المدرّب · حقيبة مسار الفيديو</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <style>
+@font-face{font-family:Amiri;src:url(../assets/fonts/Amiri-Regular.ttf);font-weight:400;font-display:swap}@font-face{font-family:Amiri;src:url(../assets/fonts/Amiri-Bold.ttf);font-weight:700;font-display:swap}
 :root{--ink:#1B1B2F;--red:#D62828;--mut:#5E5E70;--line:#E4E1DB;--film:#F3F1ED;--soft:#FFF5F5;--grn:#1F7A4D}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
-body{margin:0;background:#fff;color:var(--ink);font-family:Tajawal,system-ui,sans-serif;font-size:18px;line-height:1.85}
+body{margin:0;background:#fff;color:var(--ink);font-family:Amiri,serif;font-size:20px;line-height:1.85}
 a{color:var(--red)}
-.top{background:var(--film);border-bottom:4px solid var(--red);padding:14px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;font-family:Tajawal,sans-serif}
+.top{background:var(--film);border-bottom:4px solid var(--red);padding:14px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;font-family:Amiri,serif}
 .top b{font-size:20px}.top .dot{width:16px;height:16px;border-radius:50%;background:var(--red);display:inline-block}
-.top nav{margin-inline-start:auto;display:flex;gap:14px;flex-wrap:wrap;font-size:15px}
+.top nav{margin-inline-start:24px;display:flex;gap:14px;flex-wrap:wrap;font-size:15px}
 .top nav a{color:var(--ink);text-decoration:none}
 .wrap{display:grid;grid-template-columns:260px minmax(0,1fr);gap:36px;max-width:1180px;margin:0 auto;padding:24px 20px 80px}
-aside{position:sticky;top:12px;align-self:start;max-height:calc(100vh - 24px);overflow:auto;font-family:Tajawal,sans-serif;font-size:15px;border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:#fff}
+aside{position:sticky;top:12px;align-self:start;max-height:calc(100vh - 24px);overflow:auto;font-family:Amiri,serif;font-size:15px;border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:#fff}
 aside h4{margin:0 0 6px;font-size:15px;color:var(--mut)}
 aside a{display:block;color:var(--ink);text-decoration:none;padding:3px 0;border-bottom:1px dashed transparent}
 aside a:hover{color:var(--red)}
 aside .sub{padding-inline-start:14px;font-size:14px;color:var(--mut)}
 aside .soon{color:#aaa}
 main{min-width:0}
-h1{font-weight:800;font-size:44px;line-height:1.25;margin:4px 0 6px}
-h2{font-weight:800;font-size:31px;margin:56px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+h1{font-weight:700;font-size:46px;line-height:1.25;margin:4px 0 6px}
+h2{font-weight:700;font-size:34px;margin:56px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--line)}
 h3{font-size:25px;margin:30px 0 6px}
 .lead{font-size:22px;color:var(--mut);max-width:62ch}
 p,li{max-width:70ch}
 .box{border:1px solid var(--line);border-radius:14px;padding:14px 20px;margin:16px 0;background:#fff}
 .say{border-inline-start:6px solid var(--red);background:var(--soft);border-radius:10px;padding:12px 18px;margin:14px 0}
-.say::before{content:"قلها هكذا";display:block;font-family:Tajawal,sans-serif;font-size:14px;color:var(--red)}
+.say::before{content:"قلها هكذا";display:block;font-family:Amiri,serif;font-size:14px;color:var(--red)}
 .why{border-inline-start:6px solid var(--ink);background:var(--film);border-radius:10px;padding:12px 18px;margin:14px 0}
-.why::before{content:"لماذا؟";display:block;font-family:Tajawal,sans-serif;font-size:14px;color:var(--ink)}
+.why::before{content:"لماذا؟";display:block;font-family:Amiri,serif;font-size:14px;color:var(--ink)}
 .bts{border:2px dashed var(--line);border-radius:12px;padding:12px 18px;margin:14px 0}
-.bts::before{content:"خلف الكواليس: ما فعلناه نحن";display:block;font-family:Tajawal,sans-serif;font-size:14px;color:var(--mut)}
+.bts::before{content:"خلف الكواليس: ما فعلناه نحن";display:block;font-family:Amiri,serif;font-size:14px;color:var(--mut)}
 details{border:1px solid var(--line);border-radius:12px;padding:8px 16px;margin:8px 0;background:#fff}
 details summary{cursor:pointer;font-weight:700}
 details[open] summary{margin-bottom:6px}
 .tbl{overflow-x:auto;margin:12px 0}
 table{border-collapse:collapse;width:100%;font-size:17px}
 th,td{border:1px solid var(--line);padding:8px 10px;text-align:right;vertical-align:top}
-th{background:var(--ink);color:#fff;font-family:Tajawal,sans-serif;font-weight:500;font-size:15px}
+th{background:var(--ink);color:#fff;font-family:Amiri,serif;font-weight:500;font-size:15px}
 /* روابط المفاهيم بأسلوب ويكيبيديا */
 a.g{color:var(--ink);text-decoration:none;border-bottom:2px dotted var(--red);position:relative}
-a.g:hover::after{content:attr(data-tip);position:absolute;bottom:130%;right:0;width:280px;background:var(--ink);color:#fff;font-size:15px;line-height:1.6;padding:10px 12px;border-radius:10px;z-index:9;font-family:Tajawal,sans-serif;white-space:normal}
+a.g:hover::after{content:attr(data-tip);position:absolute;bottom:130%;right:0;width:280px;background:var(--ink);color:#fff;font-size:15px;line-height:1.6;padding:10px 12px;border-radius:10px;z-index:9;font-family:Amiri,serif;white-space:normal}
 dl.gl dt{font-weight:700;font-size:21px;margin-top:16px}
 dl.gl dt:target{background:var(--soft);border-radius:6px;padding:0 6px}
 dl.gl dd{margin:2px 0 0;max-width:70ch}
@@ -53,13 +54,13 @@ dl.gl dd{margin:2px 0 0;max-width:70ch}
 .flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;margin:16px 0}
 .flow a{flex:1 1 140px;text-decoration:none;color:var(--ink);border:3px solid var(--ink);border-radius:14px;padding:10px 12px;background:#fff;position:relative}
 .flow a:hover{border-color:var(--red)}
-.flow a .n{font-family:Tajawal,sans-serif;font-size:14px;color:var(--red)}
+.flow a .n{font-family:Amiri,serif;font-size:14px;color:var(--red)}
 .flow a b{display:block;font-size:22px}
 .flow a span{font-size:15px;color:var(--mut);line-height:1.5;display:block}
-.flow a .out{margin-top:6px;font-family:Tajawal,sans-serif;font-size:13px;color:var(--grn)}
+.flow a .out{margin-top:6px;font-family:Amiri,serif;font-size:13px;color:var(--grn)}
 .gate{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
 .gate div{flex:1 1 150px;background:var(--film);border-radius:10px;padding:8px 10px;font-size:15px;line-height:1.5}
-.gate div b{display:block;font-family:Tajawal,sans-serif;color:var(--red)}
+.gate div b{display:block;font-family:Amiri,serif;color:var(--red)}
 /* الخريطة الذهنية */
 .mind{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:center;margin:16px 0}
 .mind .c{grid-column:2;grid-row:2;background:var(--red);color:#fff;border-radius:50%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;text-align:center;font-size:26px;font-weight:700;padding:10px;max-width:220px;justify-self:center;width:100%}
@@ -67,7 +68,7 @@ dl.gl dd{margin:2px 0 0;max-width:70ch}
 .mind .b b{display:block;font-size:19px}
 .mind .b a{color:var(--ink)}
 .ph{color:var(--mut);border:2px dashed var(--line);border-radius:12px;padding:14px 18px}
-footer{color:var(--mut);font-size:15px;margin-top:60px;border-top:1px solid var(--line);padding-top:12px;font-family:Tajawal,sans-serif}
+footer{color:var(--mut);font-size:15px;margin-top:60px;border-top:1px solid var(--line);padding-top:12px;font-family:Amiri,serif}
 @media (max-width:860px){.wrap{grid-template-columns:1fr}aside{position:static;max-height:none}h1{font-size:36px}.mind{grid-template-columns:1fr}.mind .c{grid-column:auto;grid-row:auto;max-width:180px}}
 </style>
 </head>
