@@ -31,8 +31,9 @@ def ic(name, cls=''):
     return f'<span class="ic {cls}"><svg viewBox="0 0 24 24">{ICONS[name]}</svg></span>'
 
 def page(title, body, pre, on, extra_head=''):
-    nav = [('home', pre or './', 'الرئيسية'), ('packages', pre + 'packages.html', 'الحقائب'), ('tool', pre + 'tool.html', 'الأداة المجانية'), ('workshop', pre + 'workshop.html', 'الورشة')]
+    nav = [('home', pre or './', 'الرئيسية'), ('packages', pre + 'packages.html', 'الحقائب'), ('tool', pre + 'tool.html', 'الأداة المجانية')]
     navh = ''.join(f'<a href="{h}"' + (' class="on"' if k == on else '') + f'>{t}</a>' for k, h, t in nav)
+    navh += f'<a href="{pre}workshop.html" class="ws' + (' on' if on == 'workshop' else '') + '">🔒 الورشة</a>'
     return f'''<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
