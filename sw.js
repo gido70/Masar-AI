@@ -1,5 +1,5 @@
 // مسار: عامل خدمة بسيط يجعل المنصة قابلة للتثبيت تطبيقًا. الشبكة أولًا، والمحفوظ عند انقطاعها.
-const C='masar-v1';
+const C='masar-v2';
 self.addEventListener('install',e=>self.skipWaiting());
 self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
 self.addEventListener('fetch',e=>{

@@ -194,6 +194,8 @@ def quiz_html(path):
     s = open(os.path.join(ROOT, path), encoding='utf-8').read().split('\n', 1)[1]
     return markdown.markdown(s)
 
+PAGES = json.load(open(os.path.join(ROOT, 'assets/pdfpages/index.json'), encoding='utf-8')) if os.path.exists(os.path.join(ROOT, 'assets/pdfpages/index.json')) else {}
+
 def parse_quiz(path):
     s = open(os.path.join(ROOT, path), encoding='utf-8').read()
     qs = []
@@ -206,8 +208,7 @@ def parse_quiz(path):
 
 PLAYER_JS = r"""
 const U=JSON.parse(document.getElementById('udata').textContent);
-const PDFJS='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
-let cur=0,tab='pdf',lib=null;
+let cur=0,tab='pdf';
 const $=s=>document.querySelector(s);
 function nav(){document.querySelectorAll('.cp-list button').forEach((b,i)=>b.classList.toggle('on',i===cur));}
 function show(i){
@@ -226,17 +227,9 @@ function pane(){
   if(tab==='pdf'){
     box.innerHTML='<p class="cp-tip">للكتابة في خانات الملف: نزّله بزر «تنزيل الملف» وافتحه في Adobe Acrobat Reader.</p>';
     if(navigator.pdfViewerEnabled){box.insertAdjacentHTML('beforeend','<iframe class="cp-pdf" src="'+u.pdf+'#view=FitH"></iframe>');}
-    else{renderPdf(u.pdf,box);}
+    else{let h='<div class="cp-pages">';for(let k=1;k<=u.pages;k++){h+='<img loading="lazy" src="'+u.pdir+'/'+String(k).padStart(2,'0')+'.jpg" alt="صفحة '+k+'">';}box.insertAdjacentHTML('beforeend',h+'</div>');}
   }else if(tab==='quiz'){quiz(u,box);}
   else{box.innerHTML='<div class="cp-text">'+u.text+'</div>';}
-}
-async function renderPdf(href,box){
-  const w=document.createElement('div');w.className='cp-pages';w.innerHTML='<p class="cp-tip">جارٍ عرض الملف…</p>';box.appendChild(w);
-  try{
-    if(!lib){await new Promise((r,j)=>{const s=document.createElement('script');s.src=PDFJS+'pdf.min.js';s.onload=r;s.onerror=j;document.head.appendChild(s);});lib=window.pdfjsLib;lib.GlobalWorkerOptions.workerSrc=PDFJS+'pdf.worker.min.js';}
-    const doc=await lib.getDocument(href).promise;w.innerHTML='';const width=w.clientWidth||340;const ratio=window.devicePixelRatio||1;
-    for(let i=1;i<=doc.numPages;i++){const pg=await doc.getPage(i);const v=pg.getViewport({scale:1});const vp=pg.getViewport({scale:width/v.width*ratio});const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;c.style.width='100%';w.appendChild(c);await pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;}
-  }catch(e){w.innerHTML='<p class="cp-tip">تعذّر عرض الملف هنا. استخدم زر «تنزيل الملف».</p>';}
 }
 function quiz(u,box){
   let done=0,ok=0;
@@ -255,7 +248,8 @@ def build_ws_pkg(p):
     pre = '../'
     data = []
     for u in p['units']:
-        data.append({'n': u['n'], 'title': u['title'], 'out': u['out'], 'video': u['video'], 'pdf': pre + u['pdf'],
+        pinfo = PAGES.get(u['pdf'], {'dir': '', 'pages': 0})
+        data.append({'n': u['n'], 'title': u['title'], 'out': u['out'], 'video': u['video'], 'pdf': pre + u['pdf'], 'pdir': pre + pinfo['dir'], 'pages': pinfo['pages'],
                      'quiz': parse_quiz(u['quiz']) if u.get('quiz') else [], 'text': md(u['text']) if u.get('text') else ''})
     items = ''.join(f'<button type="button"><img src="https://i.ytimg.com/vi/{u["video"]}/mqdefault.jpg" alt="" loading="lazy"><span><small>الوحدة {u["n"]}</small>{E(u["title"])}</span></button>' for u in p['units'])
     files = ''.join(f'<a class="card tile" href="{pre}{f["href"]}" data-title="{E(f["title"])}">{ic(f["icon"],"sm gold")}<div><h3 style="font-size:21px">{E(f["title"])}</h3></div></a>' for f in p['files'])

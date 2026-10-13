@@ -1,0 +1,104 @@
+{
+ "resources/masar-certificate-blank.pdf": {
+  "dir": "assets/pdfpages/masar-certificate-blank",
+  "pages": 1,
+  "sig": "111480",
+  "ratio": 0.7069
+ },
+ "resources/masar-certificate-sample.pdf": {
+  "dir": "assets/pdfpages/masar-certificate-sample",
+  "pages": 1,
+  "sig": "459041",
+  "ratio": 0.7074
+ },
+ "resources/masar-certificate.pdf": {
+  "dir": "assets/pdfpages/masar-certificate",
+  "pages": 1,
+  "sig": "111480",
+  "ratio": 0.7069
+ },
+ "resources/masar-package-overview.pdf": {
+  "dir": "assets/pdfpages/masar-package-overview",
+  "pages": 10,
+  "sig": "766203",
+  "ratio": 0.5625
+ },
+ "resources/masar-unit-1.pdf": {
+  "dir": "assets/pdfpages/masar-unit-1",
+  "pages": 7,
+  "sig": "293438",
+  "ratio": 0.5625
+ },
+ "resources/masar-unit-2.pdf": {
+  "dir": "assets/pdfpages/masar-unit-2",
+  "pages": 7,
+  "sig": "295861",
+  "ratio": 0.5625
+ },
+ "resources/masar-unit-3.pdf": {
+  "dir": "assets/pdfpages/masar-unit-3",
+  "pages": 7,
+  "sig": "282750",
+  "ratio": 0.5625
+ },
+ "resources/masar-unit-4.pdf": {
+  "dir": "assets/pdfpages/masar-unit-4",
+  "pages": 7,
+  "sig": "297640",
+  "ratio": 0.5625
+ },
+ "resources/masar-unit-5.pdf": {
+  "dir": "assets/pdfpages/masar-unit-5",
+  "pages": 7,
+  "sig": "300697",
+  "ratio": 0.5625
+ },
+ "resources/masar-units-1-5.pdf": {
+  "dir": "assets/pdfpages/masar-units-1-5",
+  "pages": 33,
+  "sig": "744788",
+  "ratio": 0.5625
+ },
+ "resources/masar-workbook.pdf": {
+  "dir": "assets/pdfpages/masar-workbook",
+  "pages": 6,
+  "sig": "569358",
+  "ratio": 1.4151
+ },
+ "resources/video/video-unit-1.pdf": {
+  "dir": "assets/pdfpages/video_video-unit-1",
+  "pages": 8,
+  "sig": "1761356",
+  "ratio": 0.5625
+ },
+ "resources/video/video-unit-2.pdf": {
+  "dir": "assets/pdfpages/video_video-unit-2",
+  "pages": 12,
+  "sig": "4391353",
+  "ratio": 0.5625
+ },
+ "resources/video/video-unit-3.pdf": {
+  "dir": "assets/pdfpages/video_video-unit-3",
+  "pages": 13,
+  "sig": "4746265",
+  "ratio": 0.5625
+ },
+ "resources/video/video-unit-4.pdf": {
+  "dir": "assets/pdfpages/video_video-unit-4",
+  "pages": 14,
+  "sig": "5117210",
+  "ratio": 0.5625
+ },
+ "resources/video/video-unit-5.pdf": {
+  "dir": "assets/pdfpages/video_video-unit-5",
+  "pages": 18,
+  "sig": "6676935",
+  "ratio": 0.5625
+ },
+ "resources/video/video-unit-6.pdf": {
+  "dir": "assets/pdfpages/video_video-unit-6",
+  "pages": 17,
+  "sig": "6446456",
+  "ratio": 0.5625
+ }
+}
