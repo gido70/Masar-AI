@@ -30,7 +30,9 @@ ICONS = {
 def ic(name, cls=''):
     return f'<span class="ic {cls}"><svg viewBox="0 0 24 24">{ICONS[name]}</svg></span>'
 
-def page(title, body, pre, on, extra_head=''):
+SITE = 'https://gido70.github.io/Masar-AI/'
+DESC = 'حقائب تطبيقية بالعربية في الذكاء الاصطناعي: تعلّم طريقًا واضحًا، واخرج بعمل حقيقي وشهادة.'
+def page(title, body, pre, on, extra_head='', desc=DESC, img='assets/og-masar.png', path=''):
     nav = [('home', pre or './', 'الرئيسية'), ('packages', pre + 'packages.html', 'الحقائب'), ('tool', pre + 'tool.html', 'الأداة المجانية')]
     navh = ''.join(f'<a href="{h}"' + (' class="on"' if k == on else '') + f'>{t}</a>' for k, h, t in nav)
     navh += f'<a href="{pre}workshop.html" class="ws' + (' on' if on == 'workshop' else '') + '">🔒 الورشة</a>'
@@ -40,6 +42,12 @@ def page(title, body, pre, on, extra_head=''):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{E(title)}</title>
+<meta name="description" content="{E(desc)}">
+<meta property="og:type" content="website"><meta property="og:locale" content="ar_AR"><meta property="og:site_name" content="مسار">
+<meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}">
+<meta property="og:image" content="{SITE}{img}"><meta property="og:url" content="{SITE}{path}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="{pre}assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{pre}assets/site.css">{extra_head}
@@ -125,7 +133,7 @@ def build_home():
 <div class="card tile">{ic("file","gold")}<div><h3>تطبّق وحدة وحدة</h3><p>فيديو قصير، وملف بورقة عمل تكتب فيها على مهمتك، وأداة مع بديل مجاني.</p></div></div>
 <div class="card tile">{ic("award","navy")}<div><h3>تخرج بنتيجة وشهادة</h3><p>امتحان قصير يفتح الوحدة التالية، وفي النهاية عمل منجز وشهادة إتمام.</p></div></div>
 </div></div></section>'''
-    write('index.html', page('مسار · حقائب تطبيقية في الذكاء الاصطناعي', body, '', 'home'))
+    write('index.html', page('مسار · حقائب تطبيقية في الذكاء الاصطناعي', body, '', 'home', path=''))
 
 def build_packages():
     cards = ''.join(pk_card(p, '', f'p/{p["slug"]}.html') for p in PUB)
@@ -133,7 +141,7 @@ def build_packages():
     body = f'''<section class="hero"><div class="wrap"><span class="kicker">الحقائب</span><h1>اختر <em>مسارك</em></h1><p class="lead">كل حقيبة تأخذك في طريق واضح لإنجاز مهمة محددة بالذكاء الاصطناعي، بتطبيق على عملك أنت.</p></div></section>
 <section class="sec"><div class="wrap"><div class="grid g2">{cards}</div>
 <p class="note" style="margin-top:22px">حقائب قيد الإعداد: {E(soon)}.</p></div></section>'''
-    write('packages.html', page('الحقائب · مسار', body, '', 'packages'))
+    write('packages.html', page('الحقائب · مسار', body, '', 'packages', path='packages.html'))
 
 # ---------- صفحة حقيبة عامة ----------
 def build_public(p):
@@ -151,7 +159,7 @@ def build_public(p):
 <div><div class="card"><h3 style="margin-top:0">ماذا ستحصل عليه</h3><ul class="gets">{gets}</ul></div>
 <div class="price-box" style="margin-top:16px"><div>السعر</div><div class="p">{E(p["price"])}</div><div style="opacity:.85;font-size:15px">{E(p["status"])}</div></div></div>
 </div></div></section></div>'''
-    write(f'p/{p["slug"]}.html', page(f'{p["name"]} · مسار', body, pre, 'packages'))
+    write(f'p/{p["slug"]}.html', page(f'{p["name"]}: {p["tagline"]} · مسار', body, pre, 'packages', desc=p['promise'], img=p['cover'], path=f'p/{p["slug"]}.html'))
 
 # ---------- الورشة ----------
 def build_workshop():
@@ -304,7 +312,7 @@ def build_tool():
 @media (max-width:620px){{.opts{{grid-template-columns:1fr}}.res div{{grid-template-columns:1fr;gap:2px}}}}
 </style>
 <script>{TOOL_JS}</script>"""
-    write('tool.html', page('بطاقة الفيديو في دقيقة · أداة مجانية · مسار', body, '', 'tool'))
+    write('tool.html', page('بطاقة الفيديو في دقيقة · أداة مجانية · مسار', body, '', 'tool', desc='ستة أسئلة بالضغط فقط تعطيك خطة الفيديو الخاص بك: الشكل الأنسب، والإطار، وعدد الكلمات، والأدوات، والتكلفة.', path='tool.html'))
 
 def redirects():
     for old, new in (('video-package.html', 'p/video.html'), ('package.html', 'p/free.html'), ('home-new.html', './')):
