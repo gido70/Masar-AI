@@ -115,6 +115,31 @@ footer.ft .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wr
 .vw-b{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;align-items:center;gap:12px;background:#ECE7DA}
 .vw-pg{background:#fff;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.15);max-width:100%}
 .vw-msg{margin:30px auto;font-size:20px;color:var(--navy)}.vw-tip{margin:0;font-size:16px;color:var(--mute)}
-.vw-v{width:100%;max-width:980px;aspect-ratio:16/9;margin:auto 0}.vw-v iframe{width:100%;height:100%;border:0;border-radius:14px;background:#000}
+.vw-v{position:relative;width:100%;max-width:980px;padding-top:min(56.25%,551px);margin:auto 0;flex:0 0 auto}.vw-v iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:14px;background:#000}
 .vw-img{max-width:100%;height:auto;border-radius:10px;margin:auto 0}
 @media (max-width:620px){.vw{padding:0}.vw-in{border-radius:0;height:100%}.vw-t{font-size:16px}.vw-dl,.vw-yt{font-size:14px;padding:4px 10px}}
+/* مشغّل الحقيبة (مثل صفحة الدرس في CPS) */
+.cp{display:grid;grid-template-columns:300px minmax(0,1fr);gap:20px;align-items:start}
+.cp-list{position:sticky;top:130px;display:flex;flex-direction:column;gap:8px;max-height:calc(100vh - 150px);overflow:auto;padding:4px}
+.cp-list button{display:flex;gap:10px;align-items:center;text-align:right;font:inherit;font-size:18px;font-weight:700;color:var(--b);background:#fff;border:2px solid #F1EADB;border-radius:16px;padding:8px;cursor:pointer;box-shadow:0 6px 14px rgba(31,42,55,.05)}
+.cp-list button img{width:96px;aspect-ratio:16/9;object-fit:cover;border-radius:10px;flex:0 0 96px;background:#ddd}
+.cp-list button small{display:block;font-size:15px;color:var(--a)}
+.cp-list button.on{border-color:var(--a);background:var(--soft)}
+.cp-main{background:#fff;border-radius:22px;padding:18px;border:1px solid #F1EADB;box-shadow:0 12px 30px rgba(31,42,55,.07)}
+.cp-head h2{font-size:32px;margin:2px 0}.cp-head .n{color:var(--a);font-weight:700}
+.cp-v{position:relative;width:100%;padding-top:56.25%;margin:12px 0;border-radius:16px;overflow:hidden;background:#000}
+.cp-v iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.cp-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.cp-link{text-decoration:none;font-weight:700;font-size:18px;border-radius:12px;padding:8px 14px;background:var(--soft);color:var(--b)}
+.cp-tabs{display:flex;gap:8px;margin:16px 0 10px;border-bottom:2px solid var(--line);flex-wrap:wrap}
+.cp-tabs button{font:inherit;font-size:19px;font-weight:700;border:0;background:none;padding:8px 14px;color:var(--mute);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
+.cp-tabs button.on{color:var(--b);border-bottom-color:var(--a)}
+.cp-pdf{width:100%;height:80vh;border:1px solid var(--line);border-radius:12px;background:#ECE7DA}
+.cp-pages canvas{display:block;margin:0 0 10px;border-radius:6px;box-shadow:0 3px 10px rgba(0,0,0,.12)}
+.cp-tip{margin:0 0 8px;font-size:17px;color:var(--mute)}
+.cp-text{font-size:19px}.cp-text h1{font-size:26px}.cp-text h2{font-size:22px}
+.qz{background:#FBF8EF;border-radius:14px;padding:12px 16px;margin:0 0 12px}.qz b{display:block;margin-bottom:8px;color:var(--b)}
+.qo{display:grid;gap:8px}.qo button{font:inherit;font-size:18px;text-align:right;padding:8px 14px;border-radius:12px;border:2px solid var(--line);background:#fff;cursor:pointer}
+.qo button.ok{border-color:#1F7A4D;background:#E6F5EC}.qo button.no{border-color:#B51F1F;background:#FDECEC}
+.qs{font-size:21px;font-weight:700;color:var(--b)}
+@media (max-width:900px){.cp{grid-template-columns:1fr}.cp-list{position:static;max-height:none;flex-direction:row;overflow-x:auto}.cp-list button{flex:0 0 240px}.cp-pdf{height:70vh}}

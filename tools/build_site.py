@@ -194,34 +194,98 @@ def quiz_html(path):
     s = open(os.path.join(ROOT, path), encoding='utf-8').read().split('\n', 1)[1]
     return markdown.markdown(s)
 
+def parse_quiz(path):
+    s = open(os.path.join(ROOT, path), encoding='utf-8').read()
+    qs = []
+    for block in re.split(r'\n(?=\*\*\d+\.)', s)[1:]:
+        q = re.match(r'\*\*\d+\.\s*(.+?)\*\*', block)
+        opts = re.findall(r'^- (✅ )?(.+)$', block, flags=re.M)
+        if q and opts:
+            qs.append({'q': q.group(1).strip(), 'o': [o[1].strip() for o in opts], 'a': next(i for i, o in enumerate(opts) if o[0])})
+    return qs
+
+PLAYER_JS = r"""
+const U=JSON.parse(document.getElementById('udata').textContent);
+const PDFJS='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+let cur=0,tab='pdf',lib=null;
+const $=s=>document.querySelector(s);
+function nav(){document.querySelectorAll('.cp-list button').forEach((b,i)=>b.classList.toggle('on',i===cur));}
+function show(i){
+  cur=i;nav();const u=U[i];
+  $('#cp-n').textContent='الوحدة '+u.n;$('#cp-t').textContent=u.title;$('#cp-o').textContent='تخرج بـ: '+u.out;
+  $('#cp-v').innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+u.video+'?rel=0" title="'+u.title+'" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+  $('#cp-yt').href='https://youtu.be/'+u.video;$('#cp-dl').href=u.pdf;
+  document.querySelectorAll('.cp-tabs button').forEach(b=>{const k=b.dataset.k;b.style.display=(k==='quiz'&&!u.quiz.length)||(k==='text'&&!u.text)?'none':'';});
+  if((tab==='quiz'&&!u.quiz.length)||(tab==='text'&&!u.text)) tab='pdf';
+  pane();
+  if(location.hash!=='#u'+u.n) history.replaceState(null,'','#u'+u.n);
+}
+function pane(){
+  document.querySelectorAll('.cp-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.k===tab));
+  const u=U[cur],box=$('#cp-p');
+  if(tab==='pdf'){
+    box.innerHTML='<p class="cp-tip">للكتابة في خانات الملف: نزّله بزر «تنزيل الملف» وافتحه في Adobe Acrobat Reader.</p>';
+    if(navigator.pdfViewerEnabled){box.insertAdjacentHTML('beforeend','<iframe class="cp-pdf" src="'+u.pdf+'#view=FitH"></iframe>');}
+    else{renderPdf(u.pdf,box);}
+  }else if(tab==='quiz'){quiz(u,box);}
+  else{box.innerHTML='<div class="cp-text">'+u.text+'</div>';}
+}
+async function renderPdf(href,box){
+  const w=document.createElement('div');w.className='cp-pages';w.innerHTML='<p class="cp-tip">جارٍ عرض الملف…</p>';box.appendChild(w);
+  try{
+    if(!lib){await new Promise((r,j)=>{const s=document.createElement('script');s.src=PDFJS+'pdf.min.js';s.onload=r;s.onerror=j;document.head.appendChild(s);});lib=window.pdfjsLib;lib.GlobalWorkerOptions.workerSrc=PDFJS+'pdf.worker.min.js';}
+    const doc=await lib.getDocument(href).promise;w.innerHTML='';const width=w.clientWidth||340;const ratio=window.devicePixelRatio||1;
+    for(let i=1;i<=doc.numPages;i++){const pg=await doc.getPage(i);const v=pg.getViewport({scale:1});const vp=pg.getViewport({scale:width/v.width*ratio});const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;c.style.width='100%';w.appendChild(c);await pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;}
+  }catch(e){w.innerHTML='<p class="cp-tip">تعذّر عرض الملف هنا. استخدم زر «تنزيل الملف».</p>';}
+}
+function quiz(u,box){
+  let done=0,ok=0;
+  box.innerHTML='<div class="cp-quiz">'+u.quiz.map((q,qi)=>'<div class="qz" data-a="'+q.a+'"><b>'+(qi+1)+'. '+q.q+'</b><div class="qo">'+q.o.map((o,oi)=>'<button type="button" data-i="'+oi+'">'+o+'</button>').join('')+'</div></div>').join('')+'<p class="qs" id="qs"></p><button type="button" class="btn s" id="qr">أعد المحاولة</button></div>';
+  box.querySelectorAll('.qz').forEach(z=>z.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(z.dataset.done)return;z.dataset.done=1;done++;const a=+z.dataset.a,i=+b.dataset.i;b.classList.add(i===a?'ok':'no');if(i===a)ok++;else z.querySelector('[data-i="'+a+'"]').classList.add('ok');
+    if(done===u.quiz.length){const pct=Math.round(ok/u.quiz.length*100);$('#qs').innerHTML=(pct>=80?'✅ ناجح: ':'⏳ لم تبلغ 80%: ')+ok+' من '+u.quiz.length+' ('+pct+'%)';}}));
+  $('#qr').onclick=()=>quiz(u,box);
+}
+document.querySelectorAll('.cp-list button').forEach((b,i)=>b.onclick=()=>{show(i);if(innerWidth<900)$('#cp-main').scrollIntoView({behavior:'smooth'});});
+document.querySelectorAll('.cp-tabs button').forEach(b=>b.onclick=()=>{tab=b.dataset.k;pane();});
+$('#cp-prev').onclick=()=>show((cur-1+U.length)%U.length);$('#cp-next').onclick=()=>show((cur+1)%U.length);
+const h=location.hash.match(/^#u(\d+)/);show(h?Math.max(0,U.findIndex(u=>u.n==+h[1])):0);
+"""
+
 def build_ws_pkg(p):
     pre = '../'
-    units = ''
+    data = []
     for u in p['units']:
-        extra = ''
-        if u.get('quiz'): extra += f'<details class="more"><summary>📝 الامتحان (بالإجابات)</summary><div>{quiz_html(u["quiz"])}</div></details>'
-        if u.get('text'): extra += f'<details class="more"><summary>📜 نص المحتوى</summary><div>{md(u["text"])}</div></details>'
-        units += f'''<div class="card unit"><a class="th" href="https://youtu.be/{u["video"]}" data-title="الوحدة {u["n"]}: {E(u["title"])}"><img src="https://i.ytimg.com/vi/{u["video"]}/hqdefault.jpg" alt="" loading="lazy"></a>
-<div><span class="n">الوحدة {u["n"]}</span><h3>{E(u["title"])}</h3><span class="out">تخرج بـ: {E(u["out"])}</span>
-<div class="acts"><a href="https://youtu.be/{u["video"]}" data-title="الوحدة {u["n"]}: {E(u["title"])}">▶ الفيديو</a><a href="{pre}{u["pdf"]}" data-title="ملف الوحدة {u["n"]}: {E(u["title"])}">📄 الملف PDF</a></div>{extra}</div></div>'''
-    files = ''.join(f'<a class="card tile" href="{pre}{f["href"]}" data-title="{E(f["title"])}">{ic(f["icon"],"sm gold")}<div><h3 style="font-size:19px">{E(f["title"])}</h3></div></a>' for f in p['files'])
+        data.append({'n': u['n'], 'title': u['title'], 'out': u['out'], 'video': u['video'], 'pdf': pre + u['pdf'],
+                     'quiz': parse_quiz(u['quiz']) if u.get('quiz') else [], 'text': md(u['text']) if u.get('text') else ''})
+    items = ''.join(f'<button type="button"><img src="https://i.ytimg.com/vi/{u["video"]}/mqdefault.jpg" alt="" loading="lazy"><span><small>الوحدة {u["n"]}</small>{E(u["title"])}</span></button>' for u in p['units'])
+    files = ''.join(f'<a class="card tile" href="{pre}{f["href"]}" data-title="{E(f["title"])}">{ic(f["icon"],"sm gold")}<div><h3 style="font-size:21px">{E(f["title"])}</h3></div></a>' for f in p['files'])
     docs = ''
     for i, d in enumerate(p['docs']):
         slug = f'doc-{p["slug"]}-{i+1}'
         write(f'workshop/{slug}.html', page(f'{d["title"]} · {p["name"]}', f'<div class="wrap"><p class="crumb"><a href="../workshop.html">الورشة</a> ← <a href="{p["slug"]}.html">{E(p["name"])}</a></p><div class="doc" style="margin-top:12px">{md(d["md"])}</div></div>', pre, 'workshop', '\n<meta name="robots" content="noindex">'))
-        docs += f'<a class="card tile" href="{slug}.html">{ic(d["icon"],"sm")}<div><h3 style="font-size:19px">{E(d["title"])}</h3></div></a>'
-    tabs = ('<a href="#gates">مسار المنهجية</a>' if gates_html(p) else '') + '<a href="#units">الوحدات</a>' + ('<a href="#docs">التسويق وCPS والمنهجية</a>' if docs else '') + '<a href="#files">الملفات</a><a href="#cert">الشهادة</a>' + (f'<a href="{pre}{p["trainer"]}">مسار المدرّب</a>' if p.get('trainer') else '') + f'<a href="{pre}p/{p["slug"]}.html">الصفحة العامة</a>'
-    body = f'''<div{theme(p)}>
-<section class="phero"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← {E(p["name"])}</p><div class="g">
-<div><span class="kicker">{E(p["status"])} · {E(p["price"])}</span><h1>{E(p["name"])}</h1><p class="lead">{E(p["tagline"])}. ملف الحقيبة الكامل لصاحب المشروع.</p></div>
-<div><img src="{pre}{p["cover"]}" alt="" style="width:100%;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,.15)"></div></div></div></section>
+        docs += f'<a class="card tile" href="{slug}.html">{ic(d["icon"],"sm")}<div><h3 style="font-size:21px">{E(d["title"])}</h3></div></a>'
+    tabs = '<a href="#player">الوحدات</a>' + ('<a href="#gates">مسار المنهجية</a>' if gates_html(p) else '') + ('<a href="#docs">التسويق وCPS</a>' if docs else '') + '<a href="#files">الملفات</a><a href="#cert">الشهادة</a>' + (f'<a href="{pre}{p["trainer"]}">مسار المدرّب</a>' if p.get('trainer') else '') + f'<a href="{pre}p/{p["slug"]}.html">الصفحة العامة</a>'
+    has_quiz = any(u.get('quiz') for u in p['units']); has_text = any(u.get('text') for u in p['units'])
+    body = f"""<div{theme(p)}>
+<section class="phero" style="padding:26px 0 18px"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← {E(p["name"])}</p>
+<div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap"><img src="{pre}{p["cover"]}" alt="" style="width:220px;border-radius:14px;box-shadow:0 10px 24px rgba(0,0,0,.15)"><div><span class="kicker">{E(p["status"])} · {E(p["price"])}</span><h1 style="font-size:40px">{E(p["name"])}</h1><p class="lead" style="margin:0">{E(p["tagline"])}</p></div></div></div></section>
 <div class="tabs"><div class="wrap">{tabs}</div></div>
+<section class="sec" id="player"><div class="wrap"><div class="cp">
+<aside class="cp-list">{items}</aside>
+<div class="cp-main" id="cp-main">
+<div class="cp-head"><span class="n" id="cp-n"></span><h2 id="cp-t"></h2><span class="out" id="cp-o"></span></div>
+<div class="cp-v" id="cp-v"></div>
+<div class="cp-bar"><button type="button" class="btn s" id="cp-next">الوحدة التالية ←</button><button type="button" class="btn s" id="cp-prev">→ السابقة</button><a class="cp-link" id="cp-dl" download>⬇ تنزيل الملف</a><a class="cp-link" id="cp-yt" data-out target="_blank" rel="noopener">افتح في يوتيوب</a></div>
+<div class="cp-tabs"><button type="button" data-k="pdf">📄 الملف</button>{'<button type="button" data-k="quiz">📝 الامتحان</button>' if has_quiz else ''}{'<button type="button" data-k="text">📜 نص المحتوى</button>' if has_text else ''}</div>
+<div class="cp-p" id="cp-p"></div>
+</div></div></div></section>
 {gates_html(p)}
-<section class="sec" id="units"><div class="wrap"><div class="sec-h"><div><h2>الوحدات</h2><p>الفيديو، والملف، والامتحان بإجاباته، ونص المحتوى.</p></div></div><div class="grid">{units}</div></div></section>
-{f'<section class="sec" id="docs"><div class="wrap"><div class="sec-h"><div><h2>التسويق وCPS والمنهجية</h2></div></div><div class="grid g2">{docs}</div></div></section>' if docs else ''}
+{f'<section class="sec" id="docs"><div class="wrap"><div class="sec-h"><div><h2>التسويق وCPS</h2></div></div><div class="grid g2">{docs}</div></div></section>' if docs else ''}
 <section class="sec" id="files"><div class="wrap"><div class="sec-h"><div><h2>الملفات</h2></div></div><div class="grid g3">{files}</div></div></section>
-<section class="sec" id="cert"><div class="wrap"><div class="sec-h"><div><h2>الشهادة</h2></div></div><img src="{pre}{p["certificate"]}" alt="الشهادة" style="width:100%;max-width:820px;border-radius:16px;box-shadow:0 14px 30px rgba(0,0,0,.12)"></div></section>
-</div>'''
+<section class="sec" id="cert"><div class="wrap"><div class="sec-h"><div><h2>الشهادة</h2></div></div><a href="{pre}{p["certificate"]}" data-title="الشهادة"><img src="{pre}{p["certificate"]}" alt="الشهادة" style="width:100%;max-width:820px;border-radius:16px;box-shadow:0 14px 30px rgba(0,0,0,.12)"></a></div></section>
+</div>
+<script type="application/json" id="udata">{json.dumps(data, ensure_ascii=False).replace('</', '<\\/')}</script>
+<script>{PLAYER_JS}</script>"""
     write(f'workshop/{p["slug"]}.html', page(f'ملف {p["name"]} · الورشة', body, pre, 'workshop', '\n<meta name="robots" content="noindex">'))
 
 def build_method():
