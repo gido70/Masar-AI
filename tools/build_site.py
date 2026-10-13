@@ -1,0 +1,198 @@
+"""يولّد صفحات منصة مسار من data/packages.json (13 أكتوبر 2026).
+التشغيل من جذر المستودع: python3 tools/build_site.py   (يحتاج: pip install markdown)
+لإضافة حقيبة: أضف عنصرًا في data/packages.json ثم شغّل السكربت.
+الصفحات المولّدة: index.html · packages.html · p/<slug>.html (عامة) · workshop.html · workshop/<slug>.html · workshop/doc-*.html (لصاحب المشروع)
+"""
+import json, os, re, html, markdown
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+D = json.load(open(os.path.join(ROOT, 'data/packages.json'), encoding='utf-8'))
+E = html.escape
+
+ICONS = {
+ 'box': '<path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/>',
+ 'tool': '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>',
+ 'lock': '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+ 'play': '<circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/>',
+ 'file': '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',
+ 'quiz': '<path d="M9 11l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="3"/>',
+ 'award': '<circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/>',
+ 'book': '<path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM19 19v2H6"/>',
+ 'compass': '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
+ 'list': '<path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/>',
+ 'image': '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 17-5-5-9 8"/>',
+ 'megaphone': '<path d="M3 11v2a1 1 0 0 0 1 1h3l6 4V6L7 10H4a1 1 0 0 0-1 1zM17 8a5 5 0 0 1 0 8"/>',
+ 'mail': '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+ 'handshake': '<path d="m11 17 2 2a1.5 1.5 0 0 0 2-2M14 14l2.5 2.5a1.5 1.5 0 0 0 2-2L13 9l-2 2a2 2 0 0 1-3-3l3-3h3l5 5M3 9l4-4 4 4"/>',
+ 'map': '<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>',
+ 'star': '<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/>',
+}
+def ic(name, cls=''):
+    return f'<span class="ic {cls}"><svg viewBox="0 0 24 24">{ICONS[name]}</svg></span>'
+
+def page(title, body, pre, on, extra_head=''):
+    nav = [('home', pre or './', 'الرئيسية'), ('packages', pre + 'packages.html', 'الحقائب'), ('tool', pre + 'tool.html', 'الأداة المجانية'), ('workshop', pre + 'workshop.html', 'الورشة')]
+    navh = ''.join(f'<a href="{h}"' + (' class="on"' if k == on else '') + f'>{t}</a>' for k, h, t in nav)
+    return f'''<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{E(title)}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{pre}assets/site.css">{extra_head}
+</head>
+<body>
+<div class="bar"><div class="wrap"><a href="{pre or './'}"><img src="{pre}training/masar_logo.png" alt="مسار"></a><nav class="nav">{navh}</nav></div></div>
+{body}
+<footer class="ft"><div class="wrap"><span>مسار · حقائب تطبيقية في الذكاء الاصطناعي</span><span><a href="{pre}workshop.html">الورشة</a></span></div></footer>
+</body>
+</html>
+'''
+
+def theme(p):
+    t = p['theme']; return f' style="--a:{t["a"]};--b:{t["b"]};--soft:{t["soft"]}"'
+
+def md(path, strip_answers=False):
+    s = open(os.path.join(ROOT, path), encoding='utf-8').read()
+    return markdown.markdown(s, extensions=['tables'])
+
+def write(rel, s):
+    path = os.path.join(ROOT, rel); os.makedirs(os.path.dirname(path) or '.', exist_ok=True)
+    open(path, 'w', encoding='utf-8').write(s); print('✓', rel)
+
+PUB = [p for p in D['packages'] if p.get('public')]
+
+def pk_card(p, pre, href):
+    return f'''<a class="card pk" href="{href}"{theme(p)}><img src="{pre}{p["cover"]}" alt="غلاف {E(p["name"])}" loading="lazy"><div class="in"><h3>{E(p["name"])}</h3><p>{E(p["tagline"])}</p><div class="chips"><span class="chip">{len(p["units"])} وحدات</span><span class="chip st">{E(p["status"])}</span><span class="chip price">{E(p["price"])}</span></div></div></a>'''
+
+# ---------- الرئيسية ----------
+def build_home():
+    cards = ''.join(pk_card(p, '', f'p/{p["slug"]}.html') for p in PUB)
+    body = f'''<section class="hero"><div class="wrap">
+<span class="kicker">حقائب تطبيقية بالعربية</span>
+<h1>تعلّم طريقًا واضحًا، و<em>اخرج بعمل حقيقي</em></h1>
+<p class="lead">في كل حقيبة من حقائب مسار تتعلم كيف تنجز مهمة بالذكاء الاصطناعي خطوة خطوة، وتطبّق كل خطوة على عملك أنت، حتى تخرج بنتيجة في يدك وشهادة.</p>
+<div class="row"><a class="btn p" href="packages.html">تصفّح الحقائب</a><a class="btn s" href="tool.html">جرّب الأداة المجانية</a></div>
+</div></section>
+<section class="sec"><div class="wrap">
+<div class="grid g3">
+<a class="card tile" href="packages.html">{ic("box")}<div><h3>الحقائب</h3><p>اختر المسار الذي يناسب مهمتك، وشاهد ما ستتعلمه وما ستخرج به.</p></div></a>
+<a class="card tile" href="tool.html">{ic("tool","gold")}<div><h3>الأداة المجانية</h3><p>أجب عن أسئلة قصيرة، فتخرج بخريطة مراحل وأدوات وبرومبتات لمهمتك.</p></div></a>
+<a class="card tile" href="#how">{ic("map","navy")}<div><h3>كيف تعمل الحقيبة؟</h3><p>تقرر قبل الأداة، ثم تطبّق وحدة وحدة، ثم تخرج بنتيجة وشهادة.</p></div></a>
+</div></div></section>
+<section class="sec"><div class="wrap">
+<div class="sec-h"><div><h2>الحقائب المتاحة</h2><p>كل حقيبة بهويتها، والمنهج واحد.</p></div><a class="btn s" href="packages.html">كل الحقائب</a></div>
+<div class="grid g2">{cards}</div></div></section>
+<section class="sec" id="how"><div class="wrap">
+<div class="sec-h"><div><h2>كيف تعمل الحقيبة؟</h2></div></div>
+<div class="grid g3">
+<div class="card tile">{ic("compass")}<div><h3>تقرر قبل الأداة</h3><p>تحدد مهمتك وجمهورك وقيودك في بطاقة واحدة، فلا تضيع بين عشرات الأدوات.</p></div></div>
+<div class="card tile">{ic("file","gold")}<div><h3>تطبّق وحدة وحدة</h3><p>فيديو قصير، وملف بورقة عمل تكتب فيها على مهمتك، وأداة مع بديل مجاني.</p></div></div>
+<div class="card tile">{ic("award","navy")}<div><h3>تخرج بنتيجة وشهادة</h3><p>امتحان قصير يفتح الوحدة التالية، وفي النهاية عمل منجز وشهادة إتمام.</p></div></div>
+</div></div></section>'''
+    write('index.html', page('مسار · حقائب تطبيقية في الذكاء الاصطناعي', body, '', 'home'))
+
+def build_packages():
+    cards = ''.join(pk_card(p, '', f'p/{p["slug"]}.html') for p in PUB)
+    soon = ' · '.join(D['soon'])
+    body = f'''<section class="hero"><div class="wrap"><span class="kicker">الحقائب</span><h1>اختر <em>مسارك</em></h1><p class="lead">كل حقيبة تأخذك في طريق واضح لإنجاز مهمة محددة بالذكاء الاصطناعي، بتطبيق على عملك أنت.</p></div></section>
+<section class="sec"><div class="wrap"><div class="grid g2">{cards}</div>
+<p class="note" style="margin-top:22px">حقائب قيد الإعداد: {E(soon)}.</p></div></section>'''
+    write('packages.html', page('الحقائب · مسار', body, '', 'packages'))
+
+# ---------- صفحة حقيبة عامة ----------
+def build_public(p):
+    pre = '../'
+    units = ''.join(f'<li><span class="num">{u["n"]}</span><div><b>{E(u["title"])}</b><span>{E(u["q"])} · تخرج بـ: {E(u["out"])}</span></div></li>' for u in p['units'])
+    gets = ''.join(f'<li>{E(g)}</li>' for g in p['gets'])
+    body = f'''<div{theme(p)}>
+<section class="phero"><div class="wrap"><div class="g">
+<div><span class="kicker">{E(p["status"])}</span><h1>{E(p["name"])}</h1><p class="lead">{E(p["tagline"])}. {E(p["promise"])}</p>
+<div class="chips"><span class="chip">{len(p["units"])} وحدات</span><span class="chip">{E(p["hours"])}</span><span class="chip">شهادة</span><span class="chip price">{E(p["price"])}</span></div></div>
+<div class="vbox"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/{p["promo"]}?rel=0" title="إعلان {E(p["name"])}" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
+</div></div></section>
+<section class="sec"><div class="wrap"><div class="grid" style="grid-template-columns:1.4fr .9fr;gap:24px">
+<div><div class="sec-h"><div><h2>ماذا ستتعلم</h2><p>مخرج كل وحدة هو مدخل الوحدة التي بعدها.</p></div></div><ol class="ulist">{units}</ol></div>
+<div><div class="card"><h3 style="margin-top:0">ماذا ستحصل عليه</h3><ul class="gets">{gets}</ul></div>
+<div class="price-box" style="margin-top:16px"><div>السعر</div><div class="p">{E(p["price"])}</div><div style="opacity:.85;font-size:15px">{E(p["status"])}</div></div></div>
+</div></div></section></div>'''
+    write(f'p/{p["slug"]}.html', page(f'{p["name"]} · مسار', body, pre, 'packages'))
+
+# ---------- الورشة ----------
+def build_workshop():
+    pk_tiles = ''.join(f'<a class="card tile" href="workshop/{p["slug"]}.html"{theme(p)}>{ic("box","red" if p["slug"]=="video" else "")}<div><h3>{E(p["name"])}</h3><p>الوحدات بفيديوهاتها وملفاتها وأسئلتها، والتسويق، وملفات CPS، وحالتها في المنهجية.</p></div></a>' for p in D['packages'])
+    tr_tiles = ''.join(f'<a class="card tile" href="{p["trainer"]}">{ic("book","gold")}<div><h3>مسار المدرّب: {E(p["name"])}</h3><p>المفاهيم، والأسباب، وكيف بُنيت، وأسئلة الناس وأجوبتك.</p></div></a>' for p in D['packages'] if p.get('trainer'))
+    body = f'''<section class="hero"><div class="wrap"><span class="kicker">لصاحب المشروع</span><h1>الورشة</h1><p class="lead">كل ما تحتاجه لإدارة الحقائب وبنائها والتأهل لتقديمها، مصنفًا في ثلاثة أقسام.</p></div></section>
+<section class="sec"><div class="wrap"><div class="sec-h"><div><h2>الحقائب</h2><p>ملف كامل لكل حقيبة.</p></div></div><div class="grid g2">{pk_tiles}</div></div></section>
+<section class="sec"><div class="wrap"><div class="sec-h"><div><h2>التأهيل للتدريب</h2></div></div><div class="grid g2">{tr_tiles}</div></div></section>
+<section class="sec"><div class="wrap"><div class="sec-h"><div><h2>إدارة المشروع</h2></div></div><div class="grid g3">
+<a class="card tile" href="masar-index.html">{ic("list","navy")}<div><h3>الإندكس</h3><p>نقطة العمل الآن، والقرارات، والسجل، والنواقص.</p></div></a>
+<a class="card tile" href="workshop/method.html">{ic("compass")}<div><h3>المنهجية الأربع والعشرون</h3><p>الخطوات التي تمر بها كل حقيبة، من العميل إلى الاستدامة.</p></div></a>
+<a class="card tile" href="workshop/doc-rebuild.html">{ic("map","gold")}<div><h3>خارطة إعادة البناء</h3><p>مراحل إعادة بناء المنصة وقواعدها.</p></div></a>
+</div></div></section>'''
+    write('workshop.html', page('الورشة · مسار', body.replace('href="masar-index.html"', 'href="masar-index.html"'), '', 'workshop', '\n<meta name="robots" content="noindex">'))
+
+def quiz_html(path):
+    s = open(os.path.join(ROOT, path), encoding='utf-8').read().split('\n', 1)[1]
+    return markdown.markdown(s)
+
+def build_ws_pkg(p):
+    pre = '../'
+    units = ''
+    for u in p['units']:
+        extra = ''
+        if u.get('quiz'): extra += f'<details class="more"><summary>📝 الامتحان (بالإجابات)</summary><div>{quiz_html(u["quiz"])}</div></details>'
+        if u.get('text'): extra += f'<details class="more"><summary>📜 نص المحتوى</summary><div>{md(u["text"])}</div></details>'
+        units += f'''<div class="card unit"><a class="th" href="https://youtu.be/{u["video"]}" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/{u["video"]}/hqdefault.jpg" alt="" loading="lazy"></a>
+<div><span class="n">الوحدة {u["n"]}</span><h3>{E(u["title"])}</h3><span class="out">تخرج بـ: {E(u["out"])}</span>
+<div class="acts"><a href="https://youtu.be/{u["video"]}" target="_blank" rel="noopener">▶ الفيديو</a><a href="{pre}{u["pdf"]}" target="_blank" rel="noopener">📄 الملف PDF</a></div>{extra}</div></div>'''
+    files = ''.join(f'<a class="card tile" href="{pre}{f["href"]}" target="_blank" rel="noopener">{ic(f["icon"],"sm gold")}<div><h3 style="font-size:19px">{E(f["title"])}</h3></div></a>' for f in p['files'])
+    docs = ''
+    for i, d in enumerate(p['docs']):
+        slug = f'doc-{p["slug"]}-{i+1}'
+        write(f'workshop/{slug}.html', page(f'{d["title"]} · {p["name"]}', f'<div class="wrap"><p class="crumb"><a href="../workshop.html">الورشة</a> ← <a href="{p["slug"]}.html">{E(p["name"])}</a></p><div class="doc" style="margin-top:12px">{md(d["md"])}</div></div>', pre, 'workshop', '\n<meta name="robots" content="noindex">'))
+        docs += f'<a class="card tile" href="{slug}.html">{ic(d["icon"],"sm")}<div><h3 style="font-size:19px">{E(d["title"])}</h3></div></a>'
+    tabs = '<a href="#units">الوحدات</a>' + ('<a href="#docs">التسويق وCPS والمنهجية</a>' if docs else '') + '<a href="#files">الملفات</a><a href="#cert">الشهادة</a>' + (f'<a href="{pre}{p["trainer"]}">مسار المدرّب</a>' if p.get('trainer') else '') + f'<a href="{pre}p/{p["slug"]}.html">الصفحة العامة</a>'
+    body = f'''<div{theme(p)}>
+<section class="phero"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← {E(p["name"])}</p><div class="g">
+<div><span class="kicker">{E(p["status"])} · {E(p["price"])}</span><h1>{E(p["name"])}</h1><p class="lead">{E(p["tagline"])}. ملف الحقيبة الكامل لصاحب المشروع.</p></div>
+<div><img src="{pre}{p["cover"]}" alt="" style="width:100%;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,.15)"></div></div></div></section>
+<div class="tabs"><div class="wrap">{tabs}</div></div>
+<section class="sec" id="units"><div class="wrap"><div class="sec-h"><div><h2>الوحدات</h2><p>الفيديو، والملف، والامتحان بإجاباته، ونص المحتوى.</p></div></div><div class="grid">{units}</div></div></section>
+{f'<section class="sec" id="docs"><div class="wrap"><div class="sec-h"><div><h2>التسويق وCPS والمنهجية</h2></div></div><div class="grid g2">{docs}</div></div></section>' if docs else ''}
+<section class="sec" id="files"><div class="wrap"><div class="sec-h"><div><h2>الملفات</h2></div></div><div class="grid g3">{files}</div></div></section>
+<section class="sec" id="cert"><div class="wrap"><div class="sec-h"><div><h2>الشهادة</h2></div></div><img src="{pre}{p["certificate"]}" alt="الشهادة" style="width:100%;max-width:820px;border-radius:16px;box-shadow:0 14px 30px rgba(0,0,0,.12)"></div></section>
+</div>'''
+    write(f'workshop/{p["slug"]}.html', page(f'ملف {p["name"]} · الورشة', body, pre, 'workshop', '\n<meta name="robots" content="noindex">'))
+
+def build_method():
+    pre = '../'
+    s = open(os.path.join(ROOT, 'docs/METHOD-24.md'), encoding='utf-8').read()
+    axes = re.split(r'^## ', s, flags=re.M)[1:]
+    colors = ['', 'gold', 'navy', 'green', 'red', 'ink']
+    icons = ['star', 'box', 'megaphone', 'award', 'tool', 'map']
+    blocks = ''
+    for i, a in enumerate(axes):
+        title, rest = a.split('\n', 1)
+        rows = re.findall(r'^\| (\d+) \| ([^|]+) \| ([^|]+) \|', rest, flags=re.M)
+        items = ''.join(f'<li><span class="num">{n}</span><div><b>{E(t.strip())}</b><span>{E(q.strip())}</span></div></li>' for n, t, q in rows)
+        blocks += f'<div class="card"><div class="tile">{ic(icons[i%6], colors[i%6])}<div><h3 style="margin-top:4px">{E(title.strip())}</h3></div></div><ol class="ulist" style="margin-top:14px">{items}</ol></div>'
+    status = ''.join(f'<a class="card tile" href="doc-{p["slug"]}-1.html"{theme(p)}>{ic("compass","sm")}<div><h3 style="font-size:19px">حالة {E(p["name"])}</h3></div></a>' for p in D['packages'] if p['docs'] and 'method' in p['docs'][0]['md'])
+    body = f'''<section class="hero"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← المنهجية</p><span class="kicker">لكل حقيبة</span><h1>المنهجية الأربع والعشرون</h1><p class="lead">خطوات «مخيم صناعة المنتج الرقمي» التي بُنيت بها الحقيبة الأولى. كل حقيبة جديدة تجيب عن سؤال كل خطوة، وتُسجَّل حالتها: ✅ منفذة · 📝 موثقة فقط · ⏳ لم تبدأ.</p></div></section>
+<section class="sec"><div class="wrap"><div class="grid g2">{status}</div></div></section>
+<section class="sec"><div class="wrap"><div class="grid g2">{blocks}</div></div></section>'''
+    write('workshop/method.html', page('المنهجية الأربع والعشرون · الورشة', body, pre, 'workshop', '\n<meta name="robots" content="noindex">'))
+    write('workshop/doc-rebuild.html', page('خارطة إعادة البناء · الورشة', f'<div class="wrap"><p class="crumb"><a href="../workshop.html">الورشة</a> ← خارطة إعادة البناء</p><div class="doc" style="margin-top:12px">{md("docs/PLATFORM-REBUILD.md")}</div></div>', pre, 'workshop', '\n<meta name="robots" content="noindex">'))
+
+def redirects():
+    for old, new in (('video-package.html', 'p/video.html'), ('package.html', 'p/free.html'), ('home-new.html', './')):
+        write(old, f'<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url={new}"><link rel="canonical" href="{new}"><a href="{new}">انتقل</a>')
+
+if __name__ == '__main__':
+    build_home(); build_packages()
+    for p in PUB: build_public(p)
+    build_workshop()
+    for p in D['packages']: build_ws_pkg(p)
+    build_method(); redirects()
