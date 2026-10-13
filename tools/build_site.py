@@ -40,7 +40,7 @@ def page(title, body, pre, on, extra_head=''):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{E(title)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{pre}assets/site.css">{extra_head}
 </head>
 <body>
@@ -79,7 +79,7 @@ def build_home():
 <section class="sec"><div class="wrap">
 <div class="grid g3">
 <a class="card tile" href="packages.html">{ic("box")}<div><h3>الحقائب</h3><p>اختر المسار الذي يناسب مهمتك، وشاهد ما ستتعلمه وما ستخرج به.</p></div></a>
-<a class="card tile" href="tool.html">{ic("tool","gold")}<div><h3>الأداة المجانية</h3><p>أجب عن أسئلة قصيرة، فتخرج بخريطة مراحل وأدوات وبرومبتات لمهمتك.</p></div></a>
+<a class="card tile" href="tool.html">{ic("tool","gold")}<div><h3>بطاقة الفيديو في دقيقة</h3><p>ستة أسئلة بالضغط فقط، فتخرج بخطة الفيديو الخاص بك: الشكل، والأدوات، والتكلفة.</p></div></a>
 <a class="card tile" href="#how">{ic("map","navy")}<div><h3>كيف تعمل الحقيبة؟</h3><p>تقرر قبل الأداة، ثم تطبّق وحدة وحدة، ثم تخرج بنتيجة وشهادة.</p></div></a>
 </div></div></section>
 <section class="sec"><div class="wrap">
@@ -179,12 +179,97 @@ def build_method():
         rows = re.findall(r'^\| (\d+) \| ([^|]+) \| ([^|]+) \|', rest, flags=re.M)
         items = ''.join(f'<li><span class="num">{n}</span><div><b>{E(t.strip())}</b><span>{E(q.strip())}</span></div></li>' for n, t, q in rows)
         blocks += f'<div class="card"><div class="tile">{ic(icons[i%6], colors[i%6])}<div><h3 style="margin-top:4px">{E(title.strip())}</h3></div></div><ol class="ulist" style="margin-top:14px">{items}</ol></div>'
-    status = ''.join(f'<a class="card tile" href="doc-{p["slug"]}-1.html"{theme(p)}>{ic("compass","sm")}<div><h3 style="font-size:19px">حالة {E(p["name"])}</h3></div></a>' for p in D['packages'] if p['docs'] and 'method' in p['docs'][0]['md'])
+    # مصفوفة الحالة: كل خطوة × كل حقيبة
+    stat = {}
+    for p in D['packages']:
+        mp = next((d['md'] for d in p['docs'] if 'method-24' in d['md']), None)
+        if not mp: continue
+        rows = re.findall(r'^\| (\d+) \| [^|]+ \| (✅|📝|⏳) \|', open(os.path.join(ROOT, mp), encoding='utf-8').read(), flags=re.M)
+        stat[p['slug']] = {int(n): st for n, st in rows}
+    pk = [p for p in D['packages'] if p['slug'] in stat]
+    names = {}
+    for a in axes:
+        for n, t, q in re.findall(r'^\| (\d+) \| ([^|]+) \| ([^|]+) \|', a, flags=re.M): names[int(n)] = t.strip()
+    head = ''.join(f'<th><a href="doc-{p["slug"]}-1.html" style="color:#fff">{E(p["name"])}</a></th>' for p in pk)
+    body_rows = ''.join(f'<tr><td>{n}</td><td>{E(names.get(n, ""))}</td>' + ''.join(f'<td style="text-align:center;font-size:20px">{stat[p["slug"]].get(n, "·")}</td>' for p in pk) + '</tr>' for n in range(1, 25))
+    totals = ''.join(f'<div class="card tile"{theme(p)}>{ic("compass","sm")}<div><h3 style="font-size:19px">{E(p["name"])}</h3><p>✅ {list(stat[p["slug"]].values()).count("✅")} · 📝 {list(stat[p["slug"]].values()).count("📝")} · ⏳ {list(stat[p["slug"]].values()).count("⏳")}</p></div></div>' for p in pk)
+    status = f'<div class="grid g2">{totals}</div><div class="doc" style="margin-top:18px"><h2 style="margin-top:0">مسار الحقائب على المنهجية</h2><table><tr><th>#</th><th>الخطوة</th>{head}</tr>{body_rows}</table></div>'
     body = f'''<section class="hero"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← المنهجية</p><span class="kicker">لكل حقيبة</span><h1>المنهجية الأربع والعشرون</h1><p class="lead">خطوات «مخيم صناعة المنتج الرقمي» التي بُنيت بها الحقيبة الأولى. كل حقيبة جديدة تجيب عن سؤال كل خطوة، وتُسجَّل حالتها: ✅ منفذة · 📝 موثقة فقط · ⏳ لم تبدأ.</p></div></section>
-<section class="sec"><div class="wrap"><div class="grid g2">{status}</div></div></section>
+<section class="sec"><div class="wrap">{status}</div></section>
 <section class="sec"><div class="wrap"><div class="grid g2">{blocks}</div></div></section>'''
     write('workshop/method.html', page('المنهجية الأربع والعشرون · الورشة', body, pre, 'workshop', '\n<meta name="robots" content="noindex">'))
     write('workshop/doc-rebuild.html', page('خارطة إعادة البناء · الورشة', f'<div class="wrap"><p class="crumb"><a href="../workshop.html">الورشة</a> ← خارطة إعادة البناء</p><div class="doc" style="margin-top:12px">{md("docs/PLATFORM-REBUILD.md")}</div></div>', pre, 'workshop', '\n<meta name="robots" content="noindex">'))
+
+
+# ---------- الأداة المجانية: بطاقة الفيديو في دقيقة ----------
+TOOL_JS = r"""
+const Q=[
+ {k:'purpose',t:'ما غرض الفيديو؟',o:[['lesson','درس تعليمي'],['software','شرح برنامج أو موقع'],['ad','إعلان أو ترويج'],['short','محتوى قصير للتواصل'],['org','تعريف بجهة أو مشروع'],['interview','مقابلة أو شهادة عميل'],['event','ملخص فعالية'],['story','قصة'],['greet','تهنئة أو مناسبة'],['translate','ترجمة فيديو موجود']]},
+ {k:'where',t:'أين سيُشاهَد غالبًا؟',o:[['phone','على الهاتف'],['youtube','على يوتيوب أو الحاسوب'],['hall','على شاشة قاعة']]},
+ {k:'level',t:'من جمهورك؟',o:[['new','مبتدئون في الموضوع'],['mid','لديهم خلفية أساسية'],['pro','متخصصون']]},
+ {k:'dur',t:'كم مدة الفيديو؟',o:[['30','نصف دقيقة'],['60','دقيقة'],['120','دقيقتان'],['300','خمس دقائق']]},
+ {k:'voice',t:'بأي صوت؟',o:[['mine','بصوتي'],['ai','صوت مولّد بالذكاء الاصطناعي'],['none','بلا تعليق، نص على الشاشة']]},
+ {k:'budget',t:'كم تريد أن تدفع؟',o:[['free','لا شيء، مجاني تمامًا'],['low','حتى 5 دولارات'],['more','أكثر إن لزم']]}
+];
+const SHAPE={lesson:'slides',software:'screen',ad:'ai',short:'camera',org:'footage',interview:'camera',event:'footage',story:'photos',greet:'photos',translate:'dub'};
+const FREE_ALT={ai:'photos',avatar:'slides'};
+const S={slides:['شرائح مع صوت','مجاني','Canva أو PowerPoint','Google Slides'],screen:['تسجيل الشاشة','مجاني','OBS Studio','مسجّل الشاشة في جهازك'],camera:['أمام الكاميرا','مجاني','كاميرا الهاتف','كاميرا الهاتف'],footage:['مونتاج لقطات','مجاني','CapCut','DaVinci Resolve'],photos:['صور متحركة','مجاني إلى سنتات','CapCut','CapCut'],ai:['مشاهد مولّدة بالذكاء الاصطناعي','الأغلى','Runway أو Kling','صور متحركة بـ CapCut'],avatar:['أفاتار (مقدّم رقمي)','الأغلى','HeyGen أو Synthesia','شرائح مع صوتك'],dub:['ترجمة أو دبلجة','مجاني إلى الأغلى','CapCut (ترجمة تلقائية)','YouTube Studio']};
+const VOICE={mine:['صوتك بالهاتف','مجاني','الهاتف + Audacity للتنظيف'],ai:['صوت مولّد','سنتات','ElevenLabs'],none:['بلا تعليق','مجاني','النص على الشاشة يحمل الرسالة']};
+let A={},i=0;
+const $=s=>document.querySelector(s);
+function draw(){
+  const box=$('#q');
+  if(i>=Q.length){return result();}
+  const q=Q[i];
+  $('#dots').innerHTML=Q.map((_,j)=>`<i class="${j<i?'d':j===i?'c':''}"></i>`).join('');
+  box.innerHTML=`<div class="qn">السؤال ${i+1} من ${Q.length}</div><h2>${q.t}</h2><div class="opts">${q.o.map(([v,l])=>`<button type="button" data-v="${v}" class="${A[q.k]===v?'on':''}">${l}</button>`).join('')}</div>${i?'<button type="button" class="back" id="back">→ السابق</button>':''}`;
+  box.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{A[q.k]=b.dataset.v;i++;draw();});
+  const bk=$('#back'); if(bk) bk.onclick=()=>{i--;draw();};
+}
+function result(){
+  $('#dots').innerHTML='';
+  let sh=SHAPE[A.purpose];
+  if(A.purpose==='short'&&A.budget!=='free'&&A.voice==='ai') sh='avatar';
+  let note='';
+  if(A.budget==='free'&&FREE_ALT[sh]){note=`الشكل الأمثل لغرضك «${S[sh][0]}»، لكنه مدفوع، فاخترنا لك بديلًا مجانيًا.`;sh=FREE_ALT[sh];}
+  const s=S[sh], d=+A.dur, words=Math.round(d*1.8);
+  const frame=A.where==='phone'?'عمودي 9:16':'أفقي 16:9';
+  const v=VOICE[A.voice];
+  let cost='مجاني'; if(sh==='avatar'){cost=`نحو ${(d*0.06).toFixed(1)} دولار للمقدّم (6 سنتات للثانية تقريبًا)`;} else if(sh==='ai'){cost='عدة دولارات (يُحسب بالثانية؛ جرّب لقطة قصيرة أولًا)';} else if(A.voice==='ai'){cost='سنتات (للصوت المولّد)';}
+  const lvl={new:'اشرح كل مصطلح، ومثالًا لكل فكرة',mid:'ادخل في الفكرة مباشرة',pro:'ركّز على الجديد والتفاصيل الدقيقة'}[A.level];
+  const rows=[['الشكل الأنسب',s[0]],['الإطار',frame],['عدد الكلمات',`نحو ${words} كلمة (${d} ثانية × 1.8)`],['الصوت',`${v[0]} · ${v[2]}`],['الأدوات',`${s[2]} · البديل المجاني: ${s[3]}`],['المونتاج','CapCut · البديل: DaVinci Resolve'],['التكلفة المتوقعة',cost],['أسلوب الشرح',lvl]];
+  window._card=rows.map(r=>r[0]+': '+r[1]).join('\n');
+  $('#q').innerHTML=`<div class="qn">بطاقتك جاهزة</div><h2>خطة الفيديو الخاص بك</h2>${note?`<p class="note">${note}</p>`:''}
+  <div class="res">${rows.map(r=>`<div><span>${r[0]}</span><b>${r[1]}</b></div>`).join('')}</div>
+  <h3>ثلاث خطوات تبدأ بها الآن</h3><ol class="steps"><li>اكتب رسالة واحدة يخرج بها المشاهد.</li><li>اكتب النص في نحو ${words} كلمة، بجمل قصيرة تُفهم من سماعها.</li><li>اصنع الصوت أولًا، ثم المشاهد على مدته.</li></ol>
+  <div class="row"><button type="button" class="btn p" id="copy">انسخ البطاقة</button><button type="button" class="btn s" id="again">ابدأ من جديد</button></div>
+  <div class="cta"><b>تريد الطريق كاملًا خطوة خطوة؟</b><span>حقيبة «مسار الفيديو» تأخذك من هذه البطاقة إلى فيديو منشور، في ست وحدات.</span><a class="btn p" href="p/video.html">تعرّف على الحقيبة</a></div>`;
+  $('#copy').onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(window._card);$('#copy').textContent='نُسخت ✓';};
+  $('#again').onclick=()=>{A={};i=0;draw();};
+}
+draw();
+"""
+
+def build_tool():
+    body = f"""<section class="hero" style="padding-bottom:10px"><div class="wrap"><span class="kicker">أداة مجانية · دقيقة واحدة</span><h1>بطاقة <em>الفيديو</em> في دقيقة</h1><p class="lead">ستة أسئلة بالضغط فقط، بلا كتابة. تخرج بخطة الفيديو الخاص بك: الشكل الأنسب، والإطار، وعدد الكلمات، والأدوات، والتكلفة.</p></div></section>
+<section class="sec" style="padding-top:10px"><div class="wrap"><div class="card tool"><div class="dots" id="dots"></div><div id="q"></div></div></div></section>
+<style>
+.tool{{max-width:760px;margin:0 auto;padding:26px}}
+.dots{{display:flex;gap:6px;justify-content:center;margin-bottom:14px}}.dots i{{width:34px;height:6px;border-radius:3px;background:var(--line)}}.dots i.d{{background:var(--teal)}}.dots i.c{{background:var(--gold)}}
+.qn{{text-align:center;color:var(--mute);font-weight:700;font-size:15px}}
+.tool h2{{text-align:center;font-size:30px;margin:6px 0 18px}}
+.opts{{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}}
+.opts button{{font:inherit;font-weight:700;font-size:18px;padding:16px;border-radius:16px;border:2px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;box-shadow:0 4px 0 var(--line);transition:transform .1s}}
+.opts button:hover,.opts button.on{{border-color:var(--teal);box-shadow:0 4px 0 var(--teal)}}
+.opts button:active{{transform:translateY(3px);box-shadow:0 1px 0 var(--teal)}}
+.back{{display:block;margin:16px auto 0;background:none;border:0;color:var(--mute);font:inherit;font-weight:700;cursor:pointer}}
+.res{{display:grid;gap:8px;margin:10px 0 18px}}.res div{{display:grid;grid-template-columns:150px 1fr;gap:12px;background:var(--soft);border-radius:12px;padding:10px 14px}}.res span{{color:var(--mute);font-weight:700}}.res b{{color:var(--navy)}}
+.tool h3{{font-size:21px;margin:10px 0 6px}}.steps{{margin:0 0 18px;padding-inline-start:22px}}
+.cta{{margin-top:20px;background:linear-gradient(150deg,#1B1B2F,#3a1010);color:#fff;border-radius:18px;padding:18px;display:grid;gap:8px}}.cta b{{font-size:20px}}.cta .btn{{justify-self:start}}
+@media (max-width:620px){{.opts{{grid-template-columns:1fr}}.res div{{grid-template-columns:1fr;gap:2px}}}}
+</style>
+<script>{TOOL_JS}</script>"""
+    write('tool.html', page('بطاقة الفيديو في دقيقة · أداة مجانية · مسار', body, '', 'tool'))
 
 def redirects():
     for old, new in (('video-package.html', 'p/video.html'), ('package.html', 'p/free.html'), ('home-new.html', './')):
@@ -195,4 +280,4 @@ if __name__ == '__main__':
     for p in PUB: build_public(p)
     build_workshop()
     for p in D['packages']: build_ws_pkg(p)
-    build_method(); redirects()
+    build_method(); build_tool(); redirects()

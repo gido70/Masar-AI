@@ -9,30 +9,122 @@
    "public": true,
    "price": "25 دولارًا",
    "hours": "نحو 4 ساعات",
-   "theme": {"a": "#D62828", "b": "#1B1B2F", "soft": "#FFF1F1"},
+   "theme": {
+    "a": "#D62828",
+    "b": "#1B1B2F",
+    "soft": "#FFF1F1"
+   },
    "cover": "resources/video/video-cover-1280x720.png",
    "promo": "kTOR6Gw9soA",
    "certificate": "resources/video/video-certificate-v2-sample.png",
    "trainer": "trainer/video.html",
-   "gets": ["6 فيديوهات قصيرة بمقدّم", "6 ملفات PDF بأوراق عمل قابلة للكتابة", "برومبت جاهز وأدوات مع بديل مجاني لكل مرحلة", "امتحان قصير لكل وحدة", "شهادة إتمام"],
+   "gets": [
+    "6 فيديوهات قصيرة بمقدّم",
+    "6 ملفات PDF بأوراق عمل قابلة للكتابة",
+    "برومبت جاهز وأدوات مع بديل مجاني لكل مرحلة",
+    "امتحان قصير لكل وحدة",
+    "شهادة إتمام"
+   ],
    "units": [
-    {"n": 1, "title": "البطاقة: لا تبدأ بالأداة", "q": "ماذا أريد، ولمن، وبأي شكل وتكلفة؟", "out": "بطاقة مكتملة والتكلفة المتوقعة", "video": "M_zTxhbFBaw", "pdf": "resources/video/video-unit-1.pdf", "quiz": "packages/video/unit-1/quiz.md", "text": "packages/video/unit-1/content-text.md"},
-    {"n": 2, "title": "النص: اكتب للأذن", "q": "ماذا سيُقال بالضبط، وماذا سيظهر معه؟", "out": "نص مشكول، ونسخة ترجمة، وجدول مشاهد", "video": "nsGMvLMbmIM", "pdf": "resources/video/video-unit-2.pdf", "quiz": "packages/video/unit-2/quiz.md", "text": "packages/video/unit-2/content-text.md"},
-    {"n": 3, "title": "الصوت: نصف الفيديو", "q": "بأي صوت، وكم مدته الفعلية؟", "out": "ملف صوت نهائي مقاسة مدته", "video": "YxWAXhfbDgs", "pdf": "resources/video/video-unit-3.pdf", "quiz": "packages/video/unit-3/quiz.md", "text": "packages/video/unit-3/content-text.md"},
-    {"n": 4, "title": "الصورة: عشرة أشكال", "q": "بأي شكل أصنع المشاهد؟", "out": "مشاهد جاهزة على مدة الصوت", "video": "RzWiZhn71ow", "pdf": "resources/video/video-unit-4.pdf", "quiz": "packages/video/unit-4/quiz.md", "text": "packages/video/unit-4/content-text.md"},
-    {"n": 5, "title": "المونتاج والإضافات", "q": "كيف أجمع كل شيء، وماذا أضيف؟", "out": "فيديو كامل مصدَّر ومجلد مشروع", "video": "7D9rI0Xa_Ec", "pdf": "resources/video/video-unit-5.pdf", "quiz": "packages/video/unit-5/quiz.md", "text": "packages/video/unit-5/content-text.md"},
-    {"n": 6, "title": "التحقق والنشر", "q": "هل هو جاهز، وكيف أنشره، وهل نجح؟", "out": "فيديو منشور وبطاقة قرار", "video": "ZCYZABoiwrI", "pdf": "resources/video/video-unit-6.pdf", "quiz": "packages/video/unit-6/quiz.md", "text": "packages/video/unit-6/content-text.md"}
+    {
+     "n": 1,
+     "title": "البطاقة: لا تبدأ بالأداة",
+     "q": "ماذا أريد، ولمن، وبأي شكل وتكلفة؟",
+     "out": "بطاقة مكتملة والتكلفة المتوقعة",
+     "video": "M_zTxhbFBaw",
+     "pdf": "resources/video/video-unit-1.pdf",
+     "quiz": "packages/video/unit-1/quiz.md",
+     "text": "packages/video/unit-1/content-text.md"
+    },
+    {
+     "n": 2,
+     "title": "النص: اكتب للأذن",
+     "q": "ماذا سيُقال بالضبط، وماذا سيظهر معه؟",
+     "out": "نص مشكول، ونسخة ترجمة، وجدول مشاهد",
+     "video": "nsGMvLMbmIM",
+     "pdf": "resources/video/video-unit-2.pdf",
+     "quiz": "packages/video/unit-2/quiz.md",
+     "text": "packages/video/unit-2/content-text.md"
+    },
+    {
+     "n": 3,
+     "title": "الصوت: نصف الفيديو",
+     "q": "بأي صوت، وكم مدته الفعلية؟",
+     "out": "ملف صوت نهائي مقاسة مدته",
+     "video": "YxWAXhfbDgs",
+     "pdf": "resources/video/video-unit-3.pdf",
+     "quiz": "packages/video/unit-3/quiz.md",
+     "text": "packages/video/unit-3/content-text.md"
+    },
+    {
+     "n": 4,
+     "title": "الصورة: عشرة أشكال",
+     "q": "بأي شكل أصنع المشاهد؟",
+     "out": "مشاهد جاهزة على مدة الصوت",
+     "video": "RzWiZhn71ow",
+     "pdf": "resources/video/video-unit-4.pdf",
+     "quiz": "packages/video/unit-4/quiz.md",
+     "text": "packages/video/unit-4/content-text.md"
+    },
+    {
+     "n": 5,
+     "title": "المونتاج والإضافات",
+     "q": "كيف أجمع كل شيء، وماذا أضيف؟",
+     "out": "فيديو كامل مصدَّر ومجلد مشروع",
+     "video": "7D9rI0Xa_Ec",
+     "pdf": "resources/video/video-unit-5.pdf",
+     "quiz": "packages/video/unit-5/quiz.md",
+     "text": "packages/video/unit-5/content-text.md"
+    },
+    {
+     "n": 6,
+     "title": "التحقق والنشر",
+     "q": "هل هو جاهز، وكيف أنشره، وهل نجح؟",
+     "out": "فيديو منشور وبطاقة قرار",
+     "video": "ZCYZABoiwrI",
+     "pdf": "resources/video/video-unit-6.pdf",
+     "quiz": "packages/video/unit-6/quiz.md",
+     "text": "packages/video/unit-6/content-text.md"
+    }
    ],
    "docs": [
-    {"title": "حالتها في المنهجية الأربع والعشرين", "md": "packages/video/method-24.md", "icon": "compass"},
-    {"title": "نص صفحة الهبوط", "md": "packages/video/promo/landing-page.md", "icon": "megaphone"},
-    {"title": "الرسائل المجدولة", "md": "packages/video/promo/scheduled-messages.md", "icon": "mail"},
-    {"title": "ملف التسليم لمحادثة Chrome (CPS)", "md": "docs/CPS-VIDEO-HANDOFF.md", "icon": "handshake"}
+    {
+     "title": "حالتها في المنهجية الأربع والعشرين",
+     "md": "packages/video/method-24.md",
+     "icon": "compass"
+    },
+    {
+     "title": "نص صفحة الهبوط",
+     "md": "packages/video/promo/landing-page.md",
+     "icon": "megaphone"
+    },
+    {
+     "title": "الرسائل المجدولة",
+     "md": "packages/video/promo/scheduled-messages.md",
+     "icon": "mail"
+    },
+    {
+     "title": "ملف التسليم لمحادثة Chrome (CPS)",
+     "md": "docs/CPS-VIDEO-HANDOFF.md",
+     "icon": "handshake"
+    }
    ],
    "files": [
-    {"title": "الغلاف 1280×720", "href": "resources/video/video-cover-1280x720.png", "icon": "image"},
-    {"title": "قالب الشهادة", "href": "resources/video/video-certificate-v2-2000x1414.png", "icon": "award"},
-    {"title": "الصورة المصغرة للإعلان", "href": "publish/youtube/promo.jpg", "icon": "image"}
+    {
+     "title": "الغلاف 1280×720",
+     "href": "resources/video/video-cover-1280x720.png",
+     "icon": "image"
+    },
+    {
+     "title": "قالب الشهادة",
+     "href": "resources/video/video-certificate-v2-2000x1414.png",
+     "icon": "award"
+    },
+    {
+     "title": "الصورة المصغرة للإعلان",
+     "href": "publish/youtube/promo.jpg",
+     "icon": "image"
+    }
    ]
   },
   {
@@ -44,29 +136,104 @@
    "public": true,
    "price": "مجانية",
    "hours": "خمس وحدات",
-   "theme": {"a": "#0E7C8C", "b": "#123E6B", "soft": "#E8F4F3"},
+   "theme": {
+    "a": "#0E7C8C",
+    "b": "#123E6B",
+    "soft": "#E8F4F3"
+   },
    "cover": "resources/masar-cover-1280x720.png",
    "promo": "gC5YEvSLleU",
    "certificate": "resources/masar-certificate-sample.png",
    "trainer": "trainer/free.html",
-   "gets": ["5 فيديوهات قصيرة", "5 ملفات PDF للوحدات", "كراسة أدوات العمل: 5 أوراق قابلة للكتابة", "اختبار قبلي وبعدي وامتحان لكل وحدة", "شهادة إتمام"],
-   "units": [
-    {"n": 1, "title": "تحديد المهمة والمُخرَج المطلوب", "q": "ماذا أريد بالضبط؟", "out": "مهمة واضحة في جملة واحدة", "video": "tQH-Tbk9yAE", "pdf": "resources/masar-unit-1.pdf"},
-    {"n": 2, "title": "الجمهور والقيود", "q": "لمن؟ وضمن أي حدود؟", "out": "بطاقة مهمة مكتملة", "video": "cM_ZPz3LA6A", "pdf": "resources/masar-unit-2.pdf"},
-    {"n": 3, "title": "مقارنة الأدوات واختيار الأنسب", "q": "بأي أداة؟", "out": "قرار مبني على مقارنة أداتين", "video": "GNb4eal_IkI", "pdf": "resources/masar-unit-3.pdf"},
-    {"n": 4, "title": "القرار وهندسة التعليمات (البرومبت)", "q": "كيف أطلب؟", "out": "تعليمات محكمة بستة عناصر", "video": "JadQo6LMuqQ", "pdf": "resources/masar-unit-4.pdf"},
-    {"n": 5, "title": "التنفيذ الصغير والتحقق والتحسين", "q": "هل نجحت؟", "out": "نتيجة مفحوصة ومعتمدة", "video": "Q8A5mD-S_Mw", "pdf": "resources/masar-unit-5.pdf"}
+   "gets": [
+    "5 فيديوهات قصيرة",
+    "5 ملفات PDF للوحدات",
+    "كراسة أدوات العمل: 5 أوراق قابلة للكتابة",
+    "اختبار قبلي وبعدي وامتحان لكل وحدة",
+    "شهادة إتمام"
    ],
-   "docs": [],
+   "units": [
+    {
+     "n": 1,
+     "title": "تحديد المهمة والمُخرَج المطلوب",
+     "q": "ماذا أريد بالضبط؟",
+     "out": "مهمة واضحة في جملة واحدة",
+     "video": "tQH-Tbk9yAE",
+     "pdf": "resources/masar-unit-1.pdf"
+    },
+    {
+     "n": 2,
+     "title": "الجمهور والقيود",
+     "q": "لمن؟ وضمن أي حدود؟",
+     "out": "بطاقة مهمة مكتملة",
+     "video": "cM_ZPz3LA6A",
+     "pdf": "resources/masar-unit-2.pdf"
+    },
+    {
+     "n": 3,
+     "title": "مقارنة الأدوات واختيار الأنسب",
+     "q": "بأي أداة؟",
+     "out": "قرار مبني على مقارنة أداتين",
+     "video": "GNb4eal_IkI",
+     "pdf": "resources/masar-unit-3.pdf"
+    },
+    {
+     "n": 4,
+     "title": "القرار وهندسة التعليمات (البرومبت)",
+     "q": "كيف أطلب؟",
+     "out": "تعليمات محكمة بستة عناصر",
+     "video": "JadQo6LMuqQ",
+     "pdf": "resources/masar-unit-4.pdf"
+    },
+    {
+     "n": 5,
+     "title": "التنفيذ الصغير والتحقق والتحسين",
+     "q": "هل نجحت؟",
+     "out": "نتيجة مفحوصة ومعتمدة",
+     "video": "Q8A5mD-S_Mw",
+     "pdf": "resources/masar-unit-5.pdf"
+    }
+   ],
+   "docs": [
+    {
+     "title": "حالتها في المنهجية الأربع والعشرين",
+     "md": "packages/free/method-24.md",
+     "icon": "compass"
+    }
+   ],
    "files": [
-    {"title": "كراسة أدوات العمل (قابلة للكتابة)", "href": "resources/masar-workbook.pdf", "icon": "file"},
-    {"title": "الوحدات الخمس في ملف واحد", "href": "resources/masar-units-1-5.pdf", "icon": "file"},
-    {"title": "نظرة عامة على الحقيبة", "href": "resources/masar-package-overview.pdf", "icon": "file"},
-    {"title": "الغلاف 1280×720", "href": "resources/masar-cover-1280x720.png", "icon": "image"},
-    {"title": "قالب الشهادة", "href": "resources/masar-certificate-blank-2000x1414.png", "icon": "award"},
-    {"title": "الاختبارات القبلي والبعدي (أرشيف)", "href": "training/", "icon": "quiz"}
+    {
+     "title": "كراسة أدوات العمل (قابلة للكتابة)",
+     "href": "resources/masar-workbook.pdf",
+     "icon": "file"
+    },
+    {
+     "title": "الوحدات الخمس في ملف واحد",
+     "href": "resources/masar-units-1-5.pdf",
+     "icon": "file"
+    },
+    {
+     "title": "نظرة عامة على الحقيبة",
+     "href": "resources/masar-package-overview.pdf",
+     "icon": "file"
+    },
+    {
+     "title": "الغلاف 1280×720",
+     "href": "resources/masar-cover-1280x720.png",
+     "icon": "image"
+    },
+    {
+     "title": "قالب الشهادة",
+     "href": "resources/masar-certificate-blank-2000x1414.png",
+     "icon": "award"
+    }
    ]
   }
  ],
- "soon": ["العروض التقديمية", "البحث العلمي", "الصوت والبودكاست", "الصور والتصميم"]
+ "soon": [
+  "العروض التقديمية",
+  "البحث العلمي",
+  "الصوت والبودكاست",
+  "الصور والتصميم"
+ ]
 }
