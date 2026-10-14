@@ -233,7 +233,7 @@ function pane(){
 }
 function quiz(u,box){
   const sel={};let sent=false;const N=u.quiz.length;
-  box.innerHTML='<div class="cp-quiz"><p class="cp-tip">اختر إجابة لكل سؤال، وغيّرها كما تشاء، ثم اضغط «أرسل الإجابات». بعد الإرسال تُثبَّت الإجابات وتظهر النتيجة.</p>'+u.quiz.map((q,qi)=>'<div class="qz" data-q="'+qi+'"><b>'+(qi+1)+'. '+q.q+'</b><div class="qo">'+q.o.map((o,oi)=>'<button type="button" data-i="'+oi+'">'+o+'</button>').join('')+'</div></div>').join('')+'<div class="qbar"><button type="button" class="btn p" id="qsend" disabled>أرسل الإجابات (0 من '+N+')</button><button type="button" class="btn s" id="qr" style="display:none">أعد المحاولة</button></div><p class="qs" id="qs"></p></div>';
+  box.innerHTML='<div class="cp-quiz"><p class="cp-tip">اختر إجابة لكل سؤال، وغيّرها كما تشاء، ثم اضغط «أرسل الإجابات». بعد الإرسال تُثبَّت الإجابات وتظهر النتيجة.</p>'+u.quiz.map((q,qi)=>'<div class="qz" data-q="'+qi+'"><b>'+(qi+1)+'. '+q.q+'</b><div class="qo">'+q.o.map((o,oi)=>'<button type="button" data-i="'+oi+'">'+o+'</button>').join('')+'</div></div>').join('')+'<div class="qbar"><button type="button" class="btn p" id="qsend" disabled>أرسل الإجابات (0 من '+N+')</button><button type="button" class="btn s" id="qr" style="display:none">أعد المحاولة</button><button type="button" class="btn s" id="qkey">🔑 مفتاح الإجابات</button></div><p class="qs" id="qs"></p></div>';
   const send=$('#qsend');
   box.querySelectorAll('.qz').forEach(z=>z.querySelectorAll('.qo button').forEach(b=>b.onclick=()=>{
     if(sent)return;const qi=+z.dataset.q;sel[qi]=+b.dataset.i;
@@ -248,6 +248,8 @@ function quiz(u,box){
     send.style.display='none';$('#qr').style.display='';$('#qs').scrollIntoView({behavior:'smooth',block:'center'});
   };
   $('#qr').onclick=()=>quiz(u,box);
+  $('#qkey').onclick=()=>{sent=true;u.quiz.forEach((q,qi)=>{const bs=box.querySelectorAll('.qz[data-q="'+qi+'"] .qo button');bs.forEach(x=>{x.classList.remove('sel','no');x.disabled=true;});bs[q.a].classList.add('ok');});
+    $('#qs').textContent='🔑 الإجابات الصحيحة مظللة بالأخضر (للمدرب).';send.style.display='none';$('#qkey').style.display='none';$('#qr').style.display='';};
 }
 document.querySelectorAll('.cp-list button').forEach((b,i)=>b.onclick=()=>{show(i);if(innerWidth<900)$('#cp-main').scrollIntoView({behavior:'smooth'});});
 document.querySelectorAll('.cp-tabs button').forEach(b=>b.onclick=()=>{tab=b.dataset.k;pane();});
