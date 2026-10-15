@@ -131,7 +131,8 @@
     "href": "https://claude.ai/artifact/8YET473CFgvRb9jwJFE7xH",
     "date": "15 أكتوبر 2026",
     "pdf": "lectures/video-lecture.pdf",
-    "notes": "lectures/video-lecture-notes.md"
+    "notes": "lectures/video-lecture-notes.md",
+    "pptx": "lectures/video-lecture.pptx"
    }
   },
   {
@@ -240,7 +241,8 @@
     "href": "https://claude.ai/artifact/AaQLZVotnyYftxuHwe27EJ",
     "date": "15 أكتوبر 2026",
     "pdf": "lectures/free-lecture.pdf",
-    "notes": "lectures/free-lecture-notes.md"
+    "notes": "lectures/free-lecture-notes.md",
+    "pptx": "lectures/free-lecture.pptx"
    }
   }
  ],
