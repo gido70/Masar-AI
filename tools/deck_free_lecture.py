@@ -153,11 +153,10 @@ add('built', P('كيف بنيتها',34,TEAL,extra='font-weight:700')+H('الم�
  +P('كل قرار في الحقيبة جواب عن سؤال في إحدى هذه الخطوات',36,NAVY,extra='font-weight:700'),
  'دقيقة 54 إلى 56. هذه الشريحة للزملاء المدربين خصوصًا. اذكر مثالين فقط: الخطوة 2 (العميل): «مستخدم عربي لديه مهمة عملية ولا يعرف الأداة الأنسب»، والخطوة 9 (مخطط المحتوى): «نتيجة تعلم لكل وحدة صاعدة على سلم بلوم». إن سُئلت عن الخطوات الناقصة: «أنجزنا المنتج كاملًا، والسوق خطته مكتوبة ويُقاس بعد النشر.»')
 
-add('ai', H('الذكاء الاصطناعي نفّذ وأنا قررت',72)+
- row(f'<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:{SOFT};border-radius:28px;padding:44px"><h3 style="font-size:42px;color:{TEAL};text-align:right">{r("ما نفّذته الأدوات")}</h3>'+''.join(P(x,32,INK) for x in ['صياغة مسودات المحتوى','التصميم والإخراج','الأسئلة الأولية'])+'</div>',
-     f'<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:{GSOFT};border-radius:28px;padding:44px"><h3 style="font-size:42px;color:{GOLD};text-align:right">{r("ما قررته أنا")}</h3>'+''.join(P(x,32,INK) for x in ['المنهج والجمهور والوعد','ما يبقى وما يُحذف','مراجعة كل وحدة قبل نشرها'])+'</div>'),
- 'دقيقة 56 إلى 58. توقّع سؤال الأصالة، فاسبقه بهذه الشريحة. الجملة الأساسية: «الأدوات تنفّذ بسرعة، لكنها لا تعرف جمهوري ولا تقرر عني. كل قرار في الحقيبة مسجل مع سببه.» هذه أيضًا رسالة الحقيبة نفسها: أنت تقرر، والأداة تنفذ.')
-
+import aiwork
+def K_(t,c=TEAL): return P(t,34,c,extra='font-weight:700')
+def P3(t,size=36,color=INK,extra=''): return P(t,size,color,extra=extra)
+aiwork.slides(add,H,P3,lambda a,b,n=None: card(a,b,n),row,K_,TEAL,INK,WHITE,MUTE,r,ids=('ai','aiteam'))
 add('lessons', H('ثلاث أفكار تأخذها اليوم',72)+
  row(card('المهمة قبل الأداة','صغها في جملة قبل أي بحث','1',accent=GOLD),card('أداتان فقط','قارن بخمسة معايير واختر','2',accent=GOLD),card('نسخة صغيرة أولًا','افحص ثم اعتمد','3',accent=GOLD)),
  'دقيقة 58 إلى 59. لخّص كل المحاضرة في ثلاث جمل. قل: «إن نسيتم كل شيء، تذكروا هذه الثلاث.»')

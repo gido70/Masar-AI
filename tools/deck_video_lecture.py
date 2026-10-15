@@ -136,6 +136,8 @@ add('proof', K('الدليل')+H('كيف صنعنا فيديوهات الحقي�
  +row(f'<img src="{U1}" alt="الصورة المصغرة للوحدة الأولى" style="width:520px;height:292px;object-fit:cover;border-radius:18px">',f'<img src="{U4}" alt="الصورة المصغرة للوحدة الرابعة" style="width:520px;height:292px;object-fit:cover;border-radius:18px">'),
  'دقيقة 45 إلى 49. هنا للزوار والزملاء معًا. لا تذكر أرقام التكلفة. قل: «كل فيديو من الستة مرّ بهذه الخطوات الخمس. والمسودة الصامتة هي سر التوفير: نراجع الفيديو كاملًا قبل أي دفع.» إن سألك زميل عن الأدوات: الصوت مولّد بنموذج متعدد اللغات، والمقدّم أداة تحريك صورة بالصوت.')
 
+import aiwork
+aiwork.slides(add,H,P,lambda a,b,n=None: card(a,b,n),row,K,RED,INK,WHITE,MUTE,r)
 add('lesson', f'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:28px">'
  +K('أغلى درس تعلّمناه','#F2B8B8')+H('جرّب صغيرًا أولًا',104,WHITE)
  +P('جرّبنا طريقة جديدة كاملة دون مقطع تجريبي فدفعنا ثمن الخطأ',42,'#F3F1ED')
