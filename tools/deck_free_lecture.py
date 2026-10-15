@@ -4,17 +4,24 @@ os.makedirs(ROOT+'/slides',exist_ok=True)
 NAVY='#123E6B';CREAM='#FFFCF3';TEAL='#0E7C8C';GOLD='#C9971F';INK='#1F2A37';SOFT='#E8F4F3';MUTE='#5A6472';GSOFT='#FBF4E2';WHITE='#FFFEFA'
 F="font-family:Amiri, 'Times New Roman', serif"
 LOGO='/_blob/ab91417303310682270b17380d93d48f';COVER='/_blob/22ee2c7911fedbb3c1b6cc2a5469d523';WB='/_blob/140a5c2b4d5cb0e8561dfd7781880f48';U1='/_blob/c3b4cef2d69679e70002a50b01cf6780';VC='/_blob/d5adfb9bb219ad5f1e0a76a85f15636d'
-def r(t): return '\u202b'+t+'\u202c'
+RLM='\u200f'
+def r(t):
+    import re
+    t=re.sub(r'([:·–…،؛؟!.«»\[\]()\-])', RLM+r'\1'+RLM, t)
+    return RLM+t+RLM
 def P(t,size=36,color=INK,w=None,extra=''): return f'<p style="font-size:{size}px;line-height:1.5;color:{color};text-align:right;{extra}">{r(t)}</p>'
 def H(t,size=72,color=NAVY,tag='h2',extra=''): return f'<{tag} style="font-size:{size}px;font-weight:700;line-height:1.2;color:{color};text-align:right;{extra}">{r(t)}</{tag}>'
 def foot(n,bg=CREAM): 
     c=MUTE if bg!=NAVY else '#C9D6E3'
-    return f'<p style="position:absolute;left:128px;bottom:56px;width:1664px;font-size:24px;color:{c};text-align:right">{r("مسار الذكاء الاصطناعي · من التشتت إلى قرار  ·  "+str(n))}</p>'
+    return f'<p style="position:absolute;right:128px;bottom:56px;width:900px;font-size:24px;color:{c};text-align:right">{r("مسار الذكاء الاصطناعي")}</p><p style="position:absolute;left:128px;bottom:56px;width:200px;font-size:24px;color:{c};text-align:left">{n}</p>'
 def sec(id,body,notes,bg=CREAM,color=INK,layout='display:flex;flex-direction:column;gap:40px',pad='128px 128px 160px'):
     return f'<section id="{id}" data-transition="fade" style="background:{bg};color:{color};{F};padding:{pad};{layout}">{body}<aside>{notes}</aside></section>'
 def card(title,text,num=None,bg=WHITE,accent=TEAL):
     n=f'<p style="font-size:30px;font-weight:700;color:{accent};text-align:right">{r(num)}</p>' if num else ''
     return f'<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:{bg};padding:36px;border:1px solid #E6DFC8;border-radius:24px">{n}<h3 style="font-size:40px;font-weight:700;color:{NAVY};text-align:right">{r(title)}</h3><p style="font-size:30px;line-height:1.5;color:{MUTE};text-align:right">{r(text)}</p></div>'
+def grid(cells,cols,gap=20):
+    rows=[cells[i:i+cols] for i in range(0,len(cells),cols)]
+    return f'<div style="display:flex;flex-direction:column;gap:{gap}px">'+''.join(f'<div style="display:flex;flex-direction:row-reverse;gap:{gap}px">{"".join(r_)}</div>' for r_ in rows)+'</div>'
 def row(*cells,gap=28): return f'<div style="display:flex;flex-direction:row-reverse;gap:{gap}px">{"".join(cells)}</div>'
 S=[]
 n=0
@@ -25,12 +32,12 @@ def add(id,body,notes,**k):
 
 add('cover',
  f'<img src="{COVER}" alt="غلاف الحقيبة" style="position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover">'
- f'<div style="position:absolute;left:0;top:0;width:1920px;height:1080px;background:rgba(255,252,243,0.78)"></div>'
+ f'<div style="position:absolute;left:0;top:0;width:1920px;height:1080px;background:#FFFCF3;opacity:0.82"></div>'
  f'<div style="position:absolute;right:128px;top:300px;width:1300px;display:flex;flex-direction:column;gap:24px">'
- +P('محاضرة تعريفية · حقيبة مجانية',34,TEAL,extra='font-weight:700')
+ +P('محاضرة تعريفية لحقيبة مجانية',34,TEAL,extra='font-weight:700')
  +H('مسار الذكاء الاصطناعي',110,NAVY,'h1')
  +H('من التشتت إلى قرار وتنفيذ ذكي',64,TEAL)
- +P('[اسمك] · [التاريخ]',34,MUTE)+'</div>',
+ +P('[اسمك]',34,MUTE)+P('[التاريخ]',30,MUTE)+'</div>',
  'دقيقة 0 إلى 1. رحّب بالحضور بالاسم إن أمكن. قل: «في الساعة القادمة سنتعلم معًا طريقة تختصر عليكم ساعات من التجريب مع أدوات الذكاء الاصطناعي، وسنطبّقها على مهام حقيقية منكم في الدردشة.» قبل البدء: تأكد أن الصوت يعمل، وأن الشاشة مشاركة بوضع العرض الكامل.',
  bg=CREAM,layout='display:flex;flex-direction:column',pad='128px')
 
@@ -43,7 +50,7 @@ add('poll', H('سؤال سريع قبل أن نبدأ',72)+
 
 add('problem',
  f'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:28px">'
- +H('يفتح أدوات كثيرة…',96,'#FFFFFF','h2')+H('يجرّب الأكثر شهرة…',96,'#FFFFFF','h2')+H('ويضيع وقته.',96,'#F2C94C','h2')+'</div>',
+ +H('يفتح أدوات كثيرة',96,'#FFFFFF','h2')+H('ويجرّب الأكثر شهرة',96,'#FFFFFF','h2')+H('ويضيع وقته',96,'#F2C94C','h2')+'</div>',
  'دقيقة 4 إلى 7. هذه الشريحة قصة يعرفها كل الحضور. احكها بصيغة شخصية: «أردت مرة أن أصنع عرضًا تقديميًا، ففتحت خمس أدوات، وبعد ساعتين لم يكن عندي شيء.» اسأل: «من مرّ بهذا؟ اكتب نعم في الدردشة.» انتظر ثواني، ثم انتقل.',
  bg=NAVY,color='#FFFFFF')
 
@@ -72,8 +79,8 @@ add('try', f'<div style="flex:1;display:flex;flex-direction:column;justify-conte
  bg=TEAL,color='#FFFFFF')
 
 four=[('الفعل المطلوب','ماذا تريد أن تنفذ؟','كتابة، تلخيص، تحليل'),('الموضوع','ما الذي ستعمل عليه؟','محاضرة، تقرير، فكرة'),('المخرج النهائي','بأي شكل تستلمه؟','عرض، جدول، فيديو'),('معيار النجاح','ما صفاته؟','بالعربية، مختصر، 5 دقائق')]
-add('u1', H('الوحدة 1 · العناصر الأربعة للمهمة الواضحة',64)+
- f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">'+''.join(card(a,f'{b} · {c}') for a,b,c in four)+'</div>'
+add('u1', P('الوحدة 1',34,TEAL,extra='font-weight:700')+H('العناصر الأربعة للمهمة الواضحة',64)+
+ grid([card(a,b+' مثل '+c) for a,b,c in four],2,24)
  +P('«أريد أن أنفذ [الفعل] حول [الموضوع] في صورة [المخرج] لجمهور [الجمهور] مع الالتزام بـ[القيود]»',32,NAVY,extra=f'background:{GSOFT};border-radius:20px;padding:24px 32px'),
  'دقيقة 17 إلى 22. اشرح العناصر الأربعة، ثم طبّقها مباشرة على مهمة الحاضر التي اخترتها: ما الفعل؟ ما الموضوع؟ ما المخرج؟ ما معيار النجاح؟ اكتب الإجابات في الدردشة بنفسك أو قلها. ثم اقرأ قالب الصياغة في الأسفل. سؤال متوقع: «الفيديو فعل؟» الجواب: لا، الفيديو مخرج، والفعل أشرح أو أعلن أو أوثّق.')
 
@@ -83,31 +90,31 @@ add('example', H('قبل وبعد',72)+
  +P('الثاني يحدد الأدوات المناسبة قبل أن تبحث عنها',40,NAVY,extra='font-weight:700'),
  'دقيقة 22 إلى 25. اقرأ الطلبين. اسأل الحضور: «أيهما يعطيك نتيجة أسرع؟» ثم أعد صياغة مهمة الحاضر بالطريقة نفسها، واقرأها كاملة. هذه لحظة «آها»: يرون مهمتهم تتحول من غامضة إلى واضحة.')
 
-add('u2', H('الوحدة 2 · الجمهور والقيود',64)+
+add('u2', P('الوحدة 2',34,TEAL,extra='font-weight:700')+H('الجمهور والقيود',64)+
  row(f'<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:{WHITE};border:1px solid #E6DFC8;border-radius:24px;padding:40px"><h3 style="font-size:40px;color:{NAVY};text-align:right">{r("أربعة أسئلة عن الجمهور")}</h3>'+''.join(P(x,32,INK) for x in ['من سيستخدم الناتج؟','ماذا يعرف مسبقًا؟','أين سيشاهده؟','ما اللغة والأسلوب المناسبان؟'])+'</div>',
      f'<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:{GSOFT};border-radius:24px;padding:40px"><h3 style="font-size:40px;color:{NAVY};text-align:right">{r("القيود معايير، لا عوائق")}</h3>'+''.join(P(x,32,INK) for x in ['الوقت والميزانية','الخصوصية والبيانات','الجهاز والاتصال','طول المحتوى وصيغته'])+'</div>')
  +P('كل قيد يحذف أدوات لا تناسبك، فتختصر المقارنة قبل أن تبدأ',38,TEAL,extra='font-weight:700'),
  'دقيقة 25 إلى 29. طبّق على مهمة الحاضر: من الجمهور؟ هاتف أم حاسوب؟ مجاني أم مدفوع؟ ثم قل الجملة المهمة: «مجاني تمامًا يحذف الأدوات المدفوعة، وهاتف فقط يحذف برامج الحاسوب.» القيود تختصر الطريق.')
 
 crit=['جودة النتيجة','سهولة الاستخدام','دعم اللغة العربية','الكلفة','الخصوصية']
-rows=''.join(f'<tr><td style="text-align:right">{r(c)}</td><td style="text-align:center">{r("·")}</td><td style="text-align:center">{r("·")}</td></tr>' for c in crit)
-add('u3', H('الوحدة 3 · أداتان فقط، خمسة معايير',64)+
- row(f'<table style="flex:1.3;font-size:32px;color:{INK}"><tr><th style="width:50%;text-align:right">{r("المعيار")}</th><th style="width:25%;text-align:center">{r("الأداة أ")}</th><th style="width:25%;text-align:center">{r("الأداة ب")}</th></tr>{rows}</table>',
+rows=''.join(f'<tr><td style="text-align:center"> </td><td style="text-align:center"> </td><td style="text-align:right">{r(c)}</td></tr>' for c in crit)
+add('u3', P('الوحدة 3',34,TEAL,extra='font-weight:700')+H('أداتان فقط وخمسة معايير',64)+
+ row(f'<table style="flex:1.3;font-size:32px;color:{INK}"><tr><th style="width:25%;text-align:center">{r("الأداة ب")}</th><th style="width:25%;text-align:center">{r("الأداة أ")}</th><th style="width:50%;text-align:right">{r("المعيار")}</th></tr>{rows}</table>',
      f'<div style="flex:1;display:flex;flex-direction:column;gap:20px;justify-content:center">'+P('درجة من 1 إلى 5 لكل معيار',36,INK)+P('نقطة قوة ونقطة ضعف لكل أداة',36,INK)+P('اختر الأعلى توافقًا مع قيودك، لا الأشهر',40,TEAL,extra='font-weight:700')+'</div>'),
  'دقيقة 29 إلى 34. اشرح لماذا أداتان لا عشر: «المقارنة بين عشر أدوات تعيد التشتت الذي جئنا لعلاجه. واثنتان تكفيان لقرار مبرَّر، والثانية بديل جاهز إن فشلت الأولى.» إن أمكن، قارن أداتين لمهمة الحاضر شفهيًا على معيارين فقط. سؤال متوقع: «كيف أعرف الأداتين؟» الجواب: من القيود، أو اسأل مساعدًا ذكيًا بعد أن تعطيه بطاقتك.')
 
 six=[('الدور','مدرب، كاتب، محلل'),('المهمة','اكتب، لخّص، قارن'),('السياق','الموضوع والجمهور والغرض'),('القيود','اللغة والمدة والأسلوب'),('صيغة المخرج','نص، جدول، عرض'),('معيار الجودة','دقيق، واضح، موثوق')]
-add('u4', H('الوحدة 4 · ستة عناصر للبرومبت',64)+
- f'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">'+''.join(card(a,b,str(i+1)) for i,(a,b) in enumerate(six))+'</div>'
+add('u4', P('الوحدة 4',34,TEAL,extra='font-weight:700')+H('ستة عناصر للبرومبت',64)+
+ grid([card(a,b,str(i+1)) for i,(a,b) in enumerate(six)],3)
  +P('البرومبت لا يُكتب من فراغ: هو بطاقة مهمتك مكتوبة بلغة الأداة',38,NAVY,extra='font-weight:700'),
  'دقيقة 34 إلى 40. لاحظ مع الحضور: أربعة من العناصر الستة (المهمة والسياق والقيود والمخرج) جاءت من الوحدتين 1 و2. ثم اكتب برومبت مهمة الحاضر كاملًا في الدردشة بالعناصر الستة. هذه أقوى لحظة تطبيقية: يرون كيف تحولت جملة غامضة إلى تعليمات كاملة في 20 دقيقة.')
 
-add('u5', H('الوحدة 5 · لا تعتمد أول نتيجة',64)+
+add('u5', P('الوحدة 5',34,TEAL,extra='font-weight:700')+H('لا تعتمد أول نتيجة',64)+
  row(card('نفّذ نسخة صغيرة','جزء من المهمة أولًا','1',accent=GOLD),card('افحصها','الدقة، والاكتمال، وملاءمة الجمهور، والقيود','2',accent=GOLD),card('عدّل التعليمات','العلاج غالبًا في التعليمات لا في الأداة','3',accent=GOLD),card('اعتمد','بعد أن تجيب «نعم» عن قائمة التحقق','4',accent=GOLD))
  +P('أي «لا» في قائمة التحقق تعني: لا تعتمد بعد',38,TEAL,extra='font-weight:700'),
  'دقيقة 40 إلى 44. القاعدة الأخيرة. قصة تدعمها (من حقيبة الفيديو، دون أرقام مالية): «حين خالفنا هذه القاعدة مرة وجربنا طريقة جديدة كاملة دون نسخة صغيرة، ضاع جهد ومال. ومنذ ذلك اليوم: أي طريقة جديدة تبدأ صغيرة.» هذا يبني ثقة: قاعدة جربناها بأنفسنا.')
 
-add('workbook', H('الكراسة: مهمة واحدة، خمس أوراق، مشروع منجز',60)+
+add('workbook', P('الكراسة',34,TEAL,extra='font-weight:700')+H('مهمة واحدة وخمس أوراق ومشروع منجز',60)+
  row(f'<img src="{WB}" alt="صفحة من كراسة أدوات العمل" style="width:620px;height:620px;object-fit:contain;background:#ECE7DA;border-radius:20px">',
      f'<div style="flex:1;display:flex;flex-direction:column;gap:18px;justify-content:center">'+''.join(P(x,34,INK) for x in ['١ بطاقة المهمة','٢ مقارنة أداتين','٣ قالب البرومبت','٤ سجل التنفيذ والتحقق','٥ ملخص المشروع الختامي'])+P('تُكتب على الحاسوب أو الهاتف مباشرة',34,TEAL,extra='font-weight:700')+'</div>'),
  'دقيقة 44 إلى 48. الفكرة: المتدرب لا يحل خمسة تمارين متفرقة، بل يبني مشروعًا واحدًا على مهمة من عمله. في النهاية، الورقة الخامسة وثيقة مشروع كاملة: المهمة، والأداة، والتعليمات، والمخرج، وطريقة التحقق. اذكر أن الكراسة صارت تُكتب على الحاسوب بخانات جاهزة.')
@@ -117,13 +124,13 @@ add('inside', H('ماذا تجد داخل الحقيبة؟',72)+
      f'<div style="flex:1;display:flex;flex-direction:column;gap:18px;justify-content:center">'+''.join(P(x,34,INK) for x in ['فيديو قصير لكل وحدة','ملف PDF مصمم للقراءة','امتحان قصير يفتح الوحدة التالية','اختبار قبلي وبعدي','شهادة إتمام'])+'</div>'),
  'دقيقة 48 إلى 52. هنا الجولة في الحقيبة: شغّل فيديو الجولة المسجل مسبقًا (3 دقائق)، أو ادخل منصة CPS بحساب متدرب إن كان الإنترنت مستقرًا. اعرض وحدة واحدة: الفيديو، ثم الملف، ثم الامتحان. احتفظ بالفيديو المسجل جاهزًا احتياطيًا.')
 
-axes=[('الفكرة والعميل','1–6'),('المنتج','7–9'),('التسويق','10–14'),('الإيراد','15–17'),('البناء والجودة','18–21'),('الإطلاق والاستدامة','22–24')]
-add('built', H('كيف بنيتها: المنهجية الأربع والعشرون',64)+
- f'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">'+''.join(card(a,f'الخطوات {b}') for a,b in axes)+'</div>'
+axes=[('الفكرة والعميل','من الخطوة 1 إلى 6'),('المنتج','من الخطوة 7 إلى 9'),('التسويق','من الخطوة 10 إلى 14'),('الإيراد','من الخطوة 15 إلى 17'),('البناء والجودة','من الخطوة 18 إلى 21'),('الإطلاق والاستدامة','من الخطوة 22 إلى 24')]
+add('built', P('كيف بنيتها',34,TEAL,extra='font-weight:700')+H('المنهجية الأربع والعشرون',64)+
+ grid([card(a,b) for a,b in axes],3)
  +P('من مخيم صناعة المنتج الرقمي: كل قرار في الحقيبة جواب عن سؤال في إحدى هذه الخطوات',34,NAVY),
  'دقيقة 52 إلى 56. هذه الشريحة للزملاء المدربين خصوصًا. اذكر مثالين فقط: الخطوة 2 (العميل): «مستخدم عربي لديه مهمة عملية ولا يعرف الأداة الأنسب»، والخطوة 9 (مخطط المحتوى): «نتيجة تعلم لكل وحدة صاعدة على سلم بلوم». إن سُئلت عن الخطوات الناقصة: «أنجزنا المنتج كاملًا، والسوق خطته مكتوبة ويُقاس بعد النشر.»')
 
-add('ai', H('الذكاء الاصطناعي نفّذ، وأنا قررت',72)+
+add('ai', H('الذكاء الاصطناعي نفّذ وأنا قررت',72)+
  row(f'<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:{SOFT};border-radius:28px;padding:44px"><h3 style="font-size:42px;color:{TEAL};text-align:right">{r("ما نفّذته الأدوات")}</h3>'+''.join(P(x,32,INK) for x in ['صياغة مسودات المحتوى','التصميم والإخراج','الأسئلة الأولية'])+'</div>',
      f'<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:{GSOFT};border-radius:28px;padding:44px"><h3 style="font-size:42px;color:{GOLD};text-align:right">{r("ما قررته أنا")}</h3>'+''.join(P(x,32,INK) for x in ['المنهج والجمهور والوعد','ما يبقى وما يُحذف','مراجعة كل وحدة قبل نشرها'])+'</div>'),
  'دقيقة 56 إلى 58. توقّع سؤال الأصالة، فاسبقه بهذه الشريحة. الجملة الأساسية: «الأدوات تنفّذ بسرعة، لكنها لا تعرف جمهوري ولا تقرر عني. كل قرار في الحقيبة مسجل مع سببه.» هذه أيضًا رسالة الحقيبة نفسها: أنت تقرر، والأداة تنفذ.')
@@ -138,7 +145,7 @@ add('next', H('بعد هذه الحقيبة',72)+
  'دقيقة 59 إلى 60. تمهيد قصير جدًا للحقيبة الثانية، دون بيع مباشر هنا: «لمن يريد التخصص، هذه الحقيبة الثانية، وستكون لها محاضرة خاصة.» إن لم تكن مفعّلة بعد، قل: «قريبًا».')
 
 add('cta', f'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:28px">'
- +H('ابدأ الآن، مجانًا',100,'#FFFFFF','h2')
+ +H('ابدأ الآن مجانًا',100,'#FFFFFF','h2')
  +P('[رابط التسجيل في الحقيبة على منصة CPS]',44,'#F2C94C',extra='font-weight:700')
  +P('الرابط في الدردشة الآن',36,'#E8F4F3')
  +P('[ضع رمز QR هنا]',30,'#C9D6E3')+'</div>',
@@ -154,7 +161,7 @@ add('qa', f'<div style="flex:1;display:flex;flex-direction:column;justify-conten
 
 order=[i for i,_ in S]
 for i,h in S: open(f'{ROOT}/slides/{i}.html','w',encoding='utf-8').write(h)
-deck={"v":4,"createdOnFiles":{"v":1,"at":datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')},"lists":"css","title":"محاضرة: مسار الذكاء الاصطناعي — من التشتت إلى قرار","order":order,
+deck={"v":4,"createdOnFiles":{"v":1,"at":datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')},"lists":"css","title":"محاضرة: مسار الذكاء الاصطناعي — من التشتت إلى قرار","order":order,
  "sections":{"s1":{"description":"الافتتاح والمشكلة","start":"cover"},"s2":{"description":"الطريق وتطبيقه حيًا","start":"package"},"s3":{"description":"داخل الحقيبة وكيف بُنيت","start":"workbook"},"s4":{"description":"الختام والدعوة والأسئلة","start":"lessons"}},
  "cover":"cover","faces":{"amiri":{"family":"Amiri","href":"https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap"}},"designSystems":[]}
 json.dump(deck,open(f'{ROOT}/deck.json','w',encoding='utf-8'),ensure_ascii=False,indent=1)
