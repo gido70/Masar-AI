@@ -125,7 +125,12 @@
      "href": "publish/youtube/promo.jpg",
      "icon": "image"
     }
-   ]
+   ],
+   "lecture": {
+    "title": "عرض محاضرة حقيبة الفيديو (21 شريحة، 75 دقيقة، زوم)",
+    "href": "https://claude.ai/artifact/8YET473CFgvRb9jwJFE7xH",
+    "date": "15 أكتوبر 2026"
+   }
   },
   {
    "slug": "free",
@@ -227,7 +232,12 @@
      "href": "resources/masar-certificate-blank-2000x1414.png",
      "icon": "award"
     }
-   ]
+   ],
+   "lecture": {
+    "title": "عرض محاضرة الحقيبة المجانية (21 شريحة، 75 دقيقة، زوم)",
+    "href": "https://claude.ai/artifact/AaQLZVotnyYftxuHwe27EJ",
+    "date": "15 أكتوبر 2026"
+   }
   }
  ],
  "soon": [
