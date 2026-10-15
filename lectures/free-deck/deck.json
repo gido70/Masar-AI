@@ -1,0 +1,61 @@
+{
+ "v": 4,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-15T07:15:17Z"
+ },
+ "lists": "css",
+ "title": "محاضرة: مسار الذكاء الاصطناعي — من التشتت إلى قرار",
+ "order": [
+  "cover",
+  "poll",
+  "problem",
+  "cause",
+  "package",
+  "path",
+  "try",
+  "u1",
+  "example",
+  "u2",
+  "u3",
+  "u4",
+  "u5",
+  "workbook",
+  "inside",
+  "m24what",
+  "m24list",
+  "built",
+  "ai",
+  "aiteam",
+  "lessons",
+  "next",
+  "cta",
+  "qa"
+ ],
+ "sections": {
+  "s1": {
+   "description": "الافتتاح والمشكلة",
+   "start": "cover"
+  },
+  "s2": {
+   "description": "الطريق وتطبيقه حيًا",
+   "start": "package"
+  },
+  "s3": {
+   "description": "داخل الحقيبة وكيف بُنيت",
+   "start": "workbook"
+  },
+  "s4": {
+   "description": "الختام والدعوة والأسئلة",
+   "start": "lessons"
+  }
+ },
+ "cover": "cover",
+ "faces": {
+  "amiri": {
+   "family": "Amiri",
+   "href": "https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap"
+  }
+ },
+ "designSystems": []
+}

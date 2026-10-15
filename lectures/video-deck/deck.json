@@ -1,0 +1,62 @@
+{
+ "v": 4,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-15T07:15:07Z"
+ },
+ "lists": "css",
+ "title": "محاضرة: مسار الفيديو — من بطاقة إلى فيديو منشور",
+ "order": [
+  "cover",
+  "watch",
+  "reveal",
+  "poll",
+  "problem",
+  "principles",
+  "path",
+  "try",
+  "u1",
+  "u2",
+  "u3",
+  "u4",
+  "u4b",
+  "real",
+  "purpose",
+  "u5",
+  "u6",
+  "proof",
+  "aiway",
+  "aiteam",
+  "lesson",
+  "inside",
+  "offer",
+  "cta",
+  "qa"
+ ],
+ "sections": {
+  "s1": {
+   "description": "الإعلان والمشكلة",
+   "start": "cover"
+  },
+  "s2": {
+   "description": "الطريق في ست وحدات وتطبيقه حيًا",
+   "start": "principles"
+  },
+  "s3": {
+   "description": "الدليل وداخل الحقيبة",
+   "start": "proof"
+  },
+  "s4": {
+   "description": "العرض والدعوة والأسئلة",
+   "start": "offer"
+  }
+ },
+ "cover": "cover",
+ "faces": {
+  "amiri": {
+   "family": "Amiri",
+   "href": "https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap"
+  }
+ },
+ "designSystems": []
+}

@@ -127,9 +127,11 @@
     }
    ],
    "lecture": {
-    "title": "عرض محاضرة حقيبة الفيديو (21 شريحة، 75 دقيقة، زوم)",
+    "title": "عرض محاضرة حقيبة الفيديو (25 شريحة، 75 دقيقة، زوم)",
     "href": "https://claude.ai/artifact/8YET473CFgvRb9jwJFE7xH",
-    "date": "15 أكتوبر 2026"
+    "date": "15 أكتوبر 2026",
+    "pdf": "lectures/video-lecture.pdf",
+    "notes": "lectures/video-lecture-notes.md"
    }
   },
   {
@@ -234,9 +236,11 @@
     }
    ],
    "lecture": {
-    "title": "عرض محاضرة الحقيبة المجانية (21 شريحة، 75 دقيقة، زوم)",
+    "title": "عرض محاضرة الحقيبة المجانية (24 شريحة، 75 دقيقة، زوم)",
     "href": "https://claude.ai/artifact/AaQLZVotnyYftxuHwe27EJ",
-    "date": "15 أكتوبر 2026"
+    "date": "15 أكتوبر 2026",
+    "pdf": "lectures/free-lecture.pdf",
+    "notes": "lectures/free-lecture-notes.md"
    }
   }
  ],

@@ -180,7 +180,13 @@ def build_public(p):
 def build_workshop():
     pk_tiles = ''.join(f'<a class="card tile" href="workshop/{p["slug"]}.html"{theme(p)}>{ic("box","red" if p["slug"]=="video" else "")}<div><h3>{E(p["name"])}</h3><p>الوحدات بفيديوهاتها وملفاتها وأسئلتها، والتسويق، وملفات CPS، وحالتها في المنهجية.</p></div></a>' for p in D['packages'])
     tr_tiles = ''.join(f'<a class="card tile" href="{p["trainer"]}">{ic("book","gold")}<div><h3>مسار المدرّب: {E(p["name"])}</h3><p>المفاهيم، والأسباب، وكيف بُنيت، وأسئلة الناس وأجوبتك.</p></div></a>' for p in D['packages'] if p.get('trainer'))
-    lec_tiles = ''.join(f'<a class="card tile" href="{p["lecture"]["href"]}" data-out target="_blank" rel="noopener"{theme(p)}>{ic("play","red" if p["slug"]=="video" else "navy")}<div><h3>محاضرة {E(p["name"])}</h3><p>{E(p["lecture"]["title"])} · {E(p["lecture"]["date"])}</p></div></a>' for p in D['packages'] if p.get('lecture'))
+    lec_tiles = ''
+    for p in D['packages']:
+        L = p.get('lecture')
+        if not L: continue
+        nslug = f'doc-{p["slug"]}-lecture-notes'
+        write(f'workshop/{nslug}.html', page(f'ملاحظات محاضرة {p["name"]}', f'<div class="wrap"><p class="crumb"><a href="../workshop.html">الورشة</a> ← ملاحظات المتحدث</p><div class="doc" style="margin-top:12px">{md(L["notes"])}</div></div>', '../', 'workshop', '\n<meta name="robots" content="noindex">'))
+        lec_tiles += f'<div class="card"{theme(p)}><div class="tile">{ic("play","red" if p["slug"]=="video" else "navy")}<div><h3>محاضرة {E(p["name"])}</h3><p>{E(L["title"])} · {E(L["date"])}</p></div></div><div class="acts" style="margin-top:14px"><a href="{L["href"]}" data-out target="_blank" rel="noopener">▶ العرض التفاعلي</a><a href="{L["pdf"]}" data-title="محاضرة {E(p["name"])}">📄 نسخة PDF</a><a href="workshop/{nslug}.html">📝 ملاحظات المتحدث</a></div></div>'
     body = f'''<section class="hero"><div class="wrap"><span class="kicker">لصاحب المشروع</span><h1>الورشة</h1><p class="lead">كل ما تحتاجه لإدارة الحقائب وبنائها والتأهل لتقديمها، مصنفًا في ثلاثة أقسام.</p></div></section>
 <section class="sec"><div class="wrap"><div class="sec-h"><div><h2>الحقائب</h2><p>ملف كامل لكل حقيبة.</p></div></div><div class="grid g2">{pk_tiles}</div></div></section>
 <section class="sec"><div class="wrap"><div class="sec-h"><div><h2>التأهيل للتدريب</h2></div></div><div class="grid g2">{tr_tiles}</div></div></section>
