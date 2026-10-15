@@ -38,13 +38,14 @@ def add(id,body,notes,**k):
     S.append((id,sec(id,b,notes,**k)))
 
 add('cover',
- f'<img src="{COVER}" alt="غلاف الحقيبة" style="position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover">'
- f'<div style="position:absolute;left:0;top:0;width:1920px;height:1080px;background:#FFFCF3;opacity:0.82"></div>'
- f'<div style="position:absolute;right:128px;top:300px;width:1300px;display:flex;flex-direction:column;gap:24px">'
+ f'<div style="flex:1;display:flex;flex-direction:row-reverse;gap:56px;align-items:center">'
+ f'<div style="flex:1;display:flex;flex-direction:column;gap:20px">'
  +P('محاضرة تعريفية لحقيبة مجانية',34,TEAL,extra='font-weight:700')
- +H('مسار الذكاء الاصطناعي',110,NAVY,'h1')
- +H('من التشتت إلى قرار وتنفيذ ذكي',64,TEAL)
- +P('[اسمك]',34,MUTE)+P('[التاريخ]',30,MUTE)+'</div>',
+ +H('مسار الذكاء الاصطناعي',96,NAVY,'h1')
+ +H('من التشتت إلى قرار وتنفيذ ذكي',56,TEAL)
+ +P('[اسمك]',34,MUTE)+P('[التاريخ]',30,MUTE)+'</div>'
+ f'<img src="{COVER}" alt="غلاف الحقيبة" style="width:780px;height:439px;object-fit:cover;border-radius:24px;border:2px solid #E6DFC8">'
+ '</div>',
  'دقيقة 0 إلى 1. رحّب بالحضور بالاسم إن أمكن. قل: «في الساعة القادمة سنتعلم معًا طريقة تختصر عليكم ساعات من التجريب مع أدوات الذكاء الاصطناعي، وسنطبّقها على مهام حقيقية منكم في الدردشة.» قبل البدء: تأكد أن الصوت يعمل، وأن الشاشة مشاركة بوضع العرض الكامل.',
  bg=CREAM,layout='display:flex;flex-direction:column',pad='128px')
 

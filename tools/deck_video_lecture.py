@@ -38,12 +38,13 @@ def add(id,body,notes,bg=BG,color=INK,layout='display:flex;flex-direction:column
     S.append((id,f'<section id="{id}" data-transition="fade" style="background:{bg};color:{color};{F};padding:{pad};{layout}">{b}<aside>{notes}</aside></section>'))
 
 add('cover',
- f'<img src="{VC}" alt="غلاف حقيبة مسار الفيديو" style="position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover">'
- f'<div style="position:absolute;left:0;top:0;width:1920px;height:1080px;background:{BG};opacity:0.9"></div>'
- f'<div style="position:absolute;right:128px;top:280px;width:1400px;display:flex;flex-direction:column;gap:22px">'
- +K('محاضرة تعريفية')+H('مسار الفيديو',120,INK,'h1')+H('أنتج الفيديو الخاص بك بالذكاء الاصطناعي',60,RED)
- +P('[اسمك]',34,MUTE)+P('[التاريخ]',30,MUTE)+'</div>',
- 'دقيقة 0 إلى 1. رحّب بالحضور. قل: «قبل أن أعرّفكم بنفسي أو بالحقيبة، أريدكم أن تشاهدوا 49 ثانية.» ثم انتقل مباشرة إلى الإعلان.',
+ f'<div style="flex:1;display:flex;flex-direction:row-reverse;gap:56px;align-items:center">'
+ f'<div style="flex:1;display:flex;flex-direction:column;gap:20px">'
+ +K('محاضرة تعريفية')+H('مسار الفيديو',112,INK,'h1')+H('أنتج الفيديو الخاص بك بالذكاء الاصطناعي',52,RED)
+ +P('[اسمك]',34,MUTE)+P('[التاريخ]',30,MUTE)+'</div>'
+ f'<img src="{VC}" alt="غلاف حقيبة مسار الفيديو" style="width:820px;height:461px;object-fit:cover;border-radius:24px;border:2px solid #E6E1D8">'
+ '</div>',
+ 'دقيقة 0 إلى 1. رحّب بالحضور. قل: «قبل أن أعرّفكم بنفسي أو بالحقيبة، أريدكم أن تشاهدوا تسعًا وأربعين ثانية.» ثم انتقل مباشرة إلى الإعلان.',
  layout='display:flex;flex-direction:column',pad='128px')
 
 add('watch', f'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:32px">'

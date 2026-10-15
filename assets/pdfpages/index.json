@@ -104,13 +104,13 @@
  "lectures/free-lecture.pdf": {
   "dir": "assets/pdfpages/lectures_free-lecture",
   "pages": 24,
-  "sig": "1464636",
+  "sig": "1466167",
   "ratio": 0.5625
  },
  "lectures/video-lecture.pdf": {
   "dir": "assets/pdfpages/lectures_video-lecture",
   "pages": 25,
-  "sig": "1435367",
+  "sig": "1437067",
   "ratio": 0.5625
  }
 }
