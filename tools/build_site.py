@@ -193,6 +193,8 @@ def build_workshop():
 <section class="sec"><div class="wrap"><div class="sec-h"><div><h2>المحاضرات والعروض</h2><p>عروض المحاضرات بملاحظات المتحدث، تفتح في Claude ويمكن تنزيلها PowerPoint.</p></div></div><div class="grid g2">{lec_tiles}</div></div></section>
 <section class="sec"><div class="wrap"><div class="sec-h"><div><h2>إدارة المشروع</h2></div></div><div class="grid g3">
 <a class="card tile" href="masar-index.html">{ic("list","navy")}<div><h3>الإندكس</h3><p>نقطة العمل الآن، والقرارات، والسجل، والنواقص.</p></div></a>
+<a class="card tile" href="workshop/free-workbook.html">{ic("file","navy")}<div><h3>الكراسة التفاعلية: المجانية</h3><p>بأمثلة جاهزة ونموذج محلول، للشرح في المحاضرة.</p></div></a>
+<a class="card tile" href="workshop/video-workbook.html">{ic("file","red")}<div><h3>أوراق العمل التفاعلية: الفيديو</h3><p>ست أوراق بأمثلة جاهزة ونموذج محلول.</p></div></a>
 <a class="card tile" href="training/">{ic("quiz","gold")}<div><h3>الاختبارات</h3><p>كل اختبارات الحقائب في مكان واحد، مع مفتاح الإجابات.</p></div></a>
 <a class="card tile" href="workshop/method.html">{ic("compass")}<div><h3>المنهجية الأربع والعشرون</h3><p>الخطوات التي تمر بها كل حقيبة، من العميل إلى الاستدامة.</p></div></a>
 <a class="card tile" href="workshop/doc-rebuild.html">{ic("map","gold")}<div><h3>خارطة إعادة البناء</h3><p>مراحل إعادة بناء المنصة وقواعدها.</p></div></a>
@@ -280,7 +282,7 @@ def build_ws_pkg(p):
         slug = f'doc-{p["slug"]}-{i+1}'
         write(f'workshop/{slug}.html', page(f'{d["title"]} · {p["name"]}', f'<div class="wrap"><p class="crumb"><a href="../workshop.html">الورشة</a> ← <a href="{p["slug"]}.html">{E(p["name"])}</a></p><div class="doc" style="margin-top:12px">{md(d["md"])}</div></div>', pre, 'workshop', '\n<meta name="robots" content="noindex">'))
         docs += f'<a class="card tile" href="{slug}.html">{ic(d["icon"],"sm")}<div><h3 style="font-size:21px">{E(d["title"])}</h3></div></a>'
-    tabs = '<a href="#player">الوحدات</a>' + ('<a href="#gates">مسار المنهجية</a>' if gates_html(p) else '') + ('<a href="#docs">التسويق وCPS</a>' if docs else '') + '<a href="#files">الملفات</a><a href="#cert">الشهادة</a>' + (f'<a href="{pre}{p["trainer"]}">مسار المدرّب</a>' if p.get('trainer') else '') + f'<a href="{pre}p/{p["slug"]}.html">الصفحة العامة</a>'
+    tabs = '<a href="#player">الوحدات</a>' + (f'<a href="{p["slug"]}-workbook.html">✍️ الكراسة التفاعلية</a>' if os.path.exists(os.path.join(ROOT, f'data/workbooks/{p["slug"]}.json')) else '') + ('<a href="#gates">مسار المنهجية</a>' if gates_html(p) else '') + ('<a href="#docs">التسويق وCPS</a>' if docs else '') + '<a href="#files">الملفات</a><a href="#cert">الشهادة</a>' + (f'<a href="{pre}{p["trainer"]}">مسار المدرّب</a>' if p.get('trainer') else '') + f'<a href="{pre}p/{p["slug"]}.html">الصفحة العامة</a>'
     has_quiz = any(u.get('quiz') for u in p['units']); has_text = any(u.get('text') for u in p['units'])
     body = f"""<div{theme(p)}>
 <section class="phero" style="padding:26px 0 18px"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← {E(p["name"])}</p>
@@ -463,6 +465,81 @@ def build_tests():
 <script>{TESTS_JS}</script>"""
     write('training/index.html', page('الاختبارات · الورشة', body, '../', 'workshop', '\n<meta name="robots" content="noindex">'))
 
+# ---------- الكراسات التفاعلية ----------
+WB_JS = r"""
+const W=JSON.parse(document.getElementById('wbdata').textContent);
+const KEY='masar-wb-'+W.slug;let S={};try{S=JSON.parse(localStorage.getItem(KEY)||'{}');}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}};
+const esc=t=>String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function field(f){
+  const lab=f.label?'<label class="wl">'+esc(f.label)+(f.hint?' <span>'+esc(f.hint)+'</span>':'')+'</label>':'';
+  const exb=(f.ex&&f.ex.length)?'<button type="button" class="exb" data-ex="'+f.id+'">💡 أمثلة</button><div class="exs" id="ex-'+f.id+'" hidden>'+f.ex.map((e,i)=>'<button type="button" data-f="'+f.id+'" data-i="'+i+'">'+esc(e)+'</button>').join('')+'</div>':'';
+  if(f.type==='text') return '<div class="wf">'+lab+'<div class="wr"><input type="text" data-id="'+f.id+'" value="'+esc(S[f.id])+'">'+exb+'</div></div>';
+  if(f.type==='area') return '<div class="wf">'+lab+'<div class="wr"><textarea rows="3" data-id="'+f.id+'">'+esc(S[f.id])+'</textarea>'+exb+'</div></div>';
+  if(f.type==='choice'||f.type==='multi'){const v=S[f.id]||(f.type==='multi'?[]:'');return '<div class="wf">'+lab+'<div class="chs" data-id="'+f.id+'" data-multi="'+(f.type==='multi'?1:0)+'">'+f.options.map(o=>'<button type="button" class="'+((f.type==='multi'?v.includes(o):v===o)?'on':'')+'">'+esc(o)+'</button>').join('')+'</div></div>';}
+  if(f.type==='checks'){const v=S[f.id]||[];return '<div class="wf"><div class="cks" data-id="'+f.id+'">'+f.options.map((o,i)=>'<label><input type="checkbox" data-i="'+i+'" '+(v.includes(i)?'checked':'')+'> '+esc(o)+'</label>').join('')+'</div></div>';}
+  if(f.type==='yesno'){const v=S[f.id]||[];return '<div class="wf"><table class="wt"><tr><th>السؤال</th><th>نعم</th><th>لا</th></tr>'+f.rows.map((r,i)=>'<tr><td>'+esc(r)+'</td>'+['نعم','لا'].map(a=>'<td><input type="radio" name="'+f.id+i+'" data-id="'+f.id+'" data-i="'+i+'" value="'+a+'" '+(v[i]===a?'checked':'')+'></td>').join('')+'</tr>').join('')+'</table></div>';}
+  if(f.type==='table'){const v=S[f.id]||[];return '<div class="wf"><div class="tw"><table class="wt"><tr><th>#</th>'+f.cols.map(c=>'<th>'+esc(c)+'</th>').join('')+'</tr>'+Array.from({length:f.rows},(_,r)=>'<tr><td>'+(r+1)+'</td>'+f.cols.map((c,ci)=>'<td><textarea rows="2" data-id="'+f.id+'" data-r="'+r+'" data-c="'+ci+'">'+esc((v[r]||[])[ci])+'</textarea></td>').join('')+'</tr>').join('')+'</table></div></div>';}
+  if(f.type==='score'){const v=S[f.id]||{imp:[],a:[],b:[]};const opt=(k,r,vals)=>'<select data-id="'+f.id+'" data-k="'+k+'" data-r="'+r+'"><option value=""></option>'+vals.map(x=>'<option '+(String(v[k][r])===String(x)?'selected':'')+'>'+x+'</option>').join('')+'</select>';
+    const sum=k=>v[k].reduce((a,b)=>a+(+b||0),0);
+    return '<div class="wf"><div class="tw"><table class="wt"><tr><th>المعيار</th><th>الأهمية</th><th>درجة (أ)</th><th>درجة (ب)</th></tr>'+f.rows.map((r,i)=>'<tr><td>'+esc(r)+'</td><td>'+opt('imp',i,['عالية','متوسطة'])+'</td><td>'+opt('a',i,[1,2,3,4,5])+'</td><td>'+opt('b',i,[1,2,3,4,5])+'</td></tr>').join('')+'<tr class="sum"><td>المجموع</td><td></td><td>'+sum('a')+'</td><td>'+sum('b')+'</td></tr></table></div></div>';}
+  return '';
+}
+function render(){
+  document.getElementById('wb').innerHTML=W.sheets.map(sh=>'<section class="card ws" id="s'+sh.n+'"><span class="kicker">'+esc(sh.unit)+'</span><h2>الورقة '+sh.n+' · '+esc(sh.title)+'</h2>'+sh.groups.map(g=>'<div class="wg"><h3>'+esc(g.title)+'</h3>'+g.fields.map(field).join('')+'</div>').join('')+'</section>').join('');
+  bind();
+}
+function bind(){
+  const root=document.getElementById('wb');
+  root.querySelectorAll('input[type=text][data-id],textarea[data-id]:not([data-r])').forEach(el=>el.oninput=()=>{S[el.dataset.id]=el.value;save();});
+  root.querySelectorAll('textarea[data-r]').forEach(el=>el.oninput=()=>{const id=el.dataset.id;S[id]=S[id]||[];S[id][+el.dataset.r]=S[id][+el.dataset.r]||[];S[id][+el.dataset.r][+el.dataset.c]=el.value;save();});
+  root.querySelectorAll('.chs').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{const id=g.dataset.id,val=b.textContent;if(g.dataset.multi==='1'){S[id]=S[id]||[];const k=S[id].indexOf(val);k<0?S[id].push(val):S[id].splice(k,1);b.classList.toggle('on');}else{S[id]=val;g.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));}save();}));
+  root.querySelectorAll('.cks input').forEach(c=>c.onchange=()=>{const id=c.closest('.cks').dataset.id;S[id]=[...c.closest('.cks').querySelectorAll('input')].map((x,i)=>x.checked?i:-1).filter(i=>i>=0);save();});
+  root.querySelectorAll('input[type=radio]').forEach(r=>r.onchange=()=>{const id=r.dataset.id;S[id]=S[id]||[];S[id][+r.dataset.i]=r.value;save();});
+  root.querySelectorAll('select[data-id]').forEach(sl=>sl.onchange=()=>{const id=sl.dataset.id;S[id]=S[id]||{imp:[],a:[],b:[]};S[id][sl.dataset.k][+sl.dataset.r]=sl.value;save();render();});
+  root.querySelectorAll('.exb').forEach(b=>b.onclick=()=>{const box=document.getElementById('ex-'+b.dataset.ex);box.hidden=!box.hidden;});
+  root.querySelectorAll('.exs button').forEach(b=>b.onclick=()=>{const f=findF(b.dataset.f);S[f.id]=f.ex[+b.dataset.i];save();render();});
+}
+function findF(id){for(const sh of W.sheets)for(const g of sh.groups)for(const f of g.fields)if(f.id===id)return f;}
+document.getElementById('wsample').onclick=()=>{S={};for(const sh of W.sheets)for(const g of sh.groups)for(const f of g.fields)if(f.sample!==undefined)S[f.id]=JSON.parse(JSON.stringify(f.sample));save();render();};
+document.getElementById('wclear').onclick=()=>{if(confirm('امسح كل ما في الكراسة؟')){S={};save();render();}};
+document.getElementById('wprint').onclick=()=>window.print();
+render();
+"""
+
+def build_workbooks():
+    tiles = ''
+    for slug in ('free', 'video'):
+        path = os.path.join(ROOT, f'data/workbooks/{slug}.json')
+        if not os.path.exists(path): continue
+        W = json.load(open(path, encoding='utf-8'))
+        p = next(x for x in D['packages'] if x['slug'] == slug)
+        nav = ''.join(f'<a href="#s{sh["n"]}">{sh["n"]}. {E(sh["title"])}</a>' for sh in W['sheets'])
+        body = f"""<div{theme(p)}>
+<section class="phero" style="padding:26px 0 16px"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← <a href="{slug}.html">{E(p["name"])}</a> ← {E(W["title"])}</p>
+<span class="kicker">{E(p["name"])}</span><h1 style="font-size:40px">{E(W["title"])}</h1>
+<p class="lead" style="margin:6px 0 0">اكتب في الخانات، أو اضغط «💡 أمثلة» بجانب أي خانة لتختار إجابة جاهزة. والنموذج المحلول يعبئ الكراسة كلها بمثال واحد متكامل: <b>{E(W["example"])}</b>.</p>
+<div class="row" style="margin-top:14px"><button type="button" class="btn p" id="wsample">📋 النموذج المحلول</button><button type="button" class="btn s" id="wclear">↺ امسح وابدأ من جديد</button><button type="button" class="btn s" id="wprint">🖨 اطبع أو احفظ PDF</button></div></div></section>
+<div class="tabs"><div class="wrap">{nav}</div></div>
+<section class="sec"><div class="wrap" id="wb" style="display:grid;grid-template-columns:minmax(0,1fr);gap:20px"></div></section></div>
+<style>
+.ws{{min-width:0}}.ws h2{{font-size:30px;margin:4px 0 10px}}.wg{{margin-top:14px}}.wg h3{{font-size:23px;color:var(--a);margin:0 0 8px}}
+.wf{{margin:0 0 12px}}.wl{{display:block;font-weight:700;color:var(--b);margin-bottom:4px}}.wl span{{font-weight:400;color:var(--mute);font-size:16px}}
+.wr{{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start}}.wr input,.wr textarea{{flex:1}}
+.ws input[type=text],.ws textarea,.ws select{{font:inherit;font-size:19px;width:100%;border:1.5px solid var(--line);border-radius:12px;padding:8px 12px;background:#FFFEFA;text-align:right;direction:rtl}}
+.ws textarea{{resize:vertical}}
+.exb{{font:inherit;font-size:16px;font-weight:700;white-space:nowrap;border:0;border-radius:10px;padding:8px 12px;background:var(--soft);color:var(--b);cursor:pointer}}
+.exs{{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px;flex-basis:100%}}.exs[hidden]{{display:none}}.exs button{{font:inherit;font-size:16px;border:1.5px dashed var(--a);border-radius:10px;padding:4px 10px;background:#fff;cursor:pointer;color:var(--b)}}
+.chs{{display:flex;flex-wrap:wrap;gap:8px}}.chs button{{font:inherit;font-size:18px;border:2px solid var(--line);border-radius:12px;padding:6px 14px;background:#fff;cursor:pointer}}.chs button.on{{border-color:var(--a);background:var(--soft);font-weight:700}}
+.cks{{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}}.cks label{{display:flex;gap:8px;align-items:center}}
+.tw{{overflow-x:auto}}.wt{{width:100%;border-collapse:collapse}}.wt th,.wt td{{border:1px solid var(--line);padding:6px;text-align:right;vertical-align:top}}.wt th{{background:var(--b);color:#fff;font-size:17px}}.wt td textarea{{font-size:17px;min-width:140px}}.wt tr.sum td{{font-weight:700;background:var(--soft)}}
+@media (max-width:620px){{.cks{{grid-template-columns:1fr}}.wr{{flex-direction:column}}}}
+@media print{{.bar,.tabs,.row,.crumb,.exb,.exs,footer.ft{{display:none!important}}.ws{{break-inside:avoid;box-shadow:none}}body{{background:#fff}}}}
+</style>
+<script type="application/json" id="wbdata">{json.dumps(W, ensure_ascii=False).replace('</', '<\\/')}</script>
+<script>{WB_JS}</script>"""
+        write(f'workshop/{slug}-workbook.html', page(f'{W["title"]} · {p["name"]}', body, '../', 'workshop', '\n<meta name="robots" content="noindex">'))
+
 def redirects():
     for old, new in (('video-package.html', 'p/video.html'), ('package.html', 'p/free.html'), ('home-new.html', './')):
         write(old, f'<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url={new}"><link rel="canonical" href="{new}"><a href="{new}">انتقل</a>')
@@ -474,7 +551,7 @@ if __name__ == '__main__':
     for p in PUB: build_public(p)
     build_workshop()
     for p in D['packages']: build_ws_pkg(p)
-    build_method(); build_tool(); build_tests(); redirects()
+    build_method(); build_tool(); build_tests(); build_workbooks(); redirects()
     for p in PUB:
         st = load_status(p)
         if st and not gate_report(st)[2][3]: print(f'⚠ {p["name"]}: معروضة للجمهور ولم تعبر البوابة ج (الإطلاق) بعد')
