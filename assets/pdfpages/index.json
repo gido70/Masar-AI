@@ -112,5 +112,17 @@
   "pages": 25,
   "sig": "1437067",
   "ratio": 0.5625
+ },
+ "resources/free-workbook-solved.pdf": {
+  "dir": "assets/pdfpages/free-workbook-solved",
+  "pages": 9,
+  "sig": "225478",
+  "ratio": 1.4144
+ },
+ "resources/video-workbook-solved.pdf": {
+  "dir": "assets/pdfpages/video-workbook-solved",
+  "pages": 8,
+  "sig": "299683",
+  "ratio": 1.4144
  }
 }

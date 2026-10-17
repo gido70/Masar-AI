@@ -111,6 +111,11 @@
    ],
    "files": [
     {
+     "title": "نموذج محلول للكراسة (PDF)",
+     "href": "resources/video-workbook-solved.pdf",
+     "icon": "file"
+    },
+    {
      "title": "الغلاف 1280×720",
      "href": "resources/video/video-cover-1280x720.png",
      "icon": "image"
@@ -215,6 +220,11 @@
     }
    ],
    "files": [
+    {
+     "title": "نموذج محلول للكراسة (PDF)",
+     "href": "resources/free-workbook-solved.pdf",
+     "icon": "file"
+    },
     {
      "title": "كراسة أدوات العمل (قابلة للكتابة)",
      "href": "resources/masar-workbook.pdf",

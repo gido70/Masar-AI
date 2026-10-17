@@ -473,13 +473,16 @@ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}};
 const esc=t=>String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function field(f){
   const lab=f.label?'<label class="wl">'+esc(f.label)+(f.hint?' <span>'+esc(f.hint)+'</span>':'')+'</label>':'';
-  const exb=(f.ex&&f.ex.length)?'<button type="button" class="exb" data-ex="'+f.id+'">💡 أمثلة</button><div class="exs" id="ex-'+f.id+'" hidden>'+f.ex.map((e,i)=>'<button type="button" data-f="'+f.id+'" data-i="'+i+'">'+esc(e)+'</button>').join('')+'</div>':'';
+  let exl=(f.ex&&f.ex.length)?f.ex.slice():[];if(!exl.length&&typeof f.sample==='string'&&!f.from)exl=[f.sample];f._ex=exl;
+  let exb=exl.length?'<button type="button" class="exb" data-ex="'+f.id+'">💡 أمثلة</button><div class="exs" id="ex-'+f.id+'" hidden>'+exl.map((e,i)=>'<button type="button" data-f="'+f.id+'" data-i="'+i+'">'+esc(e)+'</button>').join('')+'</div>':'';
+  if(f.compose) exb='<button type="button" class="exb" data-compose="'+f.id+'">✨ ركّب من إجاباتك</button>'+exb;
+  if(f.from) exb='<button type="button" class="exb" data-from="'+f.id+'">↩ انقل من الأوراق السابقة</button>'+exb;
   if(f.type==='text') return '<div class="wf">'+lab+'<div class="wr"><input type="text" data-id="'+f.id+'" value="'+esc(S[f.id])+'">'+exb+'</div></div>';
   if(f.type==='area') return '<div class="wf">'+lab+'<div class="wr"><textarea rows="3" data-id="'+f.id+'">'+esc(S[f.id])+'</textarea>'+exb+'</div></div>';
   if(f.type==='choice'||f.type==='multi'){const v=S[f.id]||(f.type==='multi'?[]:'');return '<div class="wf">'+lab+'<div class="chs" data-id="'+f.id+'" data-multi="'+(f.type==='multi'?1:0)+'">'+f.options.map(o=>'<button type="button" class="'+((f.type==='multi'?v.includes(o):v===o)?'on':'')+'">'+esc(o)+'</button>').join('')+'</div></div>';}
   if(f.type==='checks'){const v=S[f.id]||[];return '<div class="wf"><div class="cks" data-id="'+f.id+'">'+f.options.map((o,i)=>'<label><input type="checkbox" data-i="'+i+'" '+(v.includes(i)?'checked':'')+'> '+esc(o)+'</label>').join('')+'</div></div>';}
   if(f.type==='yesno'){const v=S[f.id]||[];return '<div class="wf"><table class="wt"><tr><th>السؤال</th><th>نعم</th><th>لا</th></tr>'+f.rows.map((r,i)=>'<tr><td>'+esc(r)+'</td>'+['نعم','لا'].map(a=>'<td><input type="radio" name="'+f.id+i+'" data-id="'+f.id+'" data-i="'+i+'" value="'+a+'" '+(v[i]===a?'checked':'')+'></td>').join('')+'</tr>').join('')+'</table></div>';}
-  if(f.type==='table'){const v=S[f.id]||[];return '<div class="wf"><div class="tw"><table class="wt"><tr><th>#</th>'+f.cols.map(c=>'<th>'+esc(c)+'</th>').join('')+'</tr>'+Array.from({length:f.rows},(_,r)=>'<tr><td>'+(r+1)+'</td>'+f.cols.map((c,ci)=>'<td><textarea rows="2" data-id="'+f.id+'" data-r="'+r+'" data-c="'+ci+'">'+esc((v[r]||[])[ci])+'</textarea></td>').join('')+'</tr>').join('')+'</table></div></div>';}
+  if(f.type==='table'){const v=S[f.id]||[];return '<div class="wf">'+(f.sample?'<button type="button" class="exb" data-tsample="'+f.id+'" style="margin-bottom:6px">💡 املأ بالمثال</button>':'')+'<div class="tw"><table class="wt"><tr><th>#</th>'+f.cols.map(c=>'<th>'+esc(c)+'</th>').join('')+'</tr>'+Array.from({length:f.rows},(_,r)=>'<tr><td>'+(r+1)+'</td>'+f.cols.map((c,ci)=>'<td><textarea rows="2" data-id="'+f.id+'" data-r="'+r+'" data-c="'+ci+'">'+esc((v[r]||[])[ci])+'</textarea></td>').join('')+'</tr>').join('')+'</table></div></div>';}
   if(f.type==='score'){const v=S[f.id]||{imp:[],a:[],b:[]};const opt=(k,r,vals)=>'<select data-id="'+f.id+'" data-k="'+k+'" data-r="'+r+'"><option value=""></option>'+vals.map(x=>'<option '+(String(v[k][r])===String(x)?'selected':'')+'>'+x+'</option>').join('')+'</select>';
     const sum=k=>v[k].reduce((a,b)=>a+(+b||0),0);
     return '<div class="wf"><div class="tw"><table class="wt"><tr><th>المعيار</th><th>الأهمية</th><th>درجة (أ)</th><th>درجة (ب)</th></tr>'+f.rows.map((r,i)=>'<tr><td>'+esc(r)+'</td><td>'+opt('imp',i,['عالية','متوسطة'])+'</td><td>'+opt('a',i,[1,2,3,4,5])+'</td><td>'+opt('b',i,[1,2,3,4,5])+'</td></tr>').join('')+'<tr class="sum"><td>المجموع</td><td></td><td>'+sum('a')+'</td><td>'+sum('b')+'</td></tr></table></div></div>';}
@@ -498,7 +501,10 @@ function bind(){
   root.querySelectorAll('input[type=radio]').forEach(r=>r.onchange=()=>{const id=r.dataset.id;S[id]=S[id]||[];S[id][+r.dataset.i]=r.value;save();});
   root.querySelectorAll('select[data-id]').forEach(sl=>sl.onchange=()=>{const id=sl.dataset.id;S[id]=S[id]||{imp:[],a:[],b:[]};S[id][sl.dataset.k][+sl.dataset.r]=sl.value;save();render();});
   root.querySelectorAll('.exb').forEach(b=>b.onclick=()=>{const box=document.getElementById('ex-'+b.dataset.ex);box.hidden=!box.hidden;});
-  root.querySelectorAll('.exs button').forEach(b=>b.onclick=()=>{const f=findF(b.dataset.f);S[f.id]=f.ex[+b.dataset.i];save();render();});
+  root.querySelectorAll('.exs button').forEach(b=>b.onclick=()=>{const f=findF(b.dataset.f);S[f.id]=f._ex[+b.dataset.i];save();render();});
+  root.querySelectorAll('[data-tsample]').forEach(b=>b.onclick=()=>{const f=findF(b.dataset.tsample);S[f.id]=JSON.parse(JSON.stringify(f.sample));save();render();});
+  root.querySelectorAll('[data-from]').forEach(b=>b.onclick=()=>{const f=findF(b.dataset.from);const v=S[f.from];if(v){S[f.id]=v;save();render();}else alert('عبّئ الخانة الأصلية في الورقة السابقة أولًا');});
+  root.querySelectorAll('[data-compose]').forEach(b=>b.onclick=()=>{const f=findF(b.dataset.compose);const v=k=>(S[k]||'').trim();let t=f.compose.replace(/\{(\w+)\}/g,(m,k)=>v(k)||'('+k+')');S[f.id]=t;save();render();});
 }
 function findF(id){for(const sh of W.sheets)for(const g of sh.groups)for(const f of g.fields)if(f.id===id)return f;}
 document.getElementById('wsample').onclick=()=>{S={};for(const sh of W.sheets)for(const g of sh.groups)for(const f of g.fields)if(f.sample!==undefined)S[f.id]=JSON.parse(JSON.stringify(f.sample));save();render();};
