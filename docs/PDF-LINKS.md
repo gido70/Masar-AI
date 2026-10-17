@@ -18,3 +18,5 @@
 | resources/video/video-unit-6.pdf | https://gido70.github.io/lib-6931de/269b68efa6df.pdf |
 | resources/free-workbook-solved.pdf | https://gido70.github.io/lib-6931de/2866e01294f1.pdf |
 | resources/video-workbook-solved.pdf | https://gido70.github.io/lib-6931de/5f77edb3c02e.pdf |
+
+> **استثناء مقصود (17 أكتوبر 2026):** نسختا CPS من الكراسة المجانية (25cead20b5a0.pdf) وملف الوحدة 1 للفيديو (408dfa6753be.pdf) فيهما زر «افتح النموذج المحلول» في الصفحة الأولى، لأن CPS لا يقبل ملفًا ثانيًا ولا يجعل روابط النص قابلة للضغط. أما نسختا منصة مسار في resources/ فتبقيان بلا الزر (فيها الكراسة التفاعلية والنموذج المحلول منفصلين). لإعادة صنع نسخة CPS: tools/add_solved_button.py.
