@@ -16,5 +16,5 @@
 | resources/video/video-unit-4.pdf | https://gido70.github.io/lib-6931de/5b8f266f68b8.pdf |
 | resources/video/video-unit-5.pdf | https://gido70.github.io/lib-6931de/e38155ff9266.pdf |
 | resources/video/video-unit-6.pdf | https://gido70.github.io/lib-6931de/269b68efa6df.pdf |
-| resources/free-workbook-solved.pdf | https://gido70.github.io/lib-6931de/2866e01294f1.pdf | (يرفعه صاحب المشروع من المتصفح)
-| resources/video-workbook-solved.pdf | https://gido70.github.io/lib-6931de/5f77edb3c02e.pdf | (يرفعه صاحب المشروع من المتصفح)
+| resources/free-workbook-solved.pdf | https://gido70.github.io/lib-6931de/2866e01294f1.pdf |
+| resources/video-workbook-solved.pdf | https://gido70.github.io/lib-6931de/5f77edb3c02e.pdf |
