@@ -193,6 +193,7 @@ def build_workshop():
 <section class="sec"><div class="wrap"><div class="sec-h"><div><h2>المحاضرات والعروض</h2><p>عروض المحاضرات بملاحظات المتحدث، تفتح في Claude ويمكن تنزيلها PowerPoint.</p></div></div><div class="grid g2">{lec_tiles}</div></div></section>
 <section class="sec"><div class="wrap"><div class="sec-h"><div><h2>إدارة المشروع</h2></div></div><div class="grid g3">
 <a class="card tile" href="masar-index.html">{ic("list","navy")}<div><h3>الإندكس</h3><p>نقطة العمل الآن، والقرارات، والسجل، والنواقص.</p></div></a>
+<a class="card tile" href="training/">{ic("quiz","gold")}<div><h3>الاختبارات</h3><p>كل اختبارات الحقائب في مكان واحد، مع مفتاح الإجابات.</p></div></a>
 <a class="card tile" href="workshop/method.html">{ic("compass")}<div><h3>المنهجية الأربع والعشرون</h3><p>الخطوات التي تمر بها كل حقيبة، من العميل إلى الاستدامة.</p></div></a>
 <a class="card tile" href="workshop/doc-rebuild.html">{ic("map","gold")}<div><h3>خارطة إعادة البناء</h3><p>مراحل إعادة بناء المنصة وقواعدها.</p></div></a>
 </div></div></section>'''
@@ -408,6 +409,60 @@ def build_tool():
 <script>{TOOL_JS}</script>"""
     write('tool.html', page('بطاقة الفيديو في دقيقة · أداة مجانية · مسار', body, '', 'tool', desc='ستة أسئلة بالضغط فقط تعطيك خطة الفيديو الخاص بك: الشكل الأنسب، والإطار، وعدد الكلمات، والأدوات، والتكلفة.', path='tool.html'))
 
+# ---------- صفحة الاختبارات الموحدة ----------
+TESTS_JS = r"""
+const T=JSON.parse(document.getElementById('tdata').textContent);
+const $=s=>document.querySelector(s);
+function shuffle(q){const idx=q.o.map((_,i)=>i);for(let i=idx.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]];}return {q:q.q,o:idx.map(i=>q.o[i]),a:idx.indexOf(q.a)};}
+function openTest(pk,ti){
+  const t=T[pk].tests[ti];const qs=t.shuffle?t.qs.map(shuffle):t.qs;const N=qs.length;const sel={};let sent=false;
+  const box=$('#tp');box.innerHTML='<div class="card"><span class="kicker">'+T[pk].name+'</span><h2 style="font-size:32px;margin:6px 0">'+t.title+'</h2><p class="cp-tip">'+N+' أسئلة · اختر وغيّر كما تشاء، ثم «أرسل الإجابات». النجاح 80%.</p>'+qs.map((q,qi)=>'<div class="qz" data-q="'+qi+'"><b>'+(qi+1)+'. '+q.q+'</b><div class="qo">'+q.o.map((o,oi)=>'<button type="button" data-i="'+oi+'">'+o+'</button>').join('')+'</div></div>').join('')+'<div class="qbar"><button type="button" class="btn p" id="qsend" disabled>أرسل الإجابات (0 من '+N+')</button><button type="button" class="btn s" id="qr" style="display:none">أعد المحاولة</button><button type="button" class="btn s" id="qkey">🔑 مفتاح الإجابات</button></div><p class="qs" id="qs"></p></div>';
+  const send=$('#qsend');
+  box.querySelectorAll('.qz').forEach(z=>z.querySelectorAll('.qo button').forEach(b=>b.onclick=()=>{if(sent)return;sel[+z.dataset.q]=+b.dataset.i;z.querySelectorAll('.qo button').forEach(x=>x.classList.toggle('sel',x===b));const n=Object.keys(sel).length;send.textContent='أرسل الإجابات ('+n+' من '+N+')';send.disabled=n<N;}));
+  function lock(showSel){sent=true;let ok=0;qs.forEach((q,qi)=>{const bs=box.querySelectorAll('.qz[data-q="'+qi+'"] .qo button');bs.forEach(x=>{x.classList.remove('sel');x.disabled=true;});if(showSel&&sel[qi]!==q.a)bs[sel[qi]].classList.add('no');if(sel[qi]===q.a)ok++;bs[q.a].classList.add('ok');});return ok;}
+  send.onclick=()=>{const ok=lock(true);const pct=Math.round(ok/N*100);$('#qs').innerHTML=(pct>=80?'✅ ناجح: ':'⏳ لم تبلغ 80%: ')+ok+' من '+N+' ('+pct+'%)';send.style.display='none';$('#qkey').style.display='none';$('#qr').style.display='';};
+  $('#qkey').onclick=()=>{lock(false);$('#qs').textContent='🔑 الإجابات الصحيحة مظللة بالأخضر (للمدرب).';send.style.display='none';$('#qkey').style.display='none';$('#qr').style.display='';};
+  $('#qr').onclick=()=>openTest(pk,ti);
+  box.scrollIntoView({behavior:'smooth',block:'start'});
+}
+document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{const [pk,ti]=b.dataset.t.split(':');openTest(pk,+ti);});
+"""
+
+def build_tests():
+    old = json.load(open('/tmp/oldq.json', encoding='utf-8')) if os.path.exists('/tmp/oldq.json') else None
+    if old is None:
+        import subprocess
+        src = open(os.path.join(ROOT, 'training/questions.js'), encoding='utf-8').read()
+        names = re.findall(r'^const ([A-Za-z_]+)', src, flags=re.M)
+        out = subprocess.run(['node', '-e', f"const src=require('fs').readFileSync('{os.path.join(ROOT,'training/questions.js')}','utf8');const r=new Function(src+';return {{{','.join(names)}}}')();console.log(JSON.stringify(r))"], capture_output=True, text=True).stdout
+        old = json.loads(out)
+    Q, QZ = old['Q'], old['QUIZZES']
+    def oldtest(key): return [{'q': Q[i]['q'], 'o': Q[i]['o'], 'a': 0} for i in QZ[key]['ids']]
+    data = {}
+    cards = ''
+    for p in sorted(D['packages'], key=lambda x: x['slug'] != 'free'):
+        tests = []
+        if p['slug'] == 'free': tests.append({'title': 'الاختبار القبلي', 'sub': 'قبل أن تبدأ الوحدات', 'badge': 'قبل', 'qs': oldtest('pre'), 'shuffle': True})
+        for u in p['units']:
+            if u.get('quiz'): tests.append({'title': f'امتحان الوحدة {u["n"]}', 'sub': u['title'], 'badge': str(u['n']), 'qs': parse_quiz(u['quiz']), 'shuffle': False})
+        if p['slug'] == 'free': tests.append({'title': 'الاختبار البعدي', 'sub': 'بعد إتمام الوحدات الخمس', 'badge': 'بعد', 'qs': oldtest('post'), 'shuffle': True})
+        data[p['slug']] = {'name': p['name'], 'tests': tests}
+        items = ''.join(f'<button type="button" class="tst" data-t="{p["slug"]}:{i}"><span class="num">{E(t["badge"])}</span><span><b>{E(t["title"])}</b><small>{len(t["qs"])} أسئلة · {E(t["sub"])}</small></span></button>' for i, t in enumerate(tests))
+        cards += f'<section class="sec"{theme(p)}><div class="wrap"><div class="sec-h"><div><h2>{E(p["name"])}</h2><p>{len(tests)} اختبارات</p></div></div><div class="tlist">{items}</div></div></section>'
+    body = f"""<section class="hero" style="padding-bottom:10px"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← الاختبارات</p><span class="kicker">لكل حقيبة</span><h1>الاختبارات</h1><p class="lead">كل اختبارات الحقائب في مكان واحد، بالنسخة المعتمدة نفسها التي في منصة CPS. اختر اختبارًا، أو اعرض مفتاح إجاباته.</p></div></section>
+{cards}
+<section class="sec"><div class="wrap" id="tp"></div></section>
+<style>
+.tlist{{display:grid;gap:10px}}
+.tst{{display:flex;flex-direction:row;gap:14px;align-items:center;text-align:right;font:inherit;background:#fff;border:1px solid #F1EADB;border-radius:18px;padding:12px 16px;cursor:pointer;box-shadow:0 6px 14px rgba(31,42,55,.05)}}
+.tst:hover{{border-color:var(--a)}}
+.tst .num{{width:48px;height:48px;flex:0 0 48px;border-radius:14px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:19px;background:linear-gradient(150deg,var(--a),var(--b));box-shadow:inset 0 2px 0 rgba(255,255,255,.4),0 6px 12px rgba(0,0,0,.15)}}
+.tst b{{display:block;font-size:22px;color:var(--b)}}.tst small{{color:var(--mute);font-size:17px}}
+</style>
+<script type="application/json" id="tdata">{json.dumps(data, ensure_ascii=False).replace('</', '<\\/')}</script>
+<script>{TESTS_JS}</script>"""
+    write('training/index.html', page('الاختبارات · الورشة', body, '../', 'workshop', '\n<meta name="robots" content="noindex">'))
+
 def redirects():
     for old, new in (('video-package.html', 'p/video.html'), ('package.html', 'p/free.html'), ('home-new.html', './')):
         write(old, f'<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url={new}"><link rel="canonical" href="{new}"><a href="{new}">انتقل</a>')
@@ -419,7 +474,7 @@ if __name__ == '__main__':
     for p in PUB: build_public(p)
     build_workshop()
     for p in D['packages']: build_ws_pkg(p)
-    build_method(); build_tool(); redirects()
+    build_method(); build_tool(); build_tests(); redirects()
     for p in PUB:
         st = load_status(p)
         if st and not gate_report(st)[2][3]: print(f'⚠ {p["name"]}: معروضة للجمهور ولم تعبر البوابة ج (الإطلاق) بعد')

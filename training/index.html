@@ -3,178 +3,54 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>اختبارات حقيبة مسار الذكاء الاصطناعي</title>
+<title>الاختبارات · الورشة</title>
+<meta name="description" content="حقائب تطبيقية بالعربية في الذكاء الاصطناعي">
+<meta property="og:type" content="website"><meta property="og:locale" content="ar_AR"><meta property="og:site_name" content="مسار">
+<meta property="og:title" content="الاختبارات · الورشة"><meta property="og:description" content="حقائب تطبيقية بالعربية في الذكاء الاصطناعي">
+<meta property="og:image" content="https://gido70.github.io/Masar-AI/assets/og-masar.png"><meta property="og:url" content="https://gido70.github.io/Masar-AI/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#123E6B">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="مسار"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root{--navy:#123E6B;--teal:#0E7C8C;--turq:#22B8C8;--gold:#C9971F;--goldl:#E7CF8E;--bg:#FFFCF3;--body:#3F4A57;--mute:#6B7280;--line:#E2D8C3;--ok:#0E7C6B;--okbg:#E6F4F1;--bad:#A8492F;--badbg:#FBEDE8}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--navy);font-family:Amiri,"Times New Roman",serif;font-size:19px;line-height:1.7}
-.wrap{max-width:820px;margin:0 auto;padding:20px 18px 60px}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1.5px solid var(--gold);padding-bottom:10px;margin-bottom:22px}
-header img{height:54px}
-nav.top{display:flex;gap:6px;flex-wrap:wrap}nav.top a{font-size:16px;font-weight:700;color:var(--navy);text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:3px 14px;background:#fff}nav.top a.on{background:var(--navy);color:#fff;border-color:var(--navy)}
-h1{font-size:34px;line-height:1.3;margin:0 0 6px}
-.sub{color:var(--body);margin:0 0 18px}
-.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:14px}
-label.name{display:block;font-weight:700;margin-bottom:6px}
-input[type=text]{width:100%;font:inherit;padding:10px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--navy)}
-input[type=text]:focus{outline:2px solid var(--turq);border-color:var(--turq)}
-.list{display:grid;gap:10px}
-.item{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 16px;text-decoration:none;color:var(--navy)}
-.item:hover{border-color:var(--turq)}
-.num{flex:none;width:42px;height:42px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
-.item.key .num{background:var(--gold);color:var(--navy)}
-.item b{display:block;font-size:20px}
-.item span{color:var(--mute);font-size:16px}
-.item .st{margin-inline-start:auto;font-size:15px;font-weight:700;color:var(--teal);white-space:nowrap}
-.q{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:14px}
-.q h3{margin:0 0 10px;font-size:21px;line-height:1.5}
-.q h3 small{color:var(--gold);font-size:16px;margin-inline-end:6px}
-.opt{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;padding:9px 12px;margin-top:8px;cursor:pointer}
-.opt input{margin-top:9px;accent-color:var(--teal);flex:none}
-.opt:has(input:checked){border-color:var(--teal);background:#F2FAF9}
-.q.done .opt{cursor:default}
-.opt.right{border-color:var(--ok);background:var(--okbg)}
-.opt.wrong{border-color:var(--bad);background:var(--badbg)}
-.exp{margin-top:10px;padding:9px 12px;border-radius:10px;font-size:17px}
-.exp.ok{background:var(--okbg);color:var(--ok)} .exp.no{background:var(--badbg);color:var(--bad)}
-.btn{display:inline-block;font:inherit;font-weight:700;border:0;border-radius:999px;padding:10px 26px;cursor:pointer;text-decoration:none;text-align:center}
-.btn.pri{background:var(--navy);color:#fff} .btn.pri:disabled{background:#9AA8B8;cursor:not-allowed}
-.btn.sec{background:#fff;color:var(--navy);border:1.5px solid var(--navy)}
-.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px}
-.hint{color:var(--mute);font-size:16px}
-.result{background:#fff;border:2px solid var(--gold);border-radius:18px;padding:22px;text-align:center;margin:18px 0}
-.result .big{font-size:56px;font-weight:700;line-height:1.1}
-.result .meta{color:var(--mute);font-size:16px}
-.badge{display:inline-block;border-radius:999px;padding:4px 16px;font-weight:700;margin-top:8px}
-.badge.ok{background:var(--okbg);color:var(--ok)} .badge.no{background:var(--badbg);color:var(--bad)}
-.cmp{display:flex;justify-content:center;gap:28px;margin-top:12px}
-.cmp div{min-width:110px} .cmp b{display:block;font-size:30px}
-.tip{background:#FBF4E2;border:1px dashed var(--gold);border-radius:12px;padding:10px 14px;font-size:17px}
-footer{margin-top:30px;color:var(--mute);font-size:14px;text-align:center}
-@media print{
-  body{background:#fff} header a,.actions,.q,.no-print,footer{display:none!important}
-  .result{border-width:2px;margin-top:40px}
-}
-</style>
+<link rel="stylesheet" href="../assets/site.css">
+<meta name="robots" content="noindex">
+<script src="../assets/site.js" defer></script>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <img src="masar_logo.png" alt="شعار مُسار">
-    <nav class="top"><a href="../">الرئيسية</a><a href="../packages.html">الحقائب</a><a href="../tool.html">الأداة المجانية</a><a href="../workshop.html" class="on">الورشة</a></nav>
-  </header>
-  <main id="app"></main>
-  <footer>مسار الذكاء الاصطناعي: من التشتت إلى قرار وتنفيذ ذكي · برنامج التدريب التطبيقي المستمر</footer>
-</div>
-<script src="questions.js"></script>
+<div class="bar"><div class="wrap"><a href="../"><img src="../training/masar_logo.png" alt="مسار"></a><nav class="nav"><a href="../">الرئيسية</a><a href="../packages.html">الحقائب</a><a href="../tool.html">الأداة المجانية</a><a href="../workshop.html" class="ws on">🔒 الورشة</a></nav></div></div>
+<section class="hero" style="padding-bottom:10px"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← الاختبارات</p><span class="kicker">لكل حقيبة</span><h1>الاختبارات</h1><p class="lead">كل اختبارات الحقائب في مكان واحد، بالنسخة المعتمدة نفسها التي في منصة CPS. اختر اختبارًا، أو اعرض مفتاح إجاباته.</p></div></section>
+<section class="sec" style="--a:#0E7C8C;--b:#123E6B;--soft:#E8F4F3"><div class="wrap"><div class="sec-h"><div><h2>مسار الذكاء الاصطناعي</h2><p>7 اختبارات</p></div></div><div class="tlist"><button type="button" class="tst" data-t="free:0"><span class="num">قبل</span><span><b>الاختبار القبلي</b><small>10 أسئلة · قبل أن تبدأ الوحدات</small></span></button><button type="button" class="tst" data-t="free:1"><span class="num">1</span><span><b>امتحان الوحدة 1</b><small>5 أسئلة · تحديد المهمة والمُخرَج المطلوب</small></span></button><button type="button" class="tst" data-t="free:2"><span class="num">2</span><span><b>امتحان الوحدة 2</b><small>5 أسئلة · الجمهور والقيود</small></span></button><button type="button" class="tst" data-t="free:3"><span class="num">3</span><span><b>امتحان الوحدة 3</b><small>5 أسئلة · مقارنة الأدوات واختيار الأنسب</small></span></button><button type="button" class="tst" data-t="free:4"><span class="num">4</span><span><b>امتحان الوحدة 4</b><small>5 أسئلة · القرار وهندسة التعليمات (البرومبت)</small></span></button><button type="button" class="tst" data-t="free:5"><span class="num">5</span><span><b>امتحان الوحدة 5</b><small>5 أسئلة · التنفيذ الصغير والتحقق والتحسين</small></span></button><button type="button" class="tst" data-t="free:6"><span class="num">بعد</span><span><b>الاختبار البعدي</b><small>10 أسئلة · بعد إتمام الوحدات الخمس</small></span></button></div></div></section><section class="sec" style="--a:#D62828;--b:#1B1B2F;--soft:#FFF1F1"><div class="wrap"><div class="sec-h"><div><h2>مسار الفيديو</h2><p>6 اختبارات</p></div></div><div class="tlist"><button type="button" class="tst" data-t="video:0"><span class="num">1</span><span><b>امتحان الوحدة 1</b><small>5 أسئلة · البطاقة: لا تبدأ بالأداة</small></span></button><button type="button" class="tst" data-t="video:1"><span class="num">2</span><span><b>امتحان الوحدة 2</b><small>5 أسئلة · النص: اكتب للأذن</small></span></button><button type="button" class="tst" data-t="video:2"><span class="num">3</span><span><b>امتحان الوحدة 3</b><small>5 أسئلة · الصوت: نصف الفيديو</small></span></button><button type="button" class="tst" data-t="video:3"><span class="num">4</span><span><b>امتحان الوحدة 4</b><small>5 أسئلة · الصورة: عشرة أشكال</small></span></button><button type="button" class="tst" data-t="video:4"><span class="num">5</span><span><b>امتحان الوحدة 5</b><small>5 أسئلة · المونتاج والإضافات</small></span></button><button type="button" class="tst" data-t="video:5"><span class="num">6</span><span><b>امتحان الوحدة 6</b><small>5 أسئلة · التحقق والنشر</small></span></button></div></div></section>
+<section class="sec"><div class="wrap" id="tp"></div></section>
+<style>
+.tlist{display:grid;gap:10px}
+.tst{display:flex;flex-direction:row;gap:14px;align-items:center;text-align:right;font:inherit;background:#fff;border:1px solid #F1EADB;border-radius:18px;padding:12px 16px;cursor:pointer;box-shadow:0 6px 14px rgba(31,42,55,.05)}
+.tst:hover{border-color:var(--a)}
+.tst .num{width:48px;height:48px;flex:0 0 48px;border-radius:14px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:19px;background:linear-gradient(150deg,var(--a),var(--b));box-shadow:inset 0 2px 0 rgba(255,255,255,.4),0 6px 12px rgba(0,0,0,.15)}
+.tst b{display:block;font-size:22px;color:var(--b)}.tst small{color:var(--mute);font-size:17px}
+</style>
+<script type="application/json" id="tdata">{"free": {"name": "مسار الذكاء الاصطناعي", "tests": [{"title": "الاختبار القبلي", "sub": "قبل أن تبدأ الوحدات", "badge": "قبل", "qs": [{"q": "ما الخطوة التي يجب أن تسبق اختيار أي أداة ذكاء اصطناعي؟", "o": ["تحديد المهمة والمُخرَج المطلوب بوضوح", "تجربة أشهر الأدوات المتاحة", "قراءة مراجعات الأدوات على الإنترنت", "الاشتراك في أداة مدفوعة موثوقة"], "a": 0}, {"q": "أيٌّ مما يلي ليس من العناصر الأربعة للمهمة الواضحة؟", "o": ["اسم الأداة التي ستستخدمها", "الفعل المطلوب", "المُخرَج النهائي", "معيار النجاح"], "a": 0}, {"q": "لماذا لا يُعدّ تحديد الجمهور خطوة إضافية يمكن تجاهلها؟", "o": ["لأنه يحدد اللغة والأسلوب ومقدار التفاصيل والأداة المناسبة", "لأنه يقلل تكلفة الأداة", "لأن الأدوات تطلبه عند التسجيل", "لأنه يغني عن تحديد المهمة"], "a": 0}, {"q": "ما التصرف الصحيح مع الوثائق السرية أو أسماء الأشخاص؟", "o": ["لا ترفعها لأي أداة قبل التأكد التام من أمانها", "ارفعها لأي أداة مشهورة", "ارفعها ثم احذفها بعد الانتهاء", "ارفعها إذا كانت الأداة مجانية"], "a": 0}, {"q": "ما «قاعدة المقارنة الذكية»؟", "o": ["قارن بين أداتين فقط", "قارن بين كل الأدوات المتاحة", "اختر الأداة الأحدث دائمًا", "جرّب خمس أدوات على الأقل"], "a": 0}, {"q": "على أي أساس تختار الأداة في النهاية؟", "o": ["الأعلى توافقًا مع مهمتك وقيودك", "الأكثر شهرة", "الأحدث إطلاقًا", "الأغلى سعرًا"], "a": 0}, {"q": "أيٌّ مما يلي ليس من العناصر الستة للبرومبت الفعّال؟", "o": ["عدد المحاولات السابقة", "الدور", "السياق", "معيار الجودة"], "a": 0}, {"q": "أي البرومبتات التالية أكثر إحكامًا؟", "o": ["«أنشئ نص فيديو عربي مدته 3 دقائق، موجهًا إلى موظفين مبتدئين، يحتوي على مثال عملي وخلاصة واضحة»", "«اصنع لي فيديو جيدًا!»", "«أريد فيديو احترافيًا ومميزًا»", "«اكتب أي شيء عن الفيديو»"], "a": 0}, {"q": "ما القاعدة الأساسية في مرحلة التنفيذ والتحقق؟", "o": ["لا تعتمد أول نتيجة", "اعتمد النتيجة إذا بدت جميلة ومنظمة", "نفّذ النسخة الكاملة مباشرة", "غيّر الأداة عند أول مشكلة"], "a": 0}, {"q": "إذا كانت إجابة أحد أسئلة قائمة التحقق النهائية «لا»، فماذا تفعل؟", "o": ["لا تعتمد النتيجة بعد: عدّل التعليمات وأعد الفحص", "اعتمدها إذا كانت بقية الإجابات «نعم»", "غيّر الأداة فورًا", "انشر النتيجة ثم صحّحها لاحقًا"], "a": 0}], "shuffle": true}, {"title": "امتحان الوحدة 1", "sub": "تحديد المهمة والمُخرَج المطلوب", "badge": "1", "qs": [{"q": "ما الخطوة الأساسية التي يجب القيام بها قبل البدء في البحث عن أدوات الذكاء الاصطناعي؟", "o": ["تحديد الميزانية المخصصة لشراء الأدوات", "تجربة أكبر عدد ممكن من التطبيقات والمواقع", "تحديد المهمة والمخرج المطلوب بوضوح", "البحث عن الأدوات الأكثر شهرة في السوق"], "a": 2}, {"q": "وفقًا للوحدة، أي مجموعة تمثل أمثلة على عنصر «الفعل» في المهمة الواضحة؟", "o": ["ملف وورد أو عرض تقديمي", "تقرير فني أو فكرة مشروع", "كتابة أو تلخيص أو تصميم", "اللغة العربية أو الاختصار"], "a": 2}, {"q": "ماذا يحدد عنصر «المخرج النهائي» في صياغة المهمة؟", "o": ["المدة الزمنية المستغرقة للتنفيذ", "الشكل الذي تريد استلام النتيجة فيه", "الجمهور الذي سيتلقى العمل", "الموضوع الذي سيتم العمل عليه"], "a": 1}, {"q": "أي خيار يمثل معيار نجاح لمهمة محددة؟", "o": ["أن تكون النتيجة مناسبة للمبتدئين", "تحويل تسجيل صوتي", "إنشاء جدول مقارنة", "استخدام تطبيق ChatGPT"], "a": 0}, {"q": "ما الفائدة الأساسية من صياغة المهمة بالشكل: أريد تنفيذ كذا، حول موضوع كذا، في صورة كذا؟", "o": ["ضمان الحصول على الخدمة مجانًا", "الاستغناء عن تعلم مهارات الذكاء الاصطناعي", "زيادة عدد الأدوات التي يمكن استخدامها", "تسهيل اختيار الأداة المناسبة ورفع دقة التنفيذ"], "a": 3}], "shuffle": false}, {"title": "امتحان الوحدة 2", "sub": "الجمهور والقيود", "badge": "2", "qs": [{"q": "لماذا يُعد تحديد الجمهور المستهدف خطوة أساسية عند التخطيط لإنتاج محتوى باستخدام الذكاء الاصطناعي؟", "o": ["لأن الجمهور يحدد اللغة والأسلوب ومقدار التفاصيل وشكل المحتوى", "لأن تحديد الجمهور يغني عن تحديد القيود والميزانية", "لأن الجمهور يحدد الأداة التقنية فقط دون التأثير في اللغة", "لأنه يضمن الحصول على اشتراكات مجانية في أدوات الذكاء الاصطناعي"], "a": 0}, {"q": "ما السؤال الأساسي لمعرفة مستوى المعرفة المسبقة لدى الجمهور؟", "o": ["ما الإجراء المطلوب من الجمهور تنفيذه؟", "أين سيشاهد الجمهور هذا المحتوى؟", "ماذا يعرف هذا الجمهور مسبقًا عن الموضوع؟", "ما الجهاز الذي سيستخدمه الجمهور؟"], "a": 2}, {"q": "أي خيار يُعد قيدًا تقنيًا يجب مراعاته قبل مقارنة أدوات الذكاء الاصطناعي؟", "o": ["الرغبة في تعلم لغات برمجة جديدة", "عدد الأدوات التي يمتلكها زملاء العمل", "سرعة الاتصال بالإنترنت ونوع الجهاز المتاح", "اختيار أجمل الألوان المتاحة في الأداة"], "a": 2}, {"q": "ما القاعدة الأساسية لحماية الخصوصية والبيانات الحساسة؟", "o": ["الخصوصية ليست مهمة إذا كان المحتوى تعليميًا ومجانيًا", "يمكن رفع الوثائق السرية إلى الأدوات المدفوعة فقط", "لا ترفع بيانات شخصية أو وثائق سرية قبل التأكد من أمان الأداة", "يجب رفع أسماء الأشخاص لضمان دقة التحليل"], "a": 2}, {"q": "كيف تساهم القيود الواضحة في نجاح المهمة؟", "o": ["تساعد في اختيار الأداة المناسبة بسرعة وتمنع إضاعة الوقت", "تلغي الحاجة إلى معرفة لغة الجمهور", "تجعل المهمة أكثر صعوبة وتعقيدًا", "تؤدي إلى إنتاج محتوى أطول من اللازم"], "a": 0}], "shuffle": false}, {"title": "امتحان الوحدة 3", "sub": "مقارنة الأدوات واختيار الأنسب", "badge": "3", "qs": [{"q": "ما الهدف الرئيسي من إجراء مقارنة ذكية بين أدوات الذكاء الاصطناعي؟", "o": ["تجربة كل أداة جديدة تظهر في السوق", "تجنب التشتت واختيار الأداة المتوافقة مع المهمة والقيود", "الوصول إلى الأداة الأكثر شهرة لاستخدامها في كل المهام", "اختيار الأداة التي تقدم أكبر عدد من الميزات"], "a": 1}, {"q": "أي معيار يركز على قدرة الأداة على فهم النصوص العربية وإنتاجها بصورة صحيحة؟", "o": ["دعم اللغة العربية", "سهولة الاستخدام", "الخصوصية", "جودة النتيجة"], "a": 0}, {"q": "ما النصيحة التي تجعل مقارنة الأدوات أسهل وأكثر فاعلية؟", "o": ["تجاهل التكلفة والتركيز على سهولة الاستخدام", "المقارنة بين أداتين فقط في المرة الواحدة", "الاعتماد على آراء مستخدمي وسائل التواصل فقط", "مقارنة جميع الأدوات دفعة واحدة"], "a": 1}, {"q": "ما الأسلوب المقترح لمنح الدرجات عند تقييم الأدوات وفق المعايير الخمسة؟", "o": ["استخدام نعم أو لا فقط لكل معيار", "منح كل أداة درجة من واحد إلى خمسة في كل معيار", "منح كل أداة درجة من واحد إلى عشرة", "إعطاء الأولوية للأداة الأقدم دائمًا"], "a": 1}, {"q": "ما الخطوة النهائية بعد المقارنة واكتشاف نقاط القوة والضعف؟", "o": ["البحث عن أدوات جديدة وإعادة المقارنة من البداية", "اختيار الأداة الأكثر شهرة", "اختيار الأداة الأعلى توافقًا مع المهمة والقيود", "استخدام الأداة التي حصلت على أقل درجة في التكلفة"], "a": 2}], "shuffle": false}, {"title": "امتحان الوحدة 4", "sub": "القرار وهندسة التعليمات (البرومبت)", "badge": "4", "qs": [{"q": "ما العنصر الأول الذي يجب تحديده عند كتابة برومبت فعال وفقًا للوحدة؟", "o": ["السياق", "المهمة", "القيود", "الدور"], "a": 3}, {"q": "متى يكون الوقت مناسبًا لاتخاذ قرار باختيار أداة ذكاء اصطناعي لمهمتك؟", "o": ["عندما تكون مجانية تمامًا", "عندما تكون الأحدث في السوق", "عندما لا تحتوي على أي قيود فنية", "عندما تحقق أهم المعايير المرتبطة بالمهمة"], "a": 3}, {"q": "ماذا يشمل عنصر «السياق» في كتابة البرومبت؟", "o": ["استخدام فعل مباشر مثل اكتب أو لخّص", "ذكر الموضوع والخلفية والجمهور والغرض", "تحديد اللغة والمدة والموعد النهائي", "تحديد الشكل النهائي كتقرير أو جدول"], "a": 1}, {"q": "أي عبارة تمثل «معيار الجودة» في البرومبت؟", "o": ["أن تكون النتيجة دقيقة ومناسبة للمبتدئين", "تقديم النتيجة في شكل عرض تقديمي", "أن يؤدي الذكاء الاصطناعي دور كاتب محتوى", "أن يكون طول النص 500 كلمة"], "a": 0}, {"q": "ما الفائدة الرئيسية من كتابة برومبت واضح ومفصل؟", "o": ["الحصول على مخرجات طويلة دائمًا", "تجنب استخدام أدوات أخرى مستقبلًا", "تقليل المحاولات المتكررة وجعل النتيجة أقرب إلى الهدف", "تسهيل تعلم برمجة الذكاء الاصطناعي"], "a": 2}], "shuffle": false}, {"title": "امتحان الوحدة 5", "sub": "التنفيذ الصغير والتحقق والتحسين", "badge": "5", "qs": [{"q": "ما القاعدة الأساسية عند الحصول على النتيجة الأولى من أداة الذكاء الاصطناعي؟", "o": ["نشرها فورًا لتقليل الوقت", "اعتمادها إذا كان مظهرها منظمًا", "عدم اعتمادها مباشرة والبدء بفحص نسخة أولية صغيرة", "تغيير الأداة فورًا للحصول على خيارات متنوعة"], "a": 2}, {"q": "عند فحص دقة المخرج، ما العناصر التي يجب التحقق من صحتها؟", "o": ["طول النص وعدد الفقرات", "المعلومات والأسماء والأرقام والتواريخ والادعاءات", "الأسلوب اللغوي وجاذبيته فقط", "نوع الجهاز الذي سيعرض النتيجة"], "a": 1}, {"q": "ما المقصود بمعيار «ملاءمة الجمهور» عند تقييم النتيجة؟", "o": ["حماية البيانات الحساسة", "التأكد من عمل الروابط والمراجع", "التأكد من تنفيذ أجزاء المهمة", "التحقق من أن اللغة والأسلوب والتفاصيل مناسبة للمستخدمين"], "a": 3}, {"q": "تتكون عملية التحسين من أربع خطوات؛ ما الخطوة الثالثة؟", "o": ["اعتماد النتيجة ونشرها", "تنفيذ نسخة أولية صغيرة", "فحص النتيجة وفق معايير واضحة", "تعديل التعليمات بناءً على المشكلات وإعادة التجربة"], "a": 3}, {"q": "ما التصرف الصحيح إذا كانت الإجابة «لا» على أحد أسئلة قائمة التحقق النهائية؟", "o": ["إلغاء المهمة بالكامل", "قبول النتيجة مع ملاحظة النقص", "اعتماد النتيجة مؤقتًا", "تعديل التعليمات وإعادة التجربة ثم فحص النتيجة من جديد"], "a": 3}], "shuffle": false}, {"title": "الاختبار البعدي", "sub": "بعد إتمام الوحدات الخمس", "badge": "بعد", "qs": [{"q": "ما الخطوة التي يجب أن تسبق اختيار أي أداة ذكاء اصطناعي؟", "o": ["تحديد المهمة والمُخرَج المطلوب بوضوح", "تجربة أشهر الأدوات المتاحة", "قراءة مراجعات الأدوات على الإنترنت", "الاشتراك في أداة مدفوعة موثوقة"], "a": 0}, {"q": "أيٌّ مما يلي ليس من العناصر الأربعة للمهمة الواضحة؟", "o": ["اسم الأداة التي ستستخدمها", "الفعل المطلوب", "المُخرَج النهائي", "معيار النجاح"], "a": 0}, {"q": "لماذا لا يُعدّ تحديد الجمهور خطوة إضافية يمكن تجاهلها؟", "o": ["لأنه يحدد اللغة والأسلوب ومقدار التفاصيل والأداة المناسبة", "لأنه يقلل تكلفة الأداة", "لأن الأدوات تطلبه عند التسجيل", "لأنه يغني عن تحديد المهمة"], "a": 0}, {"q": "ما التصرف الصحيح مع الوثائق السرية أو أسماء الأشخاص؟", "o": ["لا ترفعها لأي أداة قبل التأكد التام من أمانها", "ارفعها لأي أداة مشهورة", "ارفعها ثم احذفها بعد الانتهاء", "ارفعها إذا كانت الأداة مجانية"], "a": 0}, {"q": "ما «قاعدة المقارنة الذكية»؟", "o": ["قارن بين أداتين فقط", "قارن بين كل الأدوات المتاحة", "اختر الأداة الأحدث دائمًا", "جرّب خمس أدوات على الأقل"], "a": 0}, {"q": "على أي أساس تختار الأداة في النهاية؟", "o": ["الأعلى توافقًا مع مهمتك وقيودك", "الأكثر شهرة", "الأحدث إطلاقًا", "الأغلى سعرًا"], "a": 0}, {"q": "أيٌّ مما يلي ليس من العناصر الستة للبرومبت الفعّال؟", "o": ["عدد المحاولات السابقة", "الدور", "السياق", "معيار الجودة"], "a": 0}, {"q": "أي البرومبتات التالية أكثر إحكامًا؟", "o": ["«أنشئ نص فيديو عربي مدته 3 دقائق، موجهًا إلى موظفين مبتدئين، يحتوي على مثال عملي وخلاصة واضحة»", "«اصنع لي فيديو جيدًا!»", "«أريد فيديو احترافيًا ومميزًا»", "«اكتب أي شيء عن الفيديو»"], "a": 0}, {"q": "ما القاعدة الأساسية في مرحلة التنفيذ والتحقق؟", "o": ["لا تعتمد أول نتيجة", "اعتمد النتيجة إذا بدت جميلة ومنظمة", "نفّذ النسخة الكاملة مباشرة", "غيّر الأداة عند أول مشكلة"], "a": 0}, {"q": "إذا كانت إجابة أحد أسئلة قائمة التحقق النهائية «لا»، فماذا تفعل؟", "o": ["لا تعتمد النتيجة بعد: عدّل التعليمات وأعد الفحص", "اعتمدها إذا كانت بقية الإجابات «نعم»", "غيّر الأداة فورًا", "انشر النتيجة ثم صحّحها لاحقًا"], "a": 0}], "shuffle": true}]}, "video": {"name": "مسار الفيديو", "tests": [{"title": "امتحان الوحدة 1", "sub": "البطاقة: لا تبدأ بالأداة", "badge": "1", "qs": [{"q": "ما أول خطوة قبل أن تفتح أي أداة لصنع فيديو؟", "o": ["إكمال بطاقة الفيديو", "اختيار الأداة الأكثر شهرة", "كتابة النص مباشرة", "تجربة عدة أدوات للمقارنة"], "a": 0}, {"q": "غرضك «شرح خطوات برنامج حاسوبي». ما الشكل الأنسب غالبًا؟", "o": ["تسجيل الشاشة", "مشاهد مولّدة بالذكاء الاصطناعي", "رسم باليد", "رسوم متحركة"], "a": 0}, {"q": "تريد فيديو مدته دقيقة واحدة. كم كلمة تقريبًا تكتب في النص؟", "o": ["نحو 110 كلمات", "نحو 40 كلمة", "نحو 300 كلمة", "نحو 500 كلمة"], "a": 0}, {"q": "سيُشاهَد الفيديو الخاص بك غالبًا على الهاتف في واتساب. أي إطار تختار؟", "o": ["عمودي 9:16", "أفقي 16:9", "مربع دائمًا", "لا فرق بين الأطر"], "a": 0}, {"q": "لماذا يُنصح باتباع الخطوات بالترتيب عند استخدام الأدوات المدفوعة؟", "o": ["لأن كل إعادة توليد تُحسب تكلفة جديدة", "لأن الأدوات تمنع إعادة التوليد", "لأن الترتيب يرفع الجودة تلقائيًا", "لا يوجد فرق في التكلفة"], "a": 0}], "shuffle": false}, {"title": "امتحان الوحدة 2", "sub": "النص: اكتب للأذن", "badge": "2", "qs": [{"q": "أي جملة أنسب لنص فيديو مسموع؟", "o": ["«تريد فيديو لمشروعك؟ في ست خطوات تصنعه بنفسك.»", "«نقدّم لكم دورة متميزة باستخدام أحدث التقنيات لتحقيق أهدافكم.»", "«إن صناعة المحتوى المرئي في عصرنا الحالي باتت ضرورة ملحّة لكل من يسعى للتميز.»", "«سوف نتناول في هذا الفيديو مجموعة من المحاور المهمة والمتنوعة.»"], "a": 0}, {"q": "إعلان مدته 30 ثانية. كم كلمة تقريبًا يكون نصه؟", "o": ["نحو 55 كلمة", "نحو 20 كلمة", "نحو 110 كلمات", "نحو 200 كلمة"], "a": 0}, {"q": "ما القاعدة الأساسية في جدول المشاهد؟", "o": ["لا يظهر على الشاشة إلا ما يقوله الصوت، لحظة ذكره", "تظهر كل عناصر البطاقة دفعة واحدة في بدايتها", "الشاشة تعرض تفاصيل أكثر مما يقوله الصوت", "يُكتب الجدول بعد إنتاج الفيديو"], "a": 0}, {"q": "كيف تكتب كلمة «فيديو» في نسخة الصوت؟", "o": ["بلا تشكيل", "بتشكيل كل حروفها", "بحروف إنجليزية", "تُحذف من النص"], "a": 0}, {"q": "أخطأت أداة الصوت في نطق كلمة مرتين. ما الأفضل؟", "o": ["تغيير الكلمة بمرادف", "إعادة التوليد حتى تنطقها صحيحًا", "ترك الخطأ كما هو", "رفع سرعة الصوت"], "a": 0}], "shuffle": false}, {"title": "امتحان الوحدة 3", "sub": "الصوت: نصف الفيديو", "badge": "3", "qs": [{"q": "فيديو تعريفي يظهر فيه وجهك واسمك. أي صوت أنسب؟", "o": ["صوتك، لأن المشاهد يتوقع أن يسمعك", "صوت مولّد، لأنه أوضح دائمًا", "دبلجة، لتصل إلى جمهور أوسع", "بلا تعليق، لأن الصورة تكفي"], "a": 0}, {"q": "ستسجّل بهاتفك. أي مكان أفضل؟", "o": ["غرفة فيها أثاث وستائر", "غرفة فارغة واسعة", "حمّام مغلق لأنه هادئ", "شرفة مفتوحة"], "a": 0}, {"q": "لماذا تولّد الصوت جملة جملة لا النص كله مرة واحدة؟", "o": ["لأن الخطأ في جملة يكلّفك جملة واحدة، وتعرف توقيت كل جملة بدقة", "لأن الأدوات لا تقبل نصًا طويلًا", "لأن الصوت يصبح أسرع", "لأن التوليد الكامل أغلى دائمًا بعشرة أضعاف"], "a": 0}, {"q": "ملف صوتك أطول من مدة بطاقتك بكثير. ماذا تفعل؟", "o": ["تختصر النص", "تسرّع الصوت", "تقص نهاية الملف", "تترك الفيديو أطول دون مراجعة"], "a": 0}, {"q": "ولّدت صوتًا بالخطة المجانية لأداة صوت، وتريد نشره لعملك. ما أول ما تتحقق منه؟", "o": ["شروط الاستخدام التجاري في الأداة", "جودة الصوت فقط", "عدد المشتركين في قناتك", "لا شيء، فالمجاني متاح لكل استخدام"], "a": 0}], "shuffle": false}, {"title": "امتحان الوحدة 4", "sub": "الصورة: عشرة أشكال", "badge": "4", "qs": [{"q": "تريد شرح خطوات استخدام برنامج على الحاسوب. أي شكل أنسب؟", "o": ["تسجيل الشاشة", "مشاهد مولّدة", "رسوم متحركة احترافية", "مونتاج لقطات"], "a": 0}, {"q": "ما القاعدة الصحيحة لاختيار شكل الصورة؟", "o": ["الغرض المكتوب في بطاقتك يختار الشكل، ثم تختار الأداة", "اختر أحدث أداة أولًا، ثم الشكل الذي تقدمه", "اختر الشكل الأغلى لأنه الأجود دائمًا", "اختر الشكل الذي يستخدمه أغلب صناع المحتوى"], "a": 0}, {"q": "أداة أفاتار سعرها 0.05 دولار للثانية، ومدة صوتك 60 ثانية. كم التكلفة التقريبية لتوليد واحد؟", "o": ["نحو 3 دولارات", "نحو 0.3 دولار", "نحو 30 دولارًا", "مجاني لأن الصوت جاهز"], "a": 0}, {"q": "ستصنع حوارًا بين شخصيتين بالأفاتار. ما الطريقة الأكثر أمانًا؟", "o": ["لقطة كاملة لكل متكلم بالتناوب، بعد تجربة قصيرة", "الشخصيتان في إطار واحد، والنص كله في توليد واحد", "توليد الحوار كله مرة واحدة ثم المراجعة", "أي طريقة، فكل الأدوات تتقن الحوار"], "a": 0}, {"q": "ستظهر أمام الكاميرا بهاتفك. أين تضع النافذة؟", "o": ["أمامك أو بجانبك", "خلفك مباشرة", "فوقك", "لا يهم مكان الضوء"], "a": 0}], "shuffle": false}, {"title": "امتحان الوحدة 5", "sub": "المونتاج والإضافات", "badge": "5", "qs": [{"q": "بدأت المونتاج. ما الذي تضعه على الخط الزمني أولًا؟", "o": ["الصوت، ثم تُقص المشاهد عليه", "المشاهد، ثم يُقص الصوت ليناسبها", "الموسيقى، ثم الكلام فوقها", "الترجمة النصية، ثم المشاهد"], "a": 0}, {"q": "بطاقتك لدرس تعليمي لا تذكر موسيقى ولا مؤثرات. ماذا تفعل؟", "o": ["لا تضيفهما: أضف ما في بطاقتك فقط", "أضف موسيقى هادئة لأن كل فيديو يحتاجها", "أضف مؤثرًا مع كل مشهد ليبقى المشاهد منتبهًا", "أضف الإضافات الست كلها ليبدو الفيديو احترافيًا"], "a": 0}, {"q": "وجدت مقطوعة جميلة على الإنترنت بلا ترخيص واضح. ما الخطر الأرجح إن استخدمتها على يوتيوب؟", "o": ["مطالبة حقوق، أو كتم الصوت، أو حجب الفيديو", "لا خطر ما دام الفيديو غير مدرج", "لا خطر إن ذكرت اسم المؤلف في الوصف", "لا خطر إن استخدمت أقل من 30 ثانية منها"], "a": 0}, {"q": "تريد نسخة عمودية من الفيديو الأفقي الخاص بك. ما الطريقة الصحيحة؟", "o": ["مشروع عمودي جديد تعيد فيه ترتيب العناصر، والنص المهم بعيد عن الأطراف", "قص الفيديو الأفقي من الجانبين مباشرة", "تصغير الفيديو الأفقي داخل إطار عمودي بلا تعديل", "تدوير الفيديو الأفقي 90 درجة"], "a": 0}, {"q": "فيديو فيه مقطع أفاتار مدفوع. ما الترتيب الأوفر؟", "o": ["مسودة كاملة بصورة ثابتة مكان الأفاتار، ثم المراجعة، ثم توليد التحريك مرة واحدة", "توليد الأفاتار أولًا، ثم كتابة النص عليه", "توليد الأفاتار ومراجعته بعد تركيب الفيديو، وإعادة التوليد عند أي خطأ", "توليد الفيديو كله مرة واحدة، ثم تصحيح الأخطاء في المونتاج"], "a": 0}], "shuffle": false}, {"title": "امتحان الوحدة 6", "sub": "التحقق والنشر", "badge": "6", "qs": [{"q": "أنهيت المونتاج على الحاسوب. ما الفحص الأهم قبل النشر؟", "o": ["مشاهدته كاملًا على الهاتف، بسماعة ثم بلا صوت", "مشاهدته مرة أخرى على الحاسوب بشاشة أكبر", "التأكد من حجم الملف فقط", "لا فحص، فالمونتاج كان دقيقًا"], "a": 0}, {"q": "أي عنوان أفضل لدرس عن صناعة الفيديو التعليمي؟", "o": ["«اصنع فيديو تعليميًا في ست خطوات | مسار الفيديو»", "«فيديو جديد، الحلقة الثانية»", "«مسار الفيديو 2»", "«شاهد هذا الفيديو المهم جدًا حتى النهاية»"], "a": 0}, {"q": "كتبت الفصول في الوصف هكذا: 0:15 المقدمة، 1:00 الخطوات، 2:00 الخاتمة. لماذا لن تظهر؟", "o": ["لأن الفصل الأول يجب أن يبدأ من 0:00", "لأن الفصول تُكتب في التعليقات لا في الوصف", "لأن ثلاثة فصول أكثر من المسموح", "لأن الفصول تظهر في الفيديوهات العامة فقط"], "a": 0}, {"q": "في الفيديو الخاص بك أفاتار واقعي المظهر. ماذا تفعل عند الرفع على يوتيوب؟", "o": ["تفعّل الإفصاح عن المحتوى المعدّل أو المولّد، وتذكره في الوصف", "لا شيء، فالإفصاح مطلوب للأخبار فقط", "تكتب ذلك في التعليقات بعد النشر", "تخفي ذلك حتى لا تقل المشاهدات"], "a": 0}, {"q": "ما الترتيب الصحيح للنشر؟", "o": ["غير مدرج، ثم المشاهدة من الرابط على الهاتف، ثم عام", "عام مباشرة، ثم تصحيح الأخطاء من التعليقات", "خاص، ثم حذفه وإعادة رفعه عامًا", "عام، ثم إضافة العنوان والوصف لاحقًا"], "a": 0}], "shuffle": false}]}}</script>
 <script>
-const PASS = 0.7;
-const store = {
-  get(k, d) { try { const v = localStorage.getItem("masar_" + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
-  set(k, v) { try { localStorage.setItem("masar_" + k, JSON.stringify(v)); } catch (e) {} }
-};
-const app = document.getElementById("app");
-const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-const fmtDate = d => new Date(d).toLocaleDateString("ar", { year: "numeric", month: "long", day: "numeric" });
-
-function nameBox() {
-  return `<div class="card"><label class="name" for="nm">اسم المتدرب</label>
-  <input type="text" id="nm" placeholder="اكتب اسمك كما تريده أن يظهر في النتيجة" value="${esc(store.get("name", ""))}"></div>`;
+const T=JSON.parse(document.getElementById('tdata').textContent);
+const $=s=>document.querySelector(s);
+function shuffle(q){const idx=q.o.map((_,i)=>i);for(let i=idx.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]];}return {q:q.q,o:idx.map(i=>q.o[i]),a:idx.indexOf(q.a)};}
+function openTest(pk,ti){
+  const t=T[pk].tests[ti];const qs=t.shuffle?t.qs.map(shuffle):t.qs;const N=qs.length;const sel={};let sent=false;
+  const box=$('#tp');box.innerHTML='<div class="card"><span class="kicker">'+T[pk].name+'</span><h2 style="font-size:32px;margin:6px 0">'+t.title+'</h2><p class="cp-tip">'+N+' أسئلة · اختر وغيّر كما تشاء، ثم «أرسل الإجابات». النجاح 80%.</p>'+qs.map((q,qi)=>'<div class="qz" data-q="'+qi+'"><b>'+(qi+1)+'. '+q.q+'</b><div class="qo">'+q.o.map((o,oi)=>'<button type="button" data-i="'+oi+'">'+o+'</button>').join('')+'</div></div>').join('')+'<div class="qbar"><button type="button" class="btn p" id="qsend" disabled>أرسل الإجابات (0 من '+N+')</button><button type="button" class="btn s" id="qr" style="display:none">أعد المحاولة</button><button type="button" class="btn s" id="qkey">🔑 مفتاح الإجابات</button></div><p class="qs" id="qs"></p></div>';
+  const send=$('#qsend');
+  box.querySelectorAll('.qz').forEach(z=>z.querySelectorAll('.qo button').forEach(b=>b.onclick=()=>{if(sent)return;sel[+z.dataset.q]=+b.dataset.i;z.querySelectorAll('.qo button').forEach(x=>x.classList.toggle('sel',x===b));const n=Object.keys(sel).length;send.textContent='أرسل الإجابات ('+n+' من '+N+')';send.disabled=n<N;}));
+  function lock(showSel){sent=true;let ok=0;qs.forEach((q,qi)=>{const bs=box.querySelectorAll('.qz[data-q="'+qi+'"] .qo button');bs.forEach(x=>{x.classList.remove('sel');x.disabled=true;});if(showSel&&sel[qi]!==q.a)bs[sel[qi]].classList.add('no');if(sel[qi]===q.a)ok++;bs[q.a].classList.add('ok');});return ok;}
+  send.onclick=()=>{const ok=lock(true);const pct=Math.round(ok/N*100);$('#qs').innerHTML=(pct>=80?'✅ ناجح: ':'⏳ لم تبلغ 80%: ')+ok+' من '+N+' ('+pct+'%)';send.style.display='none';$('#qkey').style.display='none';$('#qr').style.display='';};
+  $('#qkey').onclick=()=>{lock(false);$('#qs').textContent='🔑 الإجابات الصحيحة مظللة بالأخضر (للمدرب).';send.style.display='none';$('#qkey').style.display='none';$('#qr').style.display='';};
+  $('#qr').onclick=()=>openTest(pk,ti);
+  box.scrollIntoView({behavior:'smooth',block:'start'});
 }
-function bindName() {
-  const el = document.getElementById("nm");
-  if (el) el.addEventListener("input", () => store.set("name", el.value.trim()));
-}
-
-function home() {
-  const res = store.get("results", {});
-  const order = ["pre", "unit1", "unit2", "unit3", "unit4", "unit5", "post"];
-  const items = order.map((k, i) => {
-    const z = QUIZZES[k], r = res[k];
-    const n = k === "pre" ? "قبل" : k === "post" ? "بعد" : k.slice(4);
-    const st = r ? `${r.score} من ${r.total}` : "لم يُجرَ بعد";
-    return `<a class="item ${k === "pre" || k === "post" ? "key" : ""}" href="#${k}"><div class="num">${n}</div>
-      <div><b>${z.title}</b><span>${z.ids.length} أسئلة · ${esc(z.sub.split(":")[0])}</span></div><div class="st">${st}</div></a>`;
-  }).join("");
-  app.innerHTML = `<h1>اختبارات الحقيبة</h1>
-  <p class="sub">ابدأ بالاختبار القبلي، ثم اختبار كل وحدة بعد دراستها، واختم بالاختبار البعدي لترى مقدار تقدمك.</p>
-  ${nameBox()}<div class="list">${items}</div>
-  <p class="tip no-print">تُحفظ نتائجك على هذا الجهاز فقط. بعد الاختبار البعدي اضغط «حفظ النتيجة PDF» وأرسلها للمدرب.</p>`;
-  bindName();
-}
-
-function quiz(key) {
-  const z = QUIZZES[key];
-  const qs = z.ids.map(id => ({ id, ...Q[id], opts: shuffle(Q[id].o.map((t, i) => ({ t, ok: i === 0 }))) }));
-  app.innerHTML = `<h1>${z.title}</h1><p class="sub">${esc(z.sub)}</p>${nameBox()}
-  <form id="f">${qs.map((q, i) => `<div class="q" data-i="${i}"><h3><small>${i + 1}.</small>${esc(q.q)}</h3>
-    ${q.opts.map((o, j) => `<label class="opt"><input type="radio" name="q${i}" value="${j}"><span>${esc(o.t)}</span></label>`).join("")}
-  </div>`).join("")}
-  <div class="actions"><button class="btn pri" id="sub" type="submit" disabled>تصحيح الإجابات</button>
-  <span class="hint" id="cnt">أجب عن جميع الأسئلة (0 من ${qs.length})</span></div></form><div id="res"></div>`;
-  bindName();
-  const f = document.getElementById("f"), sub = document.getElementById("sub"), cnt = document.getElementById("cnt");
-  f.addEventListener("change", () => {
-    const n = qs.filter((_, i) => f.querySelector(`input[name=q${i}]:checked`)).length;
-    sub.disabled = n < qs.length; cnt.textContent = n < qs.length ? `أجب عن جميع الأسئلة (${n} من ${qs.length})` : "جاهز للتصحيح";
-  });
-  f.addEventListener("submit", e => {
-    e.preventDefault();
-    let score = 0;
-    qs.forEach((q, i) => {
-      const box = f.querySelector(`.q[data-i="${i}"]`); box.classList.add("done");
-      const picked = +f.querySelector(`input[name=q${i}]:checked`).value;
-      const right = q.opts[picked].ok; if (right) score++;
-      box.querySelectorAll(".opt").forEach((lab, j) => {
-        lab.querySelector("input").disabled = true;
-        if (q.opts[j].ok) lab.classList.add("right"); else if (j === picked) lab.classList.add("wrong");
-      });
-      box.insertAdjacentHTML("beforeend", `<div class="exp ${right ? "ok" : "no"}">${right ? "إجابة صحيحة. " : "الإجابة الصحيحة مظللة بالأخضر. "}${esc(q.e)}</div>`);
-    });
-    const res = store.get("results", {});
-    res[key] = { score, total: qs.length, date: Date.now() };
-    store.set("results", res);
-    sub.remove(); cnt.remove();
-    showResult(key, score, qs.length);
-  });
-}
-
-function showResult(key, score, total) {
-  const z = QUIZZES[key], name = store.get("name", "") || "متدرب";
-  const pct = score / total, pass = pct >= PASS;
-  const res = store.get("results", {});
-  let extra = "";
-  if (key === "post" && res.pre) {
-    const d = score - res.pre.score;
-    extra = `<div class="cmp"><div><span>القبلي</span><b>${res.pre.score}/${res.pre.total}</b></div>
-      <div><span>البعدي</span><b>${score}/${total}</b></div>
-      <div><span>التقدم</span><b dir="ltr" style="color:${d >= 0 ? "var(--ok)" : "var(--bad)"}">${d >= 0 ? "+" : ""}${d}</b></div></div>`;
-  }
-  const msg = key === "pre" ? `<span class="badge ok">سجّلنا نقطة البداية</span>`
-    : pass ? `<span class="badge ok">أحسنت · اجتزت ${Math.round(PASS * 100)}٪ أو أكثر</span>`
-           : `<span class="badge no">راجع الوحدة ثم أعد المحاولة</span>`;
-  const next = { pre: "unit1", unit1: "unit2", unit2: "unit3", unit3: "unit4", unit4: "unit5", unit5: "post" }[key];
-  document.getElementById("res").innerHTML = `<div class="result">
-    <div class="meta">${esc(z.title)} · ${fmtDate(Date.now())}</div>
-    <div style="font-size:24px;font-weight:700;margin-top:4px">${esc(name)}</div>
-    <div class="big">${score} / ${total}</div>${msg}${extra}</div>
-    <div class="actions">${key === "post" ? `<button class="btn pri" onclick="window.print()">حفظ النتيجة PDF</button>` : ""}
-    <a class="btn sec" href="#${key}" onclick="setTimeout(route,0)">إعادة المحاولة</a>
-    ${next ? `<a class="btn ${key === "post" ? "sec" : "pri"}" href="#${next}">${QUIZZES[next].title} ←</a>` : ""}
-    <a class="btn sec" href="#">كل الاختبارات</a></div>`;
-  document.getElementById("res").scrollIntoView({ behavior: "smooth" });
-}
-
-function route() {
-  const k = location.hash.replace("#", "");
-  window.scrollTo(0, 0);
-  if (QUIZZES[k]) quiz(k); else home();
-}
-window.addEventListener("hashchange", route);
-route();
+document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{const [pk,ti]=b.dataset.t.split(':');openTest(pk,+ti);});
 </script>
+<footer class="ft"><div class="wrap"><span>مسار · حقائب تطبيقية في الذكاء الاصطناعي</span><span><a href="../workshop.html">الورشة</a></span></div></footer>
 </body>
 </html>
