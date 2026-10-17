@@ -130,5 +130,17 @@
   "pages": 9,
   "sig": "3413468",
   "ratio": 1.4144
+ },
+ "resources/cps/masar-workbook-cps.pdf": {
+  "dir": "assets/pdfpages/cps_masar-workbook-cps",
+  "pages": 6,
+  "sig": "1217097",
+  "ratio": 1.4151
+ },
+ "resources/cps/video-workbook-cps.pdf": {
+  "dir": "assets/pdfpages/cps_video-workbook-cps",
+  "pages": 9,
+  "sig": "3413468",
+  "ratio": 1.4144
  }
 }

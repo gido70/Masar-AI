@@ -111,11 +111,6 @@
    ],
    "files": [
     {
-     "title": "كراسة أوراق العمل (الأوراق الست في ملف واحد)",
-     "href": "resources/video/video-workbook.pdf",
-     "icon": "file"
-    },
-    {
      "title": "نموذج محلول للكراسة (PDF)",
      "href": "resources/video-workbook-solved.pdf",
      "icon": "file"
@@ -143,6 +138,53 @@
     "pdf": "lectures/video-lecture.pdf",
     "notes": "lectures/video-lecture-notes.md",
     "pptx": "lectures/video-lecture.pptx"
+   },
+   "cps": {
+    "id": "897816",
+    "status": "غير نشطة",
+    "note": "في CPS كراسة منفصلة (درس في أول الحقيبة) فيها زر النموذج المحلول، تجمع أوراق العمل الست؛ وملفات المادة العلمية تبقى كما هي وفي آخرها أوراق العمل.",
+    "files": [
+     {
+      "title": "كراسة أوراق العمل (نسخة CPS بزر النموذج المحلول)",
+      "local": "resources/cps/video-workbook-cps.pdf",
+      "url": "https://gido70.github.io/lib-6931de/d294230d4d78.pdf"
+     },
+     {
+      "title": "النموذج المحلول لأوراق العمل",
+      "local": "resources/video-workbook-solved.pdf",
+      "url": "https://gido70.github.io/lib-6931de/5f77edb3c02e.pdf"
+     },
+     {
+      "title": "المادة العلمية: الوحدة 1",
+      "local": "resources/video/video-unit-1.pdf",
+      "url": "https://gido70.github.io/lib-6931de/408dfa6753be.pdf"
+     },
+     {
+      "title": "المادة العلمية: الوحدة 2",
+      "local": "resources/video/video-unit-2.pdf",
+      "url": "https://gido70.github.io/lib-6931de/4ac884106872.pdf"
+     },
+     {
+      "title": "المادة العلمية: الوحدة 3",
+      "local": "resources/video/video-unit-3.pdf",
+      "url": "https://gido70.github.io/lib-6931de/b0e4c08102a8.pdf"
+     },
+     {
+      "title": "المادة العلمية: الوحدة 4",
+      "local": "resources/video/video-unit-4.pdf",
+      "url": "https://gido70.github.io/lib-6931de/5b8f266f68b8.pdf"
+     },
+     {
+      "title": "المادة العلمية: الوحدة 5",
+      "local": "resources/video/video-unit-5.pdf",
+      "url": "https://gido70.github.io/lib-6931de/e38155ff9266.pdf"
+     },
+     {
+      "title": "المادة العلمية: الوحدة 6",
+      "local": "resources/video/video-unit-6.pdf",
+      "url": "https://gido70.github.io/lib-6931de/269b68efa6df.pdf"
+     }
+    ]
    }
   },
   {
@@ -263,6 +305,48 @@
     "pdf": "lectures/free-lecture.pdf",
     "notes": "lectures/free-lecture-notes.md",
     "pptx": "lectures/free-lecture.pptx"
+   },
+   "cps": {
+    "id": "18",
+    "status": "منشورة",
+    "note": "الكراسة في CPS فيها زر «افتح النموذج المحلول» في صفحتها الأولى، لأن CPS لا يقبل ملفًا ثانيًا ولا يجعل روابط النص قابلة للضغط.",
+    "files": [
+     {
+      "title": "كراسة أدوات العمل (نسخة CPS بزر النموذج المحلول)",
+      "local": "resources/cps/masar-workbook-cps.pdf",
+      "url": "https://gido70.github.io/lib-6931de/25cead20b5a0.pdf"
+     },
+     {
+      "title": "النموذج المحلول للكراسة",
+      "local": "resources/free-workbook-solved.pdf",
+      "url": "https://gido70.github.io/lib-6931de/2866e01294f1.pdf"
+     },
+     {
+      "title": "المادة العلمية: الوحدة 1",
+      "local": "resources/masar-unit-1.pdf",
+      "url": "https://gido70.github.io/lib-6931de/70b6329b6710.pdf"
+     },
+     {
+      "title": "المادة العلمية: الوحدة 2",
+      "local": "resources/masar-unit-2.pdf",
+      "url": "https://gido70.github.io/lib-6931de/682c19a6f43b.pdf"
+     },
+     {
+      "title": "المادة العلمية: الوحدة 3",
+      "local": "resources/masar-unit-3.pdf",
+      "url": "https://gido70.github.io/lib-6931de/d01378247d8a.pdf"
+     },
+     {
+      "title": "المادة العلمية: الوحدة 4",
+      "local": "resources/masar-unit-4.pdf",
+      "url": "https://gido70.github.io/lib-6931de/12698bc9da54.pdf"
+     },
+     {
+      "title": "المادة العلمية: الوحدة 5",
+      "local": "resources/masar-unit-5.pdf",
+      "url": "https://gido70.github.io/lib-6931de/e1c236f485f5.pdf"
+     }
+    ]
    }
   }
  ],

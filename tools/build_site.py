@@ -268,6 +268,13 @@ $('#cp-prev').onclick=()=>show((cur-1+U.length)%U.length);$('#cp-next').onclick=
 const h=location.hash.match(/^#u(\d+)/);show(h?Math.max(0,U.findIndex(u=>u.n==+h[1])):0);
 """
 
+
+def cps_html(p):
+    c = p.get('cps')
+    if not c: return ''
+    rows = ''.join(f'<tr><td>{E(f["title"])}</td><td><a href="../{f["local"]}" data-title="{E(f["title"])}">النسخة المحلية</a></td><td style="direction:ltr;text-align:left;font-size:14px"><a href="{f["url"]}" data-out target="_blank" rel="noopener">{E(f["url"].split("/")[-1])}</a></td></tr>' for f in c['files'])
+    return f'<section class="sec" id="cps"><div class="wrap"><div class="sec-h"><div><h2>نسخة منصة CPS</h2><p>الدورة {E(c["id"])} · {E(c["status"])} · ما يخص CPS وحده، ولا يغيّر طريقة منصة مسار.</p></div></div><p class="note">{E(c["note"])}</p><div class="doc" style="margin-top:12px"><table><tr><th>الملف</th><th>في منصة مسار</th><th>الرابط في CPS (مستودع الملفات)</th></tr>{rows}</table></div></div></section>'
+
 def build_ws_pkg(p):
     pre = '../'
     data = []
@@ -282,7 +289,7 @@ def build_ws_pkg(p):
         slug = f'doc-{p["slug"]}-{i+1}'
         write(f'workshop/{slug}.html', page(f'{d["title"]} · {p["name"]}', f'<div class="wrap"><p class="crumb"><a href="../workshop.html">الورشة</a> ← <a href="{p["slug"]}.html">{E(p["name"])}</a></p><div class="doc" style="margin-top:12px">{md(d["md"])}</div></div>', pre, 'workshop', '\n<meta name="robots" content="noindex">'))
         docs += f'<a class="card tile" href="{slug}.html">{ic(d["icon"],"sm")}<div><h3 style="font-size:21px">{E(d["title"])}</h3></div></a>'
-    tabs = '<a href="#player">الوحدات</a>' + (f'<a href="{p["slug"]}-workbook.html">✍️ الكراسة التفاعلية</a>' if os.path.exists(os.path.join(ROOT, f'data/workbooks/{p["slug"]}.json')) else '') + ('<a href="#gates">مسار المنهجية</a>' if gates_html(p) else '') + ('<a href="#docs">التسويق وCPS</a>' if docs else '') + '<a href="#files">الملفات</a><a href="#cert">الشهادة</a>' + (f'<a href="{pre}{p["trainer"]}">مسار المدرّب</a>' if p.get('trainer') else '') + f'<a href="{pre}p/{p["slug"]}.html">الصفحة العامة</a>'
+    tabs = '<a href="#player">الوحدات</a>' + (f'<a href="{p["slug"]}-workbook.html">✍️ الكراسة التفاعلية</a>' if os.path.exists(os.path.join(ROOT, f'data/workbooks/{p["slug"]}.json')) else '') + ('<a href="#gates">مسار المنهجية</a>' if gates_html(p) else '') + ('<a href="#docs">التسويق وCPS</a>' if docs else '') + '<a href="#files">الملفات</a>' + ('<a href="#cps">نسخة CPS</a>' if p.get('cps') else '') + '<a href="#cert">الشهادة</a>' + (f'<a href="{pre}{p["trainer"]}">مسار المدرّب</a>' if p.get('trainer') else '') + f'<a href="{pre}p/{p["slug"]}.html">الصفحة العامة</a>'
     has_quiz = any(u.get('quiz') for u in p['units']); has_text = any(u.get('text') for u in p['units'])
     body = f"""<div{theme(p)}>
 <section class="phero" style="padding:26px 0 18px"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← {E(p["name"])}</p>
@@ -300,6 +307,7 @@ def build_ws_pkg(p):
 {gates_html(p)}
 {f'<section class="sec" id="docs"><div class="wrap"><div class="sec-h"><div><h2>التسويق وCPS</h2></div></div><div class="grid g2">{docs}</div></div></section>' if docs else ''}
 <section class="sec" id="files"><div class="wrap"><div class="sec-h"><div><h2>الملفات</h2></div></div><div class="grid g3">{files}</div></div></section>
+{cps_html(p)}
 <section class="sec" id="cert"><div class="wrap"><div class="sec-h"><div><h2>الشهادة</h2></div></div><a href="{pre}{p["certificate"]}" data-title="الشهادة"><img src="{pre}{p["certificate"]}" alt="الشهادة" style="width:100%;max-width:820px;border-radius:16px;box-shadow:0 14px 30px rgba(0,0,0,.12)"></a></div></section>
 </div>
 <script type="application/json" id="udata">{json.dumps(data, ensure_ascii=False).replace('</', '<\\/')}</script>
