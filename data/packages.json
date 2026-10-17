@@ -111,6 +111,11 @@
    ],
    "files": [
     {
+     "title": "كراسة أوراق العمل (الأوراق الست في ملف واحد)",
+     "href": "resources/video/video-workbook.pdf",
+     "icon": "file"
+    },
+    {
      "title": "نموذج محلول للكراسة (PDF)",
      "href": "resources/video-workbook-solved.pdf",
      "icon": "file"

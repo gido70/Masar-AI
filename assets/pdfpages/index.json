@@ -124,5 +124,11 @@
   "pages": 8,
   "sig": "299683",
   "ratio": 1.4144
+ },
+ "resources/video/video-workbook.pdf": {
+  "dir": "assets/pdfpages/video_video-workbook",
+  "pages": 9,
+  "sig": "3413468",
+  "ratio": 1.4144
  }
 }
