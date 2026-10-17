@@ -167,7 +167,8 @@
      "q": "ماذا أريد بالضبط؟",
      "out": "مهمة واضحة في جملة واحدة",
      "video": "tQH-Tbk9yAE",
-     "pdf": "resources/masar-unit-1.pdf"
+     "pdf": "resources/masar-unit-1.pdf",
+     "quiz": "packages/free/unit-1/quiz.md"
     },
     {
      "n": 2,
@@ -175,7 +176,8 @@
      "q": "لمن؟ وضمن أي حدود؟",
      "out": "بطاقة مهمة مكتملة",
      "video": "cM_ZPz3LA6A",
-     "pdf": "resources/masar-unit-2.pdf"
+     "pdf": "resources/masar-unit-2.pdf",
+     "quiz": "packages/free/unit-2/quiz.md"
     },
     {
      "n": 3,
@@ -183,7 +185,8 @@
      "q": "بأي أداة؟",
      "out": "قرار مبني على مقارنة أداتين",
      "video": "GNb4eal_IkI",
-     "pdf": "resources/masar-unit-3.pdf"
+     "pdf": "resources/masar-unit-3.pdf",
+     "quiz": "packages/free/unit-3/quiz.md"
     },
     {
      "n": 4,
@@ -191,7 +194,8 @@
      "q": "كيف أطلب؟",
      "out": "تعليمات محكمة بستة عناصر",
      "video": "JadQo6LMuqQ",
-     "pdf": "resources/masar-unit-4.pdf"
+     "pdf": "resources/masar-unit-4.pdf",
+     "quiz": "packages/free/unit-4/quiz.md"
     },
     {
      "n": 5,
@@ -199,7 +203,8 @@
      "q": "هل نجحت؟",
      "out": "نتيجة مفحوصة ومعتمدة",
      "video": "Q8A5mD-S_Mw",
-     "pdf": "resources/masar-unit-5.pdf"
+     "pdf": "resources/masar-unit-5.pdf",
+     "quiz": "packages/free/unit-5/quiz.md"
     }
    ],
    "docs": [
