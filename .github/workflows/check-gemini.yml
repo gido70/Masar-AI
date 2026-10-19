@@ -1,0 +1,21 @@
+name: check-gemini
+on: workflow_dispatch
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify GEMINI_API_KEY (lists models only, no cost)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then echo "✗ السر GEMINI_API_KEY غير موجود"; exit 1; fi
+          code=$(curl -s -o m.json -w '%{http_code}' -H "x-goog-api-key: $GEMINI_API_KEY" "https://generativelanguage.googleapis.com/v1beta/models?pageSize=1000")
+          echo "HTTP $code"
+          if [ "$code" != "200" ]; then python3 -c "import json;print(json.load(open('m.json')).get('error',{}).get('message','')[:300])"; exit 1; fi
+          python3 - <<'P'
+          import json
+          ms=[m['name'] for m in json.load(open('m.json')).get('models',[])]
+          print('عدد النماذج:',len(ms))
+          print('Veo:',[m for m in ms if 'veo' in m])
+          print('Omni:',[m for m in ms if 'omni' in m])
+          P
