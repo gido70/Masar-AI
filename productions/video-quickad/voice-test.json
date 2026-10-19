@@ -1,0 +1,11 @@
+{
+ "model": "elevenlabs/multilingual-v2",
+ "stability": 0.7,
+ "similarity": 0.75,
+ "use_speaker_boost": true,
+ "voice_id": "George",
+ "clips": [
+  {"output": "test-1.mp3", "text": "هَلْ تُصَدِّقُ أنّي لَمْ أقِفْ أمامَ كاميرا قَطّ؟"},
+  {"output": "test-2.mp3", "text": "كَتَبْتُ نَصًّا، وَصَنَعْتُ صَوْتًا، واخْتَرْتُ شَكْلًا. والذَّكاءُ الاصْطِناعيُّ صَنَعَ الباقي."}
+ ]
+}
