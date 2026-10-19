@@ -264,6 +264,11 @@
      "title": "حالتها في المنهجية الأربع والعشرين",
      "md": "packages/free/method-24.md",
      "icon": "compass"
+    },
+    {
+     "title": "نص صفحة الهبوط (الأقسام العشرة)",
+     "md": "packages/free/promo/landing-page.md",
+     "icon": "megaphone"
     }
    ],
    "files": [
