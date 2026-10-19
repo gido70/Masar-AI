@@ -56,6 +56,9 @@ def main(name):
                     'order': c.get('order', 'meanwhile'), 'resolution': res, 'seed': -1}
             if c.get('prompt'): body['prompt'] = c['prompt']
             model = c.get('model', 'wavespeed-ai/infinitetalk/multi')
+        elif c.get('video'):  # فيديو متحرك صامت + صوت ← مزامنة الشفاه على الحركة الحقيقية
+            body = {'video': raw_url(f"{base}/{c['video']}"), 'audio': raw_url(a), 'resolution': res, 'seed': -1}
+            model = c.get('model', 'wavespeed-ai/infinitetalk/video-to-video')
         else:
             body = {'image': raw_url(c.get('image', image)), 'audio': raw_url(a), 'resolution': res, 'seed': -1}; model = MODEL
         try: r = call('POST', f'{API}/{model}', key, body)
