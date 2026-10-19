@@ -1,0 +1,13 @@
+{
+ "model": "google/nano-banana-2/edit",
+ "image": "studio/assets/presenter-screen.png",
+ "cost_each": 0.07,
+ "aspect_ratio": "9:16",
+ "size": [720, 1280],
+ "variants": [
+  {
+   "output": "selfie-a.png",
+   "prompt": "Create a vertical 9:16 smartphone selfie photo of this exact same man: he is holding the phone himself at arm's length (the phone is out of frame), looking directly into the camera lens with a confident, friendly half-smile, framed from mid-chest up, slightly above eye level as in a real handheld selfie. He wears a neat light-blue casual button-up shirt with an open collar. Background: a warm, modern home office with bookshelves and a desk lamp, softly out of focus. Keep exactly identical: the same man with the identical face, facial features, beard, skin tone and hairstyle. Natural indoor daylight on his face, realistic phone-camera look with slight wide-angle perspective. No text, no logos, nothing in front of his face, mouth clearly visible."
+  }
+ ]
+}

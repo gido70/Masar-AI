@@ -6,9 +6,9 @@
   {"model": "google/nano-banana-2/edit", "image": "studio/assets/presenter-screen.png",
    "cost_each": 0.07, "variants": [{"prompt": "...", "output": "presenter-a.png"}, ...]}
 الضوابط: لا يولّد ملفًا موجودًا · حد للتكلفة MAX_TOTAL · مهلة · المفتاح من البيئة فقط.
-كل ناتج يُوحَّد إلى 1280×720 (قص من الوسط) ليطابق صورة المقدّم الأصلية.
+كل ناتج يُوحَّد إلى size في الإعداد (الافتراضي 1280×720، قص من الوسط)؛ و aspect_ratio اختياري يُرسل للنموذج (مثل 9:16 للفيديو العمودي).
 """
-import json, os, sys, time, urllib.request
+import json, os, sys, time, urllib.request, urllib.error
 from PIL import Image, ImageOps
 
 API = 'https://api.wavespeed.ai/api/v3'
@@ -30,7 +30,13 @@ def main(name):
     print(f'{len(todo)} صورة ← تقدير {total:.2f} دولار (الحد {MAX_TOTAL:.2f})')
     if total > MAX_TOTAL: sys.exit('✗ التكلفة أعلى من الحد.')
     for v in todo:
-        r = call('POST', f"{API}/{cfg['model']}", key, {'images': [raw_url(x) for x in v.get('images', cfg.get('images', [cfg['image']]))], 'prompt': v['prompt']})
+        body = {'images': [raw_url(x) for x in v.get('images', cfg.get('images', [cfg['image']]))], 'prompt': v['prompt']}
+        if cfg.get('aspect_ratio'): body['aspect_ratio'] = cfg['aspect_ratio']
+        try: r = call('POST', f"{API}/{cfg['model']}", key, body)
+        except urllib.error.HTTPError as e:
+            if 'aspect_ratio' in body:
+                print('… النموذج لا يقبل aspect_ratio، إعادة بدونه'); body.pop('aspect_ratio'); r = call('POST', f"{API}/{cfg['model']}", key, body)
+            else: raise
         pid = (r.get('data') or {}).get('id') or sys.exit(f'✗ لا رقم: {r}')
         print(f"→ {v['output']} (رقم {pid})"); t0 = time.time()
         while True:
@@ -40,7 +46,7 @@ def main(name):
             if time.time() - t0 > TIMEOUT: sys.exit('✗ تجاوز المهلة')
         url = (st.get('outputs') or [None])[0] or sys.exit('✗ بلا ناتج')
         tmp = f"{base}/_tmp_{v['output']}"; urllib.request.urlretrieve(url, tmp)
-        im = ImageOps.fit(Image.open(tmp).convert('RGB'), (1280, 720), Image.LANCZOS); im.save(f"{base}/{v['output']}"); os.remove(tmp)
+        W, H = cfg.get('size', [1280, 720]); im = ImageOps.fit(Image.open(tmp).convert('RGB'), (W, H), Image.LANCZOS); im.save(f"{base}/{v['output']}"); os.remove(tmp)
         print(f"✓ {v['output']}")
 
 if __name__ == '__main__':
