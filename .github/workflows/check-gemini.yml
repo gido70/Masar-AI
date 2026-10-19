@@ -15,7 +15,7 @@ jobs:
           python3 - <<'P'
           import json
           ms=[m['name'] for m in json.load(open('m.json')).get('models',[])]
-          print('عدد النماذج:',len(ms))
+          print('::notice title=models::count=%d veo=%s omni=%s' % (len(ms), [m for m in ms if 'veo' in m], [m for m in ms if 'omni' in m]))
           print('Veo:',[m for m in ms if 'veo' in m])
           print('Omni:',[m for m in ms if 'omni' in m])
           P
