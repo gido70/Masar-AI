@@ -1,0 +1,80 @@
+name: مقطع Veo (Gemini API — مدفوع، يدوي فقط)
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: "وصف المشهد (prompt)"
+        required: true
+      production:
+        description: "مجلد الإنتاج داخل productions"
+        required: true
+        default: video-quickad
+      output:
+        description: "اسم ملف المخرج (mp4)"
+        required: true
+        default: veo-test-1.mp4
+      tier:
+        description: "النسخة"
+        type: choice
+        options: [lite, fast]
+        default: lite
+      duration:
+        description: "المدة بالثواني (الأقل 4)"
+        type: choice
+        options: ["4", "6", "8"]
+        default: "4"
+      aspect:
+        description: "الإطار"
+        type: choice
+        options: ["9:16", "16:9"]
+        default: "9:16"
+      image:
+        description: "صورة البداية من المستودع (اختياري)، مثل productions/video-quickad/selfie-a.png"
+        required: false
+        default: ""
+      max_cost:
+        description: "أقصى تكلفة تقديرية مسموحة بالدولار"
+        required: true
+        default: "0.5"
+
+concurrency:
+  group: veo
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  veo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: تثبيت مكتبة Google GenAI
+        run: pip install -q google-genai
+      - name: توليد مقطع واحد
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PROMPT: ${{ inputs.prompt }}
+          PRODUCTION: ${{ inputs.production }}
+          OUTPUT: ${{ inputs.output }}
+          TIER: ${{ inputs.tier }}
+          DURATION: ${{ inputs.duration }}
+          ASPECT: ${{ inputs.aspect }}
+          IMAGE: ${{ inputs.image }}
+          MAX_COST: ${{ inputs.max_cost }}
+        run: python studio/make_veo.py
+      - name: رفع المقطع كـ Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: veo-${{ github.run_number }}
+          path: productions/${{ inputs.production }}/*.mp4
+          if-no-files-found: ignore
+      - name: حفظ المقطع في المستودع
+        run: |
+          git config user.name "Masar Factory"
+          git config user.email "factory@users.noreply.github.com"
+          git add "productions/${{ inputs.production }}/"*.mp4 2>/dev/null || true
+          git commit -m "factory: veo clip ${{ inputs.output }} (run ${{ github.run_number }}) [skip ci]" || exit 0
+          git pull --rebase -q && git push
