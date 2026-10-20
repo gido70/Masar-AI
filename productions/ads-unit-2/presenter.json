@@ -2,7 +2,20 @@
  "image": "studio/assets/presenter-screen.png",
  "resolution": "720p",
  "clips": [
-  {"video": "base-open.mp4", "audio": "narration-open.mp3", "output": "presenter-open.mp4"},
-  {"video": "base-close.mp4", "audio": "narration-close.mp3", "output": "presenter-close.mp4"}
+  {
+   "video": "base-open.mp4",
+   "audio": "narration-open.mp3",
+   "output": "presenter-open.mp4"
+  },
+  {
+   "video": "base-close-a.mp4",
+   "audio": "narration-close-a.mp3",
+   "output": "presenter-close-a.mp4"
+  },
+  {
+   "video": "base-close-b.mp4",
+   "audio": "narration-close-b.mp3",
+   "output": "presenter-close-b.mp4"
+  }
  ]
 }
