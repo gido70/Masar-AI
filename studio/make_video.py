@@ -245,6 +245,9 @@ def main(spec_path):
                 if alen > d + 0.15: problems.append(f'المشهد {i+1}: الصوت ({alen:.2f} ث) أطول من فيديو المقدّم ({d:.2f} ث) فسيُقطع'); print('⚠', problems[-1])
         elif s['type'] == 'card' and au:
             alen = au['end'] - au['start']; d = alen + s.get('hold', HOLD)
+        elif s['type'] == 'broll':  # لقطة متحركة بملء الشاشة + شريط عنوان، مدتها مدة صوتها
+            alen = (au['end'] - au.get('start', 0)) if 'end' in au else dur(P(au['file'])) - au.get('start', 0)
+            d = alen + s.get('hold', HOLD)
         else:
             d = s.get('duration', 3.0)
         plan.append(d)
@@ -281,6 +284,22 @@ def main(spec_path):
                         f.write(f"file '{states[k]}'\nduration {max(marks[k+1]-marks[k], 0.04):.3f}\n")
                     f.write(f"file '{states[-1]}'\n")
                 ff('-f', 'concat', '-safe', '0', '-i', lst, '-vf', 'fps=25,scale=1920:1080,format=yuv420p', '-c:v', 'libx264', '-crf', '18', out)
+            elif s['type'] == 'broll':
+                o = s['overlay']; ov = os.path.join(work, f'ov{i}.png')
+                html = f'''<!doctype html><html><head><meta charset="utf-8"><style>{css(T,1920,1080)} body{{background:transparent}}</style></head><body>
+<div style="position:absolute;right:90px;bottom:100px;max-width:1240px;background:rgba(255,255,255,0.94);border-right:16px solid {T['ACC']};border-radius:28px;padding:24px 42px 28px">
+<div style="font-family:Tajawal;font-size:34px;color:{T['SEC']}">{o.get('kicker','')}</div>
+<div style="font-size:80px;font-weight:700;line-height:1.2">{em(o['title'], T)}</div>
+<div style="font-size:48px;color:{T['INK']};line-height:1.35;margin-top:6px">{o.get('text','')}</div></div>
+<img src="file://{ASSETS}/logo.png" style="position:absolute;top:50px;left:70px;height:70px"></body></html>'''
+                hp = os.path.join(work, f'ov{i}.html'); open(hp, 'w', encoding='utf-8').write(html)
+                pg.set_viewport_size({'width': 1920, 'height': 1080}); pg.goto('file://' + os.path.abspath(hp)); pg.wait_for_timeout(250)
+                pg.screenshot(path=ov, omit_background=True)
+                src = P(s['video']); f = max(d / dur(src), 1.0)
+                ff('-i', src, '-loop', '1', '-i', ov, '-filter_complex',
+                   f"[0:v]setpts=PTS*{f:.4f},scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,fps=25,format=yuv420p,trim=duration={d:.3f}[v];"
+                   f"[1:v]format=rgba,fade=t=in:st={s.get('overlay_at',0.5)}:d=0.4:alpha=1[o];[v][o]overlay=0:0:shortest=1,format=yuv420p",
+                   '-t', f'{d:.3f}', '-an', '-c:v', 'libx264', '-crf', '18', out)
             elif s['type'] == 'end':
                 img = render_states(pg, card_html(dict(kind='end', **s), T, label, ''), os.path.join(work, 'end'))[0]
                 ff('-loop', '1', '-framerate', '25', '-t', str(d + 0.5), '-i', img, '-vf', 'format=yuv420p', '-c:v', 'libx264', '-crf', '18', out)
