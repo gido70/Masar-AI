@@ -287,7 +287,7 @@ def main(spec_path):
             elif s['type'] == 'broll':
                 o = s['overlay']; ov = os.path.join(work, f'ov{i}.png')
                 html = f'''<!doctype html><html><head><meta charset="utf-8"><style>{css(T,1920,1080)} body{{background:transparent}}</style></head><body>
-<div style="position:absolute;right:90px;{'top:90px' if s.get('overlay_pos')=='top' else 'bottom:100px'};max-width:1240px;background:rgba(255,255,255,0.94);border-right:16px solid {T['ACC']};border-radius:28px;padding:24px 42px 28px">
+<div style="position:absolute;right:{s.get('overlay_right',90)}px;{'top:90px' if s.get('overlay_pos')=='top' else 'bottom:100px'};max-width:{s.get('overlay_width',1240)}px;background:rgba(255,255,255,0.94);border-right:16px solid {T['ACC']};border-radius:28px;padding:24px 42px 28px">
 <div style="font-family:Tajawal;font-size:34px;color:{T['SEC']}">{o.get('kicker','')}</div>
 <div style="font-size:80px;font-weight:700;line-height:1.2">{em(o['title'], T)}</div>
 <div style="font-size:48px;color:{T['INK']};line-height:1.35;margin-top:6px">{o.get('text','')}</div></div>
