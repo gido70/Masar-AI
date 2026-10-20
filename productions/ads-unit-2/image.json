@@ -1,0 +1,11 @@
+{
+ "model": "google/nano-banana-pro/edit",
+ "image": "studio/assets/presenter-screen.png",
+ "cost_each": 0.15,
+ "size": [1280, 720],
+ "aspect_ratio": "16:9",
+ "variants": [
+  {"output": "siraj-studio.png", "prompt": "Create a 16:9 photorealistic medium shot of this exact same man standing in a bright creative studio: behind him a wall covered with colorful sketches, sticky notes and mood boards (no readable text), large windows with warm daylight. He wears a neatly pressed olive-green casual jacket over a white collarless shirt, no wrinkles. He looks into the camera with a confident, friendly smile, hands relaxed at his sides. Keep exactly identical: the same face, facial features, beard, skin tone, hairstyle, age, and the same body build with broad shoulders and full figure (not slimmer). Natural light, realistic skin texture, cinematic depth of field. No text, no logos."},
+  {"output": "siraj-cafe.png", "prompt": "Create a 16:9 photorealistic medium shot of this exact same man sitting at a wooden table in a calm, modern Arabic café, an open sketchbook and a small cup of Arabic coffee in front of him. He wears a neatly pressed olive-green casual jacket over a white collarless shirt, no wrinkles. He looks into the camera with a warm smile. Keep exactly identical: the same face, facial features, beard, skin tone, hairstyle, age, and the same body build with broad shoulders and full figure (not slimmer). Soft afternoon light, shallow depth of field, realistic skin texture. No readable text, no logos."}
+ ]
+}
