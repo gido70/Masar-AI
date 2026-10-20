@@ -18,6 +18,8 @@ ASSETS = os.path.join(HERE, 'assets')
 THEMES = {
     "video": dict(INK='#1A1B22', ACC='#D62828', SEC='#9A5B00', BG='#FFFFFF', PAPER='#FFF7E8',
                   MUT='#5A5F6B', FILM='#ECE8E1', LINE='#D9D3C7', GRN='#1E7B4F', motif='film'),
+    "ads": dict(INK='#1A1B22', ACC='#B0186A', SEC='#00796B', BG='#FFFFFF', PAPER='#F2F7F8',
+                MUT='#5A5F6B', FILM='#E6EEF0', LINE='#D3DEE1', GRN='#1E7B4F', motif='film'),
 }
 
 def run(cmd):
