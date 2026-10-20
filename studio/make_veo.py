@@ -20,8 +20,11 @@ MODELS = {  # الاسم المختصر: (معرّف النموذج، دولار
 DURATIONS = (4, 6, 8)
 TIMEOUT = 15 * 60
 
+def die(m):
+    print('::error::' + str(m)[:900], flush=True); sys.exit(m)
+
 def main():
-    key = os.environ.get('GEMINI_API_KEY') or sys.exit('✗ السر GEMINI_API_KEY غير موجود')
+    key = os.environ.get('GEMINI_API_KEY') or die('✗ السر GEMINI_API_KEY غير موجود')
     production = os.environ['PRODUCTION'].strip()
     output = os.environ['OUTPUT'].strip()
     prompt = os.environ['PROMPT'].strip()
@@ -31,28 +34,31 @@ def main():
     aspect = os.environ.get('ASPECT', '9:16').strip()
     max_cost = float(os.environ.get('MAX_COST', '0.5'))
 
-    if not prompt: sys.exit('✗ الوصف (prompt) فارغ')
-    if tier not in MODELS: sys.exit(f'✗ النسخة يجب أن تكون lite أو fast، لا {tier}')
-    if duration not in DURATIONS: sys.exit(f'✗ المدة يجب أن تكون 4 أو 6 أو 8، لا {duration}')
-    if aspect not in ('9:16', '16:9'): sys.exit('✗ الإطار يجب أن يكون 9:16 أو 16:9')
+    if not prompt: die('✗ الوصف (prompt) فارغ')
+    if tier not in MODELS: die(f'✗ النسخة يجب أن تكون lite أو fast، لا {tier}')
+    if duration not in DURATIONS: die(f'✗ المدة يجب أن تكون 4 أو 6 أو 8، لا {duration}')
+    if aspect not in ('9:16', '16:9'): die('✗ الإطار يجب أن يكون 9:16 أو 16:9')
     if not output.endswith('.mp4'): output += '.mp4'
     out_path = f'productions/{production}/{output}'
-    if os.path.exists(out_path): sys.exit(f'✗ الملف موجود: {out_path} (احذفه أو غيّر الاسم)')
+    if os.path.exists(out_path): die(f'✗ الملف موجود: {out_path} (احذفه أو غيّر الاسم)')
 
     model, rate = MODELS[tier]
     cost = rate * duration
     print(f'النموذج: {model} · المدة: {duration} ث · 720p · {aspect} · فيديو واحد')
     print(f'التكلفة التقديرية: {cost:.2f}$ (السقف {max_cost:.2f}$)')
-    if cost > max_cost: sys.exit('✗ التكلفة أعلى من السقف، أُوقف التشغيل قبل أي صرف')
+    if cost > max_cost: die('✗ التكلفة أعلى من السقف، أُوقف التشغيل قبل أي صرف')
 
     kw = {}
     if image:
-        if not os.path.exists(image): sys.exit(f'✗ صورة البداية غير موجودة: {image}')
+        if not os.path.exists(image): die(f'✗ صورة البداية غير موجودة: {image}')
         mime = mimetypes.guess_type(image)[0] or 'image/png'
         kw['image'] = types.Image(image_bytes=open(image, 'rb').read(), mime_type=mime)
         print(f'صورة البداية: {image}')
 
     client = genai.Client(api_key=key)
+    try:
+        _ = None
+    except Exception as e: die(e)
     config = types.GenerateVideosConfig(
         number_of_videos=1,          # إلزامي: مقطع واحد فقط
         duration_seconds=duration,
@@ -62,14 +68,14 @@ def main():
     op = client.models.generate_videos(model=model, prompt=prompt, config=config, **kw)
     start = time.time()
     while not op.done:
-        if time.time() - start > TIMEOUT: sys.exit('✗ انتهت المهلة (15 دقيقة) دون نتيجة')
+        if time.time() - start > TIMEOUT: die('✗ انتهت المهلة (15 دقيقة) دون نتيجة')
         time.sleep(15)
         op = client.operations.get(op)
         print(f'… قيد التوليد ({int(time.time() - start)} ث)')
 
-    if op.error: sys.exit(f'✗ فشل التوليد: {op.error}')
+    if op.error: die(f'✗ فشل التوليد: {op.error}')
     vids = (op.response.generated_videos if op.response else None) or []
-    if not vids: sys.exit('✗ لا فيديو في النتيجة (قد يكون رُفض لسياسة المحتوى؛ التوليد الفاشل لا يُفوتر)')
+    if not vids: die('✗ لا فيديو في النتيجة (قد يكون رُفض لسياسة المحتوى؛ التوليد الفاشل لا يُفوتر)')
     if len(vids) > 1: print(f'! تنبيه: عاد {len(vids)} مقاطع رغم طلب واحد؛ حُفظ الأول فقط')
 
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
@@ -79,4 +85,6 @@ def main():
     print(f'::notice title=veo::saved={out_path} model={model} seconds={duration} cost≈{cost:.2f}$')
 
 if __name__ == '__main__':
-    main()
+    try: main()
+    except SystemExit: raise
+    except Exception as e: die(f'{type(e).__name__}: {e}')
