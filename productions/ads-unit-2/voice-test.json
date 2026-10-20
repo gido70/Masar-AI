@@ -1,0 +1,7 @@
+{
+ "model": "elevenlabs/multilingual-v2", "voice_id": "George", "stability": 0.5, "similarity": 0.75, "use_speaker_boost": true,
+ "clips": [
+  {"output": "test-1.mp3", "text": "في عامِ ألفٍ وتسعِمئةٍ وتسعةٍ وتسعينْ، حلَّلَ باحثونَ مئتَيْ إعلانٍ فائزٍ بالجوائزْ."},
+  {"output": "test-2.mp3", "text": "ونصفُ الإعلاناتِ الفائزةِ تتبعُ القوالبْ، مقابلَ اثنينِ ونصفٍ في المئةِ فقطْ من غيرِ الفائزةْ."}
+ ]
+}
