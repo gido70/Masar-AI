@@ -18,6 +18,9 @@ MAX_SECONDS = float(os.environ.get('MAX_SECONDS', 30))
 MAX_TOTAL = float(os.environ.get('MAX_TOTAL', 3.0))
 TIMEOUT = 40 * 60
 
+def die(m):
+    print('::error::' + str(m)[:900], flush=True); sys.exit(m)
+
 def dur(p):
     return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', p]))
 
@@ -33,23 +36,23 @@ def raw_url(path):
 
 def main(name):
     key = os.environ.get('WAVESPEED_API_KEY')
-    if not key: sys.exit('✗ المفتاح WAVESPEED_API_KEY غير موجود في أسرار GitHub')
+    if not key: die('✗ المفتاح WAVESPEED_API_KEY غير موجود في أسرار GitHub')
     base = f'productions/{name}'; cfg = json.load(open(f'{base}/presenter.json', encoding='utf-8'))
     image = cfg['image']; res = cfg.get('resolution', '720p')
-    if not os.path.exists(image): sys.exit(f'✗ الصورة غير موجودة: {image}')
+    if not os.path.exists(image): die(f'✗ الصورة غير موجودة: {image}')
     todo, total = [], 0.0
     for c in cfg['clips']:
         a, o = f"{base}/{c.get('audio') or c['right_audio']}", f"{base}/{c['output']}"
         if os.path.exists(o): print(f'↺ موجود، لن يُولَّد ولن يُدفع: {o}'); continue
-        if not os.path.exists(a): sys.exit(f'✗ الصوت غير موجود: {a}')
+        if not os.path.exists(a): die(f'✗ الصوت غير موجود: {a}')
         d = dur(a)
         if c.get('order') in ('left_right', 'right_left'): d += dur(f"{base}/{c['left_audio']}")  # الصوتان متتاليان فتُدفع مدتهما معًا
-        if d > c.get('max_seconds', MAX_SECONDS): sys.exit(f'✗ {a} مدته {d:.1f} ث، أطول من الحد {MAX_SECONDS:.0f} ث. أُوقف كل شيء.')
+        if d > c.get('max_seconds', MAX_SECONDS): die(f'✗ {a} مدته {d:.1f} ث، أطول من الحد {MAX_SECONDS:.0f} ث. أُوقف كل شيء.')
         cost = math.ceil(d / 5) * 5 * RATE; total += cost; todo.append((a, o, d, cost, c))
         print(f'• {c.get("audio") or c["output"]}: {d:.1f} ث ← تقدير {cost:.2f} دولار')
     if not todo: print('لا شيء جديد للتوليد.'); return
     print(f'المجموع التقديري: {total:.2f} دولار (الحد {MAX_TOTAL:.2f})')
-    if total > MAX_TOTAL: sys.exit('✗ التكلفة التقديرية أعلى من الحد. أُوقف كل شيء.')
+    if total > MAX_TOTAL: die('✗ التكلفة التقديرية أعلى من الحد. أُوقف كل شيء.')
     for a, o, d, cost, c in todo:
         if c.get('left_audio'):  # حوار بشخصين: صورة واحدة وصوتان متساويان في الطول (النموذج Multi)
             body = {'image': raw_url(c['image']), 'left_audio': raw_url(f"{base}/{c['left_audio']}"), 'right_audio': raw_url(a),
@@ -62,23 +65,23 @@ def main(name):
         else:
             body = {'image': raw_url(c.get('image', image)), 'audio': raw_url(a), 'resolution': res, 'seed': -1}; model = MODEL
         try: r = call('POST', f'{API}/{model}', key, body)
-        except urllib.error.HTTPError as e: sys.exit(f'✗ رُفض الطلب ({e.code}): {e.read().decode()[:500]}')
+        except urllib.error.HTTPError as e: die(f'✗ رُفض الطلب ({e.code}): {e.read().decode()[:500]}')
         pid = (r.get('data') or {}).get('id')
-        if not pid: sys.exit(f'✗ لم يُرجع الطلب رقمًا: {r}')
+        if not pid: die(f'✗ لم يُرجع الطلب رقمًا: {r}')
         print(f'→ أُرسل {a} (رقم {pid})'); t0 = time.time()
         while True:
             time.sleep(10)
             st = call('GET', f'{API}/predictions/{pid}/result', key).get('data') or {}
             s = st.get('status')
             if s == 'completed': break
-            if s in ('failed', 'cancelled', 'timeout', 'deleted'): sys.exit(f'✗ فشل التوليد ({s}): {st.get("error")}')
-            if time.time() - t0 > TIMEOUT: sys.exit(f'✗ تجاوز المهلة. الرقم {pid} للمتابعة يدويًا.')
+            if s in ('failed', 'cancelled', 'timeout', 'deleted'): die(f'✗ فشل التوليد ({s}): {st.get("error")}')
+            if time.time() - t0 > TIMEOUT: die(f'✗ تجاوز المهلة. الرقم {pid} للمتابعة يدويًا.')
             print(f'  … {s} ({int(time.time()-t0)} ث)')
         url = (st.get('outputs') or [None])[0]
-        if not url: sys.exit(f'✗ اكتمل بلا ملف: {st}')
+        if not url: die(f'✗ اكتمل بلا ملف: {st}')
         urllib.request.urlretrieve(url, o); od = dur(o)
         print(f'✓ {o}: {od:.1f} ث (الصوت {d:.1f} ث)')
-        if od + 0.5 < d: sys.exit('✗ المقطع أقصر من الصوت. راجعه قبل استخدامه.')
+        if od + 0.5 < d: die('✗ المقطع أقصر من الصوت. راجعه قبل استخدامه.')
 
 if __name__ == '__main__':
     main(sys.argv[1])
