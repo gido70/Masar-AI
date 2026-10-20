@@ -6,18 +6,20 @@
  "crossfade": 0.4,
  "segments": [
   {
-   "type": "presenter",
-   "video": "presenter-open-draft.mp4",
+   "type": "broll",
+   "video": "presenter-open.mp4",
+   "no_stretch": true,
+   "overlay_pos": "top",
+   "overlay_at": 0.8,
    "audio": {
-    "file": "narration-open.mp3"
+    "file": "narration-open.mp3",
+    "start": 0.0,
+    "end": 7.92
    },
-   "screen": {
+   "overlay": {
     "kicker": "صناعة الإعلانات · الوحدة 2",
-    "title": "الأفكار<br>[[لها قوالب]]",
-    "button": "من الموجز إلى عشرين فكرة",
-    "reveal_at": [
-     3.93
-    ]
+    "title": "الأفكار [[لها قوالب]]",
+    "text": "من الموجز إلى عشرين فكرة"
    },
    "captions": [
     [
@@ -235,28 +237,20 @@
    }
   },
   {
-   "type": "presenter",
-   "video": "presenter-close-draft.mp4",
+   "type": "broll",
+   "video": "presenter-close.mp4",
+   "no_stretch": true,
+   "overlay_pos": "top",
+   "overlay_at": 0.8,
    "audio": {
-    "file": "narration-close.mp3"
+    "file": "narration-close.mp3",
+    "start": 0.0,
+    "end": 15.78
    },
-   "screen": {
+   "overlay": {
     "kicker": "مهمتك الآن",
     "title": "املأ [[ورقة المحرّك]]",
-    "lines": [
-     "① موجزك في سطر",
-     "② 18 فكرة من القوالب",
-     "③ فكرتان حرتان",
-     "④ نجمة على أقوى 3"
-    ],
-    "foot": "التالي: الوحدة 3 · اختيار الفكرة",
-    "reveal_at": [
-     3.54,
-     5.11,
-     7.91,
-     9.7,
-     12.12
-    ]
+    "text": "موجزك في سطر · 18 فكرة · فكرتان حرتان · نجمة على أقوى 3"
    },
    "captions": [
     [

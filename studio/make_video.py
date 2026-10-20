@@ -287,7 +287,7 @@ def main(spec_path):
             elif s['type'] == 'broll':
                 o = s['overlay']; ov = os.path.join(work, f'ov{i}.png')
                 html = f'''<!doctype html><html><head><meta charset="utf-8"><style>{css(T,1920,1080)} body{{background:transparent}}</style></head><body>
-<div style="position:absolute;right:90px;bottom:100px;max-width:1240px;background:rgba(255,255,255,0.94);border-right:16px solid {T['ACC']};border-radius:28px;padding:24px 42px 28px">
+<div style="position:absolute;right:90px;{'top:90px' if s.get('overlay_pos')=='top' else 'bottom:100px'};max-width:1240px;background:rgba(255,255,255,0.94);border-right:16px solid {T['ACC']};border-radius:28px;padding:24px 42px 28px">
 <div style="font-family:Tajawal;font-size:34px;color:{T['SEC']}">{o.get('kicker','')}</div>
 <div style="font-size:80px;font-weight:700;line-height:1.2">{em(o['title'], T)}</div>
 <div style="font-size:48px;color:{T['INK']};line-height:1.35;margin-top:6px">{o.get('text','')}</div></div>
@@ -296,8 +296,9 @@ def main(spec_path):
                 pg.set_viewport_size({'width': 1920, 'height': 1080}); pg.goto('file://' + os.path.abspath(hp)); pg.wait_for_timeout(250)
                 pg.screenshot(path=ov, omit_background=True)
                 src = P(s['video']); f = max(d / dur(src), 1.0)
+                tm = f"tpad=stop_mode=clone:stop_duration={max(d - dur(src), 0) + 0.1:.3f}," if s.get('no_stretch') else f"setpts=PTS*{f:.4f},"  # المقدّم المتزامن لا يُبطَّأ حتى لا يختل تزامن الشفاه
                 ff('-i', src, '-loop', '1', '-i', ov, '-filter_complex',
-                   f"[0:v]setpts=PTS*{f:.4f},scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,fps=25,format=yuv420p,trim=duration={d:.3f}[v];"
+                   f"[0:v]{tm}scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,fps=25,format=yuv420p,trim=duration={d:.3f}[v];"
                    f"[1:v]format=rgba,fade=t=in:st={s.get('overlay_at',0.5)}:d=0.4:alpha=1[o];[v][o]overlay=0:0:shortest=1,format=yuv420p",
                    '-t', f'{d:.3f}', '-an', '-c:v', 'libx264', '-crf', '18', out)
             elif s['type'] == 'end':
