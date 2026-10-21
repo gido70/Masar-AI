@@ -1,0 +1,42 @@
+name: موسيقى الهوية (WaveSpeed — مدفوع)
+
+on:
+  workflow_dispatch:
+    inputs:
+      production:
+        description: "اسم مجلد الإنتاج داخل productions (فيه music.json)"
+        required: true
+        default: ads-unit-0
+      max_total:
+        description: "أقصى تكلفة تقديرية مسموحة بالدولار"
+        required: true
+        default: "1"
+
+concurrency:
+  group: music
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  music:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: تثبيت ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: توليد المقطوعات
+        env:
+          WAVESPEED_API_KEY: ${{ secrets.WAVESPEED_API_KEY }}
+          MAX_TOTAL: ${{ inputs.max_total }}
+        run: python studio/make_music.py "${{ inputs.production }}"
+      - name: حفظ المقطوعات في المستودع
+        if: always()
+        run: |
+          git config user.name "Masar Factory"
+          git config user.email "factory@users.noreply.github.com"
+          git add "productions/${{ inputs.production }}/"music-*.mp3 2>/dev/null || true
+          git commit -m "factory: music for ${{ inputs.production }} (run ${{ github.run_number }})" || exit 0
+          git pull --rebase -q && git push

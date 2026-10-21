@@ -1,0 +1,22 @@
+{
+ "model": "minimax/music-2.6",
+ "price_per_track": 0.15,
+ "tracks": [
+  {
+   "id": "A-warm",
+   "prompt": "Instrumental only, no vocals. Warm, calm Arabic background music for an educational video about creativity and advertising. Solo oud playing a simple, memorable 4-note motif, soft frame drum (daf) at a gentle 85 BPM, light warm pads underneath. Hopeful, curious, modern but rooted in Gulf Arabic tradition. Sparse arrangement that stays clear under a voiceover. Clean intro of 4 seconds, a steady middle section, and a soft resolving ending. 90 seconds."
+  },
+  {
+   "id": "B-modern",
+   "prompt": "Instrumental only, no vocals. Modern minimal background music with an Arabic touch: plucked oud motif over soft electric piano and a light lo-fi beat at 90 BPM, subtle qanun ornaments. Calm, focused, creative studio mood, unobtrusive under narration. Soft intro, steady loopable middle, gentle ending. 90 seconds."
+  },
+  {
+   "id": "C-emotional",
+   "prompt": "Instrumental only, no vocals. Gentle Arabic cinematic background: oud and nay flute melody with warm strings, starting very soft and slowly building to a heartfelt, family-warmth climax around 60 seconds, then settling softly. Calm, sincere, no heavy drums. 90 seconds."
+  },
+  {
+   "id": "flashy",
+   "prompt": "Instrumental only, no vocals. Generic epic luxury commercial music: big cinematic drums, rising strings, shimmering synths, bombastic and glossy. 12 seconds with a hard stop at the end."
+  }
+ ]
+}
