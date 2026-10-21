@@ -52,16 +52,16 @@
   },
   {
    "type": "broll",
-   "video": "presenter-still.mp4",
+   "video": "presenter-open.mp4",
    "no_stretch": true,
    "overlay_pos": "top",
    "overlay_at": 0.8,
    "audio": {
-    "file": "narration-open.mp3",
+    "file": "narration-open-pad.mp3",
     "start": 0.0,
-    "end": 6.45
+    "end": 7.55
    },
-   "hold": 1.2,
+   "hold": 0.3,
    "overlay": {
     "kicker": "صناعة الإعلانات · الوحدة 0",
     "title": "الفكرة [[قبل الأداة]]",
@@ -71,18 +71,18 @@
    "overlay_right": 60,
    "captions": [
     [
-     0.15,
-     2.19,
+     0.65,
+     2.69,
      "جميل… لكن ماذا قال؟"
     ],
     [
-     2.29,
-     4.56,
+     2.79,
+     5.06,
      "يبهر العين… ثم يُنسى."
     ],
     [
-     4.66,
-     6.25,
+     5.16,
+     6.75,
      "هذا إعلان أداة."
     ]
    ]

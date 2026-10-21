@@ -40,6 +40,8 @@ def caps(audio, lines):
     return out
 
 do, dc = dur(J('narration-open.mp3')), dur(J('narration-close.mp3'))
+SYNC = os.path.exists(J('presenter-open.mp4'))  # سراج المتحرك المتزامن إن وُجد، وإلا الصورة الثابتة
+OPEN_V, OPEN_A, LEAD = ('presenter-open.mp4', 'narration-open-pad.mp3', 0.5) if SYNC else ('presenter-still.mp4', 'narration-open.mp3', 0.0)
 spec = {
  "title": "صناعة الإعلانات · الوحدة 0: الفكرة قبل الأداة", "theme": "ads",
  "label": "صناعة الإعلانات · الوحدة 0: الفكرة قبل الأداة", "output": "ads-unit-0-draft.mp4", "crossfade": 0.4,
@@ -49,11 +51,11 @@ spec = {
   {"type": "broll", "video": "broll-1b.mp4", "hold": 0, "audio": {"file": "scene1.wav", "start": 3.0, "end": 6.0}},
   {"type": "broll", "video": "broll-1c.mp4", "hold": 0, "audio": {"file": "scene1.wav", "start": 6.0, "end": 9.0},
    "overlay_style": "flashy", "overlay_at": 0.2, "overlay": {"title": "سَمَر… الطعم الأسطوري"}},
-  {"type": "broll", "video": "presenter-still.mp4", "no_stretch": True, "overlay_pos": "top", "overlay_at": 0.8,
-   "audio": {"file": "narration-open.mp3", "start": 0.0, "end": round(do, 2)}, "hold": 1.2,
+  {"type": "broll", "video": OPEN_V, "no_stretch": True, "overlay_pos": "top", "overlay_at": 0.8,
+   "audio": {"file": OPEN_A, "start": 0.0, "end": round(dur(J(OPEN_A)), 2)}, "hold": 0.3 if OPEN_V == "presenter-open.mp4" else 1.2,
    "overlay": {"kicker": "صناعة الإعلانات · الوحدة 0", "title": "الفكرة [[قبل الأداة]]", "text": "إعلان أداة… أم إعلان فكرة؟"},
    "overlay_width": 640, "overlay_right": 60,
-   "captions": caps('narration-open.mp3', ["جميل… لكن ماذا قال؟", "يبهر العين… ثم يُنسى.", "هذا إعلان أداة."])},
+   "captions": [[a + LEAD, b + LEAD, x] for a, b, x in caps('narration-open.mp3', ["جميل… لكن ماذا قال؟", "يبهر العين… ثم يُنسى.", "هذا إعلان أداة."])]},
   {"type": "card", "audio": {"file": "scene3.wav", "start": 0.0, "end": round(e3 + 0.4, 2)}, "hold": 1.0,
    "card": {"kind": "compare", "title": "[[أداة]] أم فكرة؟",
     "before": {"label": "إعلان الأداة", "text": "يبدأ من المؤثرات", "verdict": "بعده يسأل المشاهد: ماذا رأيت؟", "quote": False},
