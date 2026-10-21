@@ -2,7 +2,7 @@
  "title": "صناعة الإعلانات · الوحدة 0: الفكرة قبل الأداة",
  "theme": "ads",
  "label": "صناعة الإعلانات · الوحدة 0: الفكرة قبل الأداة",
- "output": "ads-unit-0-draft.mp4",
+ "output": "ads-unit-0-final.mp4",
  "crossfade": 0.4,
  "music": {
   "file": "music-B-modern.mp3",
@@ -183,51 +183,58 @@
   },
   {
    "type": "broll",
-   "video": "presenter-still.mp4",
+   "video": "presenter-close.mp4",
    "no_stretch": true,
    "overlay_pos": "top",
-   "overlay_at": 0.8,
+   "overlay_at": 2.2,
    "audio": {
-    "file": "narration-close.mp3",
+    "file": "narration-close-a-pad.mp3",
     "start": 0.0,
-    "end": 13.98
+    "end": 9.59
    },
-   "hold": 1.2,
+   "hold": 0.3,
    "overlay": {
     "kicker": "مهمتك الآن",
     "title": "افحص [[ثلاثة إعلانات]]",
-    "text": "شاهد · اسأل الأسئلة الثلاثة<br>صنّف: أداة أم فكرة؟"
+    "text": "شاهد · اسأل الأسئلة الثلاثة"
    },
    "overlay_width": 640,
    "overlay_right": 60,
    "captions": [
     [
-     0.15,
-     3.7,
+     2.45,
+     5.81,
      "مهمتك الآن: شاهد ثلاثة إعلانات اليوم،"
     ],
     [
-     3.8,
-     6.96,
+     5.91,
+     8.89,
      "واسأل عن كل واحد الأسئلة الثلاثة…"
-    ],
-    [
-     7.06,
-     9.23,
-     "ثم صنّفه: أداة أم فكرة؟"
-    ],
-    [
-     9.33,
-     13.78,
-     "وفي الوحدة الأولى، نبدأ من أول الطريق: الموجز."
     ]
    ]
   },
   {
    "type": "end",
-   "title": "صناعة [[الإعلانات]]",
+   "title": "أداة… أم [[فكرة]]؟",
    "sub": "التالي: الوحدة 1 · الموجز والبصيرة",
-   "duration": 3.0
+   "audio": {
+    "file": "narration-close-b.mp3",
+    "start": 0.0,
+    "end": 7.13
+   },
+   "duration": 8.93,
+   "captions": [
+    [
+     0.15,
+     2.34,
+     "ثم صنّفه: أداة أم فكرة؟"
+    ],
+    [
+     2.44,
+     6.93,
+     "وفي الوحدة الأولى، نبدأ من أول الطريق: الموجز."
+    ]
+   ]
   }
  ]
 }

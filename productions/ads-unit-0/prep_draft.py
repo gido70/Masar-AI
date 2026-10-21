@@ -32,11 +32,11 @@ ff('-loop', '1', '-i', img, '-filter_complex',
    '[0:v]scale=-2:1080[fg];[bg][fg]overlay=260:0,zoompan=z=\'min(1+0.0004*on,1.08)\':d=1:s=1920x1080:fps=25,format=yuv420p[o]',
    '-map', '[o]', '-t', '20', '-c:v', 'libx264', '-crf', '20', J('presenter-still.mp4'))
 
-def caps(audio, lines):
-    """توقيت الشرح بتوزيع مدة الكلام على الجمل حسب طولها (للمسودة)."""
-    d = dur(J(audio)) - 0.1; L = [len(x) for x in lines]; t = 0.15; out = []
+def caps(audio, lines, lead=0.0, tail=0.0):
+    """توقيت الشرح بتوزيع مدة الكلام على الجمل حسب طولها."""
+    d = dur(J(audio)) - 0.1 - tail; L = [len(x) for x in lines]; t = 0.15 + lead; out = []
     for x, l in zip(lines, L):
-        w = (d - 0.15) * l / sum(L); out.append([round(t, 2), round(t + w - 0.1, 2), x]); t += w
+        w = (d - 0.15 - lead) * l / sum(L); out.append([round(t, 2), round(t + w - 0.1, 2), x]); t += w
     return out
 
 do, dc = dur(J('narration-open.mp3')), dur(J('narration-close.mp3'))
@@ -44,7 +44,7 @@ SYNC = os.path.exists(J('presenter-open.mp4'))  # سراج المتحرك الم
 OPEN_V, OPEN_A, LEAD = ('presenter-open.mp4', 'narration-open-pad.mp3', 0.5) if SYNC else ('presenter-still.mp4', 'narration-open.mp3', 0.0)
 spec = {
  "title": "صناعة الإعلانات · الوحدة 0: الفكرة قبل الأداة", "theme": "ads",
- "label": "صناعة الإعلانات · الوحدة 0: الفكرة قبل الأداة", "output": "ads-unit-0-draft.mp4", "crossfade": 0.4,
+ "label": "صناعة الإعلانات · الوحدة 0: الفكرة قبل الأداة", "output": "ads-unit-0-draft.mp4" if not os.path.exists(J("presenter-close.mp4")) else "ads-unit-0-final.mp4", "crossfade": 0.4,
  "music": {"file": "music-B-modern.mp3", "from_segment": 3, "speech_db": -15, "gap_db": -6, "down": 1.5, "up": 2.0, "fade_in": 1.5, "fade_out": 2.5},
  "segments": [
   {"type": "broll", "video": "broll-1a.mp4", "hold": 0, "audio": {"file": "scene1.wav", "start": 0.0, "end": 3.0}},
@@ -69,11 +69,14 @@ spec = {
    "card": {"kind": "tree", "title": "[[اختبار]] الفكرة",
     "rows": [["رسالتك", "في جملة واحدة؟"], ["احذف المؤثرات", "هل بقيت الفكرة؟"], ["المشاهد", "هل يتذكره غدًا؟"]],
     "note": "<b style=\"color:#B0186A\">القاعدة:</b><br>الأداة تنفّذ<br>والفكرة تقنع", "reveal_at": s5[1:]}},
-  {"type": "broll", "video": "presenter-still.mp4", "no_stretch": True, "overlay_pos": "top", "overlay_at": 0.8,
-   "audio": {"file": "narration-close.mp3", "start": 0.0, "end": round(dc, 2)}, "hold": 1.2,
-   "overlay": {"kicker": "مهمتك الآن", "title": "افحص [[ثلاثة إعلانات]]", "text": "شاهد · اسأل الأسئلة الثلاثة<br>صنّف: أداة أم فكرة؟"},
+  {"type": "broll", "video": "presenter-close.mp4", "no_stretch": True, "overlay_pos": "top", "overlay_at": 2.2,
+   "audio": {"file": "narration-close-a-pad.mp3", "start": 0.0, "end": round(dur(J('narration-close-a-pad.mp3')), 2)}, "hold": 0.3,
+   "overlay": {"kicker": "مهمتك الآن", "title": "افحص [[ثلاثة إعلانات]]", "text": "شاهد · اسأل الأسئلة الثلاثة"},
    "overlay_width": 640, "overlay_right": 60,
-   "captions": caps('narration-close.mp3', ["مهمتك الآن: شاهد ثلاثة إعلانات اليوم،", "واسأل عن كل واحد الأسئلة الثلاثة…", "ثم صنّفه: أداة أم فكرة؟", "وفي الوحدة الأولى، نبدأ من أول الطريق: الموجز."])},
-  {"type": "end", "title": "صناعة [[الإعلانات]]", "sub": "التالي: الوحدة 1 · الموجز والبصيرة", "duration": 3.0}]}
+   "captions": caps('narration-close-a-pad.mp3', ["مهمتك الآن: شاهد ثلاثة إعلانات اليوم،", "واسأل عن كل واحد الأسئلة الثلاثة…"], lead=2.3, tail=0.5)},
+  {"type": "end", "title": "أداة… أم [[فكرة]]؟", "sub": "التالي: الوحدة 1 · الموجز والبصيرة",
+   "audio": {"file": "narration-close-b.mp3", "start": 0.0, "end": round(dur(J('narration-close-b.mp3')), 2)},
+   "duration": round(dur(J('narration-close-b.mp3')) + 1.8, 2),
+   "captions": caps('narration-close-b.mp3', ["ثم صنّفه: أداة أم فكرة؟", "وفي الوحدة الأولى، نبدأ من أول الطريق: الموجز."])}]}
 json.dump(spec, open(J('spec-draft.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 print('scene3', s3, e3, '| 4a', s4a, e4a, '| 4b', s4b, e4b, '| scene5', s5, e5)
