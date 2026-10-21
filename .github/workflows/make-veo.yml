@@ -77,4 +77,4 @@ jobs:
           git config user.email "factory@users.noreply.github.com"
           git add "productions/${{ inputs.production }}/"*.mp4 2>/dev/null || true
           git commit -m "factory: veo clip ${{ inputs.output }} (run ${{ github.run_number }}) [skip ci]" || exit 0
-          git pull --rebase -q && git push
+          git pull --rebase --autostash -q && git push || (sleep 5 && git pull --rebase --autostash -q && git push)

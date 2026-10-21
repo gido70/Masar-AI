@@ -1,0 +1,35 @@
+name: حفظ مخرج من تشغيل سابق (مجاني)
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "رقم التشغيل الذي فيه الـ Artifact"
+        required: true
+      production:
+        description: "مجلد الإنتاج داخل productions"
+        required: true
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  save:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+          path: _art
+      - name: نسخ وحفظ
+        run: |
+          find _art -name "*.mp4" -exec cp {} "productions/${{ inputs.production }}/" \;
+          rm -rf _art
+          git config user.name "Masar Factory"
+          git config user.email "factory@users.noreply.github.com"
+          git add "productions/${{ inputs.production }}/"*.mp4
+          git commit -m "factory: save artifact from run ${{ inputs.run_id }} [skip ci]" || exit 0
+          git pull --rebase --autostash -q && git push
