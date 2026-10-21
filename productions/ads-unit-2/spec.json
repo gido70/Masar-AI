@@ -127,7 +127,7 @@
   },
   {
    "type": "broll",
-   "video": "broll-2c.mp4",
+   "video": "broll-2b.mp4",
    "audio": {
     "file": "narration-tpl-2.mp3",
     "start": 0.0,
@@ -142,7 +142,7 @@
   },
   {
    "type": "broll",
-   "video": "broll-3.mp4",
+   "video": "broll-3b.mp4",
    "audio": {
     "file": "narration-tpl-3.mp3",
     "start": 0.0,
@@ -157,7 +157,7 @@
   },
   {
    "type": "broll",
-   "video": "broll-4.mp4",
+   "video": "broll-4c.mp4",
    "audio": {
     "file": "narration-tpl-4.mp3",
     "start": 0.0,
