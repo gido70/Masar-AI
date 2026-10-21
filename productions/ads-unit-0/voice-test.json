@@ -1,0 +1,25 @@
+{
+ "model": "elevenlabs/multilingual-v2",
+ "voice_id": "George",
+ "stability": 0.5,
+ "similarity": 0.75,
+ "use_speaker_boost": true,
+ "clips": [
+  {
+   "output": "test-0a.mp3",
+   "text": "سَمَرْ… الطَّعْمُ الأُسْطُورِيّْ."
+  },
+  {
+   "output": "test-0b.mp3",
+   "text": "وَالرَّمْزْ: فِنْجانٌ يُصَبّْ… فَيَمْتَلِئُ المَجْلِسْ."
+  },
+  {
+   "output": "test-0c.mp3",
+   "text": "لَوْ حَذَفْتُ المُؤَثِّراتْ… هَلْ تَبْقَى الفِكْرَةْ؟"
+  },
+  {
+   "output": "test-0d.mp3",
+   "text": "القالِبُ الأَوَّلْ: التَّشْبِيهُ البَصَرِيّْ."
+  }
+ ]
+}
