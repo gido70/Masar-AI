@@ -1,0 +1,55 @@
+<html dir="rtl"><head><meta charset="utf-8"><style>
+@font-face{font-family:T;src:url(../../studio/fonts/Tajawal-Bold.ttf)}
+*{box-sizing:border-box}body{margin:0;width:1280px;height:720px;overflow:hidden;background:#fff;font-family:T;position:relative;color:#1B1B2F}
+.lights{position:absolute;left:0;right:0;height:34px;background:#1B1B2F;display:flex;justify-content:space-around;align-items:center}
+.lights i{width:14px;height:14px;border-radius:50%;background:#FFC93C;box-shadow:0 0 10px 3px rgba(255,201,60,.65)}
+.lights i:nth-child(3n){background:#F06BA8;box-shadow:0 0 10px 3px rgba(240,107,168,.6)}
+.top{top:0}.bot{bottom:0}
+.line{position:absolute;left:0;right:0;height:5px;background:#B0186A}
+.tx{position:absolute;right:62px;top:74px;width:640px}
+.badges{display:flex;gap:12px}
+.bd{background:#B0186A;color:#fff;font-size:26px;padding:6px 22px 4px;border-radius:24px}
+.bd.o{background:#fff;color:#1B1B2F;border:3px solid #1B1B2F}
+h1{font-size:92px;margin:14px 0 0;line-height:1.1;white-space:nowrap}h1 span{color:#B0186A}
+.sub{font-size:40px;line-height:1.35;margin-top:10px}
+.rl{width:120px;height:6px;background:#B0186A;margin:22px 0 14px}
+.s2{font-size:28px;color:#5A5A70}
+.logo{position:absolute;left:470px;top:520px;height:0}
+.art{position:absolute;left:52px;top:96px;width:500px;height:370px}
+.chips{position:absolute;left:52px;right:52px;bottom:62px;display:flex;gap:10px;}
+.ch{flex:1;border:3px solid #1B1B2F;border-radius:14px;text-align:center;padding:6px 0 4px;font-size:21px;background:#fff}
+.ch b{display:block;color:#B0186A;font-size:16px}
+.ch.on{background:#B0186A;border-color:#B0186A;color:#fff}.ch.on b{color:#FFE3F0}
+</style></head><body>
+<div class="lights top"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="line" style="top:34px"></div>
+<div class="lights bot"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="line" style="bottom:34px"></div>
+<svg class="art" viewBox="0 0 540 400" xmlns="http://www.w3.org/2000/svg">
+ <defs><radialGradient id="g" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#FFE9A8"/><stop offset=".55" stop-color="#FFF6DC"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient></defs>
+ <!-- billboard -->
+ <rect x="10" y="10" width="520" height="300" rx="22" fill="#1B1B2F"/>
+ <rect x="26" y="26" width="488" height="268" rx="12" fill="#FCEFF5"/>
+ <circle cx="270" cy="150" r="140" fill="url(#g)"/>
+ <!-- rays -->
+ <g stroke="#FFB400" stroke-width="9" stroke-linecap="round">
+  <line x1="270" y1="44" x2="270" y2="20"/><line x1="190" y1="72" x2="174" y2="54"/><line x1="350" y1="72" x2="366" y2="54"/>
+  <line x1="158" y1="140" x2="134" y2="140"/><line x1="382" y1="140" x2="406" y2="140"/>
+ </g>
+ <!-- bulb -->
+ <path d="M270 62c-48 0-84 36-84 82 0 30 15 50 31 66 10 10 15 20 15 32v10h76v-10c0-12 5-22 15-32 16-16 31-36 31-66 0-46-36-82-84-82z" fill="#FFC93C" stroke="#1B1B2F" stroke-width="7"/>
+ <path d="M252 116 L252 186 L306 151 Z" fill="#B0186A"/>
+ <rect x="232" y="256" width="76" height="14" rx="5" fill="#1B1B2F"/><rect x="238" y="274" width="64" height="12" rx="5" fill="#1B1B2F"/>
+ <!-- sparkles -->
+ <g fill="#B0186A"><path d="M96 70l7 16 16 7-16 7-7 16-7-16-16-7 16-7z"/><path d="M448 214l5 12 12 5-12 5-5 12-5-12-12-5 12-5z"/></g>
+ <g fill="#1B1B2F"><circle cx="440" cy="66" r="7"/><circle cx="108" cy="236" r="6"/></g>
+ <!-- legs -->
+ <rect x="130" y="310" width="22" height="80" fill="#1B1B2F"/><rect x="388" y="310" width="22" height="80" fill="#1B1B2F"/>
+ <rect x="40" y="380" width="460" height="14" rx="7" fill="#1B1B2F" opacity=".15"/>
+</svg>
+<div class="tx"><div class="badges"><span class="bd">حقيبة تطبيقية</span><span class="bd o">تسع وحدات · شهادة</span></div>
+<h1>مسار <span>الإعلانات</span></h1>
+<div class="sub">اصنع إعلانًا يقنع<br>بالذكاء الاصطناعي</div><div class="rl"></div>
+<div class="s2">الفكرة قبل الأداة، من الموجز إلى البيع</div><img src="../../studio/assets/logo.png" style="height:56px;margin-top:18px"></div>
+<img class="logo" src="../../studio/assets/logo.png">
+<div class="chips">
+<div class="ch"><b>0</b>الفكرة</div><div class="ch"><b>1</b>الموجز</div><div class="ch"><b>2</b>الأفكار</div><div class="ch"><b>3</b>الاختيار</div><div class="ch"><b>4</b>اللقطات</div><div class="ch"><b>5</b>التوليد</div><div class="ch"><b>6</b>المونتاج</div><div class="ch"><b>7</b>النسخ</div><div class="ch on"><b>8 ◀</b>البيع</div>
+</div></body></html>
