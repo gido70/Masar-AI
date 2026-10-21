@@ -1,3 +1,5 @@
 productions/*/_work/
 productions/*/*.html
 __pycache__/
+productions/*/*.voice.mp4
+productions/*/*-draft.mp4

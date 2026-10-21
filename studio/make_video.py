@@ -129,7 +129,7 @@ def card_html(c, T, label, scene):
         def side(sd, col):
             return f'''<div style="flex:1;border:5px solid {col};border-radius:28px;background:#fff;padding:30px 40px">
 <div style="display:inline-block;background:{col};color:#fff;font-family:Tajawal;font-size:38px;border-radius:14px;padding:6px 26px">{sd.get('label','')}</div>
-<div class="rv" style="font-size:50px;line-height:1.5;margin-top:22px;min-height:300px">{('<img src="file://' + os.path.join(ROOT_DIR, sd['img']) + '" style="width:100%;border-radius:14px;border:2px solid #ccc;display:block">') if sd.get('img') else '«' + sd['text'] + '»'}</div>
+<div class="rv" style="font-size:50px;line-height:1.5;margin-top:22px;min-height:300px">{('<img src="file://' + os.path.join(ROOT_DIR, sd['img']) + '" style="width:100%;border-radius:14px;border:2px solid #ccc;display:block">') if sd.get('img') else (sd['text'] if sd.get('quote') is False else '«' + sd['text'] + '»')}</div>
 <div class="rv" style="font-size:44px;font-weight:700;color:{col};border-top:3px solid {T['LINE']};padding-top:16px">{sd['verdict']}</div></div>'''
         body = title + f'<div style="position:absolute;top:340px;right:110px;left:110px;display:flex;gap:40px">{side(c["before"], T["ACC"])}{side(c["after"], T["GRN"])}</div>'
     elif k == 'end':
@@ -285,13 +285,17 @@ def main(spec_path):
                     f.write(f"file '{states[-1]}'\n")
                 ff('-f', 'concat', '-safe', '0', '-i', lst, '-vf', 'fps=25,scale=1920:1080,format=yuv420p', '-c:v', 'libx264', '-crf', '18', out)
             elif s['type'] == 'broll':
-                o = s['overlay']; ov = os.path.join(work, f'ov{i}.png')
-                html = f'''<!doctype html><html><head><meta charset="utf-8"><style>{css(T,1920,1080)} body{{background:transparent}}</style></head><body>
+                o = s.get('overlay') or {}; ov = os.path.join(work, f'ov{i}.png')
+                if s.get('overlay_style') == 'flashy':  # شعار «إعلان مبهر» ذهبي في الوسط بلا صندوق ولا شعار مسار
+                    html = f'''<!doctype html><html><head><meta charset="utf-8"><style>{css(T,1920,1080)} body{{background:transparent}}</style></head><body>
+<div style="position:absolute;bottom:150px;width:100%;text-align:center;font-size:130px;font-weight:700;color:#F5C451;text-shadow:0 0 30px rgba(255,190,60,.8),0 6px 18px rgba(0,0,0,.9)">{o.get('title','')}</div></body></html>'''
+                else:
+                    html = f'''<!doctype html><html><head><meta charset="utf-8"><style>{css(T,1920,1080)} body{{background:transparent}}</style></head><body>
 <div style="position:absolute;right:{s.get('overlay_right',90)}px;{'top:90px' if s.get('overlay_pos')=='top' else 'bottom:100px'};max-width:{s.get('overlay_width',1240)}px;background:rgba(255,255,255,0.94);border-right:16px solid {T['ACC']};border-radius:28px;padding:24px 42px 28px">
 <div style="font-family:Tajawal;font-size:34px;color:{T['SEC']}">{o.get('kicker','')}</div>
 <div style="font-size:80px;font-weight:700;line-height:1.2">{em(o['title'], T)}</div>
 <div style="font-size:48px;color:{T['INK']};line-height:1.35;margin-top:6px">{o.get('text','')}</div></div>
-<img src="file://{ASSETS}/logo.png" style="position:absolute;top:50px;left:70px;height:70px"></body></html>'''
+<img src="file://{ASSETS}/logo.png" style="position:absolute;top:50px;left:70px;height:70px"></body></html>''' if o else '<html><body style="background:transparent"></body></html>'
                 hp = os.path.join(work, f'ov{i}.html'); open(hp, 'w', encoding='utf-8').write(html)
                 pg.set_viewport_size({'width': 1920, 'height': 1080}); pg.goto('file://' + os.path.abspath(hp)); pg.wait_for_timeout(250)
                 pg.screenshot(path=ov, omit_background=True)
@@ -341,11 +345,70 @@ def main(spec_path):
     ff(*v_in, *a_in, '-filter_complex', ';'.join(v_fl + a_fl), '-map', '[vout]', '-map', '[aout]',
        '-c:v', 'libx264', '-crf', '20', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-level', '4.1',
        '-c:a', 'aac', '-b:a', '192k', '-ar', '44100', '-movflags', '+faststart', '-t', f'{END:.3f}', out)
+    if spec.get('music'):
+        add_music(out, spec['music'], P, clips, work)
     print(f'✓ {out}  ({END:.1f} ثانية)')
     tl = [dict(scene=i+1, type=s['type'], start=round(c[1],2), end=round(c[2],2),
                reveal=[round(c[1]+r,2) for r in (s.get('card',{}).get('reveal_at') or s.get('screen',{}).get('reveal_at') or [])])
           for i, (s, c) in enumerate(zip(segs, clips))]
     json.dump(tl, open(os.path.join(work, 'timeline.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+
+# ---------------------------------------------------------------- موسيقى الهوية
+def _pcm(path, sr=44100):
+    raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', path, '-f', 'f32le', '-ac', '2', '-ar', str(sr), '-'], capture_output=True, check=True).stdout
+    return np.frombuffer(raw, dtype=np.float32).reshape(-1, 2).copy()
+
+def _lufs(path):
+    err = subprocess.run(['ffmpeg', '-nostats', '-i', path, '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
+    return float(re.findall(r'^\s+I:\s+(-?[\d.]+)', err, re.M)[-1])
+
+def add_music(video, m, P, clips, work, sr=44100):
+    """موسيقى مستمرة: أخفض من الصوت بـ gap_db في الفواصل، وبـ speech_db تحت الكلام، بنزول down وصعود up (ثوانٍ).
+    m = {file, from_segment, speech_db, gap_db, down, up, fade_in, fade_out}"""
+    vw = os.path.join(work, 'voice.wav')
+    shutil.copy(video, video + '.voice.mp4')  # نسخة بلا موسيقى (للمراجعة وإعادة المزج)
+    ff('-i', video + '.voice.mp4', '-vn', '-ac', '2', '-ar', str(sr), vw)
+    voice = _pcm(vw, sr); n = len(voice); VL = _lufs(vw)
+    mus = _pcm(P(m['file']), sr); ML = _lufs(P(m['file']))
+    t0 = clips[m.get('from_segment', 0)][1]; need = n - int(t0 * sr)
+    xf = int(3 * sr)
+    while len(mus) < need:  # تكرار بوصلة ناعمة
+        a = mus[-xf:]; b = mus[:xf]; w = np.linspace(0, 1, xf)[:, None]
+        mus = np.concatenate([mus[:-xf], a * (1 - w) + b * w, mus[xf:]])
+    mus = mus[:need]
+    # مواضع الكلام من الصوت نفسه (إطارات 50 مللي ثانية)
+    fr = int(0.05 * sr); k = n // fr
+    rms = np.sqrt((voice[:k * fr].mean(axis=1).reshape(k, fr) ** 2).mean(axis=1) + 1e-12)
+    on = 20 * np.log10(rms) > -45
+    iv, st = [], None
+    for j, x in enumerate(on):
+        if x and st is None: st = j
+        if not x and st is not None: iv.append([st * 0.05, j * 0.05]); st = None
+    if st is not None: iv.append([st * 0.05, k * 0.05])
+    gap = m.get('merge', 0.8); merged = []  # فاصل أقصر من هذا يبقى تحت الكلام؛ الأطول ترتفع فيه الموسيقى (جزئيًا إن قصر)
+    for a, b in iv:
+        if merged and a - merged[-1][1] < gap: merged[-1][1] = b
+        else: merged.append([a, b])
+    t = np.arange(need) / sr + t0
+    F = VL + m.get('gap_db', -6) - ML; S = VL + m.get('speech_db', -15) - ML
+    g = np.full(need, F, dtype=np.float32)
+    dn, up = m.get('down', 1.5), m.get('up', 2.0)
+    for a, b in merged:
+        e = np.where(t < a - dn, F, np.where(t < a, F + (S - F) * (t - (a - dn)) / dn,
+            np.where(t <= b, S, np.where(t < b + up, S + (F - S) * (t - b) / up, F))))
+        g = np.minimum(g, e)
+    amp = (10 ** (g / 20)).astype(np.float32)
+    fi = int(m.get('fade_in', 1.5) * sr); amp[:fi] *= np.linspace(0, 1, fi)
+    fo = int(m.get('fade_out', 2.5) * sr); amp[-fo:] *= np.linspace(1, 0, fo)
+    mix = voice.copy(); mix[int(t0 * sr):int(t0 * sr) + need] += mus * amp[:, None]
+    peak = np.abs(mix).max()
+    if peak > 0.97: mix *= 0.97 / peak
+    mw = os.path.join(work, 'mix.wav')
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', str(sr), '-ac', '2', '-i', '-', mw], input=mix.astype(np.float32).tobytes(), check=True)
+    tmp = video + '.tmp.mp4'
+    ff('-i', video, '-i', mw, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-ar', str(sr), '-movflags', '+faststart', tmp)
+    os.replace(tmp, video)
+    print(f'♪ موسيقى: {os.path.basename(m["file"])} من {t0:.1f} ث · الفواصل {F:+.1f} dB · تحت الكلام {S:+.1f} dB · مقاطع كلام {len(merged)}', flush=True)
 
 if __name__ == '__main__':
     main(sys.argv[1])
