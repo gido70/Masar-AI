@@ -57,7 +57,7 @@
 <script>
 const $ = id => document.getElementById(id);
 $("ver").textContent = `الإصدار ${IDX.version} · آخر تحديث: ${IDX.updated}`;
-$("nowT").textContent = IDX.now.title; $("nowD").textContent = IDX.now.detail;
+$("nowT").textContent = IDX.now.title; $("nowD").innerHTML = IDX.now.detail;
 $("resume").innerHTML = IDX.resume;
 $("road").innerHTML = IDX.road.map(r => `<div class="${r.s}">${r.t}${r.s === "done" ? " ✓" : r.s === "now" ? " ◀" : ""}</div>`).join("");
 let tab = 0, open = false;
