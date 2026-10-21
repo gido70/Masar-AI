@@ -1,0 +1,7 @@
+{
+ "image": "studio/assets/presenter-screen.png",
+ "resolution": "720p",
+ "clips": [
+  {"video": "base-open.mp4", "audio": "narration-open-pad.mp3", "output": "presenter-open.mp4"}
+ ]
+}
