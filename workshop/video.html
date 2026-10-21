@@ -51,8 +51,8 @@ function nav(){document.querySelectorAll('.cp-list button').forEach((b,i)=>b.cla
 function show(i){
   cur=i;nav();const u=U[i];
   $('#cp-n').textContent='الوحدة '+u.n;$('#cp-t').textContent=u.title;$('#cp-o').textContent='تخرج بـ: '+u.out;
-  $('#cp-v').innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+u.video+'?rel=0" title="'+u.title+'" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
-  $('#cp-yt').href='https://youtu.be/'+u.video;$('#cp-dl').href=u.pdf;
+  $('#cp-v').innerHTML=u.video?'<iframe src="https://www.youtube-nocookie.com/embed/'+u.video+'?rel=0" title="'+u.title+'" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>':'<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--soft);color:var(--b);font-size:24px">🛠 الوحدة قيد البناء</div>';
+  $('#cp-yt').style.display=u.video?'':'none';$('#cp-yt').href='https://youtu.be/'+u.video;$('#cp-dl').style.display=u.pdf?'':'none';$('#cp-dl').href=u.pdf;
   document.querySelectorAll('.cp-tabs button').forEach(b=>{const k=b.dataset.k;b.style.display=(k==='quiz'&&!u.quiz.length)||(k==='text'&&!u.text)?'none':'';});
   if((tab==='quiz'&&!u.quiz.length)||(tab==='text'&&!u.text)) tab='pdf';
   pane();
@@ -61,7 +61,8 @@ function show(i){
 function pane(){
   document.querySelectorAll('.cp-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.k===tab));
   const u=U[cur],box=$('#cp-p');
-  if(tab==='pdf'){
+  if(tab==='pdf'&&!u.pdf){box.innerHTML='<p class="cp-tip">لا يوجد ملف لهذه الوحدة بعد.</p>';}
+  else if(tab==='pdf'){
     box.innerHTML='<p class="cp-tip">للكتابة في خانات الملف: نزّله بزر «تنزيل الملف» وافتحه في Adobe Acrobat Reader.</p>';
     if(navigator.pdfViewerEnabled){box.insertAdjacentHTML('beforeend','<iframe class="cp-pdf" src="'+u.pdf+'#view=FitH"></iframe>');}
     else{let h='<div class="cp-pages">';for(let k=1;k<=u.pages;k++){h+='<img loading="lazy" src="'+u.pdir+'/'+String(k).padStart(2,'0')+'.jpg" alt="صفحة '+k+'">';}box.insertAdjacentHTML('beforeend',h+'</div>');}
@@ -91,7 +92,7 @@ function quiz(u,box){
 document.querySelectorAll('.cp-list button').forEach((b,i)=>b.onclick=()=>{show(i);if(innerWidth<900)$('#cp-main').scrollIntoView({behavior:'smooth'});});
 document.querySelectorAll('.cp-tabs button').forEach(b=>b.onclick=()=>{tab=b.dataset.k;pane();});
 $('#cp-prev').onclick=()=>show((cur-1+U.length)%U.length);$('#cp-next').onclick=()=>show((cur+1)%U.length);
-const h=location.hash.match(/^#u(\d+)/);show(h?Math.max(0,U.findIndex(u=>u.n==+h[1])):0);
+const h=location.hash.match(/^#u(\d+)/);show(h?Math.max(0,U.findIndex(u=>u.n==+h[1])):Math.max(0,U.findIndex(u=>u.video)));
 </script>
 <footer class="ft"><div class="wrap"><span>مسار · حقائب تطبيقية في الذكاء الاصطناعي</span><span><a href="../workshop.html">الورشة</a></span></div></footer>
 </body>

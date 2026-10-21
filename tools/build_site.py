@@ -166,8 +166,8 @@ def build_public(p):
     body = f'''<div{theme(p)}>
 <section class="phero"><div class="wrap"><div class="g">
 <div><span class="kicker">{E(p["status"])}</span><h1>{E(p["name"])}</h1><p class="lead">{E(p["tagline"])}. {E(p["promise"])}</p>
-<div class="chips"><span class="chip">{len(p["units"])} وحدات</span><span class="chip">{E(p["hours"])}</span><span class="chip">شهادة</span><span class="chip price">{E(p["price"])}</span></div></div>
-<div class="vbox"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/{p["promo"]}?rel=0" title="إعلان {E(p["name"])}" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
+<div class="chips"><span class="chip">{len(p["units"])} وحدات</span><span class="chip">{E(p["hours"])}</span>{'<span class="chip">شهادة</span>' if p.get("certificate") else ''}<span class="chip price">{E(p["price"])}</span></div></div>
+{f'<div class="vbox"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/{p["promo"]}?rel=0" title="إعلان {E(p["name"])}" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>' if p.get("promo") else f'<div class="vbox"><img src="{pre}{p["cover"]}" alt="غلاف {E(p["name"])}" style="width:100%;height:100%;object-fit:cover"></div>'}
 </div></div></section>
 <section class="sec"><div class="wrap"><div class="grid" style="grid-template-columns:1.4fr .9fr;gap:24px">
 <div><div class="sec-h"><div><h2>ماذا ستتعلم</h2><p>مخرج كل وحدة هو مدخل الوحدة التي بعدها.</p></div></div><ol class="ulist">{units}</ol></div>
@@ -225,8 +225,8 @@ function nav(){document.querySelectorAll('.cp-list button').forEach((b,i)=>b.cla
 function show(i){
   cur=i;nav();const u=U[i];
   $('#cp-n').textContent='الوحدة '+u.n;$('#cp-t').textContent=u.title;$('#cp-o').textContent='تخرج بـ: '+u.out;
-  $('#cp-v').innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+u.video+'?rel=0" title="'+u.title+'" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
-  $('#cp-yt').href='https://youtu.be/'+u.video;$('#cp-dl').href=u.pdf;
+  $('#cp-v').innerHTML=u.video?'<iframe src="https://www.youtube-nocookie.com/embed/'+u.video+'?rel=0" title="'+u.title+'" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>':'<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--soft);color:var(--b);font-size:24px">🛠 الوحدة قيد البناء</div>';
+  $('#cp-yt').style.display=u.video?'':'none';$('#cp-yt').href='https://youtu.be/'+u.video;$('#cp-dl').style.display=u.pdf?'':'none';$('#cp-dl').href=u.pdf;
   document.querySelectorAll('.cp-tabs button').forEach(b=>{const k=b.dataset.k;b.style.display=(k==='quiz'&&!u.quiz.length)||(k==='text'&&!u.text)?'none':'';});
   if((tab==='quiz'&&!u.quiz.length)||(tab==='text'&&!u.text)) tab='pdf';
   pane();
@@ -235,7 +235,8 @@ function show(i){
 function pane(){
   document.querySelectorAll('.cp-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.k===tab));
   const u=U[cur],box=$('#cp-p');
-  if(tab==='pdf'){
+  if(tab==='pdf'&&!u.pdf){box.innerHTML='<p class="cp-tip">لا يوجد ملف لهذه الوحدة بعد.</p>';}
+  else if(tab==='pdf'){
     box.innerHTML='<p class="cp-tip">للكتابة في خانات الملف: نزّله بزر «تنزيل الملف» وافتحه في Adobe Acrobat Reader.</p>';
     if(navigator.pdfViewerEnabled){box.insertAdjacentHTML('beforeend','<iframe class="cp-pdf" src="'+u.pdf+'#view=FitH"></iframe>');}
     else{let h='<div class="cp-pages">';for(let k=1;k<=u.pages;k++){h+='<img loading="lazy" src="'+u.pdir+'/'+String(k).padStart(2,'0')+'.jpg" alt="صفحة '+k+'">';}box.insertAdjacentHTML('beforeend',h+'</div>');}
@@ -265,7 +266,7 @@ function quiz(u,box){
 document.querySelectorAll('.cp-list button').forEach((b,i)=>b.onclick=()=>{show(i);if(innerWidth<900)$('#cp-main').scrollIntoView({behavior:'smooth'});});
 document.querySelectorAll('.cp-tabs button').forEach(b=>b.onclick=()=>{tab=b.dataset.k;pane();});
 $('#cp-prev').onclick=()=>show((cur-1+U.length)%U.length);$('#cp-next').onclick=()=>show((cur+1)%U.length);
-const h=location.hash.match(/^#u(\d+)/);show(h?Math.max(0,U.findIndex(u=>u.n==+h[1])):0);
+const h=location.hash.match(/^#u(\d+)/);show(h?Math.max(0,U.findIndex(u=>u.n==+h[1])):Math.max(0,U.findIndex(u=>u.video)));
 """
 
 
@@ -279,17 +280,17 @@ def build_ws_pkg(p):
     pre = '../'
     data = []
     for u in p['units']:
-        pinfo = PAGES.get(u['pdf'], {'dir': '', 'pages': 0})
-        data.append({'n': u['n'], 'title': u['title'], 'out': u['out'], 'video': u['video'], 'pdf': pre + u['pdf'], 'pdir': pre + pinfo['dir'], 'pages': pinfo['pages'],
+        pinfo = PAGES.get(u.get('pdf', ''), {'dir': '', 'pages': 0})
+        data.append({'n': u['n'], 'title': u['title'], 'out': u['out'], 'video': u.get('video', ''), 'pdf': pre + u['pdf'] if u.get('pdf') else '', 'pdir': pre + pinfo['dir'], 'pages': pinfo['pages'],
                      'quiz': parse_quiz(u['quiz']) if u.get('quiz') else [], 'text': md(u['text']) if u.get('text') else ''})
-    items = ''.join(f'<button type="button"><img src="https://i.ytimg.com/vi/{u["video"]}/mqdefault.jpg" alt="" loading="lazy"><span><small>الوحدة {u["n"]}</small>{E(u["title"])}</span></button>' for u in p['units'])
+    items = ''.join((f'<button type="button"><img src="https://i.ytimg.com/vi/{u["video"]}/mqdefault.jpg" alt="" loading="lazy">' if u.get('video') else '<button type="button" class="wip"><span style="display:flex;align-items:center;justify-content:center;min-height:56px;background:var(--soft);border-radius:8px;font-size:14px">🛠 قيد البناء</span>') + f'<span><small>الوحدة {u["n"]}</small>{E(u["title"])}</span></button>' for u in p['units'])
     files = ''.join(f'<a class="card tile" href="{pre}{f["href"]}" data-title="{E(f["title"])}">{ic(f["icon"],"sm gold")}<div><h3 style="font-size:21px">{E(f["title"])}</h3></div></a>' for f in p['files'])
     docs = ''
     for i, d in enumerate(p['docs']):
         slug = f'doc-{p["slug"]}-{i+1}'
         write(f'workshop/{slug}.html', page(f'{d["title"]} · {p["name"]}', f'<div class="wrap"><p class="crumb"><a href="../workshop.html">الورشة</a> ← <a href="{p["slug"]}.html">{E(p["name"])}</a></p><div class="doc" style="margin-top:12px">{md(d["md"])}</div></div>', pre, 'workshop', '\n<meta name="robots" content="noindex">'))
         docs += f'<a class="card tile" href="{slug}.html">{ic(d["icon"],"sm")}<div><h3 style="font-size:21px">{E(d["title"])}</h3></div></a>'
-    tabs = '<a href="#player">الوحدات</a>' + (f'<a href="{p["slug"]}-workbook.html">✍️ الكراسة التفاعلية</a>' if os.path.exists(os.path.join(ROOT, f'data/workbooks/{p["slug"]}.json')) else '') + ('<a href="#gates">مسار المنهجية</a>' if gates_html(p) else '') + ('<a href="#docs">التسويق وCPS</a>' if docs else '') + '<a href="#files">الملفات</a>' + ('<a href="#cps">نسخة CPS</a>' if p.get('cps') else '') + '<a href="#cert">الشهادة</a>' + (f'<a href="{pre}{p["trainer"]}">مسار المدرّب</a>' if p.get('trainer') else '') + f'<a href="{pre}p/{p["slug"]}.html">الصفحة العامة</a>'
+    tabs = '<a href="#player">الوحدات</a>' + (f'<a href="{p["slug"]}-workbook.html">✍️ الكراسة التفاعلية</a>' if os.path.exists(os.path.join(ROOT, f'data/workbooks/{p["slug"]}.json')) else '') + ('<a href="#gates">مسار المنهجية</a>' if gates_html(p) else '') + ('<a href="#docs">التسويق وCPS</a>' if docs else '') + ('<a href="#files">الملفات</a>' if files else '') + ('<a href="#cps">نسخة CPS</a>' if p.get('cps') else '') + ('<a href="#cert">الشهادة</a>' if p.get('certificate') else '') + (f'<a href="{pre}{p["trainer"]}">مسار المدرّب</a>' if p.get('trainer') else '') + f'<a href="{pre}p/{p["slug"]}.html">الصفحة العامة</a>'
     has_quiz = any(u.get('quiz') for u in p['units']); has_text = any(u.get('text') for u in p['units'])
     body = f"""<div{theme(p)}>
 <section class="phero" style="padding:26px 0 18px"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← {E(p["name"])}</p>
@@ -306,9 +307,9 @@ def build_ws_pkg(p):
 </div></div></div></section>
 {gates_html(p)}
 {f'<section class="sec" id="docs"><div class="wrap"><div class="sec-h"><div><h2>التسويق وCPS</h2></div></div><div class="grid g2">{docs}</div></div></section>' if docs else ''}
-<section class="sec" id="files"><div class="wrap"><div class="sec-h"><div><h2>الملفات</h2></div></div><div class="grid g3">{files}</div></div></section>
+{f'<section class="sec" id="files"><div class="wrap"><div class="sec-h"><div><h2>الملفات</h2></div></div><div class="grid g3">{files}</div></div></section>' if files else ''}
 {cps_html(p)}
-<section class="sec" id="cert"><div class="wrap"><div class="sec-h"><div><h2>الشهادة</h2></div></div><a href="{pre}{p["certificate"]}" data-title="الشهادة"><img src="{pre}{p["certificate"]}" alt="الشهادة" style="width:100%;max-width:820px;border-radius:16px;box-shadow:0 14px 30px rgba(0,0,0,.12)"></a></div></section>
+{f'<section class="sec" id="cert"><div class="wrap"><div class="sec-h"><div><h2>الشهادة</h2></div></div><a href="{pre}{p["certificate"]}" data-title="الشهادة"><img src="{pre}{p["certificate"]}" alt="الشهادة" style="width:100%;max-width:820px;border-radius:16px;box-shadow:0 14px 30px rgba(0,0,0,.12)"></a></div></section>' if p.get('certificate') else ''}
 </div>
 <script type="application/json" id="udata">{json.dumps(data, ensure_ascii=False).replace('</', '<\\/')}</script>
 <script>{PLAYER_JS}</script>"""
