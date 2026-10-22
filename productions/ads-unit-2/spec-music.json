@@ -299,12 +299,13 @@
  "music": {
   "file": "../ads-unit-0/music-B-modern.mp3",
   "from_segment": 0,
-  "speech_db": -15,
-  "gap_db": -6,
+  "speech_db": -12,
+  "gap_db": -4,
   "down": 1.5,
   "up": 2.0,
   "merge": 0.8,
   "fade_in": 1.5,
-  "fade_out": 2.5
+  "fade_out": 2.5,
+  "loudnorm": -16
  }
 }

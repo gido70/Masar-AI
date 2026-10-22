@@ -406,7 +406,8 @@ def add_music(video, m, P, clips, work, sr=44100):
     mw = os.path.join(work, 'mix.wav')
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', str(sr), '-ac', '2', '-i', '-', mw], input=mix.astype(np.float32).tobytes(), check=True)
     tmp = video + '.tmp.mp4'
-    ff('-i', video, '-i', mw, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-ar', str(sr), '-movflags', '+faststart', tmp)
+    af = ['-af', f"loudnorm=I={m['loudnorm']}:TP=-1.5:LRA=11"] if m.get('loudnorm') else []  # توحيد الجهارة النهائية (يوتيوب ≈ −14 إلى −16 LUFS)
+    ff('-i', video, '-i', mw, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', *af, '-c:a', 'aac', '-b:a', '192k', '-ar', str(sr), '-movflags', '+faststart', tmp)
     os.replace(tmp, video)
     print(f'♪ موسيقى: {os.path.basename(m["file"])} من {t0:.1f} ث · الفواصل {F:+.1f} dB · تحت الكلام {S:+.1f} dB · مقاطع كلام {len(merged)}', flush=True)
 
