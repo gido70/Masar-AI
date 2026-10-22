@@ -19,6 +19,21 @@ if not os.path.exists(J('presenter-still.mp4')):
        '[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,boxblur=30:3,eq=brightness=-0.08[bg];'
        '[0:v]scale=-2:1080[fg];[bg][fg]overlay=(W-w)/2+380:0,format=yuv420p[o]', '-map', '[o]', '-t', '20', '-r', '25', '-c:v', 'libx264', '-crf', '20', J('presenter-still.mp4'))
 
+def stretch(src, out, cuts):
+    """يضيف صمتًا (ثوانٍ) داخل وقفات طبيعية في الكلام، دون إعادة توليد الصوت. cuts = [(موضع داخل الوقفة, صمت إضافي)]"""
+    pts = [0.0] + [c for c, _ in cuts] + [None]; fl = []; n = 0
+    for k in range(len(pts) - 1):
+        a, b = pts[k], pts[k + 1]
+        fl.append(f"[0:a]atrim=start={a}" + (f":end={b}" if b else '') + f",asetpts=PTS-STARTPTS,aresample=44100,aformat=channel_layouts=mono[p{n}]"); n += 1
+        if k < len(cuts):
+            fl.append(f"anullsrc=r=44100:cl=mono,atrim=0:{cuts[k][1]}[p{n}]"); n += 1
+    fl.append(''.join(f'[p{i}]' for i in range(n)) + f'concat=n={n}:v=0:a=1[o]')
+    ff('-i', J(src), '-filter_complex', ';'.join(fl), '-map', '[o]', J(out))
+
+# تعداد الأسئلة الخمسة والمعادلة: وقفات أطول ليُقرأ كل عنصر (ملاحظة الإيقاع في المسودة الأولى)
+stretch('n-s4.mp3', 'n-s4x.mp3', [(5.08, 0.8), (6.2, 0.8), (9.5, 0.8), (11.45, 0.8)])
+stretch('n-s8.mp3', 'n-s8x.mp3', [(1.47, 0.5), (2.32, 0.6), (3.48, 0.4), (7.2, 0.5)])
+
 def caps(audio, lines, lead=0.0, tail=0.0):
     d = dur(J(audio)) - 0.1 - tail; L = [len(x) for x in lines]; t = 0.15 + lead; out = []
     for x, l in zip(lines, L):
@@ -40,31 +55,31 @@ spec = {
    "overlay": {"kicker": "صناعة الإعلانات · الوحدة 1", "title": "الموجز [[والبصيرة]]", "text": "من رسالة مبهمة إلى صفحة واحدة"},
    "overlay_width": 640, "overlay_right": 60,
    "captions": [[a + OL, b + OL, x] for a, b, x in caps('narration-open.mp3', ["هذه ليست طلبًا… هذه بداية سؤال.", "وفي هذه الوحدة، تحوّل الرسالة المبهمة", "إلى موجز من صفحة واحدة، وبصيرة في جملة."])]},
-  {"type": "card", "audio": A("n-s3.mp3"), "hold": 1.3,
+  {"type": "card", "audio": A("n-s3.mp3"), "hold": 2.1,
    "card": {"kind": "compare", "title": "طلب [[مبهم]] أم موجز؟",
     "before": {"label": "طلب مبهم", "text": "أريد إعلانًا جميلًا", "verdict": "تخمين… وتعديلات لا تنتهي"},
     "after": {"label": "موجز", "text": "صفحة واحدة: من نخاطب، وماذا نقول، ولماذا يصدقنا", "verdict": "الجميع يرى الهدف نفسه"},
-    "reveal_at": [0.3, 2.45, 6.8, 8.6]}},
-  {"type": "card", "audio": A("n-s4.mp3"), "hold": 1.2,
+    "reveal_at": [0.3, 2.45, 6.8, 9.2]}},
+  {"type": "card", "audio": A("n-s4x.mp3"), "hold": 1.2,
    "card": {"kind": "grid", "title": "أسئلة العميل [[الخمسة]]", "cols": 5,
     "items": [["ماذا تبيع؟"], ["لمن؟"], ["ماذا يفعل الناس بعده؟"], ["لماذا يصدقونك؟"], ["أين ومتى وبكم؟"]],
-    "reveal_at": [4.07, 5.38, 6.56, 9.73, 11.78]}},
+    "reveal_at": [4.07, 6.18, 8.16, 12.13, 14.98]}},
   {"type": "card", "audio": A("n-s5.mp3"), "hold": 1.2,
    "card": {"kind": "tree", "title": "ورقة [[الموجز]]",
     "rows": [["من نخاطب؟", "شباب يجتمعون كل مساء"], ["ماذا نقول؟", "رسالة واحدة"], ["لماذا يصدقنا؟", "تُحمَّص طازجة كل أسبوع"]],
     "note": "<b style=\"color:#B0186A\">الدليل:</b><br>دليل واحد<br>يكفي", "reveal_at": [2.83, 8.73, 11.78, 15.35]}},
   {"type": "broll", "video": "broll-6-crop.mp4", "audio": A("n-s6.mp3"), "hold": 1.0, "overlay_at": 5.0,
    "overlay": {"kicker": "انظر إلى هذا المجلس", "title": "خمسة معًا… [[وكل واحد في هاتفه]]"}},
-  {"type": "card", "audio": A("n-s7.mp3"), "hold": 1.8,
+  {"type": "card", "audio": A("n-s7.mp3"), "hold": 2.4,
    "card": {"kind": "compare", "title": "معلومة أم [[بصيرة]]؟",
     "before": {"label": "معلومة", "text": "الشباب يحبون القهوة", "verdict": "يعرفها الجميع… ولا تحرك أحدًا"},
     "after": {"label": "بصيرة", "text": "نجتمع كل مساء… لكن لا نلتقي", "verdict": "حقيقة يعيشها الجمهور ولا يقولها"},
     "reveal_at": [3.76, 6.15, 10.72, 12.4]}},
-  {"type": "card", "audio": A("n-s8.mp3"), "hold": 1.5,
+  {"type": "card", "audio": A("n-s8x.mp3"), "hold": 1.5,
    "card": {"kind": "rule_bars", "title": "معادلة [[البصيرة]]",
     "rule": {"big": "=", "text": "<b>حقيقة + لكن</b><br>= بصيرة", "note": ""},
     "bars": [["حقيقة", "أولًا", 0.45], ["ثم: لكن", "ثانيًا", 0.65], ["الاختبار", "«صدقتَ… هذا نحن»", 0.9]],
-    "reveal_at": [0.3, 1.66, 2.6, 7.37]}},
+    "reveal_at": [0.3, 2.16, 3.53, 9.37]}},
   {"type": "card", "audio": A("n-s9.mp3"), "hold": 1.2,
    "card": {"kind": "cards", "title": "من البصيرة إلى [[الرسالة]]",
     "items": [["البصيرة", "نجتمع ولا نلتقي", "amber"], ["الرسالة", "سَمَر تجمع الناس", "green"], ["الذكاء الاصطناعي", "يقترح… والاختيار لك", "red"]],
