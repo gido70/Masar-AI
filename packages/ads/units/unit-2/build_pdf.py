@@ -79,12 +79,12 @@ def pages():
         ('تنسى المرشّح الثقافي', 'فكرة جميلة لا يمكن نشرها.', 'احتشام، وبلا ادعاءات بلا مصدر، وبلا سخرية.')], fs=33))
     p.append(check_page('قبل أن تنتقل إلى [[الوحدة 3]]', ['موجزي في سطر، ورسالتي في جملة واحدة', 'ثلاث أفكار لكل قالب: 18 فكرة', 'فكرتان حرتان: المجموع 20', 'كل فكرة سطر يصف ما يُرى، ولا تتكرر صورة',
         'كل فكرة مرّت على المرشّح الثقافي', 'وضعت نجمة على أقوى ثلاث أفكار'], 44))
-    rows = [[f'<b>{t[0]}</b>', '<br>', '', ''] for t in TEMPLATES]
+    rows = [[f'<b>{t[0]}</b>', cell(46), cell(46), cell(46)] for t in TEMPLATES]
     p.append(H1('ورقة العمل: [[محرّك]] أفكارك') + name_line(285) + f'''<div style="position:absolute;top:335px;right:110px;left:110px">
-<div style="font-size:30px;line-height:1.6">موجزي في سطر: <span style="{LINE};width:1350px"></span><br>رسالتي الواحدة: <span style="{LINE};width:1330px"></span></div>
+<div style="font-size:30px;line-height:1.6">موجزي في سطر: {fx(1350, 44)}<br>رسالتي الواحدة: {fx(1330, 44)}</div>
 <div style="margin-top:10px">{table(['القالب', 'الفكرة 1', 'الفكرة 2', 'الفكرة 3'], rows, ['16%', '28%', '28%', '28%'], 27, 26)}</div>
-<div style="margin-top:10px;font-size:30px;line-height:1.6">الحرة 1: <span style="{LINE};width:640px"></span> الحرة 2: <span style="{LINE};width:640px"></span><br>
-☐ 20 فكرة &nbsp;&nbsp; ☐ لا صورة مكررة &nbsp;&nbsp; ☐ مرّت على المرشّح الثقافي &nbsp;&nbsp; ☐ ★ على أقوى ثلاث</div></div>''')
+<div style="margin-top:10px;font-size:30px;line-height:1.6">الحرة 1: {fx(640, 44)} الحرة 2: {fx(640, 44)}<br>
+{fc(34)}20 فكرة &nbsp;&nbsp; {fc(34)}لا صورة مكررة &nbsp;&nbsp; {fc(34)}مرّت على المرشّح الثقافي &nbsp;&nbsp; {fc(34)}★ على أقوى ثلاث</div></div>''')
     return p
 
 if __name__ == '__main__':

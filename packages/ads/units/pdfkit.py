@@ -12,6 +12,19 @@ H1 = lambda t: f'<h1 style="position:absolute;top:150px;right:110px">{E(t)}</h1>
 BOX = f'background:{T["PAPER"]};border:3px solid {T["LINE"]};border-radius:24px'
 LINE = f'border-bottom:3px dotted {T["MUT"]};display:inline-block'
 
+# حقول قابلة للكتابة (قاعدة المصنع منذ الوحدة 3 من حقيبة الفيديو): كل عنصر فيه data-f يصير حقلًا حقيقيًا في PDF.
+def fx(w, h=48):
+    """سطر كتابة داخل النص."""
+    return f'<span data-f="t" style="display:inline-block;width:{w}px;height:{h}px;border-bottom:3px dotted {T["MUT"]};vertical-align:bottom"></span>'
+
+def cell(h=70):
+    """خانة كتابة تملأ خلية الجدول."""
+    return f'<span data-f="t" style="display:block;height:{h}px"></span>'
+
+def fc(size=40):
+    """مربع اختيار."""
+    return f'<span data-f="c" style="display:inline-block;width:{size}px;height:{size}px;border:3px solid {T["INK"]};border-radius:8px;vertical-align:middle;margin-left:10px"></span>'
+
 
 def cover(badge, title, goals, outs):
     li = ''.join(f'<li style="margin-bottom:10px">{g}</li>' for g in goals)
@@ -62,18 +75,18 @@ def mistakes_page(items, title='أخطاء [[شائعة]]… وكيف تتجنب
 
 
 def check_page(title, items, fs=46):
-    li = ''.join(f'<div style="display:flex;align-items:center;gap:24px;margin-bottom:22px;font-size:{fs}px"><span style="width:50px;height:50px;border:4px solid {T["INK"]};border-radius:10px;flex:none"></span>{x}</div>' for x in items)
+    li = ''.join(f'<div style="display:flex;align-items:center;gap:24px;margin-bottom:22px;font-size:{fs}px"><span data-f="c" style="width:50px;height:50px;border:4px solid {T["INK"]};border-radius:10px;flex:none"></span>{x}</div>' for x in items)
     return H1(title) + f'<div style="position:absolute;top:320px;right:130px;left:130px">{li}</div>'
 
 
 def name_line(top=290):
-    return f'<div style="position:absolute;top:{top}px;right:110px;font-size:34px">الاسم: <span style="{LINE};width:360px"></span>&nbsp;&nbsp; التاريخ: <span style="{LINE};width:200px"></span></div>'
+    return f'<div style="position:absolute;top:{top}px;right:110px;font-size:34px">الاسم: {fx(360, 44)}&nbsp;&nbsp; التاريخ: {fx(220, 44)}</div>'
 
 
 def build(pages, label, out, title):
     from playwright.sync_api import sync_playwright
     import pymupdf
-    n = len(pages); work = os.path.join(os.path.dirname(out), '_pdf_' + os.path.basename(out)[:-4]); os.makedirs(work, exist_ok=True); parts = []
+    n = len(pages); work = os.path.join(os.path.dirname(out), '_pdf_' + os.path.basename(out)[:-4]); os.makedirs(work, exist_ok=True); parts = []; boxes = []
     with sync_playwright() as p:
         b = p.chromium.launch(); pg = b.new_page(viewport={'width': 1920, 'height': 1080})
         for i, body in enumerate(pages):
@@ -84,13 +97,26 @@ def build(pages, label, out, title):
             # فحص الفيض: لا عنصر يتجاوز أسفل الصفحة
             over = pg.evaluate("Math.max(...[...document.querySelectorAll('body *')].map(e=>e.getBoundingClientRect().bottom))")
             if over > 1080: print(f'⚠ صفحة {i+1}: محتوى يتجاوز الأسفل ({int(over)}px)')
+            boxes.append(pg.evaluate("[...document.querySelectorAll('[data-f]')].map(e=>{const r=e.getBoundingClientRect();return [e.dataset.f,r.x,r.y,r.width,r.height]})"))
             pf = os.path.join(work, f'p{i}.pdf'); pg.pdf(path=pf, width='1920px', height='1080px', print_background=True, margin={'top': '0', 'bottom': '0', 'left': '0', 'right': '0'})
             parts.append(pf)
         b.close()
     doc = pymupdf.open()
     for pf in parts:
         d = pymupdf.open(pf); doc.insert_pdf(d, from_page=0, to_page=0)
+    k = 0.75; nf = 0  # px → pt
+    for i, bx in enumerate(boxes):
+        for j, (kind, x, y, w_, h_) in enumerate(bx):
+            w = pymupdf.Widget(); w.field_name = f'p{i+1}_{kind}{j+1}'
+            w.rect = pymupdf.Rect(x*k, y*k, (x+w_)*k, (y+h_)*k)
+            if kind == 'c':
+                w.field_type = pymupdf.PDF_WIDGET_TYPE_CHECKBOX
+            else:
+                w.field_type = pymupdf.PDF_WIDGET_TYPE_TEXT; w.text_fontsize = 0; w.text_font = 'Helv'
+                if h_ > 60: w.field_flags = pymupdf.PDF_TX_FIELD_IS_MULTILINE; w.text_fontsize = 16
+            doc[i].add_widget(w); nf += 1
+            if kind != 'c': doc.xref_set_key(w.xref, 'Q', '2')  # محاذاة يمين للكتابة العربية
     doc.set_metadata({'title': title, 'author': 'منصة مسار'})
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    doc.save(out, garbage=3, deflate=True); print('✓', out, doc.page_count, 'صفحات')
+    doc.save(out, garbage=3, deflate=True); print('✓', out, doc.page_count, 'صفحات', nf, 'حقلًا')
     import shutil; shutil.rmtree(work, ignore_errors=True)
