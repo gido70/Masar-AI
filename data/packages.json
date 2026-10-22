@@ -33,7 +33,9 @@
      "q": "لماذا ينجح إعلان ويفشل آخر؟",
      "out": "فهم: الفكرة قبل الأداة",
      "video": "AulX0B1Jc2s",
-     "quiz": "packages/ads/units/unit-0/quiz.md"
+     "quiz": "packages/ads/units/unit-0/quiz.md",
+     "pdf": "resources/ads/ads-unit-0.pdf",
+     "text": "packages/ads/units/unit-0/content-text.md"
     },
     {
      "n": 1,
@@ -46,7 +48,10 @@
      "title": "محرّك الأفكار: القوالب الستة",
      "q": "كيف أولّد أفكارًا كثيرة من موجز واحد؟",
      "out": "20 فكرة",
-     "video": "rQIVaP17hWA"
+     "video": "rQIVaP17hWA",
+     "pdf": "resources/ads/ads-unit-2.pdf",
+     "quiz": "packages/ads/units/unit-2/quiz.md",
+     "text": "packages/ads/units/unit-2/content-text.md"
     },
     {
      "n": 3,

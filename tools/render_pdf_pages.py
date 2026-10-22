@@ -9,7 +9,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'assets/pdfpages'); os.makedirs(OUT, exist_ok=True)
 idx_path = os.path.join(OUT, 'index.json')
 idx = json.load(open(idx_path, encoding='utf-8')) if os.path.exists(idx_path) else {}
-files = sorted(glob.glob(os.path.join(ROOT, 'resources/*.pdf')) + glob.glob(os.path.join(ROOT, 'resources/video/*.pdf')) + glob.glob(os.path.join(ROOT, 'lectures/*.pdf')) + glob.glob(os.path.join(ROOT, 'resources/cps/*.pdf')))
+files = sorted(glob.glob(os.path.join(ROOT, 'resources/*.pdf')) + glob.glob(os.path.join(ROOT, 'resources/video/*.pdf')) + glob.glob(os.path.join(ROOT, 'resources/ads/*.pdf')) + glob.glob(os.path.join(ROOT, 'lectures/*.pdf')) + glob.glob(os.path.join(ROOT, 'resources/cps/*.pdf')))
 for f in files:
     rel = os.path.relpath(f, ROOT); st = os.stat(f); sig = f'{st.st_size}'
     stem = rel.replace('resources/', '').replace('/', '_')[:-4]
