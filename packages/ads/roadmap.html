@@ -3,253 +3,245 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>خريطة حقيبة الإعلانات · مسار</title>
+<title>خريطة حقيبة صناعة الإعلانات · مسار</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#FBF7F1; --surface:#FFFFFF; --ink:#22181C; --muted:#6E6066; --line:#E9DFD6;
-  --idea:#B0186A; --prod:#C46A14; --spread:#1F7A6D; --sell:#2E4A8B;
-  --chip:#F4ECE4; --done:#1F7A6D; --soon:#9A8B92;
+  --bg:#F6EFE4; --paper:#FFFBF4; --ink:#2A1A10; --muted:#7A6352; --line:#E3D3BE;
+  --copper:#B5652B; --copper-soft:#F3DFCC; --green:#2F6B4F; --green-soft:#DCEDE3; --grey-soft:#EDE5DA;
   color-scheme: light;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#17121A; --surface:#211A24; --ink:#F3ECEF; --muted:#B5A8AE; --line:#3A2F3D;
-    --idea:#E0559C; --prod:#E79A4B; --spread:#4FB3A3; --sell:#7F9BE0; --chip:#2C2330; --done:#4FB3A3; --soon:#8C7F86;
+    --bg:#1B130D; --paper:#251A12; --ink:#F3E7D8; --muted:#BFA88F; --line:#3E2E22;
+    --copper:#E08B4A; --copper-soft:#3D2716; --green:#7CC7A0; --green-soft:#1E3529; --grey-soft:#2E231A;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#17121A; --surface:#211A24; --ink:#F3ECEF; --muted:#B5A8AE; --line:#3A2F3D;
-  --idea:#E0559C; --prod:#E79A4B; --spread:#4FB3A3; --sell:#7F9BE0; --chip:#2C2330; --done:#4FB3A3; --soon:#8C7F86;
+  --bg:#1B130D; --paper:#251A12; --ink:#F3E7D8; --muted:#BFA88F; --line:#3E2E22;
+  --copper:#E08B4A; --copper-soft:#3D2716; --green:#7CC7A0; --green-soft:#1E3529; --grey-soft:#2E231A;
   color-scheme: dark;
 }
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Tajawal",system-ui,"Segoe UI",Tahoma,sans-serif;font-size:17px;line-height:1.75}
-.wrap{max-width:980px;margin:0 auto;padding:0 20px}
-h1,h2,h3{font-family:"Amiri","Times New Roman",serif;line-height:1.3;margin:0}
-header.hero{padding:56px 0 36px;border-bottom:1px solid var(--line)}
-.kick{font-weight:700;color:var(--idea);letter-spacing:.02em;font-size:15px}
-.hero h1{font-size:clamp(34px,6vw,58px);margin:10px 0 14px}
-.hero h1 em{font-style:normal;color:var(--idea)}
-.hero p.lead{font-size:clamp(18px,2.4vw,21px);color:var(--muted);max-width:720px;margin:0}
-.promise{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
-.promise div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-.promise b{display:block;font-size:30px;font-family:"Amiri",serif;color:var(--idea);line-height:1.1}
-.promise span{color:var(--muted);font-size:15px}
-section{padding:44px 0;border-bottom:1px solid var(--line)}
-section > h2{font-size:clamp(26px,4vw,36px);margin-bottom:8px}
-section > p.sub{color:var(--muted);margin:0 0 24px;max-width:760px}
-/* stations strip */
-.stations{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);margin-bottom:26px}
-.st{padding:16px 14px;background:var(--surface);border-inline-start:1px solid var(--line)}
-.st:first-child{border-inline-start:none}
-.st small{display:block;font-weight:800;font-size:13px}
-.st h3{font-size:22px;margin:2px 0}
-.st p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
-.st.i small{color:var(--idea)} .st.p small{color:var(--prod)} .st.s small{color:var(--spread)} .st.b small{color:var(--sell)}
-.st.i{box-shadow:inset 0 -4px 0 var(--idea)} .st.p{box-shadow:inset 0 -4px 0 var(--prod)} .st.s{box-shadow:inset 0 -4px 0 var(--spread)} .st.b{box-shadow:inset 0 -4px 0 var(--sell)}
-@media (max-width:720px){.stations{grid-template-columns:1fr 1fr}.st:nth-child(3){border-inline-start:none}}
-/* path */
-.path{position:relative;padding-inline-start:44px}
-.path::before{content:"";position:absolute;inset-inline-start:17px;top:8px;bottom:8px;width:3px;background:linear-gradient(var(--idea) 0 44%,var(--prod) 44% 77%,var(--spread) 77% 88%,var(--sell) 88%);border-radius:3px}
-.unit{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;margin-bottom:14px}
-.unit .dot{position:absolute;inset-inline-start:-40px;top:16px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;font-size:15px;background:var(--c)}
-.unit summary{list-style:none;cursor:pointer;padding:14px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.unit summary::-webkit-details-marker{display:none}
-.unit summary h3{font-size:23px;flex:1 1 220px}
-.out{font-size:14px;font-weight:700;color:var(--c);background:var(--chip);border-radius:999px;padding:3px 12px}
-.state{font-size:13px;font-weight:700;border-radius:999px;padding:3px 10px;border:1px solid currentColor}
-.state.ok{color:var(--done)} .state.wip{color:var(--soon)}
-.unit summary::after{content:"＋";color:var(--muted);font-size:20px;margin-inline-start:4px}
-.unit[open] summary::after{content:"−"}
-.body{padding:0 18px 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
-.cell{background:var(--chip);border-radius:12px;padding:12px 14px}
-.cell h4{margin:0 0 4px;font-size:14px;color:var(--c);font-weight:800}
-.cell p{margin:0;font-size:15.5px;line-height:1.65}
-.cell code{font-family:"Tajawal",sans-serif;display:block;background:var(--surface);border:1px dashed var(--line);border-radius:8px;padding:8px 10px;margin-top:6px;font-size:14.5px;white-space:normal}
-.u-i{--c:var(--idea)} .u-p{--c:var(--prod)} .u-s{--c:var(--spread)} .u-b{--c:var(--sell)}
-/* samar ladder */
-.ladder{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;counter-reset:s}
-.rung{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;position:relative}
-.rung small{color:var(--muted);font-weight:700;font-size:13px}
-.rung p{margin:4px 0 0;font-size:15.5px;line-height:1.55}
-.rung.final{border-color:var(--idea);box-shadow:0 0 0 2px var(--idea) inset}
-/* kit */
-.kit{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.kit div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
-.kit .ico{font-size:28px}
-.kit h3{font-size:21px;margin:6px 0 4px}
-.kit p{margin:0;color:var(--muted);font-size:15px;line-height:1.6}
-.no{margin-top:16px;padding:14px 16px;border-radius:12px;background:var(--chip);font-size:15.5px}
-/* status */
-table{width:100%;border-collapse:collapse;font-size:15.5px;min-width:560px}
-th,td{text-align:right;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-size:14px;color:var(--muted)}
-.tbl{overflow-x:auto}
-.flag{background:var(--surface);border:1px solid var(--line);border-inline-start:5px solid var(--prod);border-radius:12px;padding:14px 16px;margin-top:12px}
-.flag b{color:var(--prod)}
-footer{padding:28px 0 48px;color:var(--muted);font-size:14px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",Tahoma,"Segoe UI",sans-serif;font-size:17px;line-height:1.75}
+.wrap{max-width:880px;margin:0 auto;padding:40px 22px 80px}
+h1,h2,h3{font-family:"Reem Kufi","IBM Plex Sans Arabic",Tahoma,sans-serif;line-height:1.35;margin:0}
+.hero{padding:30px 0 34px;border-bottom:2px solid var(--line)}
+.hero small{color:var(--muted);font-size:15px}
+.hero h1{font-size:clamp(34px,7vw,56px);margin:10px 0 14px}
+.hero h1 .to{display:block;color:var(--copper)}
+.hero p{max-width:640px;margin:0}
+.promise{margin-top:22px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.promise b{color:var(--copper)}
+section{margin-top:46px}
+section>h2{font-size:28px;margin-bottom:6px}
+section>.lead{color:var(--muted);margin:0 0 20px;max-width:660px}
+.path{position:relative;margin:0;padding:0;list-style:none}
+.path::before{content:"";position:absolute;top:10px;bottom:10px;right:23px;width:3px;background:repeating-linear-gradient(to bottom,var(--copper) 0 8px,transparent 8px 14px);opacity:.55}
+.st{position:relative;padding-right:66px;margin-bottom:18px}
+.num{position:absolute;right:0;top:4px;width:49px;height:49px;border-radius:50%;background:var(--paper);border:3px solid var(--copper);display:grid;place-items:center;font-family:"Reem Kufi",sans-serif;font-size:22px;color:var(--copper)}
+.st.done .num{background:var(--green);border-color:var(--green);color:#fff}
+.st.next .num{background:var(--copper);color:#fff}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.card h3{font-size:21px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
+.tag{font-family:"IBM Plex Sans Arabic",sans-serif;font-size:13px;font-weight:600;padding:2px 10px;border-radius:20px;background:var(--grey-soft);color:var(--muted)}
+.done .tag{background:var(--green-soft);color:var(--green)}
+.next .tag{background:var(--copper-soft);color:var(--copper)}
+.goal{margin:6px 0 10px}
+.rows{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:15.5px;margin:0}
+.rows dt{color:var(--muted);font-weight:600;white-space:nowrap}
+.rows dd{margin:0}
+.samar{margin-top:10px;font-size:15px;background:var(--copper-soft);border-radius:10px;padding:8px 12px}
+.samar b{color:var(--copper)}
+details{margin-top:8px}
+summary{cursor:pointer;color:var(--copper);font-weight:600;font-size:15px}
+.prompt{margin-top:8px;background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:10px 12px;font-size:15px}
+.kit{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.kit div{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kit h3{font-size:18px;margin-bottom:4px}
+.kit p{margin:0;font-size:15px;color:var(--muted)}
+.kit .min{font-size:13px;color:var(--copper);font-weight:600}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:15.5px;background:var(--paper)}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+th{background:var(--grey-soft);font-weight:600}
+tr:last-child td{border-bottom:0}
+.honest{background:var(--paper);border-right:4px solid var(--copper);border-radius:10px;padding:14px 18px}
+.honest ul{margin:0;padding-right:20px}
+.honest li{margin-bottom:8px}
+.foot{margin-top:50px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);padding-top:16px}
+@media (max-width:560px){.rows{grid-template-columns:1fr}.rows dt{margin-top:4px}}
 </style>
 </head>
 <body>
+<div class="wrap">
+
 <header class="hero">
- <div class="wrap">
-  <div class="kick">مسار · حقيبة «صناعة الإعلانات بالذكاء الاصطناعي» · خريطة المالك</div>
-  <h1>من طلب عميل في سطر<br>إلى <em>إعلان يقنع</em> وعرض مسعّر</h1>
-  <p class="lead">المتدرب لا يتعلم أداة؛ يتعلم كيف يفكر في الإعلان ثم يوجّه الذكاء الاصطناعي لينفّذ عنه. في آخر الحقيبة يأخذ موجزًا حقيقيًا ويسلّم:</p>
+  <small>مسار · حقيبة صناعة الإعلانات بالذكاء الاصطناعي · خريطة الطريق</small>
+  <h1>طلبٌ من سطر واحد<span class="to">إلى إعلان يُقنع ويُباع</span></h1>
+  <p>هذه الخريطة تجيب عن سؤال واحد: ماذا يستطيع المتدرب أن يفعل بعد الحقيبة ولم يكن يستطيعه قبلها؟ كل وحدة خطوة على الطريق، تستلم شيئًا وتسلّم شيئًا.</p>
   <div class="promise">
-   <div><b>3</b><span>أفكار إعلانية مدروسة</span></div>
-   <div><b>15–30 ث</b><span>إعلان كامل للفكرة المختارة</span></div>
-   <div><b>3</b><span>نسخ بخطافات مختلفة ومقاسين</span></div>
-   <div><b>1</b><span>عرض مسعّر يرسله للعميل</span></div>
+    <b>الوعد للمتدرب:</b> تأخذ طلب عميل حقيقي، فتسلّمه <b>3 أفكار</b>، و<b>إعلانًا من 15 إلى 30 ثانية</b> للفكرة الأقوى، و<b>3 نسخ</b> للمنصات، و<b>عرضًا مسعّرًا</b>. وتفعل ذلك وأنت <b>توجّه الذكاء الاصطناعي</b> في كل خطوة، لا وهو يوجّهك.
   </div>
- </div>
 </header>
 
 <section>
- <div class="wrap">
-  <h2>الطريق: أربع محطات وتسع وحدات</h2>
-  <p class="sub">كل وحدة تنتهي بشيء ملموس يبني على ما قبله. اضغط أي وحدة لترى ما يحدث فيها، وما يخرج به المتدرب، وكيف يوجّه الذكاء الاصطناعي.</p>
-  <div class="stations">
-   <div class="st i"><small>المحطة 1 · الوحدات 0–3</small><h3>الفكرة</h3><p>يفكّر قبل أن يفتح أي أداة</p></div>
-   <div class="st p"><small>المحطة 2 · الوحدات 4–6</small><h3>الإنتاج</h3><p>يوجّه الذكاء لينفّذ الفكرة</p></div>
-   <div class="st s"><small>المحطة 3 · الوحدة 7</small><h3>الانتشار</h3><p>نسخ تناسب كل منصة</p></div>
-   <div class="st b"><small>المحطة 4 · الوحدة 8</small><h3>البيع</h3><p>يحوّل المهارة إلى دخل</p></div>
-  </div>
+  <h2>الطريق: تسع محطات</h2>
+  <p class="lead">كل محطة فيها: ما يستلمه المتدرب، وما يفعله هو، وما يطلبه من الذكاء الاصطناعي، وما يخرج به. وعلى طول الطريق نصنع إعلانًا واحدًا لقهوة «سَمَر» المتخيّلة، فيرى المتدرب الإعلان يكبر أمامه من وحدة إلى وحدة.</p>
 
-  <div class="path">
-   <details class="unit u-i" open><summary><span class="dot">0</span><h3>الفكرة قبل الأداة</h3><span class="out">المخرج: يميّز الإعلان الجيد</span><span class="state ok">منجزة</span></summary>
-    <div class="body">
-     <div class="cell"><h4>ماذا يحدث</h4><p>إعلان «سَمَر» مبهر بلا فكرة، يوقفه سراج: «جميل… لكن ماذا قال؟» ثم نسخة بفكرة ورمز واحد.</p></div>
-     <div class="cell"><h4>يخرج المتدرب بـ</h4><p>«اختبار الفكرة» بثلاثة أسئلة يطبّقه على أي إعلان.</p></div>
-     <div class="cell"><h4>يوجّه الذكاء هكذا</h4><p>يلصق وصف إعلان ويطلب الحكم عليه:<code>«طبّق الأسئلة الثلاثة على هذا الإعلان: رسالة في جملة؟ تبقى الفكرة بلا مؤثرات؟ يُتذكر غدًا؟»</code></p></div>
-    </div></details>
+  <ol class="path">
+    <li class="st done"><span class="num">0</span><div class="card">
+      <h3>الفكرة قبل الأداة <span class="tag">الفيديو جاهز · ينتظر الرفع</span></h3>
+      <p class="goal">يفرّق بين إعلان يبهر العين ثم يُنسى، وإعلان يقول شيئًا ويبقى.</p>
+      <dl class="rows">
+        <dt>يستلم</dt><dd>لا شيء؛ هذه نقطة الانطلاق.</dd>
+        <dt>يفعل</dt><dd>يشاهد 3 إعلانات ويصنّفها: أداة أم فكرة؟</dd>
+        <dt>الذكاء</dt><dd>لا دور له بعد؛ وهذا هو الدرس.</dd>
+        <dt>يخرج بـ</dt><dd>«اختبار الفكرة»: ثلاثة أسئلة يستعملها في كل الحقيبة.</dd>
+      </dl>
+      <div class="samar"><b>سَمَر هنا:</b> إعلان مبهر بلا معنى، ثم النسخة نفسها بفكرة واحدة: فنجان يُصب فيمتلئ المجلس.</div>
+    </div></li>
 
-   <details class="unit u-i"><summary><span class="dot">1</span><h3>الموجز والبصيرة</h3><span class="out">المخرج: موجز من صفحة + بصيرة</span><span class="state wip">قيد البناء</span></summary>
-    <div class="body">
-     <div class="cell"><h4>ماذا يحدث</h4><p>عميل يقول «أبغى إعلان لقهوتي». المتدرب يحوّل الكلام المبهم إلى موجز واضح، ويكتشف ما يحرّك الجمهور فعلًا.</p></div>
-     <div class="cell"><h4>يخرج المتدرب بـ</h4><p>موجز «سَمَر» في صفحة، وبصيرة في جملة (مثلًا: القهوة عندنا مناسبة للقاء، لا مشروب).</p></div>
-     <div class="cell"><h4>يوجّه الذكاء هكذا</h4><p>يستعمل الذكاء محاورًا يستجوب العميل:<code>«أنت مخطط إعلانات. اسألني 7 أسئلة عن منتجي وجمهوري، ثم اكتب موجزًا من صفحة.»</code></p></div>
-    </div></details>
+    <li class="st next"><span class="num">1</span><div class="card">
+      <h3>الموجز والبصيرة <span class="tag">التالي في البناء</span></h3>
+      <p class="goal">يحوّل طلب العميل المبهم إلى موجز من صفحة، وبصيرة جمهور في جملة.</p>
+      <dl class="rows">
+        <dt>يستلم</dt><dd>طلب عميل مثل: «أبغى إعلان لقهوتي».</dd>
+        <dt>يفعل</dt><dd>يسأل العميل أسئلة محددة، ويختار الجمهور، ويكتب الرسالة الواحدة.</dd>
+        <dt>الذكاء</dt><dd>يقترح أسئلة للعميل، ويلخّص إجاباته، ويقترح 5 بصائر يختار منها المتدرب.</dd>
+        <dt>يخرج بـ</dt><dd>ورقة الموجز: من نخاطب؟ ماذا نقول؟ لماذا يصدّقنا؟</dd>
+      </dl>
+      <div class="samar"><b>سَمَر هنا:</b> الجمهور عائلات تجتمع مساءً، والبصيرة: «القهوة عندنا ليست مشروبًا، بل سبب للجَمعة».</div>
+      <details><summary>مثال لما يطلبه من الذكاء</summary><div class="prompt">«أنت مخطط إعلانات. هذه إجابات العميل: [...] اكتب لي 5 بصائر مختلفة عن الجمهور، كل واحدة في جملة، تبدأ بحقيقة يعيشها الجمهور ولا يقولها.»</div></details>
+    </div></li>
 
-   <details class="unit u-i"><summary><span class="dot">2</span><h3>محرّك الأفكار: القوالب الستة</h3><span class="out">المخرج: 20 فكرة</span><span class="state ok">منجزة</span></summary>
-    <div class="body">
-     <div class="cell"><h4>ماذا يحدث</h4><p>دراسة 1999: 89% من الإعلانات الفائزة تتبع 6 قوالب. يتعلمها بمثالين، ويطبّقها على موجزه.</p></div>
-     <div class="cell"><h4>يخرج المتدرب بـ</h4><p>قائمة 20 فكرة: 3 لكل قالب وفكرتان حرّتان.</p></div>
-     <div class="cell"><h4>يوجّه الذكاء هكذا</h4><p>لا يطلب «أفكارًا» عامة، بل يقيّده بالقالب:<code>«من هذا الموجز، أعطني 3 أفكار بقالب العواقب فقط: ماذا يحدث لاحقًا إن لم يستعمل المنتج؟»</code></p></div>
-    </div></details>
+    <li class="st done"><span class="num">2</span><div class="card">
+      <h3>محرّك الأفكار: القوالب الستة <span class="tag">منشورة · تُضاف لها الموسيقى</span></h3>
+      <p class="goal">يولّد 20 فكرة من موجز واحد، بدل أن ينتظر الإلهام.</p>
+      <dl class="rows">
+        <dt>يستلم</dt><dd>الموجز من الوحدة 1.</dd>
+        <dt>يفعل</dt><dd>يمرّ على القوالب الستة: 3 أفكار لكل قالب، وفكرتان حرّتان.</dd>
+        <dt>الذكاء</dt><dd>شريك عصف: يقترح ويطوّر، والمتدرب يختار ويحذف.</dd>
+        <dt>يخرج بـ</dt><dd>قائمة 20 فكرة، 3 منها بنجمة.</dd>
+      </dl>
+      <div class="samar"><b>سَمَر هنا:</b> «رائحة سَمَر توقظ العمارة كلها» من قالب الموقف المتطرف.</div>
+    </div></li>
 
-   <details class="unit u-i"><summary><span class="dot">3</span><h3>اختيار الفكرة والرمز البصري</h3><span class="out">المخرج: فكرة واحدة + رمزها</span><span class="state wip">قيد البناء</span></summary>
-    <div class="body">
-     <div class="cell"><h4>ماذا يحدث</h4><p>من 20 فكرة إلى واحدة، ببطاقة تقييم مكتوبة لا بالذوق. ثم يحدد الرمز الذي يحمل الفكرة في صورة واحدة.</p></div>
-     <div class="cell"><h4>يخرج المتدرب بـ</h4><p>فكرة «سَمَر تجمع الناس» ورمزها: فنجان يُصب فيمتلئ المجلس.</p></div>
-     <div class="cell"><h4>يوجّه الذكاء هكذا</h4><p>يجعله ناقدًا لا مصفقًا:<code>«قيّم هذه الأفكار الخمس ببطاقة التقييم، وكن قاسيًا. ما أضعف نقطة في كل منها؟»</code></p></div>
-    </div></details>
+    <li class="st"><span class="num">3</span><div class="card">
+      <h3>اختيار الفكرة والرمز <span class="tag">لم تُبنَ</span></h3>
+      <p class="goal">يختار فكرة واحدة بمعايير مكتوبة، لا بالذوق، ويحدد رمزها البصري.</p>
+      <dl class="rows">
+        <dt>يستلم</dt><dd>الأفكار الثلاث ذات النجمة.</dd>
+        <dt>يفعل</dt><dd>يقيّم كل فكرة ببطاقة تقييم، ويختار الأقوى ورمزها.</dd>
+        <dt>الذكاء</dt><dd>«محامي الشيطان»: ينتقد كل فكرة ويبحث عن نقاط ضعفها.</dd>
+        <dt>يخرج بـ</dt><dd>فكرة واحدة ورمز واحد، مع سبب الاختيار.</dd>
+      </dl>
+      <div class="samar"><b>سَمَر هنا:</b> تفوز فكرة «الفنجان الذي يملأ المجلس»، والرمز الفنجان نفسه.</div>
+    </div></li>
 
-   <details class="unit u-p"><summary><span class="dot">4</span><h3>من الفكرة إلى قائمة اللقطات</h3><span class="out">المخرج: لوحة قصة + أوصاف توليد</span><span class="state wip">قيد البناء</span></summary>
-    <div class="body">
-     <div class="cell"><h4>ماذا يحدث</h4><p>يقسم الإعلان إلى لقطات، ويكتب لكل لقطة وصفًا يفهمه مولّد الفيديو، و«عُدّة ثبات» تبقي المنتج والشخصية نفسيهما.</p></div>
-     <div class="cell"><h4>يخرج المتدرب بـ</h4><p>قائمة 5–7 لقطات بأوصافها الجاهزة للتوليد.</p></div>
-     <div class="cell"><h4>يوجّه الذكاء هكذا</h4><p>يحوّل فكرته إلى أوصاف إنجليزية دقيقة:<code>«حوّل هذه الفكرة إلى 6 لقطات، ولكل لقطة وصف لـ Veo: الكاميرا، والضوء، والحركة، وبلا نص.»</code></p></div>
-    </div></details>
+    <li class="st"><span class="num">4</span><div class="card">
+      <h3>من الفكرة إلى قائمة اللقطات <span class="tag">لم تُبنَ</span></h3>
+      <p class="goal">يحوّل الفكرة إلى خطة تصوير يفهمها الذكاء الاصطناعي.</p>
+      <dl class="rows">
+        <dt>يستلم</dt><dd>الفكرة والرمز.</dd>
+        <dt>يفعل</dt><dd>يقسم الإعلان إلى 5–8 لقطات، ويكتب لكل لقطة وصفًا وحركة ومدة.</dd>
+        <dt>الذكاء</dt><dd>يحوّل وصف المتدرب العربي إلى أوصاف توليد دقيقة، ويثبّت شكل المنتج والشخصية.</dd>
+        <dt>يخرج بـ</dt><dd>لوحة القصة وقائمة اللقطات.</dd>
+      </dl>
+      <div class="samar"><b>سَمَر هنا:</b> 6 لقطات: الدلة تصب، والأيدي تمتد، والمجلس يمتلئ…</div>
+    </div></li>
 
-   <details class="unit u-p"><summary><span class="dot">5</span><h3>التوليد</h3><span class="out">المخرج: لقطات صالحة + سجل تكلفة</span><span class="state wip">قيد البناء</span></summary>
-    <div class="body">
-     <div class="cell"><h4>ماذا يحدث</h4><p>يولّد اللقطات في Flow أو Veo، ويتعلم فحصها: نص مزيف، يد مشوهة، وجه متغير. ويحسب كم لقطة صلحت وكم كلّفت.</p></div>
-     <div class="cell"><h4>يخرج المتدرب بـ</h4><p>لقطات معتمدة، ودرس التكلفة (لقطاتنا الخمس كلّفت 2.20$).</p></div>
-     <div class="cell"><h4>يوجّه الذكاء هكذا</h4><p>يعالج الفشل بدل إعادة المحاولة عشوائيًا:<code>«ظهر نص عربي مزيف في اللقطة. عدّل الوصف ليمنعه، واقترح حلًا بالقص إن تكرر.»</code></p></div>
-    </div></details>
+    <li class="st"><span class="num">5</span><div class="card">
+      <h3>التوليد <span class="tag">لم تُبنَ</span></h3>
+      <p class="goal">ينتج اللقطات بثبات، ويعرف كم يصلح منها وكم كلّفت.</p>
+      <dl class="rows">
+        <dt>يستلم</dt><dd>قائمة اللقطات وأوصافها.</dd>
+        <dt>يفعل</dt><dd>يولّد في Flow أو Veo، ويفحص كل لقطة قبل قبولها.</dd>
+        <dt>الذكاء</dt><dd>هو المنفّذ؛ والمتدرب هو المخرج الذي يقبل ويرفض.</dd>
+        <dt>يخرج بـ</dt><dd>لقطات صالحة، وسجل تكلفة.</dd>
+      </dl>
+      <div class="samar"><b>سَمَر هنا:</b> ما حدث معنا فعلًا: لقطة ظهرت فيها كتابة مزيفة فقُصّت، وأخرى فشلت فأُعيدت.</div>
+    </div></li>
 
-   <details class="unit u-p"><summary><span class="dot">6</span><h3>الصوت والموسيقى والمونتاج</h3><span class="out">المخرج: إعلان كامل</span><span class="state wip">قيد البناء</span></summary>
-    <div class="body">
-     <div class="cell"><h4>ماذا يحدث</h4><p>صوت عربي بنطق صحيح (التشكيل يصنع الفرق: «القالِب» لا «القالَب»)، وموسيقى تنخفض تحت الكلام بلا انقطاع، ثم التركيب.</p></div>
-     <div class="cell"><h4>يخرج المتدرب بـ</h4><p>إعلان «سَمَر» كاملًا، 15–30 ثانية.</p></div>
-     <div class="cell"><h4>يوجّه الذكاء هكذا</h4><p>يشكّل نصه قبل التوليد:<code>«شكّل هذا النص تشكيلًا كاملًا للنطق الآلي، وضع سكونًا عند كل وقف.»</code></p></div>
-    </div></details>
+    <li class="st"><span class="num">6</span><div class="card">
+      <h3>الصوت والموسيقى والمونتاج <span class="tag">لم تُبنَ</span></h3>
+      <p class="goal">يركّب إعلانًا عربيًا بنطق صحيح وموسيقى وهوية.</p>
+      <dl class="rows">
+        <dt>يستلم</dt><dd>اللقطات.</dd>
+        <dt>يفعل</dt><dd>يكتب التعليق مشكولًا، ويختبر النطق، ويختار الموسيقى ومستواها، ويركّب.</dd>
+        <dt>الذكاء</dt><dd>صوت التعليق، والموسيقى المولّدة، واقتراح التشكيل.</dd>
+        <dt>يخرج بـ</dt><dd>إعلان كامل من 15 إلى 30 ثانية.</dd>
+      </dl>
+      <div class="samar"><b>سَمَر هنا:</b> درس حقيقي من إنتاجنا: «القالَب» نُطقت خطأ لأن التشكيل كان خطأ.</div>
+    </div></li>
 
-   <details class="unit u-s"><summary><span class="dot">7</span><h3>الخطاف والزاوية والنسخ</h3><span class="out">المخرج: 3 نسخ بمقاسين</span><span class="state wip">قيد البناء</span></summary>
-    <div class="body">
-     <div class="cell"><h4>ماذا يحدث</h4><p>أول ثانيتين تقرران كل شيء. يصنع من الإعلان نفسه ثلاث نسخ بخطافات مختلفة، بمقاس أفقي وعمودي، مع الإفصاح.</p></div>
-     <div class="cell"><h4>يخرج المتدرب بـ</h4><p>3 نسخ جاهزة للنشر واختبار أيها أفضل.</p></div>
-     <div class="cell"><h4>يوجّه الذكاء هكذا</h4><p>يولّد بدائل للافتتاح:<code>«اقترح 5 خطافات لأول ثانيتين: سؤال، وصدمة، ومشكلة، ورقم، ولحظة غريبة.»</code></p></div>
-    </div></details>
+    <li class="st"><span class="num">7</span><div class="card">
+      <h3>الخطاف والنسخ <span class="tag">لم تُبنَ</span></h3>
+      <p class="goal">يصنع من الإعلان 3 نسخ بخطافات مختلفة ومقاسين.</p>
+      <dl class="rows">
+        <dt>يستلم</dt><dd>الإعلان الكامل.</dd>
+        <dt>يفعل</dt><dd>يغيّر أول 3 ثوانٍ والزاوية، ويقص لمقاس طولي وأفقي.</dd>
+        <dt>الذكاء</dt><dd>يقترح خطافات وزوايا، ويعيد كتابة النص لكل نسخة.</dd>
+        <dt>يخرج بـ</dt><dd>3 نسخ جاهزة للنشر، مع الإفصاح عن الذكاء الاصطناعي.</dd>
+      </dl>
+    </div></li>
 
-   <details class="unit u-b"><summary><span class="dot">8</span><h3>البيع بقيمة</h3><span class="out">المخرج: عرض للعميل + أسعار</span><span class="state wip">قيد البناء</span></summary>
-    <div class="body">
-     <div class="cell"><h4>ماذا يحدث</h4><p>يعرض الفكرة على العميل قبل التنفيذ، ويسعّر بثلاثة مستويات بدل سعر واحد رخيص، ويبني معرضًا بإعلانات تجريبية.</p></div>
-     <div class="cell"><h4>يخرج المتدرب بـ</h4><p>عرض مسعّر يرسله، ومعرض أعمال.</p></div>
-     <div class="cell"><h4>يوجّه الذكاء هكذا</h4><p>يتدرب على الاعتراضات:<code>«أنت عميل يقول إن السعر غالٍ. اعترض عليّ 3 مرات، وقيّم ردودي.»</code></p></div>
-    </div></details>
-  </div>
- </div>
+    <li class="st"><span class="num">8</span><div class="card">
+      <h3>البيع بقيمة <span class="tag">لم تُبنَ</span></h3>
+      <p class="goal">يعرض الفكرة على عميل ويسعّرها بمستويات، فيخرج من سوق الخمسة دولارات.</p>
+      <dl class="rows">
+        <dt>يستلم</dt><dd>كل ما صنعه في الحقيبة.</dd>
+        <dt>يفعل</dt><dd>يبني عرضًا للعميل وجدول أسعار ومعرض أعمال تجريبية.</dd>
+        <dt>الذكاء</dt><dd>يصيغ العرض، ويقترح مستويات السعر، ويتدرب معه على أسئلة العميل.</dd>
+        <dt>يخرج بـ</dt><dd>عرض جاهز لأول عميل بسعر أعلى.</dd>
+      </dl>
+    </div></li>
+  </ol>
 </section>
 
 <section>
- <div class="wrap">
-  <h2>إعلان «سَمَر» يكبر معك</h2>
-  <p class="sub">هذا ما يقنع المشتري: يرى إعلانًا واحدًا يولد أمامه خطوة بخطوة، من سطر إلى إعلان منشور. وهو يفعل الشيء نفسه بمنتجه في الوقت نفسه.</p>
-  <div class="ladder">
-   <div class="rung"><small>الوحدة 1</small><p>«أبغى إعلان لقهوتي» ← موجز وبصيرة</p></div>
-   <div class="rung"><small>الوحدة 2</small><p>20 فكرة بالقوالب الستة</p></div>
-   <div class="rung"><small>الوحدة 3</small><p>«سَمَر تجمع الناس» + الفنجان والمجلس</p></div>
-   <div class="rung"><small>الوحدة 4</small><p>6 لقطات بأوصافها</p></div>
-   <div class="rung"><small>الوحدة 5</small><p>اللقطات مولّدة ومفحوصة</p></div>
-   <div class="rung final"><small>الوحدة 6</small><p>الإعلان كاملًا بصوته وموسيقاه</p></div>
-   <div class="rung"><small>الوحدة 7</small><p>3 نسخ للمنصات</p></div>
-   <div class="rung"><small>الوحدة 8</small><p>عرض مسعّر لصاحب «سَمَر»</p></div>
-  </div>
- </div>
-</section>
-
-<section>
- <div class="wrap">
-  <h2>المادة العلمية: قليل قراءة، كثير فعل</h2>
-  <p class="sub">الناس لا تقرأ الكراسات الطويلة. لذلك كل وحدة تأتي في خمس قطع صغيرة، كل واحدة تؤدي عملًا محددًا:</p>
+  <h2>المادة العلمية: عُدّة صغيرة لكل وحدة، لا كتاب</h2>
+  <p class="lead">الناس لا تقرأ الصفحات الطويلة. فكل وحدة عُدّة صغيرة تُقرأ وتُطبّق في أقل من نصف ساعة، ومعها «تعمّق» اختياري لمن يريد الفهم الأعمق.</p>
   <div class="kit">
-   <div><div class="ico">🎬</div><h3>فيديو قصير</h3><p>90 ثانية إلى 3 دقائق، بسراج ومثال «سَمَر». يشرح الفكرة الواحدة فقط.</p></div>
-   <div><div class="ico">🗂️</div><h3>بطاقة الوحدة</h3><p>صفحة واحدة مرسومة: القاعدة، والمثال، والخطأ الشائع. تُحفظ في الهاتف وتُراجع في دقيقة.</p></div>
-   <div><div class="ico">💬</div><h3>البرومبت الجاهز</h3><p>نص ينسخه ويلصقه في Claude أو Gemini لينفّذ الخطوة على منتجه هو. هنا يتعلم توجيه الذكاء.</p></div>
-   <div><div class="ico">📝</div><h3>ورقة العمل</h3><p>يملؤها بمنتجه، فتصير مخرج الوحدة الملموس.</p></div>
-   <div><div class="ico">✅</div><h3>امتحان قصير</h3><p>5 أسئلة، والنجاح 80%، قبل أن تُفتح الوحدة التالية.</p></div>
+    <div><span class="min">2–3 دقائق</span><h3>الفيديو</h3><p>سراج يشرح فكرة واحدة بمثال سَمَر. هذا ما بنيناه حتى الآن.</p></div>
+    <div><span class="min">صفحة واحدة</span><h3>بطاقة الوحدة</h3><p>الفكرة في سطر، والمثال، وأخطاء شائعة، وقائمة فحص من 3–5 بنود.</p></div>
+    <div><span class="min">نسخ ولصق</span><h3>أوامر الذكاء الجاهزة</h3><p>2–3 أوامر مجرّبة يلصقها المتدرب في Claude أو Gemini، فيتعلم توجيه الذكاء بالممارسة.</p></div>
+    <div><span class="min">15–20 دقيقة</span><h3>المهمة والامتحان</h3><p>تطبيق على منتجه هو، و5 أسئلة بنجاح 80%.</p></div>
+    <div><span class="min">اختياري</span><h3>تعمّق</h3><p>المصدر العلمي باختصار: دراسة القوالب، وتحفظاتها، وقراءة مقترحة.</p></div>
   </div>
-  <div class="no"><b>ومن أراد التعمق:</b> قسم «اقرأ أكثر» في آخر كل وحدة، فيه المصدر العلمي (مثل دراسة 1999 وتحفظاتها) لمن يهمه السبب، دون أن يُفرض على من يريد التطبيق فقط.</div>
- </div>
 </section>
 
 <section>
- <div class="wrap">
-  <h2>كيف نضمن أنها مفيدة فعلًا</h2>
-  <p class="sub">الحقيبة لا تُقاس بعدد الفيديوهات، بل باختبار التحول: هل يستطيع المتدرب تسليم عمل حقيقي؟</p>
-  <div class="tbl"><table>
-   <tr><th>السؤال</th><th>كيف نتحقق</th></tr>
-   <tr><td>هل فهم؟</td><td>امتحان كل وحدة (80%)</td></tr>
-   <tr><td>هل طبّق؟</td><td>مخرج ملموس في كل وحدة بمنتجه هو</td></tr>
-   <tr><td>هل تحوّل؟</td><td>الاختبار النهائي: موجز حقيقي ← 3 أفكار + إعلان يجتاز بطاقة التقييم + 3 نسخ + عرض مسعّر</td></tr>
-   <tr><td>هل يستحق الشراء؟</td><td>أول متدربين يجرّبون الحقيبة قبل الإعلان عنها، ونسأل: هل حصلت على عميل بسعر أعلى؟</td></tr>
+  <h2>ما يجمعه المتدرب في ملفه</h2>
+  <div class="tw"><table>
+    <tr><th>بعد الوحدة</th><th>في ملفه</th></tr>
+    <tr><td>0</td><td>اختبار الفكرة</td></tr>
+    <tr><td>1</td><td>موجز من صفحة + بصيرة</td></tr>
+    <tr><td>2</td><td>20 فكرة</td></tr>
+    <tr><td>3</td><td>فكرة مختارة + رمز</td></tr>
+    <tr><td>4</td><td>لوحة قصة + قائمة لقطات</td></tr>
+    <tr><td>5</td><td>لقطات صالحة + سجل تكلفة</td></tr>
+    <tr><td>6</td><td>إعلان كامل</td></tr>
+    <tr><td>7</td><td>3 نسخ</td></tr>
+    <tr><td>8</td><td>عرض مسعّر للعميل</td></tr>
   </table></div>
- </div>
 </section>
 
 <section>
- <div class="wrap">
-  <h2>الحالة الصادقة الآن</h2>
-  <div class="tbl"><table>
-   <tr><th>الجزء</th><th>الحالة</th></tr>
-   <tr><td>الهيكل والوحدات التسع ونتائج التعلم</td><td>مكتوب (packages/ads/STRUCTURE.md)</td></tr>
-   <tr><td>فيديوهات الوحدات</td><td>2 من 9 (الوحدة 0 تنتظر الرفع، والوحدة 2 منشورة وتُعاد بموسيقى)</td></tr>
-   <tr><td>بطاقات الوحدات والبرومبتات الجاهزة وأوراق العمل</td><td><b>لم تُكتب بعد لأي وحدة</b></td></tr>
-   <tr><td>الامتحانات</td><td>مسودة للوحدة 0 فقط</td></tr>
-  </table></div>
-  <div class="flag"><b>نقطة ضعف تحتاج قرارك:</b> بنينا الفيديوهات قبل المادة المكتوبة. الأصح أن تُكتب بطاقة الوحدة وبرومبتها وورقتها مع السيناريو نفسه، لأن الفيديو وحده يشرح ولا يجعل المتدرب يُنتج. أقترح أن نكمل مادة الوحدتين 0 و2 أولًا، ثم نبني كل وحدة جديدة بقطعها الخمس معًا.</div>
-  <div class="flag"><b>وثيقة قديمة:</b> ملف الهيكل ما زال يذكر مثالي «ياسمين» و«الإبرة» المسحوبين؛ يُحدَّث إلى «سَمَر» و«ترشيد الماء».</div>
- </div>
+  <h2>ملاحظة صادقة للمدير</h2>
+  <div class="honest"><ul>
+    <li><b>بنينا الوحدتين 0 و2 قبل أن نكتب عُدّة كل الوحدات.</b> الغموض الذي شعرت به في محله. الترتيب الأصح من الآن: نكتب بطاقة الوحدة وأوامرها أولًا، ثم الفيديو.</li>
+    <li><b>الوحدتان 0 و2 بلا بطاقة ولا أوامر جاهزة بعد.</b> نضيفهما قبل نشر الحقيبة.</li>
+    <li><b>«التحول» مقياسه واحد:</b> أول عميل بسعر أعلى. إن لم تقرّب الوحدة المتدرب من هذا، فهي زائدة.</li>
+  </ul></div>
 </section>
 
-<footer><div class="wrap">مسار · خريطة حقيبة الإعلانات للمالك · 22 أكتوبر 2026</div></footer>
+<p class="foot">آخر تحديث: 22 أكتوبر 2026 · المصدر: packages/ads/STRUCTURE.md في مستودع مسار.</p>
+</div>
 </body>
 </html>
