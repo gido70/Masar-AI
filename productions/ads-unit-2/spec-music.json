@@ -1,0 +1,310 @@
+{
+ "title": "صناعة الإعلانات · الوحدة 2: محرّك الأفكار",
+ "theme": "ads",
+ "label": "صناعة الإعلانات · الوحدة 2: محرّك الأفكار",
+ "output": "ads-unit-2-music.mp4",
+ "crossfade": 0.4,
+ "segments": [
+  {
+   "type": "broll",
+   "video": "presenter-open.mp4",
+   "no_stretch": true,
+   "overlay_pos": "top",
+   "overlay_at": 0.8,
+   "audio": {
+    "file": "narration-open.mp3",
+    "start": 0.0,
+    "end": 7.92
+   },
+   "overlay": {
+    "kicker": "صناعة الإعلانات · الوحدة 2",
+    "title": "الأفكار [[لها قوالب]]",
+    "text": "من الموجز إلى عشرين فكرة"
+   },
+   "captions": [
+    [
+     0.25,
+     3.58,
+     "الفكرة العظيمة ليست حظًّا… لها قوالب."
+    ],
+    [
+     3.93,
+     7.86,
+     "في هذه الوحدة تولّد عشرين فكرة من موجز واحد."
+    ]
+   ],
+   "overlay_width": 640,
+   "overlay_right": 60
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "narration-cards.mp3",
+    "start": 0.0,
+    "end": 17.06
+   },
+   "card": {
+    "kind": "compare",
+    "title": "[[خرافة]] أم حقيقة؟",
+    "before": {
+     "label": "الخرافة",
+     "text": "الإبداع إلهام عشوائي في صندوق أسود",
+     "verdict": "لا يُتعلّم ولا يُتحكّم فيه"
+    },
+    "after": {
+     "label": "الحقيقة",
+     "text": "الإعلانات الناجحة تشترك في أنماط يمكن تعلّمها",
+     "verdict": "الهيكل يوجّه الإبداع ولا يحدّه"
+    },
+    "reveal_at": [
+     0.6,
+     3.5,
+     6.0,
+     13.36
+    ]
+   }
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "narration-cards.mp3",
+    "start": 17.06,
+    "end": 48.43
+   },
+   "card": {
+    "kind": "rule_bars",
+    "title": "ماذا [[وجد]] الباحثون؟",
+    "rule": {
+     "big": "<span dir=\"ltr\">1999</span>",
+     "text": "<b>دراسة Goldenberg وزملائه</b>",
+     "note": "Marketing Science"
+    },
+    "bars": [
+     [
+      "200 إعلان فائز",
+      "<span dir=\"ltr\">89%</span> بستة قوالب",
+      0.89
+     ],
+     [
+      "الفائزة / غير الفائزة",
+      "<span dir=\"ltr\">50%</span> مقابل <span dir=\"ltr\">2.5%</span>",
+      0.5
+     ],
+     [
+      "ساعتان تدريب",
+      "إبداع وتذكّر أعلى",
+      0.75
+     ],
+     [
+      "تذكّر",
+      "أداة أفكار، لا ضمان مبيعات",
+      0.25
+     ]
+    ],
+    "reveal_at": [
+     0.0,
+     7.34,
+     12.38,
+     19.77,
+     25.77
+    ]
+   }
+  },
+  {
+   "type": "broll",
+   "video": "broll-1.mp4",
+   "audio": {
+    "file": "narration-tpl-1.mp3",
+    "start": 0.0,
+    "end": 11.18
+   },
+   "overlay": {
+    "kicker": "القالب الأول من ستة",
+    "title": "[[التشبيه البصري]]",
+    "text": "صنبور مفتوح… يصب نقودًا في البالوعة"
+   },
+   "overlay_at": 0.5
+  },
+  {
+   "type": "broll",
+   "video": "broll-2b.mp4",
+   "audio": {
+    "file": "narration-tpl-2.mp3",
+    "start": 0.0,
+    "end": 8.62
+   },
+   "overlay": {
+    "kicker": "القالب الثاني من ستة",
+    "title": "[[الموقف المتطرف]]",
+    "text": "رائحة قهوة سَمَر توقظ العمارة كلها"
+   },
+   "overlay_at": 0.5
+  },
+  {
+   "type": "broll",
+   "video": "broll-3b.mp4",
+   "audio": {
+    "file": "narration-tpl-3.mp3",
+    "start": 0.0,
+    "end": 8.28
+   },
+   "overlay": {
+    "kicker": "القالب الثالث من ستة",
+    "title": "[[العواقب]]",
+    "text": "طفل بعد عشرين عامًا يفتح صنبورًا جافًا"
+   },
+   "overlay_at": 0.5
+  },
+  {
+   "type": "broll",
+   "video": "broll-4c.mp4",
+   "audio": {
+    "file": "narration-tpl-4.mp3",
+    "start": 0.0,
+    "end": 10.45
+   },
+   "overlay": {
+    "kicker": "القالب الرابع من ستة",
+    "title": "[[المنافسة]]",
+    "text": "المنبّه لا يوقظه… وفنجان سَمَر يفعل"
+   },
+   "overlay_at": 0.5
+  },
+  {
+   "type": "broll",
+   "video": "broll-5.mp4",
+   "audio": {
+    "file": "narration-tpl-5.mp3",
+    "start": 0.0,
+    "end": 11.96
+   },
+   "overlay": {
+    "kicker": "القالب الخامس من ستة",
+    "title": "[[التجربة التفاعلية]]",
+    "text": "«عُدّ معي: كم ثانية يبقى صنبورك مفتوحًا؟»"
+   },
+   "overlay_at": 0.5
+  },
+  {
+   "type": "broll",
+   "video": "broll-6.mp4",
+   "audio": {
+    "file": "narration-tpl-6.mp3",
+    "start": 0.0,
+    "end": 10.16
+   },
+   "overlay": {
+    "kicker": "القالب السادس من ستة",
+    "title": "[[تغيير الأبعاد]]",
+    "text": "حبة بن تكبر حتى تصير مجلسًا"
+   },
+   "overlay_at": 0.5
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "narration-cards.mp3",
+    "start": 48.43,
+    "end": 65.38
+   },
+   "card": {
+    "kind": "tree",
+    "title": "[[طريقة]] المحرّك",
+    "rows": [
+     [
+      "الموجز",
+      "في سطر"
+     ],
+     [
+      "الرسالة",
+      "واحدة"
+     ],
+     [
+      "القوالب الستة",
+      "3 أفكار لكل قالب = 18"
+     ],
+     [
+      "حرّتان",
+      "= 20 فكرة"
+     ]
+    ],
+    "note": "<b style=\"color:#B0186A\">القاعدة:</b><br>لا تحكم على الأفكار<br>وأنت تولّدها",
+    "reveal_at": [
+     0.0,
+     2.97,
+     5.09,
+     10.25,
+     13.21
+    ]
+   }
+  },
+  {
+   "type": "broll",
+   "video": "presenter-close.mp4",
+   "no_stretch": true,
+   "overlay_pos": "top",
+   "overlay_at": 0.8,
+   "audio": {
+    "file": "narration-close.mp3",
+    "start": 0.0,
+    "end": 15.78
+   },
+   "overlay": {
+    "kicker": "مهمتك الآن",
+    "title": "املأ [[ورقة المحرّك]]",
+    "text": "موجزك في سطر · 18 فكرة<br>فكرتان حرتان · نجمة على أقوى 3"
+   },
+   "captions": [
+    [
+     0.25,
+     3.19,
+     "مهمتك الآن: املأ ورقة المحرّك."
+    ],
+    [
+     3.54,
+     4.76,
+     "موجزك في سطر،"
+    ],
+    [
+     5.11,
+     7.56,
+     "وثماني عشرة فكرة من القوالب،"
+    ],
+    [
+     7.91,
+     9.34,
+     "وفكرتان حرتان."
+    ],
+    [
+     9.7,
+     11.78,
+     "ثم ضع نجمة على أقوى ثلاث."
+    ],
+    [
+     12.12,
+     15.74,
+     "وفي الوحدة الثالثة… نختار الفكرة الرابحة."
+    ]
+   ],
+   "overlay_width": 640,
+   "overlay_right": 60
+  },
+  {
+   "type": "end",
+   "title": "صناعة [[الإعلانات]]",
+   "sub": "التالي: الوحدة 3 · اختيار الفكرة",
+   "duration": 3.0
+  }
+ ],
+ "music": {
+  "file": "../ads-unit-0/music-B-modern.mp3",
+  "from_segment": 0,
+  "speech_db": -15,
+  "gap_db": -6,
+  "down": 1.5,
+  "up": 2.0,
+  "merge": 0.8,
+  "fade_in": 1.5,
+  "fade_out": 2.5
+ }
+}
