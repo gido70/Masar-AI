@@ -269,7 +269,7 @@ def main(spec_path):
             h = hashlib.md5(json.dumps([{k: v for k, v in s.items() if k != 'captions'}, label, d], ensure_ascii=False, sort_keys=True).encode()).hexdigest()[:8]
             out = os.path.join(work, f'seg{i}_{h}.mp4')
             for a, b, txt in s.get('captions', []): caps.append((t + a, t + b, txt))
-            if os.path.exists(out) and os.path.getsize(out) > 1000 and not os.environ.get('FORCE'):
+            if os.path.exists(out) and os.path.getsize(out) > 1000 and not os.environ.get('FORCE') and _vdur(out) >= d - 0.15:  # مقطع مخزّن مبتور (تشغيل مقطوع) يُعاد
                 clips.append((out, t, t + d)); t += d; print('↺ موجود:', out, flush=True); continue
             if s['type'] == 'presenter':
                 scr = os.path.join(work, f'scr{i}'); states = render_states(pg, screen_html(s['screen'], T), scr, 1080, 750)
@@ -345,6 +345,7 @@ def main(spec_path):
     ff(*v_in, *a_in, '-filter_complex', ';'.join(v_fl + a_fl), '-map', '[vout]', '-map', '[aout]',
        '-c:v', 'libx264', '-crf', '20', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-level', '4.1',
        '-c:a', 'aac', '-b:a', '192k', '-ar', '44100', '-movflags', '+faststart', '-t', f'{END:.3f}', out)
+    check_streams(out)
     if spec.get('music'):
         add_music(out, spec['music'], P, clips, work)
     print(f'✓ {out}  ({END:.1f} ثانية)')
@@ -352,6 +353,18 @@ def main(spec_path):
                reveal=[round(c[1]+r,2) for r in (s.get('card',{}).get('reveal_at') or s.get('screen',{}).get('reveal_at') or [])])
           for i, (s, c) in enumerate(zip(segs, clips))]
     json.dump(tl, open(os.path.join(work, 'timeline.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+
+def _vdur(p):
+    try: return float(subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'format=duration', '-of', 'csv=p=0', p], capture_output=True, text=True).stdout.strip() or 0)
+    except Exception: return 0.0
+
+def check_streams(video):
+    """حارس أخير: مدة الصورة يجب أن تساوي مدة الصوت، وإلا يتجمد الإطار والصوت مستمر."""
+    o = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'stream=codec_type,duration', '-of', 'csv=p=0', video], capture_output=True, text=True).stdout
+    d = {k: float(v) for k, v in (l.split(',') for l in o.strip().splitlines() if ',' in l)}
+    if not d.get("video") or abs(d.get("video", 0) - d.get("audio", 0)) > 0.5:
+        sys.exit(f"✗ الصورة {d.get('video',0):.1f} ث والصوت {d.get('audio',0):.1f} ث: مقطع مبتور. أُوقف.")
+    print(f"✓ الصورة والصوت متطابقان ({d.get('video',0):.1f} ث)", flush=True)
 
 # ---------------------------------------------------------------- موسيقى الهوية
 def _pcm(path, sr=44100):
