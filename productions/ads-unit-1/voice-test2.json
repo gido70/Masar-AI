@@ -1,0 +1,17 @@
+{
+ "model": "elevenlabs/multilingual-v2",
+ "voice_id": "George",
+ "stability": 0.5,
+ "similarity": 0.75,
+ "use_speaker_boost": true,
+ "clips": [
+  {
+   "output": "test-1a2.mp3",
+   "text": "وَصَلَتْكَ رِسالَةٌ مِنْ عَمِيلْ: أُرِيدُ إِعْلانًا لِقَهْوَتِي… يَكُونُ جَمِيلًا."
+  },
+  {
+   "output": "test-1c2.mp3",
+   "text": "إِذا سَمِعَها الجُمْهُورْ، قالْ: صَدَقْتَ… هَذا نَحْنُ."
+  }
+ ]
+}
