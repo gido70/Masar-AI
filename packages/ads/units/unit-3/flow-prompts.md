@@ -13,7 +13,7 @@ IDENTITY LOCK: the presenter is exactly the same man as in the uploaded referenc
 
 16:9 photorealistic still, medium shot. He stands relaxed in a calm editing studio with warm lighting. Behind him a large wall covered with neat rows of printed idea cards, a large switched-off monitor and a green plant. He wears a beige shirt with sleeves rolled to the elbows and dark navy trousers. Both hands are empty and relaxed at his sides. He looks at the camera with a warm, confident smile. Realistic skin texture, soft depth of field. No text, no logos.
 ```
-**الفحص:** الوجه بجانب siraj-face.png · يدان فارغتان · لا كتابة مقروءة على البطاقات (وإن ظهرت حروف مزيفة فهي ضبابية خلفه) · **البديل إن فشلت مرتين:** siraj-agency-start.jpg (مكان الوحدة 1، لكن الهوية مضمونة).
+**الفحص:** الوجه بجانب siraj-face.png · يدان فارغتان · لا كتابة مقروءة على البطاقات (وإن ظهرت حروف مزيفة فهي ضبابية خلفه) · **إن فشلت مرتين:** يتوقف التوليد ويُبلَّغ صاحب المشروع؛ ولا تُستعمل siraj-agency-start.jpg لأن فيها لبس الوحدة 1 (اللبس جديد في كل وحدة).
 
 ## اللقطة 1 · الافتتاح «عندك عشرون فكرة…» (8 ث + Extend)
 ```
