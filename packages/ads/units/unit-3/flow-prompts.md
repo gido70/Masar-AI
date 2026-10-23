@@ -7,11 +7,13 @@
 **قاعدة:** نطلب الحركة فقط، ويداه فارغتان دائمًا، ولا يمسك شيئًا ولا يلمس البطاقات؛ الكلام يُركَّب لاحقًا بصوت George.
 **الزمن المطلوب من الكلام:** المشهد 1 نحو 11 ث · المشهد 6 نحو 18.4 ث · المشهد 8 نحو 14.9 ث (مقاسة، سجل 253) ← كل لقطة 8 ث ثم Extend مرة، <b>والمشهد 6 (اللقطة 2) تمديدان</b>.
 
+> **تعديل بعد التنفيذ (سجل 255):** الوصف الأول أنتج شعار Apple على الشاشة وكلمة «IDEA» على البطاقات؛ صُحّح الوصف أدناه للوحدات القادمة (بطاقات بصور فقط، ولا شاشات ولا شعارات). التمديد في Flow بإصدار Lite (10 وحدات)، ووضع Frames لا يقبل المراجع.
+
 ## الخطوة 0 · صورة البداية (صورة ثابتة في Flow، 2K، 16:9)
 ```
 IDENTITY LOCK: the presenter is exactly the same man as in the uploaded reference image (Siraj). He is a Sudanese man in his late 40s with warm medium-dark brown skin, an oval face, short tightly curled black hair with visible grey at the temples, a short salt-and-pepper beard and moustache with grey on the chin, warm brown eyes, a friendly smile and a medium build. Keep his face, facial features, skin tone, age, hair texture, grey hair and beard exactly as in the reference in every frame. Do not lighten his skin, do not make him younger, do not remove the grey, and do not change his ethnicity or features. Only his clothing, location and movement change.
 
-16:9 photorealistic still, medium shot. He stands relaxed in a calm editing studio with warm lighting. Behind him a large wall covered with neat rows of printed idea cards, a large switched-off monitor and a green plant. He wears a beige shirt with sleeves rolled to the elbows and dark navy trousers. Both hands are empty and relaxed at his sides. He looks at the camera with a warm, confident smile. Realistic skin texture, soft depth of field. No text, no logos.
+16:9 photorealistic still, medium shot. He stands relaxed in a calm editing studio with warm lighting. Behind him a large wall covered with neat rows of printed cards showing simple pictures only, with no words or letters on them, and a large green plant in a pot. No screens, no devices, no brand logos. He wears a beige shirt with sleeves rolled to the elbows and dark navy trousers. Both hands are empty and relaxed at his sides. He looks at the camera with a warm, confident smile. Realistic skin texture, soft depth of field. No text, no logos.
 ```
 **الفحص:** الوجه بجانب siraj-face.png · يدان فارغتان · لا كتابة مقروءة على البطاقات (وإن ظهرت حروف مزيفة فهي ضبابية خلفه) · **إن فشلت مرتين:** يتوقف التوليد ويُبلَّغ صاحب المشروع؛ ولا تُستعمل siraj-agency-start.jpg لأن فيها لبس الوحدة 1 (اللبس جديد في كل وحدة).
 
