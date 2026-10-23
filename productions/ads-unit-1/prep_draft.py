@@ -5,14 +5,24 @@ B = os.path.dirname(os.path.abspath(__file__)); J = lambda x: os.path.join(B, x)
 def ff(*a): subprocess.run(['ffmpeg', '-v', 'error', '-y', *a], check=True)
 def dur(p): return round(float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','csv=p=0',p]).decode()), 2)
 
-# المهمة تُقسم: (أ) على سراج حتى «فيها لكن»، و(ب) «وفي الوحدة الثانية…» فوق بطاقة الختام
-CUT = 11.95
-ff('-i', J('narration-close.mp3'), '-t', str(CUT), '-af', 'afade=t=out:st=%.2f:d=0.15' % (CUT - 0.15), J('narration-close-a.mp3'))
-ff('-ss', '12.0', '-i', J('narration-close.mp3'), J('narration-close-b.mp3'))
-# حشوة صمت حول كلام سراج (لمزامنة الشفاه لاحقًا)
-for n in ('narration-open', 'narration-close-a'):
-    ff('-f', 'lavfi', '-t', '0.5', '-i', 'anullsrc=r=44100:cl=mono', '-i', J(n + '.mp3'), '-f', 'lavfi', '-t', '0.6', '-i', 'anullsrc=r=44100:cl=mono',
+# كلام سراج قصير ونظيف (≤ 5 ث): لقطات Flow مدتها 10 ث، والورقة تختفي فيها اختفاءً غير طبيعي، فنأخذ الجزء النظيف فقط (سجل 246)
+def cut(src, out, a, b=None, fade=True):
+    args = ['-ss', str(a), '-i', J(src)] + (['-t', str(round(b - a, 2))] if b else [])
+    if fade and b: args += ['-af', 'afade=t=out:st=%.2f:d=0.12' % (b - a - 0.12)]
+    ff(*args, J(out))
+cut('narration-open.mp3', 'narration-open-1.mp3', 0, 3.62)        # «هذه ليست طلبًا… هذه بداية سؤال.» على سراج
+cut('narration-open.mp3', 'narration-open-2.mp3', 4.0, None)      # «وفي هذه الوحدة…» فوق بطاقة
+cut('narration-close.mp3', 'narration-close-a1.mp3', 0, 4.47)     # «مهمتك الآن: … أرسل لك رسالته.» على سراج
+cut('narration-close.mp3', 'narration-close-a2.mp3', 5.0, 11.68)  # الخطوات الثلاث فوق بطاقة المهمة
+cut('narration-close.mp3', 'narration-close-b.mp3', 12.0, None)   # «وفي الوحدة الثانية…» فوق بطاقة الختام
+def pad(n, lead, tail):
+    ff('-f', 'lavfi', '-t', str(lead), '-i', 'anullsrc=r=44100:cl=mono', '-i', J(n + '.mp3'), '-f', 'lavfi', '-t', str(tail), '-i', 'anullsrc=r=44100:cl=mono',
        '-filter_complex', '[1:a]aresample=44100,aformat=channel_layouts=mono[v];[0:a][v][2:a]concat=n=3:v=0:a=1[o]', '-map', '[o]', J(n + '-pad.mp3'))
+pad('narration-open-1', 0.4, 0.5); pad('narration-close-a1', 0.22, 0.2)
+# الأساس الصامت لمزامنة الشفاه: الجزء النظيف من لقطتي Flow (بعد اختفاء الورقة)
+for src, start, aud, out in (('flow-raw-C.mp4', 3.0, 'narration-open-1-pad.mp3', 'base-open.mp4'), ('flow-raw-A.mp4', 4.0, 'narration-close-a1-pad.mp3', 'base-close.mp4')):
+    if not os.path.exists(J(out)):
+        ff('-ss', str(start), '-i', J(src), '-t', str(dur(J(aud)) + 0.3), '-an', '-vf', 'scale=1280:720', '-c:v', 'libx264', '-crf', '18', '-pix_fmt', 'yuv420p', J(out))
 if not os.path.exists(J('presenter-still.mp4')):
     img = os.path.join(B, '..', '..', 'studio', 'assets', 'avatars', 'siraj.png')
     ff('-loop', '1', '-i', img, '-filter_complex',
@@ -41,8 +51,8 @@ def caps(audio, lines, lead=0.0, tail=0.0):
     return out
 
 SO, SC = os.path.exists(J('presenter-open.mp4')), os.path.exists(J('presenter-close.mp4'))
-OV, OA, OL = ('presenter-open.mp4', 'narration-open-pad.mp3', 0.5) if SO else ('presenter-still.mp4', 'narration-open.mp3', 0.0)
-CV, CA, CL = ('presenter-close.mp4', 'narration-close-a-pad.mp3', 0.5) if SC else ('presenter-still.mp4', 'narration-close-a.mp3', 0.0)
+OV, OA, OL = ('presenter-open.mp4', 'narration-open-1-pad.mp3', 0.4) if SO else ('presenter-still.mp4', 'narration-open-1.mp3', 0.0)
+CV, CA, CL = ('presenter-close.mp4', 'narration-close-a1-pad.mp3', 0.22) if SC else ('presenter-still.mp4', 'narration-close-a1.mp3', 0.0)
 A = lambda f: {"file": f, "start": 0.0, "end": dur(J(f))}
 spec = {
  "title": "صناعة الإعلانات · الوحدة 1: الموجز والبصيرة", "theme": "ads",
@@ -54,7 +64,11 @@ spec = {
   {"type": "broll", "video": OV, "no_stretch": True, "overlay_pos": "top", "overlay_at": 0.8, "audio": A(OA), "hold": 0.3,
    "overlay": {"kicker": "صناعة الإعلانات · الوحدة 1", "title": "الموجز [[والبصيرة]]", "text": "من رسالة مبهمة إلى صفحة واحدة"},
    "overlay_width": 640, "overlay_right": 60,
-   "captions": [[a + OL, b + OL, x] for a, b, x in caps('narration-open.mp3', ["هذه ليست طلبًا… هذه بداية سؤال.", "وفي هذه الوحدة، تحوّل الرسالة المبهمة", "إلى موجز من صفحة واحدة، وبصيرة في جملة."])]},
+   "captions": [[a + OL, b + OL, x] for a, b, x in caps('narration-open-1.mp3', ["هذه ليست طلبًا… هذه بداية سؤال."])]},
+  {"type": "card", "audio": A("narration-open-2.mp3"), "hold": 1.0,
+   "card": {"kind": "cards", "title": "ماذا تتعلم في [[هذه الوحدة]]؟",
+    "items": [["الرسالة المبهمة", "تتحوّل إلى…", "red"], ["موجز", "من صفحة واحدة", "green"], ["بصيرة", "في جملة", "amber"]],
+    "reveal_at": [0.3, 3.3, 5.82]}},
   {"type": "card", "audio": A("n-s3.mp3"), "hold": 2.1,
    "card": {"kind": "compare", "title": "طلب [[مبهم]] أم موجز؟",
     "before": {"label": "طلب مبهم", "text": "أريد إعلانًا جميلًا", "verdict": "تخمين… وتعديلات لا تنتهي"},
@@ -85,11 +99,15 @@ spec = {
     "items": [["البصيرة", "نجتمع ولا نلتقي", "amber"], ["الرسالة", "سَمَر تجمع الناس", "green"], ["الذكاء الاصطناعي", "يقترح… والاختيار لك", "red"]],
     "reveal_at": [0.3, 2.48, 4.38]}},
   {"type": "broll", "video": CV, "no_stretch": True, "overlay_pos": "top", "overlay_at": 0.8, "audio": A(CA), "hold": 0.3,
-   "overlay": {"kicker": "مهمتك الآن", "title": "اكتب موجز [[«سنابل»]]", "text": "اقرأ الإجابات · اكتب الموجز<br>اختر بصيرة فيها «لكن»"},
+   "overlay": {"kicker": "مهمتك الآن", "title": "موجز [[«سنابل»]]"},
    "overlay_width": 640, "overlay_right": 60,
-   "captions": [[a + CL, b + CL, x] for a, b, x in caps('narration-close-a.mp3', ["مهمتك الآن: صاحب مخبز سنابل أرسل لك رسالته.", "اقرأ إجاباته عن الأسئلة الخمسة، واكتب موجزه في صفحة،", "واختر بصيرة فيها «لكن»."])]},
+   "captions": [[a + CL, b + CL, x] for a, b, x in caps('narration-close-a1.mp3', ["مهمتك الآن: صاحب مخبز سنابل أرسل لك رسالته."])]},
+  {"type": "card", "audio": A("narration-close-a2.mp3"), "hold": 1.5,
+   "card": {"kind": "cards", "title": "مهمتك: موجز [[«سنابل»]]",
+    "items": [["① اقرأ", "إجاباته عن الأسئلة الخمسة", "green"], ["② اكتب", "موجزه في صفحة واحدة", "amber"], ["③ اختر", "بصيرة فيها «لكن»", "red"]],
+    "reveal_at": [0.3, 3.0, 4.88]}},
   {"type": "end", "title": "الموجز [[والبصيرة]]", "sub": "التالي: الوحدة 2 · محرّك الأفكار",
    "audio": A("narration-close-b.mp3"), "duration": round(dur(J('narration-close-b.mp3')) + 1.8, 2),
    "captions": caps('narration-close-b.mp3', ["وفي الوحدة الثانية… نحوّل موجزك إلى عشرين فكرة."])}]}
 json.dump(spec, open(J('spec-draft.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-print('close-a', dur(J('narration-close-a.mp3')), 'close-b', dur(J('narration-close-b.mp3')), '| open-pad', dur(J('narration-open-pad.mp3')), 'close-a-pad', dur(J('narration-close-a-pad.mp3')))
+print({k: dur(J(k)) for k in ('narration-open-1-pad.mp3','narration-open-2.mp3','narration-close-a1-pad.mp3','narration-close-a2.mp3','narration-close-b.mp3','base-open.mp4','base-close.mp4')})
