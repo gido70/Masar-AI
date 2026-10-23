@@ -2,7 +2,7 @@
  "title": "صناعة الإعلانات · الوحدة 1: الموجز والبصيرة",
  "theme": "ads",
  "label": "صناعة الإعلانات · الوحدة 1: الموجز والبصيرة",
- "output": "ads-unit-1-draft.mp4",
+ "output": "ads-unit-1-final.mp4",
  "crossfade": 0.4,
  "music": {
   "file": "../ads-unit-0/music-B-modern.mp3",
@@ -34,14 +34,14 @@
   },
   {
    "type": "broll",
-   "video": "presenter-still.mp4",
+   "video": "presenter-open.mp4",
    "no_stretch": true,
    "overlay_pos": "top",
    "overlay_at": 0.8,
    "audio": {
-    "file": "narration-open-1.mp3",
+    "file": "narration-open-1-pad.mp3",
     "start": 0.0,
-    "end": 3.66
+    "end": 4.57
    },
    "hold": 0.3,
    "overlay": {
@@ -53,8 +53,8 @@
    "overlay_right": 60,
    "captions": [
     [
-     0.15,
-     3.46,
+     0.55,
+     3.86,
      "هذه ليست طلبًا… هذه بداية سؤال."
     ]
    ]
@@ -317,14 +317,14 @@
   },
   {
    "type": "broll",
-   "video": "presenter-still.mp4",
+   "video": "presenter-close.mp4",
    "no_stretch": true,
    "overlay_pos": "top",
    "overlay_at": 0.8,
    "audio": {
-    "file": "narration-close-a1.mp3",
+    "file": "narration-close-a1-pad.mp3",
     "start": 0.0,
-    "end": 4.52
+    "end": 4.94
    },
    "hold": 0.3,
    "overlay": {
@@ -335,8 +335,8 @@
    "overlay_right": 60,
    "captions": [
     [
-     0.15,
-     4.32,
+     0.37,
+     4.54,
      "مهمتك الآن: صاحب مخبز سنابل أرسل لك رسالته."
     ]
    ]
