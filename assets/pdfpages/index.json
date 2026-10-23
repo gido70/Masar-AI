@@ -160,5 +160,11 @@
   "pages": 13,
   "sig": "4796330",
   "ratio": 0.5625
+ },
+ "resources/ads/ads-unit-3.pdf": {
+  "dir": "assets/pdfpages/ads_ads-unit-3",
+  "pages": 13,
+  "sig": "4854933",
+  "ratio": 0.5625
  }
 }

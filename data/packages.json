@@ -5,7 +5,7 @@
    "name": "مسار الإعلانات",
    "tagline": "اصنع إعلانًا يقنع بالذكاء الاصطناعي، من الفكرة إلى البيع",
    "promise": "من موجز العميل إلى فكرة تقنع، ثم إعلان عربي منفَّذ جاهز للبيع.",
-   "status": "قيد البناء · الوحدات 0 و1 و2 جاهزة",
+   "status": "قيد البناء · الوحدات 0 إلى 3 جاهزة",
    "public": true,
    "price": "لم يُحدد",
    "hours": "قيد البناء",
@@ -61,7 +61,11 @@
      "n": 3,
      "title": "اختيار الفكرة والرمز البصري",
      "q": "أي الأفكار أقوى، وما رمزها؟",
-     "out": "فكرة واحدة ورمزها البصري"
+     "out": "فكرة واحدة ورمزها البصري",
+     "video": "Bl0i9u6JtlA",
+     "pdf": "resources/ads/ads-unit-3.pdf",
+     "quiz": "packages/ads/units/unit-3/quiz.md",
+     "text": "packages/ads/units/unit-3/content-text.md"
     },
     {
      "n": 4,
@@ -106,8 +110,8 @@
      "icon": "map"
     },
     {
-     "title": "مخطط الوحدة 2: محرّك الأفكار",
-     "md": "packages/ads/units/unit-2/outline.md",
+     "title": "مخطط الوحدة 3: اختيار الفكرة والرمز البصري",
+     "md": "packages/ads/units/unit-3/outline.md",
      "icon": "list"
     }
    ],
