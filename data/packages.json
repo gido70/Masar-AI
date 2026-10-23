@@ -35,7 +35,15 @@
      "video": "AulX0B1Jc2s",
      "quiz": "packages/ads/units/unit-0/quiz.md",
      "pdf": "resources/ads/ads-unit-0.pdf",
-     "text": "packages/ads/units/unit-0/content-text.md"
+     "text": "packages/ads/units/unit-0/content-text.md",
+     "tangible": {
+      "stage": "نسختان بالأداة نفسها: إعلان مبهر بلا فكرة لا يقول شيئًا، ثم فنجان يُصب وأيدٍ كثيرة تتناوله. <b>الرسالة: سَمَر تجمع الناس.</b>",
+      "make": "<b>إعلانك «قبل»:</b> اختر منتجًا، واكتب كيف سيبدو إعلانه في سطرين، أو ولّد له صورة بأداة مجانية إن توفرت لك، دون أي منهج. احفظه: ستقارنه بإعلانك في الوحدة 6.",
+      "test": "اعرضه على شخص واحد واسأله: «ماذا قال هذا الإعلان؟»",
+      "carry": "إعلانك «قبل» محفوظ، وفي الوحدة 1 تبدأ من سؤال العميل لا من الأداة.",
+      "clip": "productions/ads-unit-0/broll-4b-crop.mp4",
+      "cap": "إعلان «سَمَر» بفكرة: أيدٍ كثيرة تتناول الفناجين. هذه نقطة البداية."
+     }
     },
     {
      "n": 1,
@@ -45,7 +53,15 @@
      "video": "CNSsGfvWJ3U",
      "pdf": "resources/ads/ads-unit-1.pdf",
      "quiz": "packages/ads/units/unit-1/quiz.md",
-     "text": "packages/ads/units/unit-1/content-text.md"
+     "text": "packages/ads/units/unit-1/content-text.md",
+     "tangible": {
+      "stage": "موجز «سَمَر» في صفحة، والبصيرة: <b>«نجتمع كل مساء… لكن لا نلتقي»</b>، ومنها الرسالة: سَمَر تجمع الناس.",
+      "make": "اكتب بصيرة جمهورك في جملة واحدة فيها «لكن».",
+      "test": "اقرأها على شخصين من جمهورك: هل قال أحدهما «صدقت… هذا نحن»؟ إن لم يقلها أحد فأعد كتابتها.",
+      "carry": "موجزك وبصيرتك يدخلان محرّك الأفكار في الوحدة 2.",
+      "clip": "productions/ads-unit-1/broll-6-crop.mp4",
+      "cap": "البصيرة مصوّرة: مجلس واحد، وكل واحد في هاتفه."
+     }
     },
     {
      "n": 2,
@@ -55,7 +71,15 @@
      "video": "rQIVaP17hWA",
      "pdf": "resources/ads/ads-unit-2.pdf",
      "quiz": "packages/ads/units/unit-2/quiz.md",
-     "text": "packages/ads/units/unit-2/content-text.md"
+     "text": "packages/ads/units/unit-2/content-text.md",
+     "tangible": {
+      "stage": "20 فكرة من موجز واحد، ونجمة على أقوى ثلاث: الرائحة توقظ العمارة، والهواتف تُترك حين تُصب سَمَر، وحبة بن تكبر حتى تصير مجلسًا.",
+      "make": "ارسم نجومك الثلاث: ثلاثة مربعات على ورقة، ودقيقة لكل فكرة، بخطوط بسيطة، وسطر تحت كل مربع.",
+      "test": "اعرض الرسوم على شخص، ثم اقلب الورقة، وبعد دقيقة اسأله: «أي فكرة تتذكر؟»",
+      "carry": "نجومك الثلاث ورسومها تدخل بطاقة التقييم في الوحدة 3.",
+      "clip": "productions/ads-unit-2/broll-2b.mp4",
+      "cap": "إحدى نجوم «سَمَر» مصوّرة: الرائحة توقظ العمارة."
+     }
     },
     {
      "n": 3,
@@ -65,7 +89,15 @@
      "video": "Bl0i9u6JtlA",
      "pdf": "resources/ads/ads-unit-3.pdf",
      "quiz": "packages/ads/units/unit-3/quiz.md",
-     "text": "packages/ads/units/unit-3/content-text.md"
+     "text": "packages/ads/units/unit-3/content-text.md",
+     "tangible": {
+      "stage": "الفكرة الفائزة: <b>بخار الفنجان جسر بين نافذتين</b>، ورمزها الجسر = الوصل. ولقطتها الأولى جاهزة.",
+      "make": "ارسم رمز فكرتك الفائزة، أو صوّره بهاتفك، أو ولّد له صورة بأداة مجانية إن توفرت لك.",
+      "test": "أرِه لشخص خمس ثوانٍ بلا كلام، واسأله: «ماذا فهمت؟» إن لم يقل رسالتك فغيّر الرمز.",
+      "carry": "فكرتك ورمزها يتحولان إلى قائمة لقطات في الوحدة 4.",
+      "clip": "productions/ads-unit-3/broll-steam-bridge-crop.mp4",
+      "cap": "أول لقطة من إعلان «سَمَر» النموذجي: جسر البخار."
+     }
     },
     {
      "n": 4,
