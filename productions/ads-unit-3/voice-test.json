@@ -1,0 +1,21 @@
+{
+ "model": "elevenlabs/multilingual-v2",
+ "voice_id": "George",
+ "stability": 0.5,
+ "similarity": 0.75,
+ "use_speaker_boost": true,
+ "clips": [
+  {
+   "output": "test-m1.mp3",
+   "text": "تَخْتارُها بِمُرَشِّحٍ مَكْتُوبْ."
+  },
+  {
+   "output": "test-m2.mp3",
+   "text": "تَخْتارُها بِمُرَشْشِحٍ مَكْتُوبْ."
+  },
+  {
+   "output": "test-m3.mp3",
+   "text": "تَخْتارُها بِمُرَشِّحْ… مَكْتُوبْ."
+  }
+ ]
+}
