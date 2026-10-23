@@ -39,6 +39,13 @@ IDENTITY LOCK: the presenter is exactly the same man as in the uploaded referenc
 ```
 **للتمديد:** `He keeps speaking toward the camera with an encouraging open-palm gesture, then smiles and nods.`
 
+## اللقطة 4 · «جسر البخار» (لقطة رمزية بلا سراج · Text to Video · 8 ث · نحو 20 وحدة)
+سبب نقلها إلى Flow: رصيد Gemini المدفوع مقدمًا نفد (سجل 254). لا صورة مرجعية لسراج هنا لأنه لا يظهر.
+```
+16:9 cinematic shot, golden hour. Two facing apartment windows across a narrow traditional Arabian alley, warm sandstone walls. From a small Arabic coffee cup (finjan) resting on the sill of the left window, a soft ribbon of steam rises and gently arcs across the alley, forming a delicate curved bridge of steam that reaches the right window. No people, no faces, no hands. Slow push-in, shallow depth of field, realistic. No text, no letters, no logos, no signs. No music.
+```
+**الفحص:** البخار يخرج من الفنجان ويصل فعلًا إلى النافذة الأخرى ويُقرأ جسرًا · لا أشخاص · لا نص مزيف · لا شريط أسود.
+
 ## الفحص قبل الإرسال
 الوجه بجانب المرجع (البشرة، والشعر الأجعد، والشيب في الصدغين واللحية، والعمر) · القميص بيج · اليدان فارغتان وسليمتان طوال المقطع · الفم يتحرك بحرية · لا نص ولا شعارات · **مدة كل مقطع بعد التمديد ≥ مدة كلامه** (11.0 و18.4 و14.9 ث).
 **بعد التوليد:** نزّل المقاطع وأرسلها في المحادثة فورًا (تنبيه سجل 250: مقاطع Flow مرتبطة بمشروعها).
