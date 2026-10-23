@@ -120,3 +120,14 @@ def build(pages, label, out, title):
     os.makedirs(os.path.dirname(out), exist_ok=True)
     doc.save(out, garbage=3, deflate=True); print('✓', out, doc.page_count, 'صفحات', nf, 'حقلًا')
     import shutil; shutil.rmtree(work, ignore_errors=True)
+
+
+def tangible_page(stage, make, test, carry, make_lines=2, title='[[الملموس]]: من الفكرة إلى شيء يُرى'):
+    """فقرة «الملموس» الثابتة في نهاية كل وحدة (سجل 263): أين وصل إعلان سَمَر · اصنع بيدك · اختبر بعين غيرك · احمله معك."""
+    lines = '<br>'.join(fx(760, 44) for _ in range(make_lines))
+    box = lambda h, x, extra='': f'<div style="{BOX};padding:20px 28px"><div style="font-size:38px;font-weight:700;color:{T["ACC"]}">{h}</div><div style="font-size:30px;line-height:1.5">{x}</div>{extra}</div>'
+    return H1(title) + f'''<div style="position:absolute;top:280px;right:110px;left:110px;display:grid;grid-template-columns:1fr 1fr;gap:22px">
+{box('1. أين وصل إعلان «سَمَر»؟', stage)}
+{box('2. اصنع بيدك <span style="font-size:26px;color:' + T['GRN'] + '">(مجانًا)</span>', make, f'<div style="font-size:28px;line-height:1.7;margin-top:6px">{lines}</div>')}
+{box('3. اختبر بعين غيرك', test, f'<div style="font-size:28px;line-height:1.7;margin-top:6px">قال: {fx(680, 44)}</div>')}
+{box('4. احمله معك', carry)}</div>'''
