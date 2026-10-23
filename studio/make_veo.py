@@ -15,8 +15,9 @@ from google.genai import types
 
 MODELS = {  # الاسم المختصر: (معرّف النموذج، دولار للثانية بدقة 720p مع الصوت)
     'lite': ('veo-3.1-lite-generate-preview', 0.05),
-    'fast': ('veo-3.1-fast-generate-preview', 0.10),
+    'fast': ('gemini-omni-1.1-flash', 0.10),  # Veo 3.1 Fast أُوقف في Gemini API (سجل 259)؛ Omni بالسعر نفسه تقريبًا عند 720p
 }
+OMNI_MAX_SECONDS = 10  # Omni لا يقبل مدة صريحة؛ نحسب السقف على أطول مقطع ممكن
 DURATIONS = (4, 6, 8)
 TIMEOUT = 15 * 60
 
@@ -43,7 +44,7 @@ def main():
     if os.path.exists(out_path): die(f'✗ الملف موجود: {out_path} (احذفه أو غيّر الاسم)')
 
     model, rate = MODELS[tier]
-    cost = rate * duration
+    cost = rate * (OMNI_MAX_SECONDS if model.startswith('gemini-omni') else duration)
     print(f'النموذج: {model} · المدة: {duration} ث · 720p · {aspect} · فيديو واحد')
     print(f'التكلفة التقديرية: {cost:.2f}$ (السقف {max_cost:.2f}$)')
     if cost > max_cost: die('✗ التكلفة أعلى من السقف، أُوقف التشغيل قبل أي صرف')
@@ -56,9 +57,22 @@ def main():
         print(f'صورة البداية: {image}')
 
     client = genai.Client(api_key=key)
-    try:
-        _ = None
-    except Exception as e: die(e)
+    if model.startswith('gemini-omni'):
+        import base64
+        if image: die('✗ صورة البداية غير مدعومة بعد في مسار Omni بهذه الأداة')
+        it = client.interactions.create(
+            model=model,
+            input=f'{prompt} The clip is about {duration} seconds long.',
+            response_format={'type': 'video', 'aspect_ratio': aspect, 'resolution': '720p'},
+        )
+        ov = getattr(it, 'output_video', None)
+        if not ov or not getattr(ov, 'data', None): die(f'✗ لا فيديو في النتيجة: {str(it)[:600]}')
+        os.makedirs(os.path.dirname(out_path), exist_ok=True)
+        data = ov.data
+        open(out_path, 'wb').write(base64.b64decode(data) if isinstance(data, str) else data)
+        print(f'✓ حُفظ: {out_path} ({os.path.getsize(out_path) // 1024} ك.ب) · السقف التقديري {cost:.2f}$ (التكلفة الفعلية 0.10$ لكل ثانية من المقطع)')
+        print(f'::notice title=veo::saved={out_path} model={model} cost_cap≈{cost:.2f}$')
+        return
     config = types.GenerateVideosConfig(
         number_of_videos=1,          # إلزامي: مقطع واحد فقط
         duration_seconds=duration,
