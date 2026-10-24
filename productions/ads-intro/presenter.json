@@ -1,0 +1,16 @@
+{
+ "image": "studio/assets/avatars/siraj.png",
+ "resolution": "720p",
+ "clips": [
+  {
+   "video": "intro-open-silent.mp4",
+   "audio": "narration-open-a.mp3",
+   "output": "presenter-open.mp4"
+  },
+  {
+   "video": "intro-close-silent.mp4",
+   "audio": "narration-close-a.mp3",
+   "output": "presenter-close.mp4"
+  }
+ ]
+}
