@@ -41,11 +41,11 @@ IDENTITY LOCK: the presenter is exactly the same man as in the uploaded referenc
 **للتمديد:** `He keeps speaking toward the camera with an encouraging open-palm gesture, then smiles and nods.`
 
 ## الجزء ب (اختياري، يوفّر ≈ 0.60$ نقدًا): صور ثابتة في Flow بلا سراج
-### ب1 · لوحة قصة سَمَر (صورة واحدة، 16:9)
+### ب1 · لوحة قصة سَمَر (صورة واحدة، 16:9) · نسخة 2: جاران رجلان (قرار صاحب المشروع، سجل 274)
 ```
-A single storyboard sheet with six panels in a 3 by 2 grid, hand-drawn rough pencil sketches on white paper, loose confident lines, light grey shading, no colour. Panel 1: two facing windows across a narrow old Arabian alley at sunset, a lonely neighbour in each window. Panel 2: close-up of a hand pouring Arabic coffee from a dallah into a small finjan cup. Panel 3: steam rising from the cup and drifting out of the window. Panel 4: the steam stretching across the alley like a curved bridge to the opposite window. Panel 5: close-up of the neighbour turning and smiling. Panel 6: the two neighbours together, each holding a finjan. No words, no letters, no numbers, no captions, no logos anywhere.
+A single storyboard sheet that fills the entire 16:9 frame edge to edge, with no black borders. Six panels in a 3 by 2 grid, hand-drawn rough pencil sketches on white paper, loose confident lines, light grey shading, no colour. Both neighbours are men: two middle-aged Arab men wearing a white thobe and a ghutra headscarf. Panel 1: two facing arched windows across a narrow old Arabian alley at sunset, one man alone in each window. Panel 2: close-up of a hand pouring Arabic coffee from a dallah into a small finjan cup. Panel 3: steam rising from the cup on the window sill and drifting out of the window. Panel 4: the steam stretching across the alley like a curved bridge to the opposite window. Panel 5: close-up of the second man turning his head and smiling warmly. Panel 6: the two men standing together in an arched doorway, each holding a finjan, smiling. No women in any panel. No words, no letters, no numbers, no captions, no logos anywhere.
 ```
-**الفحص:** ستة إطارات واضحة الترتيب · الجسر يُقرأ جسرًا في الإطار 4 · لا حروف ولا أرقام.
+**الفحص:** الجاران رجلان في كل الإطارات (1 و5 و6) · ستة إطارات بالترتيب · الجسر يُقرأ جسرًا في الإطار 4 · لا حروف ولا أرقام · بلا أشرطة سوداء.
 
 ### ب2 · فنجان سَمَر (ثلاث صور، 16:9)
 - **المرجع A:**
