@@ -205,6 +205,7 @@ def quiz_html(path):
     s = open(os.path.join(ROOT, path), encoding='utf-8').read().split('\n', 1)[1]
     return markdown.markdown(s)
 
+import sys as _sys; _sys.path.insert(0, os.path.join(ROOT, 'packages/ads/units'))
 PAGES = json.load(open(os.path.join(ROOT, 'assets/pdfpages/index.json'), encoding='utf-8')) if os.path.exists(os.path.join(ROOT, 'assets/pdfpages/index.json')) else {}
 
 def parse_quiz(path):
@@ -226,6 +227,7 @@ function show(i){
   cur=i;nav();const u=U[i];
   $('#cp-n').textContent='الوحدة '+u.n;$('#cp-t').textContent=u.title;$('#cp-o').textContent='تخرج بـ: '+u.out;
   $('#cp-v').innerHTML=u.video?'<iframe src="https://www.youtube-nocookie.com/embed/'+u.video+'?rel=0" title="'+u.title+'" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>':'<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--soft);color:var(--b);font-size:24px">🛠 الوحدة قيد البناء</div>';
+  {const t=u.terms||[];$('#cp-terms').style.display=t.length?'':'none';$('#cp-terms').open=false;$('#cp-terms-s').textContent='📖 قبل المشاهدة: كلمات هذه الوحدة بلغة بسيطة ('+t.length+')';$('#cp-terms-b').innerHTML=t.map(x=>'<div style="margin-bottom:6px"><b>'+x[0]+':</b> '+x[1]+'</div>').join('');}
   $('#cp-yt').style.display=u.video?'':'none';$('#cp-yt').href='https://youtu.be/'+u.video;$('#cp-dl').style.display=u.pdf?'':'none';$('#cp-dl').href=u.pdf;
   document.querySelectorAll('.cp-tabs button').forEach(b=>{const k=b.dataset.k;b.style.display=(k==='quiz'&&!u.quiz.length)||(k==='text'&&!u.text)||(k==='tang'&&!u.tang)?'none':'';});
   if((tab==='quiz'&&!u.quiz.length)||(tab==='text'&&!u.text)||(tab==='tang'&&!u.tang)) tab='pdf';
@@ -285,7 +287,7 @@ def build_ws_pkg(p):
         pinfo = PAGES.get(u.get('pdf', ''), {'dir': '', 'pages': 0})
         data.append({'n': u['n'], 'title': u['title'], 'out': u['out'], 'video': u.get('video', ''), 'pdf': pre + u['pdf'] if u.get('pdf') else '', 'pdir': pre + pinfo['dir'], 'pages': pinfo['pages'],
                      'quiz': parse_quiz(u['quiz']) if u.get('quiz') else [], 'text': md(u['text']) if u.get('text') else '',
-                     'tang': ({**u['tangible'], 'clip': pre + u['tangible']['clip'] if u['tangible'].get('clip') else ''} if u.get('tangible') else None)})
+                     'terms': (__import__('importlib').import_module('glossary').TERMS.get(u['n'], []) if p.get('slug') == 'ads' and u.get('video') else []), 'tang': ({**u['tangible'], 'clip': pre + u['tangible']['clip'] if u['tangible'].get('clip') else ''} if u.get('tangible') else None)})
     items = ''.join((f'<button type="button"><img src="https://i.ytimg.com/vi/{u["video"]}/mqdefault.jpg" alt="" loading="lazy">' if u.get('video') else '<button type="button" class="wip"><span style="display:flex;align-items:center;justify-content:center;min-height:56px;background:var(--soft);border-radius:8px;font-size:14px">🛠 قيد البناء</span>') + f'<span><small>الوحدة {u["n"]}</small>{E(u["title"])}</span></button>' for u in p['units'])
     files = ''.join(f'<a class="card tile" href="{pre}{f["href"]}" data-title="{E(f["title"])}">{ic(f["icon"],"sm gold")}<div><h3 style="font-size:21px">{E(f["title"])}</h3></div></a>' for f in p['files'])
     docs = ''
@@ -303,6 +305,7 @@ def build_ws_pkg(p):
 <aside class="cp-list">{items}</aside>
 <div class="cp-main" id="cp-main">
 <div class="cp-head"><span class="n" id="cp-n"></span><h2 id="cp-t"></h2><span class="out" id="cp-o"></span></div>
+<details class="cp-terms" id="cp-terms" style="display:none;background:var(--soft);border-radius:14px;padding:10px 16px;margin:0 0 12px"><summary style="cursor:pointer;font-weight:700;color:var(--a)" id="cp-terms-s"></summary><div id="cp-terms-b" style="margin-top:8px;line-height:1.7"></div></details>
 <div class="cp-v" id="cp-v"></div>
 <div class="cp-bar"><button type="button" class="btn s" id="cp-next">الوحدة التالية ←</button><button type="button" class="btn s" id="cp-prev">→ السابقة</button><a class="cp-link" id="cp-dl" download>⬇ تنزيل الملف</a><a class="cp-link" id="cp-yt" data-out target="_blank" rel="noopener">افتح في يوتيوب</a></div>
 <div class="cp-tabs">{'<button type="button" data-k="tang">✋ طبّق الآن</button>' if any(u.get('tangible') for u in p['units']) else ''}<button type="button" data-k="pdf">📄 الملف</button>{'<button type="button" data-k="quiz">📝 الامتحان</button>' if has_quiz else ''}{'<button type="button" data-k="text">📜 نص المحتوى</button>' if has_text else ''}</div>
