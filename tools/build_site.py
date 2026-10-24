@@ -241,7 +241,7 @@ function pane(){
     if(navigator.pdfViewerEnabled){box.insertAdjacentHTML('beforeend','<iframe class="cp-pdf" src="'+u.pdf+'#view=FitH"></iframe>');}
     else{let h='<div class="cp-pages">';for(let k=1;k<=u.pages;k++){h+='<img loading="lazy" src="'+u.pdir+'/'+String(k).padStart(2,'0')+'.jpg" alt="صفحة '+k+'">';}box.insertAdjacentHTML('beforeend',h+'</div>');}
   }else if(tab==='tang'){const g=u.tang,c=(h,x,col)=>'<div style="background:var(--soft);border-radius:14px;padding:14px 18px;margin-bottom:12px"><b style="color:'+(col||'var(--a)')+';font-size:19px">'+h+'</b><div style="margin-top:6px;line-height:1.7">'+x+'</div></div>';
-    box.innerHTML='<div class="cp-tang">'+(g.clip?'<figure style="margin:0 0 14px"><video src="'+g.clip+'" controls muted loop playsinline preload="metadata" style="width:100%;border-radius:14px;background:#000"></video><figcaption class="cp-tip" style="margin-top:6px">'+g.cap+'</figcaption></figure>':'')+c('1. أين وصل إعلان «سَمَر»؟',g.stage)+c('2. اصنع بيدك (مجانًا)',g.make,'#1F7A4D')+c('3. اختبر بعين غيرك',g.test)+c('4. احمله معك',g.carry)+'<p class="cp-tip">اكتب إجاباتك في الصفحة الأخيرة من ملف الوحدة.</p></div>';
+    box.innerHTML='<div class="cp-tang"><p style="margin:0 0 12px;line-height:1.7">هنا تطبّق ما تعلّمته بيدك، خطوة صغيرة في كل وحدة. ونبني معك من الوحدة 0 إلى الوحدة 6 إعلانًا واحدًا لمقهى متخيَّل اسمه «سَمَر»، فترى في كل وحدة أين وصل.</p>'+(g.clip?'<figure style="margin:0 0 14px"><video src="'+g.clip+'" controls playsinline preload="metadata" style="width:100%;border-radius:14px;background:#000"></video><figcaption class="cp-tip" style="margin-top:6px">'+g.cap+'</figcaption></figure>':'')+c('1. أين وصل إعلان «سَمَر»؟',g.stage)+c('2. اصنع بيدك (مجانًا)',g.make,'#1F7A4D')+c('3. جرّبه على شخص آخر',g.test)+c('4. خذه معك إلى الوحدة التالية',g.carry)+'<p class="cp-tip">اكتب إجاباتك في الصفحة الأخيرة من ملف الوحدة.</p></div>';
   }else if(tab==='quiz'){quiz(u,box);}
   else{box.innerHTML='<div class="cp-text">'+u.text+'</div>';}
 }
@@ -305,7 +305,7 @@ def build_ws_pkg(p):
 <div class="cp-head"><span class="n" id="cp-n"></span><h2 id="cp-t"></h2><span class="out" id="cp-o"></span></div>
 <div class="cp-v" id="cp-v"></div>
 <div class="cp-bar"><button type="button" class="btn s" id="cp-next">الوحدة التالية ←</button><button type="button" class="btn s" id="cp-prev">→ السابقة</button><a class="cp-link" id="cp-dl" download>⬇ تنزيل الملف</a><a class="cp-link" id="cp-yt" data-out target="_blank" rel="noopener">افتح في يوتيوب</a></div>
-<div class="cp-tabs">{'<button type="button" data-k="tang">✋ الملموس</button>' if any(u.get('tangible') for u in p['units']) else ''}<button type="button" data-k="pdf">📄 الملف</button>{'<button type="button" data-k="quiz">📝 الامتحان</button>' if has_quiz else ''}{'<button type="button" data-k="text">📜 نص المحتوى</button>' if has_text else ''}</div>
+<div class="cp-tabs">{'<button type="button" data-k="tang">✋ طبّق الآن</button>' if any(u.get('tangible') for u in p['units']) else ''}<button type="button" data-k="pdf">📄 الملف</button>{'<button type="button" data-k="quiz">📝 الامتحان</button>' if has_quiz else ''}{'<button type="button" data-k="text">📜 نص المحتوى</button>' if has_text else ''}</div>
 <div class="cp-p" id="cp-p"></div>
 </div></div></div></section>
 {gates_html(p)}
