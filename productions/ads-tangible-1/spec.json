@@ -1,0 +1,65 @@
+{
+ "title": "صناعة الإعلانات · الوحدة 1: الموجز والبصيرة",
+ "theme": "ads",
+ "label": "صناعة الإعلانات · الوحدة 1: الموجز والبصيرة",
+ "output": "ads-tangible-1.mp4",
+ "crossfade": 0.4,
+ "music": {
+  "file": "../ads-unit-0/music-B-modern.mp3",
+  "from_segment": 0,
+  "speech_db": -12,
+  "gap_db": -4,
+  "down": 1.5,
+  "up": 2.0,
+  "merge": 0.8,
+  "fade_in": 1.5,
+  "fade_out": 2.5,
+  "loudnorm": -16
+ },
+ "segments": [
+  {
+   "type": "broll",
+   "video": "../ads-unit-1/broll-6-crop.mp4",
+   "audio": {
+    "file": "../ads-unit-1/n-s6.mp3",
+    "start": 0.0,
+    "end": 13.82
+   },
+   "hold": 1.0,
+   "overlay_at": 5.0,
+   "overlay": {
+    "kicker": "انظر إلى هذا المجلس",
+    "title": "خمسة معًا… [[وكل واحد في هاتفه]]"
+   }
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "../ads-unit-1/n-s7.mp3",
+    "start": 0.0,
+    "end": 13.87
+   },
+   "hold": 2.4,
+   "card": {
+    "kind": "compare",
+    "title": "معلومة أم [[بصيرة]]؟",
+    "before": {
+     "label": "معلومة",
+     "text": "الشباب يحبون القهوة",
+     "verdict": "يعرفها الجميع… ولا تحرك أحدًا"
+    },
+    "after": {
+     "label": "بصيرة",
+     "text": "نجتمع كل مساء… لكن لا نلتقي",
+     "verdict": "حقيقة يعيشها الجمهور ولا يقولها"
+    },
+    "reveal_at": [
+     3.76,
+     6.15,
+     10.72,
+     12.4
+    ]
+   }
+  }
+ ]
+}
