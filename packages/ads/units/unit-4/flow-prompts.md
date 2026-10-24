@@ -52,12 +52,15 @@ A single storyboard sheet that fills the entire 16:9 frame edge to edge, with no
 ```
 Photorealistic product shot of a small white Arabic coffee cup (finjan) with a thin gold rim and one thin gold band, filled with light Arabic coffee, resting on a stone window sill at golden hour, soft steam. No text, no logos.
 ```
-- **بلا عُدّة (B):** الوصف نفسه **بلا صورة مرجعية**، مع استبدال «white… gold rim and one thin gold band» بـ «a coffee cup». (المطلوب أن يختلف الفنجان عن A.)
+- **بلا عُدّة (B) · نسخة 2 (سجل 275):** فنجان بلا يد مثل A، لكن انحرف لونه ونقشه وشكله قليلًا، كما ينحرف المولّد فعلًا بلا مرجع:
+```
+Photorealistic product shot of a small Arabic coffee cup (finjan) with no handle, cream-coloured with a thin turquoise rim and a small turquoise geometric pattern, slightly wider and shorter than usual, filled with light Arabic coffee, resting on a stone window sill at golden hour, a thin wisp of steam rising straight up. No text, no logos.
+```
 - **بعُدّة (C):** ارفع A مرجعًا، والصق:
 ```
 Use the exact same cup as in the reference image: same shape, same white colour, same thin gold rim and gold band. The same cup now sits on a wooden tray beside a brass dallah, warm evening light, soft steam. No text, no logos.
 ```
-**الفحص:** C مطابق لـ A · B مختلف بوضوح.
+**الفحص:** C مطابق لـ A · B فنجان بلا يد مثل A لكن لونه ونقشه مختلفان بوضوح · البخار خيط رقيق بلا أشكال.
 
 ## الفحص قبل الإرسال
 الوجه بجانب المرجع · الكنزة بلون الجمل في كل المقاطع · اليدان فارغتان وسليمتان · الفم يتحرك بحرية · لا نص ولا شعارات · **مدة كل مقطع بعد التمديد ≥ 12.4 و13.4 و12.5 ث** · يُبلغ عن الوحدات المستهلكة.
