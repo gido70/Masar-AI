@@ -87,4 +87,4 @@ def pages():
     return p
 
 if __name__ == '__main__':
-    build(pages(), LABEL, OUT, 'مسار الإعلانات · الوحدة 3: اختيار الفكرة والرمز')
+    _p = pages(); _p.insert(1, glossary_page(3)); build(_p, LABEL, OUT, 'مسار الإعلانات · الوحدة 3: اختيار الفكرة والرمز')

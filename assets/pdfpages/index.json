@@ -145,26 +145,32 @@
  },
  "resources/ads/ads-unit-0.pdf": {
   "dir": "assets/pdfpages/ads_ads-unit-0",
-  "pages": 8,
-  "sig": "2968027",
+  "pages": 9,
+  "sig": "3329635",
   "ratio": 0.5625
  },
  "resources/ads/ads-unit-2.pdf": {
   "dir": "assets/pdfpages/ads_ads-unit-2",
-  "pages": 14,
-  "sig": "5219651",
+  "pages": 15,
+  "sig": "5585674",
   "ratio": 0.5625
  },
  "resources/ads/ads-unit-1.pdf": {
   "dir": "assets/pdfpages/ads_ads-unit-1",
-  "pages": 14,
-  "sig": "5168012",
+  "pages": 15,
+  "sig": "5530595",
   "ratio": 0.5625
  },
  "resources/ads/ads-unit-3.pdf": {
   "dir": "assets/pdfpages/ads_ads-unit-3",
-  "pages": 13,
-  "sig": "4854933",
+  "pages": 14,
+  "sig": "5216627",
+  "ratio": 0.5625
+ },
+ "resources/ads/ads-unit-4.pdf": {
+  "dir": "assets/pdfpages/ads_ads-unit-4",
+  "pages": 17,
+  "sig": "8234319",
   "ratio": 0.5625
  }
 }

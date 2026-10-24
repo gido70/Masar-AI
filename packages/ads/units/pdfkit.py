@@ -131,3 +131,12 @@ def tangible_page(stage, make, test, carry, make_lines=2, title='[[طبّق]] ا
 {box('2. اصنع بيدك <span style="font-size:26px;color:' + T['GRN'] + '">(مجانًا)</span>', make, f'<div style="font-size:28px;line-height:1.7;margin-top:6px">{lines}</div>')}
 {box('3. جرّبه على شخص آخر', test, f'<div style="font-size:28px;line-height:1.7;margin-top:6px">قال: {fx(680, 44)}</div>')}
 {box('4. خذه معك إلى الوحدة التالية', carry)}</div>'''
+
+
+def glossary_page(n):
+    """صفحة «كلمات هذه الوحدة» بلغة بسيطة بعد الغلاف (سجل 285)."""
+    from glossary import TERMS
+    items = TERMS[n]
+    fs = 27 if len(items) > 7 else 29
+    rows = ''.join(f'<div style="display:flex;gap:22px;padding:9px 0;border-bottom:2px solid {T['LINE']}"><b style="flex:0 0 330px;color:{T['ACC']};font-size:{fs+1}px">{a}</b><div style="flex:1;font-size:{fs}px;line-height:1.5">{b}</div></div>' for a, b in items)
+    return H1('كلمات هذه [[الوحدة]] بلغة بسيطة') + f'<div style="position:absolute;top:255px;right:110px;left:110px">{rows}</div>'

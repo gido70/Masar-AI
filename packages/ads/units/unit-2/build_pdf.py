@@ -89,4 +89,4 @@ def pages():
     return p
 
 if __name__ == '__main__':
-    build(pages(), LABEL, OUT, 'مسار الإعلانات · الوحدة 2: محرّك الأفكار')
+    _p = pages(); _p.insert(1, glossary_page(2)); build(_p, LABEL, OUT, 'مسار الإعلانات · الوحدة 2: محرّك الأفكار')

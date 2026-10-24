@@ -116,4 +116,4 @@ def pages():
     return p
 
 if __name__ == '__main__':
-    build(pages(), LABEL, OUT, 'مسار الإعلانات · الوحدة 4: من الفكرة إلى قائمة اللقطات')
+    _p = pages(); _p.insert(1, glossary_page(4)); build(_p, LABEL, OUT, 'مسار الإعلانات · الوحدة 4: من الفكرة إلى قائمة اللقطات')

@@ -47,4 +47,4 @@ def pages():
     return p
 
 if __name__ == '__main__':
-    build(pages(), LABEL, OUT, 'مسار الإعلانات · الوحدة 0: الفكرة قبل الأداة')
+    _p = pages(); _p.insert(1, glossary_page(0)); build(_p, LABEL, OUT, 'مسار الإعلانات · الوحدة 0: الفكرة قبل الأداة')
