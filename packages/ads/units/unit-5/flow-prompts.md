@@ -1,4 +1,6 @@
-# أوصاف Flow · الوحدة 5 من حقيبة الإعلانات · الجزء أ: لقطات إعلان سَمَر (نسخة 1 · 25 أكتوبر 2026، سجل 291)
+# أوصاف Flow · الوحدة 5 من حقيبة الإعلانات · الجزء أ: لقطات إعلان سَمَر (نسخة 2 · 25 أكتوبر 2026، سجل 294)
+
+**نسخة 2 (قرار صاحب المشروع، سجل 294):** الجار أ صار سعوديًا في أوائل الستينيات بثوب بياقة وغترة بيضاء وعقال، بلا ملامح الكندورة الإماراتية، وقريبًا في العمر من الجار ب. الجار ب كما هو.
 
 **المنفّذ:** Claude في Chrome لصاحب المشروع، داخل Google Flow (رصيد Pro، الرصيد قبل البدء 720).
 **الترتيب إلزامي:** المراجع (الخطوة 0) ← صور البداية الست (الخطوة 1، 0 نقطة) ← فحص كل صورة ← الفيديوهات الست (الخطوة 2، 20 نقطة لكل لقطة).
@@ -9,19 +11,19 @@
 
 ## الكتلة الثابتة (تُلصق أول كل وصف فيه أحد الجارين)
 ```
-CONSISTENCY LOCK: Neighbour A is exactly the man in the uploaded reference image "neighbour A": an Arab man in his early 50s with a short neat black beard with a little grey, wearing a plain white thobe and a plain white ghutra headscarf with a black agal. Neighbour B is exactly the man in the uploaded reference image "neighbour B": an Arab man in his late 50s with a grey goatee and moustache, wearing a plain white thobe and a red-and-white checked shemagh with a black agal. Keep their faces, ages, beards and headwear exactly as in the references. The coffee cup is exactly the cup in the uploaded reference image "finjan A": a small white handleless Arabic coffee cup with a thin gold rim and one thin gold band. Warm golden sunset light. No women. No text, no letters, no numbers, no logos, no signs anywhere.
+CONSISTENCY LOCK: Neighbour A is exactly the man in the uploaded reference image "neighbour A": a Saudi man in his early 60s with a short neat beard and moustache, mostly grey with some black, wearing a plain white Saudi-style thobe with a classic shirt collar and a buttoned front, and a plain white ghutra folded in Saudi style with a black agal. Neighbour B is exactly the man in the uploaded reference image "neighbour B": an Arab man in his late 50s with a grey goatee and moustache, wearing a plain white thobe and a red-and-white checked shemagh with a black agal. Keep their faces, ages, beards and headwear exactly as in the references. The coffee cup is exactly the cup in the uploaded reference image "finjan A": a small white handleless Arabic coffee cup with a thin gold rim and one thin gold band. Warm golden sunset light. No women. No text, no letters, no numbers, no logos, no signs anywhere.
 ```
 
 ## الخطوة 0 · المرجعان (صورتان ثابتتان، 16:9، بلا مراجع)
 **الجار أ:**
 ```
-Photorealistic portrait, medium close-up, 16:9. An Arab man in his early 50s with a kind face, a short neat black beard with a little grey, wearing a plain white thobe and a plain white ghutra headscarf with a black agal. He stands at an arched wooden window of an old Arabian house, warm golden sunset light, calm expression. Plain background of old stone wall. No text, no logos, no patterns or writing on clothes.
+Photorealistic portrait, medium close-up, 16:9. A Saudi man in his early 60s with a kind, slightly round face, a short neat beard and moustache, mostly grey with some black, wearing a plain white Saudi-style thobe with a classic shirt collar and a buttoned front, and a plain white ghutra folded in Saudi style with a black agal. Not Emirati: no collarless kandura, no tassel at the neck. He stands at an arched wooden window of an old Arabian house, warm golden sunset light, calm expression. Plain background of old stone wall. No text, no logos, no patterns or writing on clothes.
 ```
 **الجار ب:**
 ```
 Photorealistic portrait, medium close-up, 16:9. An Arab man in his late 50s with a warm face, a grey goatee and moustache, wearing a plain white thobe and a red-and-white checked shemagh with a black agal. He stands at an arched wooden window of an old Arabian house, warm golden sunset light, calm expression. Plain background of old stone wall. No text, no logos, no writing on clothes.
 ```
-**الفحص:** وجهان مختلفان بوضوح · الغترة البيضاء للأول والشماغ الأحمر للثاني · لا كتابة ولا نقوش مكتوبة · يُحفظان باسمي neighbour-A.jpg وneighbour-B.jpg.
+**الفحص:** وجهان مختلفان بوضوح، والرجلان كبيران متقاربان في العمر · الجار أ بثوب بياقة، بلا كندورة بلا ياقة وبلا طربوشة متدلية من الرقبة · الغترة البيضاء للأول والشماغ الأحمر للثاني · لا كتابة ولا نقوش مكتوبة · يُحفظان باسمي neighbour-A.jpg وneighbour-B.jpg.
 
 ## الخطوة 1 · صور البداية الست (ارفع المراجع المذكورة، والصق الكتلة الثابتة ثم الوصف)
 **ص1 · النافذتان (المراجع: الجار أ + الجار ب):**
