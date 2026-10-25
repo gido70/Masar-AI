@@ -1,0 +1,159 @@
+{
+ "title": "صناعة الإعلانات · مقدمة الحقيبة: تعرّف على سراج",
+ "theme": "ads",
+ "label": "صناعة الإعلانات · مقدمة الحقيبة",
+ "output": "ads-intro.mp4",
+ "crossfade": 0.4,
+ "music": {
+  "file": "../ads-unit-0/music-B-modern.mp3",
+  "from_segment": 0,
+  "speech_db": -12,
+  "gap_db": -4,
+  "down": 1.5,
+  "up": 2.0,
+  "merge": 0.8,
+  "fade_in": 1.5,
+  "fade_out": 2.5,
+  "loudnorm": -16
+ },
+ "segments": [
+  {
+   "type": "broll",
+   "video": "presenter-open.mp4",
+   "no_stretch": true,
+   "overlay_pos": "top",
+   "overlay_at": 0.6,
+   "overlay_width": 640,
+   "overlay_right": 60,
+   "audio": {
+    "file": "narration-open-a.mp3",
+    "start": 0.0,
+    "end": 7.62
+   },
+   "overlay": {
+    "kicker": "صناعة الإعلانات · المقدمة",
+    "title": "أنا [[سراج]]",
+    "text": "مقدّم مولَّد بالذكاء الاصطناعي"
+   },
+   "captions": [
+    [
+     0.1,
+     4.41,
+     "السلام عليكم. أنا سراج، مقدّمك في هذه الحقيبة…"
+    ],
+    [
+     4.8,
+     7.56,
+     "شخصية مولّدة بالذكاء الاصطناعي."
+    ]
+   ]
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "n-s2.mp3",
+    "start": 0.0,
+    "end": 13.56
+   },
+   "card": {
+    "kind": "tree",
+    "title": "إعلان واحد نبنيه [[معًا]]: «سَمَر»",
+    "rows": [
+     [
+      "① البداية",
+      "سؤال العميل"
+     ],
+     [
+      "② الأفكار",
+      "عشرون فكرة وأقواها"
+     ],
+     [
+      "③ التخطيط",
+      "لوحة القصة"
+     ],
+     [
+      "④ الإنتاج",
+      "التوليد والإعلان كاملًا"
+     ]
+    ],
+    "reveal_at": [
+     4.83,
+     6.83,
+     9.02,
+     11.02
+    ]
+   }
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "n-s3.mp3",
+    "start": 0.0,
+    "end": 10.95
+   },
+   "card": {
+    "kind": "cards",
+    "title": "في كل [[وحدة]]",
+    "items": [
+     [
+      "📖 كلمات",
+      "بلغة بسيطة",
+      "amber"
+     ],
+     [
+      "🎬 فيديو قصير",
+      "وملف بأوراق عمل",
+      "amber"
+     ],
+     [
+      "✋ خطوة تطبّقها بيدك",
+      "ثم امتحان قصير",
+      "green"
+     ]
+    ],
+    "reveal_at": [
+     1.46,
+     3.47,
+     6.75
+    ]
+   }
+  },
+  {
+   "type": "broll",
+   "video": "presenter-close.mp4",
+   "no_stretch": true,
+   "overlay_pos": "top",
+   "overlay_at": 0.6,
+   "overlay_width": 640,
+   "overlay_right": 60,
+   "audio": {
+    "file": "narration-close-a.mp3",
+    "start": 0.0,
+    "end": 6.78
+   },
+   "overlay": {
+    "kicker": "ابدأ من هنا",
+    "title": "الوحدة 0: [[الفكرة]] قبل الأداة",
+    "text": "لا تحتاج خبرة في التصميم"
+   },
+   "captions": [
+    [
+     0.1,
+     3.19,
+     "لا تحتاج خبرة في التصميم… تحتاج فكرة."
+    ],
+    [
+     3.66,
+     6.6,
+     "وسنصنعها معًا. ابدأ بالوحدة صفر."
+    ]
+   ]
+  },
+  {
+   "type": "end",
+   "title": "صناعة [[الإعلانات]]",
+   "sub": "ابدأ: الوحدة 0 · الفكرة قبل الأداة",
+   "duration": 3.0
+  }
+ ]
+}
