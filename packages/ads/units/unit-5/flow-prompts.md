@@ -1,6 +1,7 @@
-# أوصاف Flow · الوحدة 5 من حقيبة الإعلانات · الجزء أ: لقطات إعلان سَمَر (نسخة 2 · 25 أكتوبر 2026، سجل 294)
+# أوصاف Flow · الوحدة 5 من حقيبة الإعلانات · الجزء أ: لقطات إعلان سَمَر (نسخة 3 · 25 أكتوبر 2026، سجل 295)
 
 **نسخة 2 (قرار صاحب المشروع، سجل 294):** الجار أ صار سعوديًا في أوائل الستينيات بثوب بياقة وغترة بيضاء وعقال، بلا ملامح الكندورة الإماراتية، وقريبًا في العمر من الجار ب. الجار ب كما هو.
+**نسخة 3 (ملاحظتا صاحب المشروع، سجل 295):** (1) الفنجان العربي بلا يد يُمسك باليد اليمنى بأطراف الأصابع، لا كأن له حلقة (في الكتلة الثابتة وص6)؛ (2) الفنجان داخل النافذة والنافذة مفتوحة الدرفتين، لا على العتبة خارج نافذة مغلقة (ص3 وص4).
 
 **المنفّذ:** Claude في Chrome لصاحب المشروع، داخل Google Flow (رصيد Pro، الرصيد قبل البدء 720).
 **الترتيب إلزامي:** المراجع (الخطوة 0) ← صور البداية الست (الخطوة 1، 0 نقطة) ← فحص كل صورة ← الفيديوهات الست (الخطوة 2، 20 نقطة لكل لقطة).
@@ -11,7 +12,7 @@
 
 ## الكتلة الثابتة (تُلصق أول كل وصف فيه أحد الجارين)
 ```
-CONSISTENCY LOCK: Neighbour A is exactly the man in the uploaded reference image "neighbour A": a Saudi man in his early 60s with a short neat beard and moustache, mostly grey with some black, wearing a plain white Saudi-style thobe with a classic shirt collar and a buttoned front, and a plain white ghutra folded in Saudi style with a black agal. Neighbour B is exactly the man in the uploaded reference image "neighbour B": an Arab man in his late 50s with a grey goatee and moustache, wearing a plain white thobe and a red-and-white checked shemagh with a black agal. Keep their faces, ages, beards and headwear exactly as in the references. The coffee cup is exactly the cup in the uploaded reference image "finjan A": a small white handleless Arabic coffee cup with a thin gold rim and one thin gold band. Warm golden sunset light. No women. No text, no letters, no numbers, no logos, no signs anywhere.
+CONSISTENCY LOCK: Neighbour A is exactly the man in the uploaded reference image "neighbour A": a Saudi man in his early 60s with a short neat beard and moustache, mostly grey with some black, wearing a plain white Saudi-style thobe with a classic shirt collar and a buttoned front, and a plain white ghutra folded in Saudi style with a black agal. Neighbour B is exactly the man in the uploaded reference image "neighbour B": an Arab man in his late 50s with a grey goatee and moustache, wearing a plain white thobe and a red-and-white checked shemagh with a black agal. Keep their faces, ages, beards and headwear exactly as in the references. The coffee cup is exactly the cup in the uploaded reference image "finjan A": a small white handleless Arabic coffee cup with a thin gold rim and one thin gold band. The handleless finjan is always held the traditional way, in the right hand with the fingertips: thumb on the side near the rim and fingers under the base, never hooked as if it had a handle, and never in both hands. Warm golden sunset light. No women. No text, no letters, no numbers, no logos, no signs anywhere.
 ```
 
 ## الخطوة 0 · المرجعان (صورتان ثابتتان، 16:9، بلا مراجع)
@@ -36,11 +37,11 @@ Photorealistic portrait, medium close-up, 16:9. An Arab man in his late 50s with
 ```
 **ص3 · البخار يصعد (المرجع: الفنجان A):**
 ```
-16:9 photorealistic cinematic still, medium shot. The white handleless finjan cup from the reference, full of light Arabic coffee, sits on the stone sill of an open arched wooden window at sunset. A thin soft wisp of steam rises from the cup. Beyond the window the opposite wall of a narrow old alley glows in golden light. No people.
+16:9 photorealistic cinematic still, medium shot. The white handleless finjan cup from the reference, full of light Arabic coffee, sits just inside an arched wooden window whose two wooden shutters are wide open, on the inner part of the stone sill, at sunset. A thin soft wisp of steam rises from the cup. Beyond the window the opposite wall of a narrow old alley glows in golden light. No people.
 ```
 **ص4 · بداية الجسر (بلا مراجع للأشخاص؛ ارفع ص3 المقبولة مرجعًا للمكان):**
 ```
-16:9 photorealistic cinematic still, wide shot from the middle of a narrow old Arabian alley looking up at two arched wooden windows facing each other at sunset. A small white cup sits on the left window sill with a soft ribbon of steam just starting to drift out of the window into the alley. The right window is open. Warm golden light, clear evening sky between the walls. No people visible.
+16:9 photorealistic cinematic still, wide shot from the middle of a narrow old Arabian alley looking up at two arched wooden windows facing each other at sunset. The left window has its two wooden shutters wide open, the room behind it softly lit, and the small white handleless cup sits just inside on the inner part of the sill, framed by the open window; a soft ribbon of steam is just starting to drift out through the opening into the alley. The right window opposite is also open, its shutters folded back flat against the wall. The two windows match in style: arched, with wooden frames and stone sills. Nothing outside the windows on the sills. Warm golden light, clear evening sky between the walls. No people visible.
 ```
 **ص5 · الجار ب (المرجع: الجار ب):**
 ```
@@ -48,9 +49,9 @@ Photorealistic portrait, medium close-up, 16:9. An Arab man in his late 50s with
 ```
 **ص6 · معًا (المراجع: الجار أ + الجار ب + الفنجان A):**
 ```
-16:9 photorealistic cinematic still, medium shot. Neighbour A and neighbour B stand together in an arched wooden doorway of an old Arabian house at sunset, side by side, each holding a white handleless finjan cup like the reference, smiling warmly at each other. A brass dallah sits on a small stone ledge beside them. Warm golden light, soft depth of field.
+16:9 photorealistic cinematic still, medium shot. Neighbour A and neighbour B stand together in an arched wooden doorway of an old Arabian house at sunset, side by side, each holding a white handleless finjan cup like the reference in his right hand with his fingertips, the traditional way, smiling warmly at each other. A brass dallah sits on a small stone ledge beside them. Warm golden light, soft depth of field.
 ```
-**فحص كل صورة قبل الفيديو:** الوجهان مطابقان للمرجعين · غترة بيضاء للأول وشماغ أحمر للثاني · الفنجان بلا يد، أبيض بخط ذهبي · لا نساء · **لا كتابة ولا أرقام ولا لافتات حتى بالتكبير** · لا أيدٍ مشوهة.
+**فحص كل صورة قبل الفيديو:** الوجهان مطابقان للمرجعين · غترة بيضاء للأول وشماغ أحمر للثاني · الفنجان بلا يد، أبيض بخط ذهبي، ويُمسك باليمنى بأطراف الأصابع لا كأن له حلقة · النافذة التي فيها الفنجان مفتوحة الدرفتين والفنجان داخلها · لا نساء · **لا كتابة ولا أرقام ولا لافتات حتى بالتكبير** · لا أيدٍ مشوهة.
 
 ## الخطوة 2 · الفيديوهات (صورة البداية المقبولة + الكتلة الثابتة + الوصف)
 **ف1:** `Starting from the start frame. Static wide shot. The two men stand quietly at their facing windows, each lost in his own thoughts, small natural movements only: a slow breath, a glance down. Golden sunset light slowly warms. No dialogue, no music.`
