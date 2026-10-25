@@ -1,7 +1,8 @@
-# أوصاف Flow · الوحدة 5 من حقيبة الإعلانات · الجزء أ: لقطات إعلان سَمَر (نسخة 3 · 25 أكتوبر 2026، سجل 295)
+# أوصاف Flow · الوحدة 5 من حقيبة الإعلانات · الجزء أ: لقطات إعلان سَمَر (نسخة 4 · 25 أكتوبر 2026، سجل 296)
 
 **نسخة 2 (قرار صاحب المشروع، سجل 294):** الجار أ صار سعوديًا في أوائل الستينيات بثوب بياقة وغترة بيضاء وعقال، بلا ملامح الكندورة الإماراتية، وقريبًا في العمر من الجار ب. الجار ب كما هو.
 **نسخة 3 (ملاحظتا صاحب المشروع، سجل 295):** (1) الفنجان العربي بلا يد يُمسك باليد اليمنى بأطراف الأصابع، لا كأن له حلقة (في الكتلة الثابتة وص6)؛ (2) الفنجان داخل النافذة والنافذة مفتوحة الدرفتين، لا على العتبة خارج نافذة مغلقة (ص3 وص4).
+**نسخة 4 (ملاحظتا صاحب المشروع على الفيديوهات، سجل 296):** (1) الفنجان تغيّر وصار بحلقة في يد الجار ب: الكتلة الثابتة تنص الآن على أن الفنجان لا يتغير شكله ولا تظهر له يد في أي إطار، وص5 وف5 بلا فنجان أصلًا (يدان على العتبة)؛ (2) قرع الفنجانين عادة غربية لا عربية: ف6 صار رشفة هادئة وابتسامة وإيماءة، والفنجانان لا يتلامسان، والقاعدة في الكتلة الثابتة.
 
 **المنفّذ:** Claude في Chrome لصاحب المشروع، داخل Google Flow (رصيد Pro، الرصيد قبل البدء 720).
 **الترتيب إلزامي:** المراجع (الخطوة 0) ← صور البداية الست (الخطوة 1، 0 نقطة) ← فحص كل صورة ← الفيديوهات الست (الخطوة 2، 20 نقطة لكل لقطة).
@@ -12,7 +13,7 @@
 
 ## الكتلة الثابتة (تُلصق أول كل وصف فيه أحد الجارين)
 ```
-CONSISTENCY LOCK: Neighbour A is exactly the man in the uploaded reference image "neighbour A": a Saudi man in his early 60s with a short neat beard and moustache, mostly grey with some black, wearing a plain white Saudi-style thobe with a classic shirt collar and a buttoned front, and a plain white ghutra folded in Saudi style with a black agal. Neighbour B is exactly the man in the uploaded reference image "neighbour B": an Arab man in his late 50s with a grey goatee and moustache, wearing a plain white thobe and a red-and-white checked shemagh with a black agal. Keep their faces, ages, beards and headwear exactly as in the references. The coffee cup is exactly the cup in the uploaded reference image "finjan A": a small white handleless Arabic coffee cup with a thin gold rim and one thin gold band. The handleless finjan is always held the traditional way, in the right hand with the fingertips: thumb on the side near the rim and fingers under the base, never hooked as if it had a handle, and never in both hands. Warm golden sunset light. No women. No text, no letters, no numbers, no logos, no signs anywhere.
+CONSISTENCY LOCK: Neighbour A is exactly the man in the uploaded reference image "neighbour A": a Saudi man in his early 60s with a short neat beard and moustache, mostly grey with some black, wearing a plain white Saudi-style thobe with a classic shirt collar and a buttoned front, and a plain white ghutra folded in Saudi style with a black agal. Neighbour B is exactly the man in the uploaded reference image "neighbour B": an Arab man in his late 50s with a grey goatee and moustache, wearing a plain white thobe and a red-and-white checked shemagh with a black agal. Keep their faces, ages, beards and headwear exactly as in the references. The coffee cup is exactly the cup in the uploaded reference image "finjan A": a small white handleless Arabic coffee cup with a thin gold rim and one thin gold band. The handleless finjan is always held the traditional way, in the right hand with the fingertips: thumb on the side near the rim and fingers under the base, never hooked as if it had a handle, and never in both hands. In every frame the cup keeps exactly the same shape and look as the reference: it never gains a handle, never changes colour, size or pattern. The cups never touch each other: no toasting, no clinking. Warm golden sunset light. No women. No text, no letters, no numbers, no logos, no signs anywhere.
 ```
 
 ## الخطوة 0 · المرجعان (صورتان ثابتتان، 16:9، بلا مراجع)
@@ -45,21 +46,21 @@ Photorealistic portrait, medium close-up, 16:9. An Arab man in his late 50s with
 ```
 **ص5 · الجار ب (المرجع: الجار ب):**
 ```
-16:9 photorealistic cinematic still, close-up. Neighbour B stands at the open arched wooden window on the right side of the alley at sunset, his face in three-quarter profile looking away to the side, calm and slightly lonely expression. Warm golden light on his face, shallow depth of field.
+16:9 photorealistic cinematic still, close-up. Neighbour B stands at the open arched wooden window on the right side of the alley at sunset, his face in three-quarter profile looking away to the side, calm and slightly lonely expression. His hands are empty and rest on the sill; there is no cup in this shot. Warm golden light on his face, shallow depth of field.
 ```
 **ص6 · معًا (المراجع: الجار أ + الجار ب + الفنجان A):**
 ```
 16:9 photorealistic cinematic still, medium shot. Neighbour A and neighbour B stand together in an arched wooden doorway of an old Arabian house at sunset, side by side, each holding a white handleless finjan cup like the reference in his right hand with his fingertips, the traditional way, smiling warmly at each other. A brass dallah sits on a small stone ledge beside them. Warm golden light, soft depth of field.
 ```
-**فحص كل صورة قبل الفيديو:** الوجهان مطابقان للمرجعين · غترة بيضاء للأول وشماغ أحمر للثاني · الفنجان بلا يد، أبيض بخط ذهبي، ويُمسك باليمنى بأطراف الأصابع لا كأن له حلقة · النافذة التي فيها الفنجان مفتوحة الدرفتين والفنجان داخلها · لا نساء · **لا كتابة ولا أرقام ولا لافتات حتى بالتكبير** · لا أيدٍ مشوهة.
+**فحص كل صورة قبل الفيديو:** الوجهان مطابقان للمرجعين · غترة بيضاء للأول وشماغ أحمر للثاني · الفنجان بلا يد، أبيض بخط ذهبي، ويُمسك باليمنى بأطراف الأصابع لا كأن له حلقة · النافذة التي فيها الفنجان مفتوحة الدرفتين والفنجان داخلها · الفنجان في الفيديو لا يتغير ولا تظهر له يد في أي إطار · الفنجانان لا يتلامسان · لا نساء · **لا كتابة ولا أرقام ولا لافتات حتى بالتكبير** · لا أيدٍ مشوهة.
 
 ## الخطوة 2 · الفيديوهات (صورة البداية المقبولة + الكتلة الثابتة + الوصف)
 **ف1:** `Starting from the start frame. Static wide shot. The two men stand quietly at their facing windows, each lost in his own thoughts, small natural movements only: a slow breath, a glance down. Golden sunset light slowly warms. No dialogue, no music.`
 **ف2:** `Starting from the start frame. Static close-up. The hand tilts the brass dallah and pours a thin stream of light Arabic coffee into the white finjan cup, filling it halfway, then lifts the dallah away. Gentle steam begins to rise. No dialogue, no music.`
 **ف3:** `Starting from the start frame. The camera tilts slowly upward following a soft wisp of steam as it rises from the white cup and drifts gently out through the open window into the golden evening air. No dialogue, no music.`
 **ف4 (الجسر):** `Starting from the start frame. Slow sideways camera move. The ribbon of steam from the cup on the left window drifts across the alley, stretching into a soft, clear, gently curved arch like a bridge, until its end reaches the open window on the right. The steam stays thin, smooth and continuous, with no shapes or faces in it. No dialogue, no music.`
-**ف5:** `Starting from the start frame. Static close-up. The man notices something, slowly turns his head toward the camera's left as if smelling the coffee, and a warm smile spreads across his face. No dialogue, no music.`
-**ف6:** `Starting from the start frame. Very slow push-in. The two men raise their cups slightly toward each other in a quiet greeting and smile, relaxed and warm. Their faces stay the same as in the start frame. No dialogue, no music.`
+**ف5:** `Starting from the start frame. Static close-up. The man notices something, slowly turns his head toward the camera's left as if smelling the coffee, and a warm smile spreads across his face. His hands stay empty on the sill; no cup appears. No dialogue, no music.`
+**ف6:** `Starting from the start frame. Very slow push-in. The two men stand side by side; each takes a slow small sip from his own cup, then lowers it a little and they exchange a warm smile and a slight nod. The cups stay apart and never touch, no toasting. Their faces and the cups stay exactly the same as in the start frame. No dialogue, no music.`
 
 **فحص كل فيديو (Claude بعد الاستلام):** الوجوه لا تتغير أثناء الحركة · الفنجان لا يتبدل · في ف4 الجسر يُقرأ جسرًا من النافذة إلى النافذة · **آخر ثانية إطارًا إطارًا، وآخر 0.2 ث لا تُستعمل أبدًا** · المقطع المستعمل (4 إلى 6 ث) يُختار من الجزء السليم.
 **بعد التوليد:** نزّل المراجع والصور والمقاطع وسجل التكلفة وأرسلها في المحادثة فورًا (مقاطع Flow مرتبطة بمشروعها، سجل 250)، بأسماء: samar-ref-A.jpg · samar-ref-B.jpg · samar-s1-start.jpg … samar-s6-start.jpg · samar-s1.mp4 … samar-s6.mp4 (المرفوض بلاحقة -rejected-1).
