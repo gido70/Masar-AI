@@ -1,0 +1,14 @@
+name: فحص رصيد WaveSpeed (مجاني، قراءة فقط)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  balance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: قراءة الرصيد
+        env:
+          WAVESPEED_API_KEY: ${{ secrets.WAVESPEED_API_KEY }}
+        run: |
+          curl -s -H "Authorization: Bearer $WAVESPEED_API_KEY" https://api.wavespeed.ai/api/v3/balance | python3 -c "import sys,json;d=json.load(sys.stdin);print('BALANCE_USD=', d.get('data',{}).get('balance'), '|', d.get('message'))"

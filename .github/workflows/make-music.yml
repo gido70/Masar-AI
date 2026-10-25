@@ -24,6 +24,24 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
+      - name: حارس الرصيد (لا ينزل رصيد WaveSpeed عن 5000$ · سجل 308)
+        env:
+          WAVESPEED_API_KEY: ${{ secrets.WAVESPEED_API_KEY }}
+          FLOOR: "5000"
+          MARGIN: "1.50"
+        run: |
+          RESP=$(curl -s -H "Authorization: Bearer $WAVESPEED_API_KEY" https://api.wavespeed.ai/api/v3/balance)
+          python3 - "$RESP" <<'PY'
+          import json, os, sys
+          try:
+              bal = float(json.loads(sys.argv[1])["data"]["balance"])
+          except Exception as e:
+              print("تعذّر قراءة الرصيد، فأوقفت التشغيل احتياطًا:", sys.argv[1][:200]); sys.exit(1)
+          need = float(os.environ["FLOOR"]) + float(os.environ["MARGIN"])
+          print(f"الرصيد الحالي: {bal:.2f}$ · المطلوب للتشغيل: {need:.2f}$ على الأقل")
+          if bal < need:
+              print("⛔ أوقفت التشغيل: الرصيد سينزل عن 5000$ المحجوزة للاسترداد."); sys.exit(1)
+          PY
       - uses: actions/checkout@v4
       - name: تثبيت ffmpeg
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
