@@ -1,4 +1,4 @@
-# أوصاف Flow · الوحدة 5 من حقيبة الإعلانات · الجزء أ: لقطات إعلان سَمَر (نسخة 5 · 25 أكتوبر 2026، سجل 297)
+# أوصاف Flow · الوحدة 5 من حقيبة الإعلانات · الجزء أ: لقطات إعلان سَمَر (نسخة 6 · 25 أكتوبر 2026، سجل 298)
 
 **نسخة 2 (قرار صاحب المشروع، سجل 294):** الجار أ صار سعوديًا في أوائل الستينيات بثوب بياقة وغترة بيضاء وعقال، بلا ملامح الكندورة الإماراتية، وقريبًا في العمر من الجار ب. الجار ب كما هو.
 **نسخة 3 (ملاحظتا صاحب المشروع، سجل 295):** (1) الفنجان العربي بلا يد يُمسك باليد اليمنى بأطراف الأصابع، لا كأن له حلقة (في الكتلة الثابتة وص6)؛ (2) الفنجان داخل النافذة والنافذة مفتوحة الدرفتين، لا على العتبة خارج نافذة مغلقة (ص3 وص4).
@@ -38,7 +38,7 @@ Photorealistic portrait, medium close-up, 16:9. An Arab man in his late 50s with
 ```
 **ص3 · البخار يصعد (المرجع: الفنجان A):**
 ```
-16:9 photorealistic cinematic still, medium shot. The white handleless finjan cup from the reference, full of light Arabic coffee, sits just inside an arched wooden window whose two wooden shutters are wide open, on the inner part of the stone sill, at sunset. A thin soft wisp of steam rises from the cup. Beyond the window the opposite wall of a narrow old alley glows in golden light. No people.
+16:9 photorealistic cinematic still, medium shot. The white handleless finjan cup from the reference, full of light Arabic coffee, sits just inside an arched wooden window whose two wooden shutters are wide open, on the inner part of the stone sill, at sunset. A clearly visible ribbon of steam, backlit by the low sun, rises from the cup. Beyond the window the opposite wall of a narrow old alley glows in golden light. Only one cup in the whole frame: no second cup, no reflection of the cup in any glass. No people.
 ```
 **ص4 · بداية الجسر (بلا مراجع للأشخاص؛ ارفع ص3 المقبولة مرجعًا للمكان):**
 ```
