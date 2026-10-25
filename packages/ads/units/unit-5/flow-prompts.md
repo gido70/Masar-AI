@@ -1,4 +1,4 @@
-# أوصاف Flow · الوحدة 5 من حقيبة الإعلانات · الجزء أ: لقطات إعلان سَمَر (نسخة 7 · 25 أكتوبر 2026، سجل 299)
+# أوصاف Flow · الوحدة 5 من حقيبة الإعلانات · الجزء أ: لقطات إعلان سَمَر (نسخة 8 · 25 أكتوبر 2026، سجل 301)
 
 **نسخة 2 (قرار صاحب المشروع، سجل 294):** الجار أ صار سعوديًا في أوائل الستينيات بثوب بياقة وغترة بيضاء وعقال، بلا ملامح الكندورة الإماراتية، وقريبًا في العمر من الجار ب. الجار ب كما هو.
 **نسخة 3 (ملاحظتا صاحب المشروع، سجل 295):** (1) الفنجان العربي بلا يد يُمسك باليد اليمنى بأطراف الأصابع، لا كأن له حلقة (في الكتلة الثابتة وص6)؛ (2) الفنجان داخل النافذة والنافذة مفتوحة الدرفتين، لا على العتبة خارج نافذة مغلقة (ص3 وص4).
@@ -48,7 +48,7 @@ Photorealistic portrait, medium close-up, 16:9. An Arab man in his late 50s with
 ```
 16:9 photorealistic cinematic still. View from inside a dim old Arabian room, looking out through an open arched window with no glass and no shutters visible. In the foreground the white handleless finjan cup from the reference sits on the inner stone sill, a soft ribbon of steam rising from it and starting to drift out through the window. Across the very narrow alley, about three metres away, the opposite house has an open arched window, dark inside. Warm golden sunset light outside, the room slightly darker. No people. No text, no signs.
 ```
-**ف4 (نسخة 5):** `Starting from the start frame. Static camera. The ribbon of steam from the cup drifts out of the window and slowly stretches across the narrow alley in a soft, gently curved, continuous arch, until its end reaches the open window opposite. The steam stays thin, smooth and clearly visible, like a delicate path or bridge of steam, never thick or billowing like chimney smoke, with no shapes or faces in it. The bridge is complete: it clearly connects the cup's window to the opposite window before the end of the clip. The cup stays exactly the same. No dialogue, no music.`
+**ف4 (نسخة 8، سجل 301: طلب صاحب المشروع بخارًا خفيفًا متمايلًا كالثعبان وبطيئًا؛ يُولَّد من ص4 القديمة ثم يُقص محليًا كما في سجل 300):** `Starting from the start frame. Static camera. A very thin, light, translucent wisp of steam rises from the cup and drifts slowly out across the narrow alley, winding gently from side to side like a slow-moving snake: soft S-shaped curves that sway up and down and left and right as it travels, never a straight line. The movement is slow and calm, like real steam in still evening air. The wisp keeps winding until its tip reaches and enters the open window opposite. Never thick, never a cloud, never billowing like chimney smoke; no shapes or faces in it. No dialogue, no music.`
 
 **ص5 · الجار ب (المرجع: الجار ب):**
 ```
