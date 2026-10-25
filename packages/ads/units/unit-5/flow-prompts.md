@@ -1,4 +1,4 @@
-# أوصاف Flow · الوحدة 5 من حقيبة الإعلانات · الجزء أ: لقطات إعلان سَمَر (نسخة 4 · 25 أكتوبر 2026، سجل 296)
+# أوصاف Flow · الوحدة 5 من حقيبة الإعلانات · الجزء أ: لقطات إعلان سَمَر (نسخة 5 · 25 أكتوبر 2026، سجل 297)
 
 **نسخة 2 (قرار صاحب المشروع، سجل 294):** الجار أ صار سعوديًا في أوائل الستينيات بثوب بياقة وغترة بيضاء وعقال، بلا ملامح الكندورة الإماراتية، وقريبًا في العمر من الجار ب. الجار ب كما هو.
 **نسخة 3 (ملاحظتا صاحب المشروع، سجل 295):** (1) الفنجان العربي بلا يد يُمسك باليد اليمنى بأطراف الأصابع، لا كأن له حلقة (في الكتلة الثابتة وص6)؛ (2) الفنجان داخل النافذة والنافذة مفتوحة الدرفتين، لا على العتبة خارج نافذة مغلقة (ص3 وص4).
@@ -44,6 +44,12 @@ Photorealistic portrait, medium close-up, 16:9. An Arab man in his late 50s with
 ```
 16:9 photorealistic cinematic still, wide shot from the middle of a narrow old Arabian alley looking up at two arched wooden windows facing each other at sunset. The left window has its two wooden shutters wide open, the room behind it softly lit, and the small white handleless cup sits just inside on the inner part of the sill, framed by the open window; a soft ribbon of steam is just starting to drift out through the opening into the alley. The right window opposite is also open, its shutters folded back flat against the wall. The two windows match in style: arched, with wooden frames and stone sills. Nothing outside the windows on the sills. Warm golden light, clear evening sky between the walls. No people visible.
 ```
+**ص4 (نسخة 5، بعد فشل ثلاث صور بداية: درفات معلقة في الهواء، والفنجان خارج الإطار):** زاوية من داخل الغرفة، فلا درفات ظاهرة من الخارج ولا عتبة خارجية (ارفع الفنجان A مرجعًا):
+```
+16:9 photorealistic cinematic still. View from inside a dim old Arabian room, looking out through an open arched window with no glass and no shutters visible. In the foreground the white handleless finjan cup from the reference sits on the inner stone sill, a soft ribbon of steam rising from it and starting to drift out through the window. Across the very narrow alley, about three metres away, the opposite house has an open arched window, dark inside. Warm golden sunset light outside, the room slightly darker. No people. No text, no signs.
+```
+**ف4 (نسخة 5):** `Starting from the start frame. Static camera. The ribbon of steam from the cup drifts out of the window and slowly stretches across the narrow alley in a soft, gently curved, continuous arch, until its end reaches the open window opposite. The steam stays thin, smooth and clearly visible, with no shapes or faces in it. The cup stays exactly the same. No dialogue, no music.`
+
 **ص5 · الجار ب (المرجع: الجار ب):**
 ```
 16:9 photorealistic cinematic still, close-up. Neighbour B stands at the open arched wooden window on the right side of the alley at sunset, his face in three-quarter profile looking away to the side, calm and slightly lonely expression. His hands are empty and rest on the sill; there is no cup in this shot. Warm golden light on his face, shallow depth of field.
@@ -57,7 +63,7 @@ Photorealistic portrait, medium close-up, 16:9. An Arab man in his late 50s with
 ## الخطوة 2 · الفيديوهات (صورة البداية المقبولة + الكتلة الثابتة + الوصف)
 **ف1:** `Starting from the start frame. Static wide shot. The two men stand quietly at their facing windows, each lost in his own thoughts, small natural movements only: a slow breath, a glance down. Golden sunset light slowly warms. No dialogue, no music.`
 **ف2:** `Starting from the start frame. Static close-up. The hand tilts the brass dallah and pours a thin stream of light Arabic coffee into the white finjan cup, filling it halfway, then lifts the dallah away. Gentle steam begins to rise. No dialogue, no music.`
-**ف3:** `Starting from the start frame. The camera tilts slowly upward following a soft wisp of steam as it rises from the white cup and drifts gently out through the open window into the golden evening air. No dialogue, no music.`
+**ف3 (نسخة 5):** `Starting from the start frame. Static camera; the cup stays in frame the whole time. A clearly visible ribbon of steam, backlit by the low golden sun so it glows against the darker wall, rises from the white cup and drifts slowly out through the open window into the alley. The steam stays visible from start to end. No dialogue, no music.`
 **ف4 (الجسر):** `Starting from the start frame. Slow sideways camera move. The ribbon of steam from the cup on the left window drifts across the alley, stretching into a soft, clear, gently curved arch like a bridge, until its end reaches the open window on the right. The steam stays thin, smooth and continuous, with no shapes or faces in it. No dialogue, no music.`
 **ف5:** `Starting from the start frame. Static close-up. The man notices something, slowly turns his head toward the camera's left as if smelling the coffee, and a warm smile spreads across his face. His hands stay empty on the sill; no cup appears. No dialogue, no music.`
 **ف6:** `Starting from the start frame. Very slow push-in. The two men stand side by side; each takes a slow small sip from his own cup, then lowers it a little and they exchange a warm smile and a slight nod. The cups stay apart and never touch, no toasting. Their faces and the cups stay exactly the same as in the start frame. No dialogue, no music.`
