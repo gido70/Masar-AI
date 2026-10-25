@@ -11,4 +11,4 @@ jobs:
         env:
           WAVESPEED_API_KEY: ${{ secrets.WAVESPEED_API_KEY }}
         run: |
-          curl -s -H "Authorization: Bearer $WAVESPEED_API_KEY" https://api.wavespeed.ai/api/v3/balance | python3 -c "import sys,json;d=json.load(sys.stdin);print('BALANCE_USD=', d.get('data',{}).get('balance'), '|', d.get('message'))"
+          curl -s -H "Authorization: Bearer $WAVESPEED_API_KEY" https://api.wavespeed.ai/api/v3/balance | python3 -c "import sys,json;d=json.load(sys.stdin);print('::notice title=WaveSpeed balance::BALANCE_USD='+str(d.get('data',{}).get('balance'))+' | '+str(d.get('message')))"
