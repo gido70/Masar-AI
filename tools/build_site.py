@@ -301,7 +301,7 @@ def build_ws_pkg(p):
 <section class="phero" style="padding:26px 0 18px"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← {E(p["name"])}</p>
 <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap"><img src="{pre}{p["cover"]}" alt="" style="width:220px;border-radius:14px;box-shadow:0 10px 24px rgba(0,0,0,.15)"><div><span class="kicker">{E(p["status"])} · {E(p["price"])}</span><h1 style="font-size:40px">{E(p["name"])}</h1><p class="lead" style="margin:0">{E(p["tagline"])}</p></div></div></div></section>
 <div class="tabs"><div class="wrap">{tabs}</div></div>
-<section class="sec" id="player"><div class="wrap"><div class="cp">
+<section class="sec" id="player"><div class="wrap">{f'<details class="cp-intro" open style="background:var(--soft);border-radius:16px;padding:12px 16px;margin:0 0 16px"><summary style="cursor:pointer;font-weight:700;color:var(--a)">🎬 ابدأ من هنا: تعرّف على سراج، مقدّم الحقيبة ({E(p["intro"]["len"])})</summary><div class="vbox" style="margin-top:10px"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/{p["intro"]["video"]}?rel=0" title="مقدمة {E(p["name"])}" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div></details>' if p.get("intro") else ''}<div class="cp">
 <aside class="cp-list">{items}</aside>
 <div class="cp-main" id="cp-main">
 <div class="cp-head"><span class="n" id="cp-n"></span><h2 id="cp-t"></h2><span class="out" id="cp-o"></span></div>

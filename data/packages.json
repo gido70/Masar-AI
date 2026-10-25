@@ -15,7 +15,7 @@
     "soft": "#FCEFF5"
    },
    "cover": "resources/ads/ads-cover-gemini-1280x720.png",
-   "promo": "",
+   "promo": "kfquBZlT-yo",
    "certificate": "",
    "gets": [
     "كراسة لكل وحدة",
@@ -164,7 +164,11 @@
      "icon": "list"
     }
    ],
-   "files": []
+   "files": [],
+   "intro": {
+    "video": "kfquBZlT-yo",
+    "len": "45 ثانية"
+   }
   },
   {
    "slug": "video",
