@@ -83,4 +83,13 @@ IDENTITY LOCK: the presenter is exactly the same man as in the uploaded referenc
 16:9 photorealistic cinematic still, medium shot from the waist up, eye level. Siraj stands in the courtyard of an old Arabian house in warm late-afternoon light: sand-coloured mud-plaster walls, a carved dark wooden door and an arched window behind him, softly out of focus. He wears a crisp, well-ironed plain white cotton shirt with a collar, under a light sand-coloured linen jacket, and light beige trousers; no tie. He looks neat, elegant and well groomed. He faces the camera with a warm, confident smile, as if about to speak. Both hands are empty and relaxed at his sides; he holds nothing. No text, no letters, no logos, no labels, no patches or writing on the clothes, no screens, no signs anywhere.
 ```
 **الفحص:** الوجه مطابق للمرجع (البشرة، والشيب، والشعر الأجعد) · القميص أبيض والسترة رملية بلا أي كتابة أو شعار · اليدان فارغتان · لا لافتات ولا شاشات.
-**أوصاف الفيديو (الافتتاح 12.0 ث، والوسط 11.1 ث، والمهمة 13.0 ث) تُكتب بعد اعتماد الصورة.**
+**المعتمدة:** siraj5-start.jpg (النسخة A، سجل 317).
+
+## فيديو سراج (Veo 3.1 Fast، 16:9، 8 ث، Image to Video من siraj5-start)
+كل مقطع صوتي (12.0 / 11.1 / 13.0 ث) يحتاج مقطعين 8 ث من الصورة نفسها (لا تمديد) · **البوابة: المقطع التجريبي ف-س1 أولًا ويُعتمد، ثم الخمسة الباقية.**
+```
+[IDENTITY LOCK كما في صورة البداية]
+Starting from the start frame. Very slow push-in toward a waist-up framing. Siraj talks warmly and naturally to the camera as a friendly teacher, with calm small hand gestures at chest height; his hands are open and empty and never hold anything. His face, skin tone, grey hair and beard stay exactly as in the start frame. The courtyard background stays still. No text, no logos, no writing on clothes. No music.
+```
+**ف-س1 وف-س2:** الوصف أعلاه حرفيًا (مقطعا الافتتاح) · **ف-س3 وف-س4 (الوسط):** الوصف نفسه · **ف-س5 وف-س6 (المهمة):** الوصف نفسه، مع: «He nods slightly at the end, encouraging.»
+**الفحص:** الوجه ثابت ومطابق · اليدان فارغتان طوال المقطع · لا كتابة ولا شعار · آخر ثانية إطارًا إطارًا.
