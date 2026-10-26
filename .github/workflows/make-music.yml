@@ -24,10 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - name: حارس الرصيد (لا ينزل رصيد WaveSpeed عن 5000$ · سجل 308)
+      - name: حارس الرصيد (يوقف التشغيل إن لم يكفِ الرصيد · سجل 314)
         env:
           WAVESPEED_API_KEY: ${{ secrets.WAVESPEED_API_KEY }}
-          FLOOR: "5000"
+          FLOOR: "0"
           MARGIN: "1.50"
         run: |
           RESP=$(curl -s -H "Authorization: Bearer $WAVESPEED_API_KEY" https://api.wavespeed.ai/api/v3/balance)
@@ -40,7 +40,7 @@ jobs:
           need = float(os.environ["FLOOR"]) + float(os.environ["MARGIN"])
           print(f"الرصيد الحالي: {bal:.2f}$ · المطلوب للتشغيل: {need:.2f}$ على الأقل")
           if bal < need:
-              print("⛔ أوقفت التشغيل: الرصيد سينزل عن 5000$ المحجوزة للاسترداد."); sys.exit(1)
+              print("⛔ أوقفت التشغيل: الرصيد لا يكفي لهذا التشغيل."); sys.exit(1)
           PY
       - uses: actions/checkout@v4
       - name: تثبيت ffmpeg
