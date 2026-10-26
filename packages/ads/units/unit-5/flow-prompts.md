@@ -71,5 +71,16 @@ Photorealistic portrait, medium close-up, 16:9. An Arab man in his late 50s with
 **فحص كل فيديو (Claude بعد الاستلام):** الوجوه لا تتغير أثناء الحركة · الفنجان لا يتبدل · في ف4 الجسر يُقرأ جسرًا من النافذة إلى النافذة · **آخر ثانية إطارًا إطارًا، وآخر 0.2 ث لا تُستعمل أبدًا** · المقطع المستعمل (4 إلى 6 ث) يُختار من الجزء السليم.
 **بعد التوليد:** نزّل المراجع والصور والمقاطع وسجل التكلفة وأرسلها في المحادثة فورًا (مقاطع Flow مرتبطة بمشروعها، سجل 250)، بأسماء: samar-ref-A.jpg · samar-ref-B.jpg · samar-s1-start.jpg … samar-s6-start.jpg · samar-s1.mp4 … samar-s6.mp4 (المرفوض بلاحقة -rejected-1).
 
-# الجزء ب: سراج (يُكتب بعد السيناريو وقياس الصوت)
-المكان: فناء بيت عربي قديم عند العصر · اللبس: قميص كتان أزرق بترولي داكن وبنطال بيج · قفل الهوية كاملًا من studio/assets/avatars/SIRAJ-IDENTITY.md + رفع siraj.png وsiraj-face.png · يدان فارغتان · بلا كلمات ولا شاشات ولا شعارات ولا ملصقات على الملابس.
+# الجزء ب: سراج (سجل 316)
+
+**قبل التوليد (إلزامي):** ارفع siraj.png وsiraj-face.png، والصق كتلة قفل الهوية كما هي · **البوابة:** صورة البداية تُعتمد من صاحب المشروع قبل أي فيديو.
+**اللبس (طلب صاحب المشروع: ألوان فاتحة، هيئة جميلة مهندمة):** قميص قطني أبيض مكوي بياقة، فوقه سترة كتان بلون الرمل الفاتح، وبنطال بيج فاتح، بلا ربطة عنق.
+
+## ص-سراج · صورة البداية (2K، 16:9، مع المرجعين)
+```
+IDENTITY LOCK: the presenter is exactly the same man as in the uploaded reference image (Siraj). He is a Sudanese man in his late 40s with warm medium-dark brown skin, an oval face, short tightly curled black hair with visible grey at the temples, a short salt-and-pepper beard and moustache with grey on the chin, warm brown eyes, a friendly smile and a medium build. Keep his face, facial features, skin tone, age, hair texture, grey hair and beard exactly as in the reference in every frame. Do not lighten his skin, do not make him younger, do not remove the grey, and do not change his ethnicity or features. Only his clothing, location and movement change.
+
+16:9 photorealistic cinematic still, medium shot from the waist up, eye level. Siraj stands in the courtyard of an old Arabian house in warm late-afternoon light: sand-coloured mud-plaster walls, a carved dark wooden door and an arched window behind him, softly out of focus. He wears a crisp, well-ironed plain white cotton shirt with a collar, under a light sand-coloured linen jacket, and light beige trousers; no tie. He looks neat, elegant and well groomed. He faces the camera with a warm, confident smile, as if about to speak. Both hands are empty and relaxed at his sides; he holds nothing. No text, no letters, no logos, no labels, no patches or writing on the clothes, no screens, no signs anywhere.
+```
+**الفحص:** الوجه مطابق للمرجع (البشرة، والشيب، والشعر الأجعد) · القميص أبيض والسترة رملية بلا أي كتابة أو شعار · اليدان فارغتان · لا لافتات ولا شاشات.
+**أوصاف الفيديو (الافتتاح 12.0 ث، والوسط 11.1 ث، والمهمة 13.0 ث) تُكتب بعد اعتماد الصورة.**
