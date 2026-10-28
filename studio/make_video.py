@@ -303,7 +303,7 @@ def main(spec_path):
                 tm = f"tpad=stop_mode=clone:stop_duration={max(d - dur(src), 0) + 0.1:.3f}," if s.get('no_stretch') else f"setpts=PTS*{f:.4f},"  # المقدّم المتزامن لا يُبطَّأ حتى لا يختل تزامن الشفاه
                 ff('-i', src, '-loop', '1', '-i', ov, '-filter_complex',
                    f"[0:v]{tm}scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,fps=25,format=yuv420p,trim=duration={d:.3f}[v];"
-                   f"[1:v]format=rgba,fade=t=in:st={s.get('overlay_at',0.5)}:d=0.4:alpha=1[o];[v][o]overlay=0:0:shortest=1,format=yuv420p",
+                   f"[1:v]format=rgba,fade=t=in:st={s.get('overlay_at',0.5)}:d=0.4:alpha=1{(',fade=t=out:st=%.2f:d=0.5:alpha=1' % s['overlay_until']) if s.get('overlay_until') else ''}[o];[v][o]overlay=0:0:shortest=1,format=yuv420p",
                    '-t', f'{d:.3f}', '-an', '-c:v', 'libx264', '-crf', '18', out)
             elif s['type'] == 'end':
                 img = render_states(pg, card_html(dict(kind='end', **s), T, label, ''), os.path.join(work, 'end'))[0]

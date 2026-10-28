@@ -161,7 +161,8 @@
    },
    "overlay_pos": "top",
    "overlay_width": 640,
-   "overlay_right": 60
+   "overlay_right": 60,
+   "overlay_until": 5.0
   },
   {
    "type": "card",
@@ -236,7 +237,7 @@
   {
    "type": "broll",
    "video": "samar-silent-cut.mp4",
-   "hold": 19.6,
+   "hold": 18.6,
    "overlay_at": 0.3,
    "audio": {
     "file": "n-s7.mp3",
@@ -250,7 +251,9 @@
    },
    "overlay_pos": "top",
    "overlay_width": 640,
-   "overlay_right": 60
+   "overlay_right": 60,
+   "no_stretch": true,
+   "overlay_until": 6.4
   },
   {
    "type": "broll",
