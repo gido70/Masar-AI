@@ -30,12 +30,14 @@ def main(name):
     print(f'{len(todo)} صورة ← تقدير {total:.2f} دولار (الحد {MAX_TOTAL:.2f})')
     if total > MAX_TOTAL: sys.exit('✗ التكلفة أعلى من الحد.')
     for v in todo:
-        body = {'images': [raw_url(x) for x in v.get('images', cfg.get('images', [cfg['image']]))], 'prompt': v['prompt']}
+        imgs = v.get('images', cfg.get('images', [cfg['image']] if cfg.get('image') else []))
+        body = {'images': [raw_url(x) for x in imgs], 'prompt': v['prompt']} if imgs else {'prompt': v['prompt']}  # بلا صور = توليد من نص (نموذج text-to-image)
+        model = v.get('model', cfg['model'])
         if cfg.get('aspect_ratio'): body['aspect_ratio'] = cfg['aspect_ratio']
-        try: r = call('POST', f"{API}/{cfg['model']}", key, body)
+        try: r = call('POST', f"{API}/{model}", key, body)
         except urllib.error.HTTPError as e:
             if 'aspect_ratio' in body:
-                print('… النموذج لا يقبل aspect_ratio، إعادة بدونه'); body.pop('aspect_ratio'); r = call('POST', f"{API}/{cfg['model']}", key, body)
+                print('… النموذج لا يقبل aspect_ratio، إعادة بدونه'); body.pop('aspect_ratio'); r = call('POST', f"{API}/{model}", key, body)
             else: raise
         pid = (r.get('data') or {}).get('id') or sys.exit(f'✗ لا رقم: {r}')
         print(f"→ {v['output']} (رقم {pid})"); t0 = time.time()
