@@ -55,6 +55,7 @@ function field(f){
   let exl=(f.ex&&f.ex.length)?f.ex.slice():[];if(!exl.length&&typeof f.sample==='string'&&!f.from)exl=[f.sample];f._ex=exl;
   let exb=exl.length?'<button type="button" class="exb" data-ex="'+f.id+'">💡 أمثلة</button><div class="exs" id="ex-'+f.id+'" hidden>'+exl.map((e,i)=>'<button type="button" data-f="'+f.id+'" data-i="'+i+'">'+esc(e)+'</button>').join('')+'</div>':'';
   if(f.compose) exb='<button type="button" class="exb" data-compose="'+f.id+'">✨ ركّب من إجاباتك</button>'+exb;
+  if(f.compose) exb+='<button type="button" class="exb" data-copy="'+f.id+'">📋 انسخ</button>';
   if(f.from) exb='<button type="button" class="exb" data-from="'+f.id+'">↩ انقل من الأوراق السابقة</button>'+exb;
   if(f.type==='text') return '<div class="wf">'+lab+'<div class="wr"><input type="text" data-id="'+f.id+'" value="'+esc(S[f.id])+'">'+exb+'</div></div>';
   if(f.type==='area') return '<div class="wf">'+lab+'<div class="wr"><textarea rows="3" data-id="'+f.id+'">'+esc(S[f.id])+'</textarea>'+exb+'</div></div>';
@@ -83,6 +84,7 @@ function bind(){
   root.querySelectorAll('.exs button').forEach(b=>b.onclick=()=>{const f=findF(b.dataset.f);S[f.id]=f._ex[+b.dataset.i];save();render();});
   root.querySelectorAll('[data-tsample]').forEach(b=>b.onclick=()=>{const f=findF(b.dataset.tsample);S[f.id]=JSON.parse(JSON.stringify(f.sample));save();render();});
   root.querySelectorAll('[data-from]').forEach(b=>b.onclick=()=>{const f=findF(b.dataset.from);const v=S[f.from];if(v){S[f.id]=v;save();render();}else alert('عبّئ الخانة الأصلية في الورقة السابقة أولًا');});
+  root.querySelectorAll('[data-copy]').forEach(b=>b.onclick=()=>{const t=S[b.dataset.copy]||'';if(!t){alert('ركّب النص أولًا');return;}navigator.clipboard.writeText(t).then(()=>{b.textContent='✓ نُسخ';setTimeout(()=>b.textContent='📋 انسخ',1500);});});
   root.querySelectorAll('[data-compose]').forEach(b=>b.onclick=()=>{const f=findF(b.dataset.compose);const v=k=>(S[k]||'').trim();let t=f.compose.replace(/\{(\w+)\}/g,(m,k)=>v(k)||'('+k+')');S[f.id]=t;save();render();});
 }
 function findF(id){for(const sh of W.sheets)for(const g of sh.groups)for(const f of g.fields)if(f.id===id)return f;}

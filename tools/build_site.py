@@ -172,6 +172,7 @@ def build_public(p):
 <section class="sec"><div class="wrap"><div class="grid" style="grid-template-columns:1.4fr .9fr;gap:24px">
 <div><div class="sec-h"><div><h2>ماذا ستتعلم</h2><p>مخرج كل وحدة هو مدخل الوحدة التي بعدها.</p></div></div><ol class="ulist">{units}</ol></div>
 <div><div class="card"><h3 style="margin-top:0">ماذا ستحصل عليه</h3><ul class="gets">{gets}</ul></div>
+{f'<a class="card tile" style="margin-top:16px" href="{p["slug"]}-workbook.html">{ic("file","sm")}<div><h3 style="margin:0">✍️ الكراسة التفاعلية</h3><p>جرّبها الآن: أمثلة جاهزة، ونموذج محلول، وبرومبت تركّبه من إجاباتك وترسله إلى نموذج الذكاء الاصطناعي.</p></div></a>' if os.path.exists(os.path.join(ROOT, f'data/workbooks/{p["slug"]}.json')) else ''}
 <div class="price-box" style="margin-top:16px"><div>السعر</div><div class="p">{E(p["price"])}</div><div style="opacity:.85;font-size:15px">{E(p["status"])}</div></div></div>
 </div></div></section></div>'''
     write(f'p/{p["slug"]}.html', page(f'{p["name"]}: {p["tagline"]} · مسار', body, pre, 'packages', desc=p['promise'], img=p['cover'], path=f'p/{p["slug"]}.html'))
@@ -195,6 +196,7 @@ def build_workshop():
 <a class="card tile" href="masar-index.html">{ic("list","navy")}<div><h3>الإندكس</h3><p>نقطة العمل الآن، والقرارات، والسجل، والنواقص.</p></div></a>
 <a class="card tile" href="workshop/free-workbook.html">{ic("file","navy")}<div><h3>الكراسة التفاعلية: المجانية</h3><p>بأمثلة جاهزة ونموذج محلول، للشرح في المحاضرة.</p></div></a>
 <a class="card tile" href="workshop/video-workbook.html">{ic("file","red")}<div><h3>أوراق العمل التفاعلية: الفيديو</h3><p>ست أوراق بأمثلة جاهزة ونموذج محلول.</p></div></a>
+<a class="card tile" href="workshop/ads-workbook.html">{ic("file","gold")}<div><h3>الكراسة التفاعلية: الإعلانات</h3><p>ورقة لكل وحدة بنموذج سَمَر المحلول، وبرومبتات جاهزة.</p></div></a>
 <a class="card tile" href="training/">{ic("quiz","gold")}<div><h3>الاختبارات</h3><p>كل اختبارات الحقائب في مكان واحد، مع مفتاح الإجابات.</p></div></a>
 <a class="card tile" href="workshop/method.html">{ic("compass")}<div><h3>المنهجية الأربع والعشرون</h3><p>الخطوات التي تمر بها كل حقيبة، من العميل إلى الاستدامة.</p></div></a>
 <a class="card tile" href="workshop/doc-rebuild.html">{ic("map","gold")}<div><h3>خارطة إعادة البناء</h3><p>مراحل إعادة بناء المنصة وقواعدها.</p></div></a>
@@ -491,6 +493,7 @@ function field(f){
   let exl=(f.ex&&f.ex.length)?f.ex.slice():[];if(!exl.length&&typeof f.sample==='string'&&!f.from)exl=[f.sample];f._ex=exl;
   let exb=exl.length?'<button type="button" class="exb" data-ex="'+f.id+'">💡 أمثلة</button><div class="exs" id="ex-'+f.id+'" hidden>'+exl.map((e,i)=>'<button type="button" data-f="'+f.id+'" data-i="'+i+'">'+esc(e)+'</button>').join('')+'</div>':'';
   if(f.compose) exb='<button type="button" class="exb" data-compose="'+f.id+'">✨ ركّب من إجاباتك</button>'+exb;
+  if(f.compose) exb+='<button type="button" class="exb" data-copy="'+f.id+'">📋 انسخ</button>';
   if(f.from) exb='<button type="button" class="exb" data-from="'+f.id+'">↩ انقل من الأوراق السابقة</button>'+exb;
   if(f.type==='text') return '<div class="wf">'+lab+'<div class="wr"><input type="text" data-id="'+f.id+'" value="'+esc(S[f.id])+'">'+exb+'</div></div>';
   if(f.type==='area') return '<div class="wf">'+lab+'<div class="wr"><textarea rows="3" data-id="'+f.id+'">'+esc(S[f.id])+'</textarea>'+exb+'</div></div>';
@@ -519,6 +522,7 @@ function bind(){
   root.querySelectorAll('.exs button').forEach(b=>b.onclick=()=>{const f=findF(b.dataset.f);S[f.id]=f._ex[+b.dataset.i];save();render();});
   root.querySelectorAll('[data-tsample]').forEach(b=>b.onclick=()=>{const f=findF(b.dataset.tsample);S[f.id]=JSON.parse(JSON.stringify(f.sample));save();render();});
   root.querySelectorAll('[data-from]').forEach(b=>b.onclick=()=>{const f=findF(b.dataset.from);const v=S[f.from];if(v){S[f.id]=v;save();render();}else alert('عبّئ الخانة الأصلية في الورقة السابقة أولًا');});
+  root.querySelectorAll('[data-copy]').forEach(b=>b.onclick=()=>{const t=S[b.dataset.copy]||'';if(!t){alert('ركّب النص أولًا');return;}navigator.clipboard.writeText(t).then(()=>{b.textContent='✓ نُسخ';setTimeout(()=>b.textContent='📋 انسخ',1500);});});
   root.querySelectorAll('[data-compose]').forEach(b=>b.onclick=()=>{const f=findF(b.dataset.compose);const v=k=>(S[k]||'').trim();let t=f.compose.replace(/\{(\w+)\}/g,(m,k)=>v(k)||'('+k+')');S[f.id]=t;save();render();});
 }
 function findF(id){for(const sh of W.sheets)for(const g of sh.groups)for(const f of g.fields)if(f.id===id)return f;}
@@ -530,7 +534,7 @@ render();
 
 def build_workbooks():
     tiles = ''
-    for slug in ('free', 'video'):
+    for slug in [x['slug'] for x in D['packages']]:
         path = os.path.join(ROOT, f'data/workbooks/{slug}.json')
         if not os.path.exists(path): continue
         W = json.load(open(path, encoding='utf-8'))
@@ -560,6 +564,9 @@ def build_workbooks():
 <script type="application/json" id="wbdata">{json.dumps(W, ensure_ascii=False).replace('</', '<\\/')}</script>
 <script>{WB_JS}</script>"""
         write(f'workshop/{slug}-workbook.html', page(f'{W["title"]} · {p["name"]}', body, '../', 'workshop', '\n<meta name="robots" content="noindex">'))
+        if p.get('public'):  # نسخة عامة في صفحة الحقيبة، بلا روابط الورشة
+            pub = body.replace(f'<a href="../workshop.html">الورشة</a> ← <a href="{slug}.html">{E(p["name"])}</a>', f'<a href="../packages.html">الحقائب</a> ← <a href="{slug}.html">{E(p["name"])}</a>')
+            write(f'p/{slug}-workbook.html', page(f'{W["title"]} · {p["name"]}', pub, '../', 'packages', desc=f'{W["title"]} لحقيبة {p["name"]}: أمثلة جاهزة ونموذج محلول، وبرومبتات تُركَّب من إجاباتك.', path=f'p/{slug}-workbook.html'))
 
 def redirects():
     for old, new in (('video-package.html', 'p/video.html'), ('package.html', 'p/free.html'), ('home-new.html', './')):
