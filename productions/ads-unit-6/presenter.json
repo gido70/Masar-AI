@@ -1,0 +1,8 @@
+{
+ "image": "productions/ads-unit-6/siraj6-start.png",
+ "resolution": "720p",
+ "clips": [
+  {"video": "siraj6-open-silent.mp4", "audio": "siraj-open-pad.mp3", "output": "presenter-open.mp4"},
+  {"audio": "siraj-close-pad.mp3", "output": "presenter-close.mp4"}
+ ]
+}
