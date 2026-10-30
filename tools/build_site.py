@@ -551,7 +551,7 @@ def build_workbooks():
 <section class="phero" style="padding:26px 0 16px"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← <a href="{slug}.html">{E(p["name"])}</a> ← {E(W["title"])}</p>
 <span class="kicker">{E(p["name"])}</span><h1 style="font-size:40px">{E(W["title"])}</h1>
 <p class="lead" style="margin:6px 0 0">اكتب في الخانات، أو اضغط «💡 أمثلة» بجانب أي خانة لتختار إجابة جاهزة. والنموذج المحلول يعبئ الكراسة كلها بمثال واحد متكامل: <b>{E(W["example"])}</b>.</p>
-<div class="row" style="margin-top:14px"><button type="button" class="btn p" id="wsample">📋 النموذج المحلول</button><button type="button" class="btn s" id="wclear">↺ امسح وابدأ من جديد</button><button type="button" class="btn s" id="wprint">🖨 اطبع أو احفظ PDF</button></div>{wb_glossary(W)}</div></section>
+<div class="row" style="margin-top:14px"><button type="button" class="btn p" id="wsample">📋 النموذج المحلول</button><button type="button" class="btn s" id="wclear">↺ امسح وابدأ من جديد</button><button type="button" class="btn s" id="wprint">🖨 اطبع أو احفظ PDF</button></div>{f'<div class="card" style="margin-top:14px;padding:12px"><video controls preload="metadata" playsinline style="width:100%;max-width:720px;display:block;border-radius:12px" src="../{W["video"]["src"]}"></video><p style="margin:8px 0 0;color:var(--mute);font-size:16px">{E(W["video"]["cap"])}</p></div>' if W.get('video') else ''}{wb_glossary(W)}</div></section>
 <div class="tabs"><div class="wrap">{nav}</div></div>
 <section class="sec"><div class="wrap" id="wb" style="display:grid;grid-template-columns:minmax(0,1fr);gap:20px"></div></section></div>
 <style>
