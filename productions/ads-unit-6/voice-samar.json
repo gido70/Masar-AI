@@ -1,0 +1,2 @@
+{"model": "elevenlabs/multilingual-v2", "voice_id": "Sarah", "stability": 0.5, "similarity": 0.75, "use_speaker_boost": true,
+ "clips": [{"output": "samar-vo.mp3", "text": "سَمَرْ… تَجْمَعُ النّاسْ."}]}
