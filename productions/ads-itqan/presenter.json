@@ -1,8 +1,16 @@
 {
- "image": "productions/ads-unit-5/siraj5-start.jpg",
+ "image": "productions/ads-itqan/siraj-itqan-start.png",
  "resolution": "720p",
  "clips": [
-  {"video": "siraj-open-silent.mp4", "audio": "siraj-open.mp3", "output": "presenter-open.mp4"},
-  {"video": "siraj-close-silent.mp4", "audio": "siraj-close.mp3", "output": "presenter-close.mp4"}
+  {
+   "video": "siraj-itqan-open-silent-cut.mp4",
+   "audio": "siraj-open.mp3",
+   "output": "presenter-itqan-open.mp4"
+  },
+  {
+   "video": "siraj-itqan-close-silent-cut.mp4",
+   "audio": "siraj-close.mp3",
+   "output": "presenter-itqan-close.mp4"
+  }
  ]
 }
