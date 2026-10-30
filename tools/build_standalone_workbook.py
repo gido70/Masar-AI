@@ -9,6 +9,7 @@ slug, label, out = sys.argv[1:4]
 W = json.load(open(os.path.join(ROOT, f'data/workbooks/{slug}.json'), encoding='utf-8'))
 W.pop('pkg', None)
 src = open(os.path.join(ROOT, 'tools/build_site.py'), encoding='utf-8').read()
+exec(re.search(r'(def wb_glossary.*?\nGLS_CSS = .*?\n)', src, re.S).group(1))
 js = re.search(r'WB_JS = r"""(.*?)"""', src, re.S).group(1).replace("'masar-wb-'", "'wb-'")
 E = html.escape
 nav = ''.join(f'<a href="#s{sh["n"]}">{sh["n"]}. {E(sh["title"])}</a>' for sh in W['sheets'])
@@ -40,11 +41,12 @@ main{{padding:22px 0 40px}}#wb{{display:grid;grid-template-columns:minmax(0,1fr)
 .cks{{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}}.cks label{{display:flex;gap:8px;align-items:center}}
 .tw{{overflow-x:auto}}.wt{{width:100%;border-collapse:collapse}}.wt th,.wt td{{border:1px solid var(--line);padding:6px;text-align:right;vertical-align:top}}.wt th{{background:var(--b);color:#fff;font-size:16px}}.wt td textarea{{font-size:16px;min-width:140px}}.wt tr.sum td{{font-weight:700;background:var(--soft)}}
 @media (max-width:620px){{.cks{{grid-template-columns:1fr}}.wr{{flex-direction:column}}h1{{font-size:28px}}}}
+{GLS_CSS}
 @media print{{.tabs,.row,.exb,.exs{{display:none!important}}.ws{{break-inside:avoid;box-shadow:none}}body{{background:#fff}}}}
 </style></head><body>
 <header><div class="wrap"><span class="kicker">{E(label)}</span><h1>{E(W['title'])}</h1>
 <p class="lead">اكتب في الخانات، أو اضغط «💡 أمثلة» بجانب أي خانة لتختار إجابة جاهزة. والنموذج المحلول يعبئ الكراسة كلها بمثال واحد متكامل: <b>{E(W['example'])}</b>. وحيث ترى «✨ ركّب من إجاباتك» يتكوّن برومبت جاهز، تنسخه بـ«📋 انسخ» وتلصقه في نموذج الذكاء الاصطناعي.</p>
-<div class="row"><button type="button" class="btn p" id="wsample">📋 النموذج المحلول</button><button type="button" class="btn s" id="wclear">↺ امسح وابدأ من جديد</button><button type="button" class="btn s" id="wprint">🖨 اطبع أو احفظ PDF</button></div></div></header>
+<div class="row"><button type="button" class="btn p" id="wsample">📋 النموذج المحلول</button><button type="button" class="btn s" id="wclear">↺ امسح وابدأ من جديد</button><button type="button" class="btn s" id="wprint">🖨 اطبع أو احفظ PDF</button></div>{wb_glossary(W)}</div></header>
 <nav class="tabs"><div class="wrap">{nav}</div></nav>
 <main><div class="wrap" id="wb"></div></main>
 <script type="application/json" id="wbdata">{json.dumps(W, ensure_ascii=False).replace('</', '<\\/')}</script>

@@ -532,6 +532,13 @@ document.getElementById('wprint').onclick=()=>window.print();
 render();
 """
 
+def wb_glossary(W):  # قاموس المصطلحات يظهر للمتدرب داخل الكراسة نفسها (29 أكتوبر 2026)
+    gl = W.get('glossary') or []
+    if not gl: return ''
+    rows = ''.join(f'<div class="gi"><b>{E(g[0])}</b>{f" <span>(الوحدة {g[2]})</span>" if len(g) > 2 else ""}<br>{E(g[1])}</div>' for g in gl)
+    return f'<details class="gls"><summary>📖 قاموس المصطلحات ({len(gl)}): معنى كل كلمة جديدة في الكراسة</summary><div class="glg">{rows}</div></details>'
+GLS_CSS = '.gls{margin-top:14px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:10px 16px}.gls summary{cursor:pointer;font-weight:700;color:var(--b);font-size:18px}.glg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 22px;margin-top:10px}.gi{font-size:16px;line-height:1.6}.gi b{color:var(--b)}.gi span{color:var(--mute);font-size:14px}@media (max-width:620px){.glg{grid-template-columns:1fr}}@media print{.gls{display:none}}'
+
 def build_workbooks():
     tiles = ''
     for slug in [x['slug'] for x in D['packages']]:
@@ -544,11 +551,11 @@ def build_workbooks():
 <section class="phero" style="padding:26px 0 16px"><div class="wrap"><p class="crumb" style="margin-top:0"><a href="../workshop.html">الورشة</a> ← <a href="{slug}.html">{E(p["name"])}</a> ← {E(W["title"])}</p>
 <span class="kicker">{E(p["name"])}</span><h1 style="font-size:40px">{E(W["title"])}</h1>
 <p class="lead" style="margin:6px 0 0">اكتب في الخانات، أو اضغط «💡 أمثلة» بجانب أي خانة لتختار إجابة جاهزة. والنموذج المحلول يعبئ الكراسة كلها بمثال واحد متكامل: <b>{E(W["example"])}</b>.</p>
-<div class="row" style="margin-top:14px"><button type="button" class="btn p" id="wsample">📋 النموذج المحلول</button><button type="button" class="btn s" id="wclear">↺ امسح وابدأ من جديد</button><button type="button" class="btn s" id="wprint">🖨 اطبع أو احفظ PDF</button></div></div></section>
+<div class="row" style="margin-top:14px"><button type="button" class="btn p" id="wsample">📋 النموذج المحلول</button><button type="button" class="btn s" id="wclear">↺ امسح وابدأ من جديد</button><button type="button" class="btn s" id="wprint">🖨 اطبع أو احفظ PDF</button></div>{wb_glossary(W)}</div></section>
 <div class="tabs"><div class="wrap">{nav}</div></div>
 <section class="sec"><div class="wrap" id="wb" style="display:grid;grid-template-columns:minmax(0,1fr);gap:20px"></div></section></div>
 <style>
-.ws{{min-width:0}}.ws h2{{font-size:30px;margin:4px 0 10px}}.wg{{margin-top:14px}}.wg h3{{font-size:23px;color:var(--a);margin:0 0 8px}}
+{GLS_CSS}.ws{{min-width:0}}.ws h2{{font-size:30px;margin:4px 0 10px}}.wg{{margin-top:14px}}.wg h3{{font-size:23px;color:var(--a);margin:0 0 8px}}
 .wf{{margin:0 0 12px}}.wl{{display:block;font-weight:700;color:var(--b);margin-bottom:4px}}.wl span{{font-weight:400;color:var(--mute);font-size:16px}}
 .wr{{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start}}.wr input,.wr textarea{{flex:1}}
 .ws input[type=text],.ws textarea,.ws select{{font:inherit;font-size:19px;width:100%;border:1.5px solid var(--line);border-radius:12px;padding:8px 12px;background:#FFFEFA;text-align:right;direction:rtl}}
