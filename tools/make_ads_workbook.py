@@ -91,6 +91,6 @@ for u in sorted(_g.TERMS):
     for t,d in _g.TERMS[u]:
         if t not in seen: seen.add(t); gl.append([t,d,u])
 W['glossary']=gl
-W['video']={'src':'productions/ads-itqan/itqan-ad.mp4','cap':'الإعلان الناتج من هذا النموذج المحلول (15 ث): صُنع بالخطوات نفسها التي في الأوراق، والتكلفة الحقيقية في سجل الورقة 5.'}
+W['video']={'src':'productions/ads-itqan/itqan-siraj.mp4','cap':'سراج يقدّم الإعلان الناتج من هذا النموذج المحلول (15 ث في الوسط): صُنع بالخطوات نفسها التي في الأوراق، والتكلفة الحقيقية في سجل الورقة 5.'}
 json.dump(W,open('data/workbooks/ads.json','w',encoding='utf-8'),ensure_ascii=False,indent=1)
 print('ok')
