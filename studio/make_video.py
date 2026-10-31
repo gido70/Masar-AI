@@ -411,6 +411,10 @@ def add_music(video, m, P, clips, work, sr=44100):
             np.where(t <= b, S, np.where(t < b + up, S + (F - S) * (t - b) / up, F))))
         g = np.minimum(g, e)
     amp = (10 ** (g / 20)).astype(np.float32)
+    for si in m.get('mute_segments', []):  # مقاطع لها موسيقاها (إعلان كامل داخل الوحدة): تصمت موسيقى الهوية فيها بنزول وصعود 0.6 ث
+        a, b = clips[si][1], clips[si][2]; r = 0.6
+        w = np.clip(np.maximum((a - t) / r, (t - b) / r), 0, 1).astype(np.float32)
+        amp *= w
     fi = int(m.get('fade_in', 1.5) * sr); amp[:fi] *= np.linspace(0, 1, fi)
     fo = int(m.get('fade_out', 2.5) * sr); amp[-fo:] *= np.linspace(1, 0, fo)
     mix = voice.copy(); mix[int(t0 * sr):int(t0 * sr) + need] += mus * amp[:, None]
