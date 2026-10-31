@@ -1,0 +1,511 @@
+{
+ "title": "صناعة الإعلانات · الوحدة 7: الخطاف والزاوية والنسخ",
+ "theme": "ads",
+ "label": "صناعة الإعلانات · الوحدة 7: الخطاف والزاوية والنسخ",
+ "output": "ads-unit-7.mp4",
+ "crossfade": 0.4,
+ "music": {
+  "file": "../ads-unit-0/music-B-modern.mp3",
+  "from_segment": 0,
+  "speech_db": -12,
+  "gap_db": -4,
+  "down": 1.5,
+  "up": 2.0,
+  "merge": 0.8,
+  "fade_in": 1.5,
+  "fade_out": 2.5,
+  "loudnorm": -16,
+  "mute_segments": [
+   4,
+   6,
+   8,
+   10
+  ]
+ },
+ "segments": [
+  {
+   "type": "broll",
+   "video": "presenter-open.mp4",
+   "no_stretch": true,
+   "hold": 1.16,
+   "overlay_at": 0.8,
+   "audio": {
+    "file": "siraj-open.mp3",
+    "start": 0.0,
+    "end": 10.95
+   },
+   "overlay": {
+    "kicker": "صناعة الإعلانات · الوحدة 7",
+    "title": "ثلاث [[ثوانٍ]]",
+    "text": "الخطاف والزاوية والنسخ"
+   },
+   "captions": [
+    [
+     0.05,
+     1.14,
+     "إعلانك اكتمل…"
+    ],
+    [
+     1.74,
+     3.4,
+     "لكن المشاهد لا ينتظر."
+    ],
+    [
+     4.03,
+     7.17,
+     "في ثلاث ثوانٍ يقرر: يكمل أو يمضي."
+    ],
+    [
+     7.47,
+     10.59,
+     "اليوم نصنع لإعلانك ثلاث بدايات توقفه."
+    ]
+   ],
+   "overlay_pos": "top",
+   "overlay_width": 640,
+   "overlay_right": 60
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "n-s2.mp3",
+    "start": 0.0,
+    "end": 23.54
+   },
+   "card": {
+    "kind": "cards",
+    "title": "[[الخطاف]] والنسخة",
+    "items": [
+     [
+      "الخطاف",
+      "أول ثلاث ثوانٍ في الإعلان",
+      "amber"
+     ],
+     [
+      "لماذا ثلاث؟",
+      "فيسبوك وإنستغرام تعدّ من شاهد 3 ثوانٍ",
+      "green"
+     ],
+     [
+      "النسخة",
+      "الإعلان نفسه ببداية مختلفة",
+      "amber"
+     ],
+     [
+      "يبقى كما هو",
+      "الفكرة واللقطات والصوت",
+      "green"
+     ]
+    ],
+    "reveal_at": [
+     0.1,
+     7.6,
+     14.1,
+     17.9
+    ]
+   }
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "n-s3.mp3",
+    "start": 0.0,
+    "end": 20.14
+   },
+   "card": {
+    "kind": "cards",
+    "title": "ثلاثة [[خطافات]]",
+    "items": [
+     [
+      "الفضول",
+      "سؤال أو صورة ناقصة",
+      "amber"
+     ],
+     [
+      "التباين",
+      "وحدنا… ثم معًا",
+      "green"
+     ],
+     [
+      "التعاطف",
+      "البصيرة (الوحدة 1): صدقت، هذا أنا",
+      "amber"
+     ]
+    ],
+    "reveal_at": [
+     0.1,
+     6.1,
+     12.65
+    ]
+   }
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "n-s4a.mp3",
+    "start": 0.0,
+    "end": 4.73
+   },
+   "card": {
+    "kind": "cards",
+    "title": "إعلان [[سَمَر]] بثلاث بدايات",
+    "items": [
+     [
+      "① الفضول",
+      "تبدأ بسؤال",
+      "amber"
+     ]
+    ],
+    "reveal_at": [
+     2.9
+    ]
+   }
+  },
+  {
+   "type": "broll",
+   "video": "hook-curiosity.mp4",
+   "no_stretch": true,
+   "hold": 0.3,
+   "audio": {
+    "file": "hook-curiosity.mp4",
+    "start": 0.0,
+    "end": 4.375
+   }
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "n-s4b.mp3",
+    "start": 0.0,
+    "end": 2.77
+   },
+   "card": {
+    "kind": "cards",
+    "title": "إعلان [[سَمَر]] بثلاث بدايات",
+    "items": [
+     [
+      "① الفضول",
+      "تبدأ بسؤال",
+      "amber"
+     ],
+     [
+      "② التباين",
+      "صورتان متعاكستان",
+      "green"
+     ]
+    ],
+    "reveal_at": [
+     0.0,
+     0.2
+    ]
+   }
+  },
+  {
+   "type": "broll",
+   "video": "hook-contrast.mp4",
+   "no_stretch": true,
+   "hold": 0.3,
+   "audio": {
+    "file": "hook-contrast.mp4",
+    "start": 0.0,
+    "end": 4.4
+   }
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "n-s4c.mp3",
+    "start": 0.0,
+    "end": 1.8
+   },
+   "card": {
+    "kind": "cards",
+    "title": "إعلان [[سَمَر]] بثلاث بدايات",
+    "items": [
+     [
+      "① الفضول",
+      "تبدأ بسؤال",
+      "amber"
+     ],
+     [
+      "② التباين",
+      "صورتان متعاكستان",
+      "green"
+     ],
+     [
+      "③ التعاطف",
+      "تبدأ بالبصيرة",
+      "amber"
+     ]
+    ],
+    "reveal_at": [
+     0.0,
+     0.0,
+     0.2
+    ]
+   }
+  },
+  {
+   "type": "broll",
+   "video": "hook-empathy.mp4",
+   "no_stretch": true,
+   "hold": 0.3,
+   "audio": {
+    "file": "hook-empathy.mp4",
+    "start": 0.0,
+    "end": 4.0
+   }
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "n-s4d.mp3",
+    "start": 0.0,
+    "end": 4.96
+   },
+   "card": {
+    "kind": "cards",
+    "title": "إعلان [[سَمَر]] بثلاث بدايات",
+    "items": [
+     [
+      "① الفضول",
+      "تبدأ بسؤال",
+      "amber"
+     ],
+     [
+      "② التباين",
+      "صورتان متعاكستان",
+      "green"
+     ],
+     [
+      "③ التعاطف",
+      "تبدأ بالبصيرة",
+      "amber"
+     ],
+     [
+      "الختام",
+      "واحد في النسخ الثلاث",
+      "green"
+     ]
+    ],
+    "reveal_at": [
+     0.0,
+     0.0,
+     0.0,
+     2.95
+    ]
+   }
+  },
+  {
+   "type": "broll",
+   "video": "ad-ending.mp4",
+   "no_stretch": true,
+   "hold": 0.3,
+   "audio": {
+    "file": "ad-ending.mp4",
+    "start": 0.0,
+    "end": 8.7
+   }
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "n-s5.mp3",
+    "start": 0.0,
+    "end": 16.6
+   },
+   "card": {
+    "kind": "compare",
+    "title": "[[الزاوية]]",
+    "before": {
+     "label": "زاويتنا",
+     "img": "productions/ads-unit-7/angle-neighbors.jpg",
+     "verdict": "الجيران"
+    },
+    "after": {
+     "label": "زاوية أخرى",
+     "img": "productions/ads-unit-7/angle-majlis.jpg",
+     "verdict": "الأصدقاء في المجلس"
+    },
+    "reveal_at": [
+     4.85,
+     7.6,
+     9.45,
+     11.2
+    ]
+   }
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "n-s5.mp3",
+    "start": 17.4,
+    "end": 20.79
+   },
+   "card": {
+    "kind": "cards",
+    "title": "[[انتبه]]",
+    "items": [
+     [
+      "تغيير الخطاف",
+      "مونتاج فقط",
+      "green"
+     ],
+     [
+      "تغيير الزاوية",
+      "لقطات جديدة",
+      "amber"
+     ]
+    ],
+    "reveal_at": [
+     0.15,
+     1.6
+    ]
+   }
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "n-s6.mp3",
+    "start": 0.0,
+    "end": 12.95
+   },
+   "card": {
+    "kind": "compare",
+    "title": "[[مقاسان]] للإعلان نفسه",
+    "before": {
+     "label": "أفقي",
+     "img": "productions/ads-unit-7/size-laptop.jpg",
+     "verdict": "الحاسوب ويوتيوب"
+    },
+    "after": {
+     "label": "طولي",
+     "img": "productions/ads-unit-7/size-phone.jpg",
+     "verdict": "الهاتف: ريلز وتيك توك"
+    },
+    "reveal_at": [
+     0.1,
+     2.2,
+     4.95,
+     8.6
+    ]
+   }
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "n-s6.mp3",
+    "start": 13.35,
+    "end": 27.85
+   },
+   "card": {
+    "kind": "compare",
+    "title": "القص [[الطولي]]",
+    "before": {
+     "label": "✗ قص يقطع الوجه",
+     "img": "productions/ads-unit-7/crop-bad.jpg",
+     "verdict": "لا تقطع وجهًا"
+    },
+    "after": {
+     "label": "✓ الصورة كاملة",
+     "img": "productions/ads-unit-7/crop-good.jpg",
+     "verdict": "وخلفها الصورة نفسها مموهة"
+    },
+    "reveal_at": [
+     0.2,
+     6.7,
+     9.5,
+     11.15
+    ]
+   }
+  },
+  {
+   "type": "card",
+   "audio": {
+    "file": "n-s7.mp3",
+    "start": 0.0,
+    "end": 33.28
+   },
+   "card": {
+    "kind": "cards",
+    "title": "خطة [[الاختبار]]",
+    "items": [
+     [
+      "عدد متساوٍ من الناس",
+      "في المدة نفسها",
+      "amber"
+     ],
+     [
+      "رقم واحد",
+      "من كل 100: كم شاهد 3 ثوانٍ؟",
+      "green"
+     ],
+     [
+      "بلا ميزانية",
+      "5 أشخاص… «هل تكمل؟»",
+      "amber"
+     ],
+     [
+      "الفائز",
+      "ما يختاره الناس، لا ذوقك",
+      "green"
+     ]
+    ],
+    "reveal_at": [
+     5.9,
+     11.25,
+     18.5,
+     28.6
+    ]
+   }
+  },
+  {
+   "type": "broll",
+   "video": "presenter-close-fixed.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay_at": 0.8,
+   "audio": {
+    "file": "siraj-close.mp3",
+    "start": 0.0,
+    "end": 12.2
+   },
+   "overlay": {
+    "kicker": "المهمة",
+    "title": "مهمتك [[الآن]]",
+    "text": "① ثلاثة خطافات<br>② مقاسان لكل نسخة<br>③ خطة اختبار"
+   },
+   "captions": [
+    [
+     0.05,
+     3.0,
+     "مهمتك: ثلاث نسخ بثلاثة خطافات،"
+    ],
+    [
+     3.47,
+     6.55,
+     "ومقاسان لكل نسخة، وخطة اختبار."
+    ],
+    [
+     7.19,
+     8.48,
+     "وفي الوحدة القادمة…"
+    ],
+    [
+     9.1,
+     11.81,
+     "نعرض إعلانك على عميل، ونسعّره."
+    ]
+   ],
+   "overlay_pos": "top",
+   "overlay_width": 640,
+   "overlay_right": 60
+  },
+  {
+   "type": "end",
+   "title": "صناعة [[الإعلانات]]",
+   "sub": "التالي: الوحدة 8 · البيع بقيمة",
+   "duration": 3.0
+  }
+ ]
+}
