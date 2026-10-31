@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 U5, U6 = '../ads-unit-5', '../ads-unit-6'
 AD = f'{U6}/samar-ad.mp4'          # الإعلان الكامل (الوحدة 6)، ص6 يبدأ عند 23.3
 CARD_BG = '2e1a0e'
-FONT = '../../studio/fonts/Tajawal-Bold.ttf'
+FONT = '../../studio/fonts/Amiri-Bold.ttf'   # طلب صاحب المشروع: خط أميري واضح
 os.makedirs('tmp', exist_ok=True)
 
 def sh(c): subprocess.run(c, shell=True, check=True)
@@ -35,6 +35,10 @@ def vfilter(fmt, mode, dur):
     if mode[0] == 'blur':
         return ('split[o][b];[b]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=40:2,eq=brightness=-0.08[bg];'
                 '[o]scale=1080:-2[fg];[bg][fg]overlay=0:(H-h)/2')
+    if mode[0] == 'wide':
+        x, w = int(mode[1]*1920), int((mode[2]-mode[1])*1920)
+        return ('split[o][b];[b]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=40:2,eq=brightness=-0.08[bg];'
+                f'[o]crop={w}:1080:{x}:0,scale=1080:-2[fg];[bg][fg]overlay=0:(H-h)/2')
     if mode[0] == 'card':
         return 'crop=845:1080:537:0,scale=1080:-2,pad=1080:1920:0:(oh-ih)/2:color=0x%s' % CARD_BG
     if mode[0] == 'split':
@@ -42,48 +46,51 @@ def vfilter(fmt, mode, dur):
         return (f'split[l][r];[l]crop={w}:{h}:{xl-w//2}:{yl-h//2},scale=1080:960[t];'
                 f'[r]crop={w}:{h}:{xr-w//2}:{yr-h//2},scale=1080:960[u];[t][u]vstack')
 
-def seg(out, src, ss, to, fmt, mode, txt=None):
-    dur = to-ss
-    vf = f'[0:v]trim={ss}:{to},setpts=PTS-STARTPTS,fps=24,{vfilter(fmt, mode, dur)},setsar=1,format=yuv420p'
+def seg(out, src, ss, to, fmt, mode, txt=None, sp=1.0):
+    dur = (to-ss)/sp   # sp < 1 = أبطأ، ليأخذ النص زمنه
+    vf = f'[0:v]trim={ss}:{to},setpts=(PTS-STARTPTS)/{sp},fps=24,{vfilter(fmt, mode, dur)},setsar=1,format=yuv420p'
     inp = f'-i {src}'
     if txt:
         W, H = (1920, 1080) if fmt == 'h' else (1080, 1920)
         t = TX[txt] if fmt == 'h' else TX[txt].replace('… ', '…\n')
-        png = text_png(f'{txt}-{fmt}', t, W, H, 78 if fmt == 'h' else 76, 0.79 if fmt == 'h' else 0.70)
-        vf += f'[v0];[1:v]format=rgba,fade=t=in:d=0.25:alpha=1[tx];[v0][tx]overlay=0:0:shortest=1'
+        png = text_png(f'{txt}-{fmt}', t, W, H, 90 if fmt == 'h' else 86, 0.76 if fmt == 'h' else 0.855)
+        vf += f'[v0];[1:v]format=rgba,fade=t=in:st=0.15:d=0.3:alpha=1[tx];[v0][tx]overlay=0:0:shortest=1'
         inp += f' -loop 1 -t {dur} -i {png}'
     sh(f'ffmpeg -v error -y {inp} -filter_complex "{vf}" -an -c:v libx264 -preset ultrafast -crf 16 -t {dur} {out}')
     return out
 
 # أوضاع القص الطولي لكل جزء من الإعلان (مخطط الإطارات، 31 أكتوبر)
 V_AD = [(5.5, 9.5, ('crop', 0.47)), (9.5, 13.0, ('crop', 0.50)), (13.0, 16.5, ('pan', 0.14, 0.30)),
-        (16.5, 18.8, ('pan', 0.30, 0.52)), (18.8, 23.3, ('crop', 0.83)), (23.3, 28.0, ('blur',)), (28.0, 32.0, ('card',))]
+        (16.5, 18.8, ('pan', 0.30, 0.52)), (18.8, 23.3, ('wide', 0.55, 1.0)), (23.3, 28.0, ('blur',)), (28.0, 32.0, ('card',))]
 def ad_parts(a, b, fmt):
     """أجزاء الإعلان من a إلى b، كل جزء بقصه الطولي."""
     out = []
     for s, e, m in V_AD:
         s2, e2 = max(s, a), min(e, b)
         if fmt == 'h' and m[0] == 'card': m = ('blur',)
-        if e2 - s2 > 0.01: out.append((AD, s2, e2, m, None))
+        if e2 - s2 > 0.01: out.append((AD, s2, e2, m, None, 1.0))
     return out
 
 BR, S1, S5, S6 = f'{U5}/samar-s4-bridge-v3.mp4', f'{U5}/samar-s1.mp4', f'{U5}/samar-s5.mp4', f'{U5}/samar-s6.mp4'
 SPLIT = ('split', (520, 490), (1344, 490))
 def plan(v, fmt):
     if v == 'curiosity':   # البخار سؤالًا، ثم نهايته جوابًا
-        return [(BR, 0.0, 3.5, ('pan', 0.12, 0.26), 'cur')] + ad_parts(5.5, 13.0, fmt) + ad_parts(16.5, 32.0, fmt)
+        return [(BR, 0.0, 3.5, ('pan', 0.12, 0.26), 'cur', 0.8)] + ad_parts(5.5, 13.0, fmt) + ad_parts(16.5, 32.0, fmt)
     if v == 'contrast':    # وحدنا… ثم معًا
-        return [(S1, 0.3, 2.1, SPLIT, 'con1'), (S6, 1.0, 2.7, ('blur',), 'con2')] + ad_parts(5.5, 32.0, fmt)
+        return ([(S1, 0.3, 2.5, SPLIT, 'con1'), (S6, 1.0, 3.2, ('blur',), 'con2')]
+                + ad_parts(5.5, 12.1, fmt) + ad_parts(13.0, 32.0, fmt))   # ص3 أقصر 0.9 ث ليبقى ≤ 30 ث
     if v == 'empathy':     # الجار وحده (البصيرة)، ثم يلتفت ويبتسم لاحقًا
-        return ([(S5, 0.3, 3.5, ('crop', 0.80), 'emp')] + ad_parts(5.5, 18.8, fmt)
-                + [(S5, 3.5, 6.7, ('crop', 0.83), None)] + ad_parts(23.3, 32.0, fmt))
+        # الابتسامة تبدأ نحو 3.4 ث، فالبداية تنتهي عند 3.3 وتُبطأ ليُقرأ النص
+        return ([(S5, 0.3, 3.3, ('wide', 0.55, 1.0), 'emp', 0.75)] + ad_parts(5.5, 18.8, fmt)
+                + [(S5, 3.3, 6.7, ('wide', 0.55, 1.0), None)] + ad_parts(23.3, 32.0, fmt))
 
 def build(v, fmt):
     parts, t, marks = [], 0.0, {}
-    for i, (src, a, b, m, txt) in enumerate(plan(v, fmt)):
+    for i, p in enumerate(plan(v, fmt)):
+        src, a, b, m, txt = p[:5]; sp = p[5] if len(p) > 5 else 1.0
         if src == AD and a <= 5.5 < b: marks['pour'] = t + (5.5 - a)
         if src == AD and a <= 25.0 < b: marks['vo'] = t + (25.0 - a)
-        parts.append(seg(f'tmp/{v}-{fmt}-{i}.mp4', src, a, b, fmt, m, txt)); t += b - a
+        parts.append(seg(f'tmp/{v}-{fmt}-{i}.mp4', src, a, b, fmt, m, txt, sp)); t += (b - a)/sp
     with open(f'tmp/list-{v}-{fmt}.txt', 'w') as f:
         f.writelines(f"file '{os.path.basename(p)}'\n" for p in parts)
     sh(f'cd tmp && ffmpeg -v error -y -f concat -safe 0 -i list-{v}-{fmt}.txt -c copy {v}-{fmt}-video.mp4')
