@@ -1,0 +1,316 @@
+{
+ "title": "صناعة الإعلانات · الوحدة 8: الخلاصة والبيع بقيمة",
+ "theme": "ads",
+ "label": "صناعة الإعلانات · الوحدة 8: الخلاصة والبيع بقيمة",
+ "output": "ads-unit-8.mp4",
+ "crossfade": 0.4,
+ "music": {
+  "file": "../ads-unit-0/music-B-modern.mp3",
+  "from_segment": 0,
+  "speech_db": -12,
+  "gap_db": -4,
+  "down": 1.5,
+  "up": 2.0,
+  "merge": 0.8,
+  "fade_in": 1.5,
+  "fade_out": 2.5,
+  "loudnorm": -16,
+  "mute_segments": []
+ },
+ "segments": [
+  {
+   "type": "broll",
+   "video": "presenter-open.mp4",
+   "no_stretch": true,
+   "hold": 1.17,
+   "overlay_at": 0.8,
+   "audio": {
+    "file": "siraj-open.mp3",
+    "start": 0.0,
+    "end": 13.4
+   },
+   "overlay": {
+    "kicker": "صناعة الإعلانات · الوحدة 8",
+    "title": "[[وصلت]]",
+    "text": "الخلاصة والبيع بقيمة"
+   },
+   "captions": [
+    [
+     0.05,
+     0.62,
+     "وصلت…"
+    ],
+    [
+     1.32,
+     4.3,
+     "في بداية الحقيبة صنعنا إعلانًا مبهرًا،"
+    ],
+    [
+     4.6,
+     5.83,
+     "لا يبقى منه شيء."
+    ],
+    [
+     6.38,
+     8.44,
+     "واليوم معك طريقة كاملة."
+    ],
+    [
+     8.99,
+     10.41,
+     "تعال نرى ما تغيّر…"
+    ],
+    [
+     10.9,
+     13.05,
+     "ثم نتعلم كيف تبيع عملك."
+    ]
+   ],
+   "overlay_pos": "top",
+   "overlay_width": 640,
+   "overlay_right": 60
+  },
+  {
+   "type": "broll",
+   "video": "scenes/n-2a.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay": {},
+   "audio": {
+    "file": "n-2a.mp3",
+    "start": 0.0,
+    "end": 5.8
+   }
+  },
+  {
+   "type": "broll",
+   "video": "scenes/n-2b.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay": {},
+   "audio": {
+    "file": "n-2b.mp3",
+    "start": 0.0,
+    "end": 9.87
+   }
+  },
+  {
+   "type": "broll",
+   "video": "scenes/n-3.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay": {},
+   "audio": {
+    "file": "n-3.mp3",
+    "start": 0.0,
+    "end": 28.37
+   }
+  },
+  {
+   "type": "broll",
+   "video": "scenes/n-4.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay": {},
+   "audio": {
+    "file": "n-4.mp3",
+    "start": 0.0,
+    "end": 29.57
+   }
+  },
+  {
+   "type": "broll",
+   "video": "scenes/n-5.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay": {},
+   "audio": {
+    "file": "n-5.mp3",
+    "start": 0.0,
+    "end": 23.01
+   }
+  },
+  {
+   "type": "broll",
+   "video": "scenes/n-6.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay": {},
+   "audio": {
+    "file": "n-6.mp3",
+    "start": 0.0,
+    "end": 11.31
+   }
+  },
+  {
+   "type": "broll",
+   "video": "presenter-mid.mp4",
+   "no_stretch": true,
+   "hold": 1.15,
+   "overlay_at": 0.8,
+   "audio": {
+    "file": "siraj-mid.mp3",
+    "start": 0.0,
+    "end": 9.38
+   },
+   "overlay": {
+    "kicker": "الجزء الأخير",
+    "title": "البيع [[بقيمة]]",
+    "text": "كيف تحسب ثمن عملك بصدق"
+   },
+   "captions": [
+    [
+     0.05,
+     0.62,
+     "والآن…"
+    ],
+    [
+     0.86,
+     3.09,
+     "السؤال الذي ينتظره كثيرون:"
+    ],
+    [
+     3.58,
+     4.78,
+     "كيف تبيع عملك؟"
+    ],
+    [
+     5.35,
+     6.54,
+     "للطريقة ثمن…"
+    ],
+    [
+     6.99,
+     9.02,
+     "وسأريك كيف تحسبه بصدق."
+    ]
+   ],
+   "overlay_pos": "top",
+   "overlay_width": 640,
+   "overlay_right": 60
+  },
+  {
+   "type": "broll",
+   "video": "scenes/n-8.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay": {},
+   "audio": {
+    "file": "n-8.mp3",
+    "start": 0.0,
+    "end": 34.64
+   }
+  },
+  {
+   "type": "broll",
+   "video": "scenes/n-9.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay": {},
+   "audio": {
+    "file": "n-9.mp3",
+    "start": 0.0,
+    "end": 19.49
+   }
+  },
+  {
+   "type": "broll",
+   "video": "scenes/n-10.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay": {},
+   "audio": {
+    "file": "n-10.mp3",
+    "start": 0.0,
+    "end": 11.73
+   }
+  },
+  {
+   "type": "broll",
+   "video": "scenes/n-11.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay": {},
+   "audio": {
+    "file": "n-11.mp3",
+    "start": 0.0,
+    "end": 13.19
+   }
+  },
+  {
+   "type": "broll",
+   "video": "presenter-close.mp4",
+   "no_stretch": true,
+   "hold": 1.16,
+   "overlay_at": 0.8,
+   "audio": {
+    "file": "siraj-close.mp3",
+    "start": 0.0,
+    "end": 12.9
+   },
+   "overlay": {
+    "kicker": "المهمة الأخيرة",
+    "title": "عرض [[مسعّر]]",
+    "text": "موجز حقيقي ← الطريقة كاملة ← عرض مسعّر"
+   },
+   "captions": [
+    [
+     0.05,
+     1.21,
+     "مهمتك الأخيرة:"
+    ],
+    [
+     1.52,
+     2.71,
+     "موجز حقيقي،"
+    ],
+    [
+     3.02,
+     4.25,
+     "والطريقة كاملة،"
+    ],
+    [
+     4.57,
+     5.99,
+     "حتى عرض مسعّر."
+    ],
+    [
+     6.68,
+     8.3,
+     "بهذا تكتمل الحقيبة…"
+    ],
+    [
+     8.71,
+     10.51,
+     "وبطاقة الطريقة معك،"
+    ],
+    [
+     10.81,
+     12.57,
+     "لكل إعلان بعد اليوم."
+    ]
+   ],
+   "overlay_pos": "top",
+   "overlay_width": 640,
+   "overlay_right": 60
+  },
+  {
+   "type": "broll",
+   "video": "scenes/looks.mp4",
+   "no_stretch": true,
+   "hold": 0.1,
+   "overlay": {},
+   "audio": {
+    "file": "silence-3.mp3",
+    "start": 0.0,
+    "end": 3.3
+   }
+  },
+  {
+   "type": "end",
+   "title": "اكتملت [[الحقيبة]]",
+   "sub": "صناعة الإعلانات بالذكاء الاصطناعي · بطاقة الطريقة معك",
+   "duration": 3.5
+  }
+ ]
+}
