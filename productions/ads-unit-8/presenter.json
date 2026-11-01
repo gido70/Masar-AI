@@ -1,0 +1,9 @@
+{
+ "image": "productions/ads-unit-8/siraj8-start.png",
+ "resolution": "720p",
+ "clips": [
+  {"audio": "siraj-open-pad.mp3", "output": "presenter-open.mp4"},
+  {"audio": "siraj-mid-pad.mp3", "output": "presenter-mid.mp4"},
+  {"audio": "siraj-close-pad.mp3", "output": "presenter-close.mp4"}
+ ]
+}
