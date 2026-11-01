@@ -8,7 +8,7 @@ def T(d,xy,txt,font,fill=INK,anchor='ra'): d.text(xy,txt,font=font,fill=fill,dir
 def canvas(title=None,sub=None):
     im=Image.new('RGB',(W,H),BG); d=ImageDraw.Draw(im)
     if title: T(d,(W-110,70),title,f('Amiri-Bold.ttf',84))
-    if sub: T(d,(W-110,190),sub,f('Tajawal-Bold.ttf',34),MUT)
+    if sub: T(d,(W-110,190),sub,f('Amiri-Bold.ttf',34),MUT)
     return im,d
 def frame(src,t=None,size=None):
     p='/tmp/_fr.png'
@@ -30,8 +30,8 @@ im,d=canvas('بطاقة الطريقة: تسعة أسئلة لأي إعلان')
 y=200
 for n,q in Q:
     rr(d,(110,y,W-110,y+76),(255,255,255),(225,218,210),2,18)
-    d.ellipse((W-200,y+10,W-144,y+66),fill=ACC); d.text((W-172,y+38),n,font=f('Tajawal-Bold.ttf',34),fill='white',anchor='mm')
-    T(d,(W-225,y+16),q,f('Tajawal-Bold.ttf',36)); y+=86
+    d.ellipse((W-200,y+10,W-144,y+66),fill=ACC); d.text((W-172,y+38),n,font=f('Amiri-Bold.ttf',34),fill='white',anchor='mm')
+    T(d,(W-225,y+16),q,f('Amiri-Bold.ttf',36)); y+=86
 T(d,(W-110,y+14),'إن أجبت عن الأسئلة التسعة، فعندك إعلان يُفهم ويُتذكّر ويُباع بقيمته.',f('Amiri-Bold.ttf',40),GRN)
 im.save(f'{A}/method-card.png')
 
@@ -42,18 +42,18 @@ for i,p in enumerate(P):
     c=i%3; r=i//3; x0=110+c*580; y0=290+r*360
     rr(d,(x0,y0,x0+540,y0+320),(255,255,255),(225,218,210),2,22)
     d.rounded_rectangle((x0+20,y0+20,x0+520,y0+190),radius=14,fill=(222,216,208)); d.polygon([(x0+250,y0+75),(x0+250,y0+135),(x0+300,y0+105)],fill=(255,255,255))
-    T(d,(x0+520,y0+205),'إعلان فيديو بالذكاء الاصطناعي',f('Tajawal-Bold.ttf',30)); T(d,(x0+520,y0+255),p,f('Tajawal-Bold.ttf',36),ACC)
-T(d,(W-110,1020),'رسم توضيحي، لا صورة من الموقع، وبلا أسماء بائعين',f('Tajawal-Bold.ttf',24),MUT)
+    T(d,(x0+520,y0+205),'إعلان فيديو بالذكاء الاصطناعي',f('Amiri-Bold.ttf',30)); T(d,(x0+520,y0+255),p,f('Amiri-Bold.ttf',36),ACC)
+T(d,(W-110,1020),'رسم توضيحي، لا صورة من الموقع، وبلا أسماء بائعين',f('Amiri-Bold.ttf',24),MUT)
 im.save(f'{A}/services.png')
 
 # 3) سجل التكلفة الحقيقي (الوحدة 5)
 im,d=canvas('التكلفة الحقيقية لإعلان سَمَر','من سجل الوحدة 5: كل محاولة مدفوعة تُحسب، ومعها المرفوض')
 rows=[('1 النافذتان','1','20'),('2 الصب','1','20'),('3 البخار يصعد','3','60'),('4 الجسر','3','60'),('5 الجار يشمّ','2','40'),('6 اللقاء','3','60'),('المجموع','13 محاولة','260 نقطة')]
 x=[W-110,W-760,W-1110]; y=290
-for j,h in enumerate(['اللقطة','المحاولات','النقاط']): T(d,(x[j],y),h,f('Tajawal-Bold.ttf',36),MUT)
+for j,h in enumerate(['اللقطة','المحاولات','النقاط']): T(d,(x[j],y),h,f('Amiri-Bold.ttf',36),MUT)
 y+=60
 for k,rw in enumerate(rows):
-    last=k==len(rows)-1; ft=f('Tajawal-Bold.ttf',40 if last else 36)
+    last=k==len(rows)-1; ft=f('Amiri-Bold.ttf',40 if last else 36)
     if last: d.line((110,y-8,W-110,y-8),fill=INK,width=3)
     for j,v in enumerate(rw): T(d,(x[j],y),v,ft,ACC if last else INK)
     y+=64
@@ -76,11 +76,11 @@ for k in range(1,5):
     for i,(nm,a,b,pr) in enumerate(PK):
         x0=W-110-(i+1)*560+20; y0=280; on=i<k
         card=Image.new('RGB',(540,640),(255,255,255)); cd=ImageDraw.Draw(card)
-        card.paste(th[i],(40,30)); T(cd,(500,310),nm,f('Amiri-Bold.ttf',60),ACC); T(cd,(500,400),a,f('Tajawal-Bold.ttf',30)); T(cd,(500,450),b,f('Tajawal-Bold.ttf',30),MUT); T(cd,(500,530),pr,f('Tajawal-Bold.ttf',46),GRN)
+        card.paste(th[i],(40,30)); T(cd,(500,310),nm,f('Amiri-Bold.ttf',60),ACC); T(cd,(500,400),a,f('Amiri-Bold.ttf',30)); T(cd,(500,450),b,f('Amiri-Bold.ttf',30),MUT); T(cd,(500,530),pr,f('Amiri-Bold.ttf',46),GRN)
         if not on: card=Image.blend(card,Image.new('RGB',card.size,BG),0.82)
         im.paste(card,(x0,y0)); d.rounded_rectangle((x0,y0,x0+540,y0+640),radius=26,outline=(225,218,210),width=3)
     if k==4:
-        rr(d,(110,950,W-110,1040),(255,240,246),ACC,3,20); T(d,(W-140,968),'أرقام للتوضيح فقط · حد أدنى افتراضي 100 وحدة · سعرك يبدأ من حدّك أنت',f('Tajawal-Bold.ttf',36),ACC)
+        rr(d,(110,950,W-110,1040),(255,240,246),ACC,3,20); T(d,(W-140,968),'أرقام للتوضيح فقط · حد أدنى افتراضي 100 وحدة · سعرك يبدأ من حدّك أنت',f('Amiri-Bold.ttf',36),ACC)
     im.save(f'{A}/packages-{k}.png')
 
 # 5) نطاق العمل
@@ -88,7 +88,7 @@ im,d=canvas('نطاق العمل','ما يدخل في السعر، وما لا �
 cols=[('يدخل في السعر',GRN,['إعلان 30 ثانية','نسختان بمقاسين','جولتا تعديل']),('لا يدخل',ACC,['لقطات جديدة بعد الموافقة','مقاس ثالث','جولة تعديل ثالثة'])]
 for i,(h,c,items) in enumerate(cols):
     x1=W-110-i*870; rr(d,(x1-820,280,x1,900),(255,255,255),c,4,26); T(d,(x1-40,310),h,f('Amiri-Bold.ttf',60),c)
-    for j,it in enumerate(items): T(d,(x1-40,450+j*120),it,f('Tajawal-Bold.ttf',44))
+    for j,it in enumerate(items): T(d,(x1-40,450+j*120),it,f('Amiri-Bold.ttf',44))
 im.save(f'{A}/scope.png')
 
 # 6) صفحة العرض (5 حالات: بلا إبراز ثم كل قسم)
@@ -96,11 +96,11 @@ S=[('مشكلة العميل','الشباب يجتمعون كل مساء… لك
 for k in range(5):
     im,d=canvas(); im.paste(Image.new('RGB',(W,H),(232,226,218)))
     d=ImageDraw.Draw(im); rr(d,(460,50,1460,1030),(255,255,255),(210,200,190),2,16)
-    T(d,(1400,90),'عرض لـ: قهوة سَمَر',f('Amiri-Bold.ttf',54)); T(d,(1400,170),'صفحة واحدة',f('Tajawal-Bold.ttf',28),MUT)
+    T(d,(1400,90),'عرض لـ: قهوة سَمَر',f('Amiri-Bold.ttf',54)); T(d,(1400,170),'صفحة واحدة',f('Amiri-Bold.ttf',28),MUT)
     for i,(h,b) in enumerate(S):
         y0=250+i*190; hi=(i==k-1)
         rr(d,(510,y0,1410,y0+160),(255,240,246) if hi else (250,248,245),ACC if hi else (230,224,216),4 if hi else 2,18)
-        T(d,(1380,y0+20),h,f('Amiri-Bold.ttf',44),ACC if hi else INK); T(d,(1380,y0+90),b,f('Tajawal-Bold.ttf',32))
+        T(d,(1380,y0+20),h,f('Amiri-Bold.ttf',44),ACC if hi else INK); T(d,(1380,y0+90),b,f('Amiri-Bold.ttf',32))
     im.save(f'{A}/proposal-{k}.png')
 
 # 7) المعرض التجريبي
@@ -109,7 +109,7 @@ G=[frame(f'{R}/productions/ads-unit-6/samar-ad.mp4',26,(800,450)),frame(f'{R}/pr
    cover(ph3.crop((300,0,1620,1080)),(800,450)),frame(f'{R}/productions/ads-unit-5/samar-s4-bridge-v3.mp4',5,(800,450))]
 for i,g in enumerate(G):
     x0=W-110-(i%2+1)*840+40; y0=200+(i//2)*430; im.paste(g.resize((800,390)) if False else cover(g,(800,390)),(x0,y0))
-    rr(d,(x0+20,y0+320,x0+560,y0+372),(255,255,255),None,0,12); T(d,(x0+545,y0+326),'تجريبي · مولّد بالذكاء الاصطناعي',f('Tajawal-Bold.ttf',30),ACC)
+    rr(d,(x0+20,y0+320,x0+560,y0+372),(255,255,255),None,0,12); T(d,(x0+545,y0+326),'تجريبي · مولّد بالذكاء الاصطناعي',f('Amiri-Bold.ttf',30),ACC)
 im.save(f'{A}/portfolio.png')
 
 # 8) المرفوض الحقيقي (الوحدة 5)

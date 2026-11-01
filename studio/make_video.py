@@ -49,10 +49,11 @@ def silences(src, db=-35, d=0.3):
     return list(zip(s, e))
 
 # ---------------------------------------------------------------- البطاقات (HTML)
+SECOND_FONT = 'Tajawal-Bold.ttf'  # spec «all_amiri»: true يجعل كل نص بخط أميري (قرار صاحب المشروع للوحدة 8)
 def css(T, w, h):
     return f'''@font-face{{font-family:Amiri;src:url(file://{FONTS}/Amiri-Regular.ttf);font-weight:400}}
 @font-face{{font-family:Amiri;src:url(file://{FONTS}/Amiri-Bold.ttf);font-weight:700}}
-@font-face{{font-family:Tajawal;src:url(file://{FONTS}/Tajawal-Bold.ttf);font-weight:700}}
+@font-face{{font-family:Tajawal;src:url(file://{FONTS}/{SECOND_FONT});font-weight:700}}
 *{{box-sizing:border-box}} body{{margin:0;width:{w}px;height:{h}px;background:{T['BG']};color:{T['INK']};font-family:Amiri;direction:rtl;position:relative;overflow:hidden}}
 .strip{{position:absolute;left:0;right:0;height:40px;background:{T['FILM']};display:flex;gap:26px;align-items:center;padding:0 30px}}
 .strip i{{display:block;width:32px;height:20px;border-radius:5px;background:{T['BG']}}}
@@ -229,6 +230,8 @@ def check_rhythm(name, reveal, n, d, hold):
 def main(spec_path):
     import hashlib
     spec = json.load(open(spec_path, encoding='utf-8')); base = os.path.dirname(os.path.abspath(spec_path))
+    global SECOND_FONT
+    if spec.get('all_amiri'): SECOND_FONT = 'Amiri-Bold.ttf'
     T = THEMES[spec.get('theme', 'video')]; work = os.path.join(base, '_work'); os.makedirs(work, exist_ok=True)
     P = lambda x: x if os.path.isabs(x) else os.path.join(base, x)
     label = spec['label']; segs = spec['segments']; N = len([s for s in segs if s['type'] != 'end'])

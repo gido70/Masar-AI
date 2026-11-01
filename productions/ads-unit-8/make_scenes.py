@@ -8,7 +8,7 @@ def sh(*a): subprocess.run(a, check=True)
 def dur(f): return float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','csv=p=0',f]))
 def cap(name, title, kicker=''):
     im=Image.new('RGBA',(1920,1080),(0,0,0,0)); d=ImageDraw.Draw(im)
-    ft=ImageFont.truetype(F+'Amiri-Bold.ttf',62); fk=ImageFont.truetype(F+'Tajawal-Bold.ttf',32)
+    ft=ImageFont.truetype(F+'Amiri-Bold.ttf',62); fk=ImageFont.truetype(F+'Amiri-Bold.ttf',34)
     bt=d.textbbox((0,0),title,font=ft,direction='rtl',language='ar'); w=bt[2]-bt[0]
     bk=d.textbbox((0,0),kicker,font=fk,direction='rtl',language='ar') if kicker else (0,0,0,0)
     W=max(w,bk[2]-bk[0])+90; h=(150 if kicker else 110)
@@ -17,11 +17,13 @@ def cap(name, title, kicker=''):
     if kicker: d.text((x1-45,y0+16),kicker,font=fk,fill=ACC,direction='rtl',language='ar',anchor='ra')
     d.text((x1-45,y0+(58 if kicker else 18)),title,font=ft,fill=INK,direction='rtl',language='ar',anchor='ra')
     p=f'tmp/cap-{name}.png'; im.save(p); return p
-def piece(out, src, d, ss=0.0, title=None, kicker='', zoom=True):
+def piece(out, src, d, ss=0.0, title=None, kicker='', zoom=False):
     img = not src.endswith('.mp4')
     inp = ['-loop','1','-t',f'{d:.3f}','-i',src] if img else ['-ss',f'{ss}','-i',src]
     base='scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080'
-    if img and zoom: base=f"scale=2112:1188,zoompan=z='min(1+0.0004*on,1.06)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={int(d*25)+5}:s=1920x1080:fps=25"
+    if img and src in TEXTY and title:
+        base='scale=1440:810,pad=1920:1080:240:20:color=0xF6F3EE'
+    elif img and zoom: base=f"scale=2112:1188,zoompan=z='min(1+0.0004*on,1.06)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={int(d*25)+5}:s=1920x1080:fps=25"
     vf=f"[0:v]{base},fps=25,setsar=1,tpad=stop_mode=clone:stop_duration={d+1:.2f},trim=duration={d:.3f},setpts=PTS-STARTPTS,format=yuv420p"
     if title:
         c=cap(os.path.basename(out)[:-4],title,kicker); inp+=['-loop','1','-t',f'{d:.3f}','-i',c]
@@ -36,6 +38,7 @@ def scene(name, audio, parts):
     lst=f'tmp/{name}.txt'; open(lst,'w').write(''.join(f"file '{os.path.basename(f)}'\n" for f in files))
     sh('ffmpeg','-v','error','-y','-f','concat','-safe','0','-i',lst,'-c','copy',f'scenes/{name}.mp4'); print(name, round(T,2), round(dur(f'scenes/{name}.mp4'),2))
 
+TEXTY=set()
 U=lambda n,f: f'{P}/ads-unit-{n}/{f}'
 LOOK={0:U(0,'presenter-open.mp4'),1:U(1,'presenter-open.mp4'),2:U(2,'base-open.mp4'),3:U(3,'presenter-open.mp4'),4:U(4,'presenter-open.mp4'),5:U(5,'presenter-open.mp4'),6:U(6,'presenter-open.mp4'),7:U(7,'presenter-open.mp4')}
 def fr(src,t,name):
@@ -43,6 +46,7 @@ def fr(src,t,name):
 STUDY=fr(f'{R}/media/ads-unit-2.mp4',50,'study'); TEMPL=fr(f'{R}/media/ads-unit-2.mp4',70,'templ'); CRIT=fr(f'{R}/media/ads-unit-3.mp4',70,'crit')
 AD=U(6,'samar-ad.mp4'); MAJ=U(1,'broll-6-crop.mp4'); BR=U(5,'samar-s4-bridge-v3.mp4'); SB=U(4,'samar-storyboard-v2.jpg'); POUR=U(5,'samar-s2.mp4'); END7=U(7,'ad-ending.mp4')
 WB=f'{R}/assets/pdfpages/ads_ads-unit-7/14.jpg'; PDF=f'{R}/assets/pdfpages/ads_ads-unit-7/04.jpg'
+TEXTY.update([STUDY,TEMPL,CRIT,WB,PDF]+[f'{A}/{x}.png' for x in ['method-card','costlog','services','phones3','packages-4','rejected','portfolio','scope']])
 S={
  'n-2a': [(0,U(0,'broll-1a.mp4'),0.5,'قبل: الأداة وحدها','بداية الحقيبة'),(2.0,U(0,'broll-1b.mp4'),0.5,'قبل: الأداة وحدها','بداية الحقيبة'),(4.1,U(0,'broll-1c.mp4'),0.5,'مبهر… ولا يبقى منه شيء','بداية الحقيبة')],
  'n-2b': [(0,AD,6.0,'بعد: إعلان سَمَر','فكرة · بصيرة · رمز · صوت'),(5.6,AD,13.5,'الأداة نفسها… والطريقة مختلفة','')],
