@@ -5,9 +5,9 @@
    "name": "مسار الإعلانات",
    "tagline": "اصنع إعلانًا يقنع بالذكاء الاصطناعي، من الفكرة إلى البيع",
    "promise": "من موجز العميل إلى فكرة تقنع، ثم إعلان عربي منفَّذ جاهز للبيع.",
-   "status": "مكتملة · لم تُطرح بعد",
+   "status": "مكتملة · جاهزة للنقل إلى منصة الحقيبة",
    "public": true,
-   "price": "لم يُحدد",
+   "price": "45 دولارًا",
    "hours": "تسع وحدات",
    "theme": {
     "a": "#B0186A",
@@ -16,7 +16,7 @@
    },
    "cover": "resources/ads/ads-cover-gemini-1280x720.png",
    "promo": "fdlVFY9KjqI",
-   "certificate": "",
+   "certificate": "resources/ads/ads-certificate-sample.png",
    "gets": [
     "كراسة لكل وحدة",
     "ورقة محرّك الأفكار (القوالب الستة)",
