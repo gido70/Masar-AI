@@ -1,0 +1,156 @@
+{
+ "title": "إعلان حقيبة مسار الإعلانات",
+ "theme": "ads",
+ "label": "حقيبة مسار الإعلانات",
+ "output": "ads-promo.mp4",
+ "crossfade": 0.4,
+ "music": {
+  "file": "../ads-unit-0/music-B-modern.mp3",
+  "from_segment": 0,
+  "speech_db": -12,
+  "gap_db": -4,
+  "down": 1.5,
+  "up": 2.0,
+  "merge": 0.8,
+  "fade_in": 1.5,
+  "fade_out": 2.5,
+  "loudnorm": -16,
+  "mute_segments": []
+ },
+ "segments": [
+  {
+   "type": "broll",
+   "video": "presenter-open.mp4",
+   "no_stretch": true,
+   "hold": 1.16,
+   "overlay_at": 0.8,
+   "audio": {
+    "file": "promo-siraj-open.mp3",
+    "start": 0.0,
+    "end": 10.63
+   },
+   "overlay": {
+    "kicker": "حقيبة مسار الإعلانات",
+    "title": "إعلان [[يُفهم]] ويُتذكّر",
+    "text": "تسع وحدات · من موجز إلى عرض مسعّر"
+   },
+   "captions": [
+    [
+     0.05,
+     2.34,
+     "تريد إعلانًا يُفهم ويُتذكّر…"
+    ],
+    [
+     3.05,
+     4.9,
+     "لا مجرد لقطات جميلة؟"
+    ],
+    [
+     5.49,
+     8.78,
+     "في حقيبة صناعة الإعلانات بالذكاء الاصطناعي،"
+    ],
+    [
+     9.09,
+     10.4,
+     "تصنعه بنفسك."
+    ]
+   ],
+   "overlay_pos": "top",
+   "overlay_width": 640,
+   "overlay_right": 60
+  },
+  {
+   "type": "broll",
+   "video": "scenes/promo-2.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay": {},
+   "audio": {
+    "file": "promo-2.mp3",
+    "start": 0.0,
+    "end": 8.02
+   }
+  },
+  {
+   "type": "broll",
+   "video": "scenes/promo-3.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay": {},
+   "audio": {
+    "file": "promo-3.mp3",
+    "start": 0.0,
+    "end": 6.69
+   }
+  },
+  {
+   "type": "broll",
+   "video": "scenes/promo-4.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay": {},
+   "audio": {
+    "file": "promo-4.mp3",
+    "start": 0.0,
+    "end": 10.81
+   }
+  },
+  {
+   "type": "broll",
+   "video": "scenes/promo-5.mp4",
+   "no_stretch": true,
+   "hold": 1.0,
+   "overlay": {},
+   "audio": {
+    "file": "promo-5.mp3",
+    "start": 0.0,
+    "end": 8.25
+   }
+  },
+  {
+   "type": "broll",
+   "video": "presenter-close.mp4",
+   "no_stretch": true,
+   "hold": 1.16,
+   "overlay_at": 0.8,
+   "audio": {
+    "file": "promo-siraj-close.mp3",
+    "start": 0.0,
+    "end": 6.4
+   },
+   "overlay": {
+    "kicker": "سجّل الآن",
+    "title": "من موجز إلى [[عرض مسعّر]]",
+    "text": "هذا الإعلان صُنع بالطريقة نفسها"
+   },
+   "captions": [
+    [
+     0.05,
+     1.59,
+     "وهذا الإعلان نفسه…"
+    ],
+    [
+     2.06,
+     4.39,
+     "صُنع بالطريقة التي ستتعلمها."
+    ],
+    [
+     5.09,
+     6.04,
+     "سجّل الآن."
+    ]
+   ],
+   "overlay_pos": "top",
+   "overlay_width": 640,
+   "overlay_right": 60
+  },
+  {
+   "type": "end",
+   "title": "مسار [[الإعلانات]]",
+   "sub": "حقيبة صناعة الإعلانات بالذكاء الاصطناعي · من منصة مسار",
+   "duration": 3.0
+  }
+ ],
+ "all_amiri": true
+}
