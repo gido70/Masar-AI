@@ -5,17 +5,17 @@
    "name": "مسار الإعلانات",
    "tagline": "اصنع إعلانًا يقنع بالذكاء الاصطناعي، من الفكرة إلى البيع",
    "promise": "من موجز العميل إلى فكرة تقنع، ثم إعلان عربي منفَّذ جاهز للبيع.",
-   "status": "قيد البناء · الوحدات 0 إلى 6 جاهزة",
+   "status": "مكتملة · لم تُطرح بعد",
    "public": true,
    "price": "لم يُحدد",
-   "hours": "قيد البناء",
+   "hours": "تسع وحدات",
    "theme": {
     "a": "#B0186A",
     "b": "#1B1B2F",
     "soft": "#FCEFF5"
    },
    "cover": "resources/ads/ads-cover-gemini-1280x720.png",
-   "promo": "kfquBZlT-yo",
+   "promo": "fdlVFY9KjqI",
    "certificate": "",
    "gets": [
     "كراسة لكل وحدة",
