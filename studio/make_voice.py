@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""الأصوات عبر WaveSpeed (ElevenLabs). التشغيل: python studio/make_voice.py <الإنتاج> [ملف الإعداد]
+"""الأصوات عبر WaveSpeed (ElevenLabs، أو أي نموذج نصي بـ params، مثل OmniVoice). التشغيل: python studio/make_voice.py <الإنتاج> [ملف الإعداد]
 الإعداد الافتراضي productions/<الإنتاج>/voice.json:
   {"model": "elevenlabs/multilingual-v2", "voice_id": "George", "stability": 0.5, "similarity": 0.75,
    "use_speaker_boost": true, "clips": [{"text": "...", "output": "narration-open.mp3"}, ...]}
@@ -20,10 +20,12 @@ def main(name, cfgname='voice.json'):
     base = f'productions/{name}'; cfg = json.load(open(f'{base}/{cfgname}', encoding='utf-8'))
     todo = [c for c in cfg['clips'] if not os.path.exists(f"{base}/{c['output']}")]
     chars = sum(len(c['text']) for c in todo)
-    print(f'{len(todo)} مقطع، {chars} حرفًا ← تقدير {chars*0.0002:.3f} دولار (الحد {MAX_CHARS} حرف)')
+    ppc = cfg.get('price_per_char', 0.0002)  # OmniVoice: 0.00005 (حد أدنى 0.005 للمقطع)
+    print(f'{len(todo)} مقطع، {chars} حرفًا ← تقدير {chars*ppc:.3f} دولار (الحد {MAX_CHARS} حرف)')
     if chars > MAX_CHARS: sys.exit('✗ النص أطول من الحد.')
     for c in todo:
         body = {k: cfg[k] for k in ('voice_id', 'stability', 'similarity', 'use_speaker_boost') if k in cfg}; body['text'] = c['text']
+        body.update(cfg.get('params', {})); body.update(c.get('params', {}))  # نماذج أخرى (OmniVoice: voice_description, speed, audio, reference_text)
         r = call('POST', f"{API}/{cfg['model']}", key, body); pid = (r.get('data') or {}).get('id') or sys.exit(f'✗ لا رقم: {r}')
         t0 = time.time()
         while True:

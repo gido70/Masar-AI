@@ -1,0 +1,30 @@
+{
+ "model": "wavespeed-ai/omnivoice/text-to-speech",
+ "price_per_char": 5e-05,
+ "params": {
+  "speed": 0.95
+ },
+ "clips": [
+  {
+   "output": "000-a.mp3",
+   "text": "مَرْكَزُ مُسْلِمِ بْنِ مَكْتُومٍ الْمَزْرُوعِيِّ لِتَحْفِيظِ الْقُرْآنِ الْكَرِيمِ، فِي أَبُو ظَبْي.",
+   "params": {
+    "voice_description": "male, child, moderate pitch"
+   }
+  },
+  {
+   "output": "000-b.mp3",
+   "text": "مَرْكَزُ مُسْلِمِ بْنِ مَكْتُومٍ الْمَزْرُوعِيِّ لِتَحْفِيظِ الْقُرْآنِ الْكَرِيمِ، فِي أَبُو ظَبْي.",
+   "params": {
+    "voice_description": "male, child, high pitch"
+   }
+  },
+  {
+   "output": "000-c.mp3",
+   "text": "مَرْكَزُ مُسْلِمِ بْنِ مَكْتُومٍ الْمَزْرُوعِيِّ لِتَحْفِيظِ الْقُرْآنِ الْكَرِيمِ، فِي أَبُو ظَبْي.",
+   "params": {
+    "voice_description": "female, child, moderate pitch"
+   }
+  }
+ ]
+}
